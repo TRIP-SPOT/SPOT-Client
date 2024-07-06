@@ -26,8 +26,7 @@ jobs:
 
       - name: 🔨 빌드
         run: |
-          cd packages/design-system
-          yarn run build-storybook
+          yarn workspace design-system build-storybook
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2.0.0
