@@ -26,6 +26,7 @@ jobs:
 
       - name: 🔨 빌드
         run: |
+          yarn install
           yarn workspace design-system build-storybook
 
       - name: Upload artifact
