@@ -9,10 +9,7 @@
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0"
   },
-  "exports": {
-    "babelConfig": "./babel.config.js",
-    "tailwindConfig": "./tailwind.config.js"
-  },
+  "main": "./index.js",
   "devDependencies": {
     "tailwindcss": "3.2.2"
   }
