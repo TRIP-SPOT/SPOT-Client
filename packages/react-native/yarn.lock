@@ -2996,30 +2996,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"SPOTClient@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "SPOTClient@workspace:."
-  dependencies:
-    "@babel/core": ^7.20.0
-    "@babel/preset-env": ^7.20.0
-    "@babel/runtime": ^7.20.0
-    "@react-native/babel-preset": 0.74.84
-    "@react-native/eslint-config": 0.74.84
-    "@react-native/metro-config": 0.74.84
-    "@react-native/typescript-config": 0.74.84
-    "@types/react": ^18.2.6
-    "@types/react-test-renderer": ^18.0.0
-    babel-jest: ^29.6.3
-    eslint: ^8.19.0
-    jest: ^29.6.3
-    prettier: 2.8.8
-    react: 18.2.0
-    react-native: 0.74.2
-    react-test-renderer: 18.2.0
-    typescript: 5.0.4
-  languageName: unknown
-  linkType: soft
-
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -8005,6 +7981,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "react-native@workspace:."
+  dependencies:
+    "@babel/core": ^7.20.0
+    "@babel/preset-env": ^7.20.0
+    "@babel/runtime": ^7.20.0
+    "@react-native/babel-preset": 0.74.84
+    "@react-native/eslint-config": 0.74.84
+    "@react-native/metro-config": 0.74.84
+    "@react-native/typescript-config": 0.74.84
+    "@types/react": ^18.2.6
+    "@types/react-test-renderer": ^18.0.0
+    babel-jest: ^29.6.3
+    eslint: ^8.19.0
+    jest: ^29.6.3
+    prettier: 2.8.8
+    react: 18.2.0
+    react-native: 0.74.2
+    react-test-renderer: 18.2.0
+    tailwind-config: ^0.1.2
+    typescript: 5.0.4
+  languageName: unknown
+  linkType: soft
+
 "react-refresh@npm:^0.14.0":
   version: 0.14.2
   resolution: "react-refresh@npm:0.14.2"
@@ -8937,6 +8938,13 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
+  languageName: node
+  linkType: hard
+
+"tailwind-config@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "tailwind-config@npm:0.1.2"
+  checksum: c1215535e6700820f369ff7fad37bde06abf9b10cdb110cae2d601c142c082156fe8c46f15c923d8a9e32ec3845473ad53fa67002192138cc1956e9769f8c2d6
   languageName: node
   linkType: hard
 
