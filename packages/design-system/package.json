@@ -2,6 +2,7 @@
   "name": "design-system",
   "version": "0.0.1",
   "private": true,
+  "main": "index.ts",
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
