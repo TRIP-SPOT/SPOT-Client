@@ -3851,6 +3851,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-styling-webpack@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@storybook/addon-styling-webpack@npm:1.0.0"
+  dependencies:
+    "@storybook/node-logger": ^8.0.0-alpha.10
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: fa907064a42b255fad274ae898b48cb1ce53d969cf79b48e8e0d761ae05500ab9e486d54b2aac625f57c78347daa51828a864497955cd4b0b650e67e8196a341
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-toolbars@npm:8.1.11":
   version: 8.1.11
   resolution: "@storybook/addon-toolbars@npm:8.1.11"
@@ -4349,6 +4360,15 @@ __metadata:
   version: 8.1.11
   resolution: "@storybook/node-logger@npm:8.1.11"
   checksum: 7bca235fa65dadce0a736874e88fb8f1f19c6f932f4a847cd35a48b14e7e09bb9ba6e0780407459e39f8902ccf19e3657877ddace6ae7de8679632d8489bb245
+  languageName: node
+  linkType: hard
+
+"@storybook/node-logger@npm:^8.0.0-alpha.10":
+  version: 8.2.2
+  resolution: "@storybook/node-logger@npm:8.2.2"
+  peerDependencies:
+    storybook: ^8.2.2
+  checksum: 840a79b3a38d0cb0648458c0cd319aed77fe3dc877aa65376dd1c29dfb819896fe42f78071b8c7d561541ac4d42b7b7cab9109817f4177f18779928fd3de0af8
   languageName: node
   linkType: hard
 
@@ -6121,6 +6141,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"autoprefixer@npm:^10.4.19":
+  version: 10.4.19
+  resolution: "autoprefixer@npm:10.4.19"
+  dependencies:
+    browserslist: ^4.23.0
+    caniuse-lite: ^1.0.30001599
+    fraction.js: ^4.3.7
+    normalize-range: ^0.1.2
+    picocolors: ^1.0.0
+    postcss-value-parser: ^4.2.0
+  peerDependencies:
+    postcss: ^8.1.0
+  bin:
+    autoprefixer: bin/autoprefixer
+  checksum: 3a4bc5bace05e057396dca2b306503efc175e90e8f2abf5472d3130b72da1d54d97c0ee05df21bf04fe66a7df93fd8c8ec0f1aca72a165f4701a02531abcbf11
+  languageName: node
+  linkType: hard
+
 "available-typed-arrays@npm:^1.0.7":
   version: 1.0.7
   resolution: "available-typed-arrays@npm:1.0.7"
@@ -6562,6 +6600,13 @@ __metadata:
   version: 1.0.1
   resolution: "camelize@npm:1.0.1"
   checksum: 91d8611d09af725e422a23993890d22b2b72b4cabf7239651856950c76b4bf53fe0d0da7c5e4db05180e898e4e647220e78c9fbc976113bd96d603d1fcbfcb99
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001599":
+  version: 1.0.30001642
+  resolution: "caniuse-lite@npm:1.0.30001642"
+  checksum: 23f823ec115306eaf9299521328bb6ad0c4ce65254c375b14fd497ceda759ee8ee5b8763b7b622cb36b6b5fb53c6cb8569785fba842fe289be7dc3fcf008eb4f
   languageName: node
   linkType: hard
 
@@ -7087,6 +7132,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cosmiconfig@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "cosmiconfig@npm:9.0.0"
+  dependencies:
+    env-paths: ^2.2.1
+    import-fresh: ^3.3.0
+    js-yaml: ^4.1.0
+    parse-json: ^5.2.0
+  peerDependencies:
+    typescript: ">=4.9.5"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: a30c424b53d442ea0bdd24cb1b3d0d8687c8dda4a17ab6afcdc439f8964438801619cdb66e8e79f63b9caa3e6586b60d8bab9ce203e72df6c5e80179b971fe8f
+  languageName: node
+  linkType: hard
+
 "create-jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "create-jest@npm:29.7.0"
@@ -7445,6 +7507,7 @@ __metadata:
     "@storybook/addon-links": ^8.1.11
     "@storybook/addon-onboarding": ^8.1.11
     "@storybook/addon-react-native-web": ^0.0.24
+    "@storybook/addon-styling-webpack": ^1.0.0
     "@storybook/addon-webpack5-compiler-swc": ^1.0.4
     "@storybook/blocks": ^8.1.11
     "@storybook/react": ^8.1.11
@@ -7452,12 +7515,15 @@ __metadata:
     "@storybook/test": ^8.1.11
     "@types/react": ^18.2.6
     "@types/react-test-renderer": ^18.0.0
+    autoprefixer: ^10.4.19
     babel-loader: ^9.1.3
     babel-plugin-react-native-web: ^0.19.12
     chromatic: ^11.5.4
     eslint: ^8.19.0
     eslint-plugin-storybook: ^0.8.0
     metro-react-native-babel-preset: ^0.77.0
+    nativewind: ^2.0.11
+    postcss-loader: ^8.1.1
     prettier: 2.8.8
     react: 18.2.0
     react-dom: ^18.3.1
@@ -7466,6 +7532,7 @@ __metadata:
     react-test-renderer: 18.2.0
     storybook: ^8.1.11
     tailwind-config: "workspace:*"
+    tailwindcss: 3.2.2
     typescript: 5.0.4
   languageName: unknown
   linkType: soft
@@ -7791,7 +7858,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"env-paths@npm:^2.2.0":
+"env-paths@npm:^2.2.0, env-paths@npm:^2.2.1":
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 65b5df55a8bab92229ab2b40dad3b387fad24613263d103a97f91c9fe43ceb21965cd3392b1ccb5d77088021e525c4e0481adb309625d0cb94ade1d1fb8dc17e
@@ -8888,6 +8955,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fraction.js@npm:^4.3.7":
+  version: 4.3.7
+  resolution: "fraction.js@npm:4.3.7"
+  checksum: e1553ae3f08e3ba0e8c06e43a3ab20b319966dfb7ddb96fd9b5d0ee11a66571af7f993229c88ebbb0d4a816eb813a24ed48207b140d442a8f76f33763b8d1f3f
+  languageName: node
+  linkType: hard
+
 "fresh@npm:0.5.2":
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
@@ -9634,7 +9708,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-fresh@npm:^3.2.1":
+"import-fresh@npm:^3.2.1, import-fresh@npm:^3.3.0":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
   dependencies:
@@ -10707,7 +10781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jiti@npm:^1.18.2":
+"jiti@npm:^1.18.2, jiti@npm:^1.20.0":
   version: 1.21.6
   resolution: "jiti@npm:1.21.6"
   bin:
@@ -12045,6 +12119,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"normalize-range@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "normalize-range@npm:0.1.2"
+  checksum: 9b2f14f093593f367a7a0834267c24f3cb3e887a2d9809c77d8a7e5fd08738bcd15af46f0ab01cc3a3d660386f015816b5c922cea8bf2ee79777f40874063184
+  languageName: node
+  linkType: hard
+
 "npm-run-path@npm:^4.0.1":
   version: 4.0.1
   resolution: "npm-run-path@npm:4.0.1"
@@ -12791,6 +12872,26 @@ __metadata:
     ts-node:
       optional: true
   checksum: 7c27dd3801db4eae207a5116fed2db6b1ebb780b40c3dd62a3e57e087093a8e6a14ee17ada729fee903152d6ef4826c6339eb135bee6208e0f3140d7e8090185
+  languageName: node
+  linkType: hard
+
+"postcss-loader@npm:^8.1.1":
+  version: 8.1.1
+  resolution: "postcss-loader@npm:8.1.1"
+  dependencies:
+    cosmiconfig: ^9.0.0
+    jiti: ^1.20.0
+    semver: ^7.5.4
+  peerDependencies:
+    "@rspack/core": 0.x || 1.x
+    postcss: ^7.0.0 || ^8.0.1
+    webpack: ^5.0.0
+  peerDependenciesMeta:
+    "@rspack/core":
+      optional: true
+    webpack:
+      optional: true
+  checksum: b09e230181ff70b374a3e265dc526302b9865e2697b5f9c4ff78dfeb716a3508f3247ed49c8ee6630dddfdf6df7d73556d6bd2eb165a00c48dba3a1bd01e3a2e
   languageName: node
   linkType: hard
 

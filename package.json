@@ -3,6 +3,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "start": "yarn workspace react-native start",
+    "storybook": "yarn workspace design-system run storybook"
+  },
   "packageManager": "yarn@3.6.4",
   "dependencies": {
     "nativewind": "^2.0.11"
