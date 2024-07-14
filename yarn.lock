@@ -7942,7 +7942,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"design-system@workspace:packages/design-system":
+"design-system@workspace:^, design-system@workspace:packages/design-system":
   version: 0.0.0-use.local
   resolution: "design-system@workspace:packages/design-system"
   dependencies:
@@ -14319,6 +14319,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^7.16.0
     "@typescript-eslint/parser": ^7.16.0
     babel-jest: ^29.6.3
+    design-system: "workspace:^"
     eslint: ^8.19.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-typescript: ^18.0.0
