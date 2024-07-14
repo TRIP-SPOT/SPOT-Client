@@ -1,4 +1,4 @@
-const {babelConfig} = require('tailwind-config');
+const { babelConfig } = require('tailwind-config');
 
 module.exports = {
   ...babelConfig,

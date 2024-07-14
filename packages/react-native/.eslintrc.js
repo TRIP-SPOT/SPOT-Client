@@ -1,4 +1,28 @@
 module.exports = {
   root: true,
-  extends: '@react-native',
+  extends: [
+    'eslint:recommended',
+    'airbnb',
+    'airbnb/hooks',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    requireConfigFile: false,
+  },
+  plugins: ['jest'],
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    'import/extensions': 'off',
+    'react/jsx-filename-extension': 'off',
+    'import/no-unresolved': 'off',
+    'react-hooks/exhaustive-deps': 'warn',
+  },
+  ignorePatterns: [
+    'index.js',
+    'metro.config.js',
+    'babel.config.js',
+    'tailwind.config.js',
+  ],
 };
