@@ -14,6 +14,7 @@
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.74.2",
+    "react-native-linear-gradient": "^2.8.3",
     "tailwind-config": "workspace:*"
   },
   "devDependencies": {

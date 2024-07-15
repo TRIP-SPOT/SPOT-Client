@@ -18,6 +18,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'import/no-unresolved': 'off',
     'react-hooks/exhaustive-deps': 'warn',
+    'import/no-extraneous-dependencies': 'off',
   },
   ignorePatterns: [
     'index.js',
