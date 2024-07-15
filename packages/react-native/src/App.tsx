@@ -1,11 +1,7 @@
-import { Button } from 'design-system';
-import React, { useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 function App(): React.JSX.Element {
-  const [state, setState] = useState(1);
-
   return (
     <LinearGradient
       colors={['#FF1919', '#000000']}
@@ -19,18 +15,18 @@ function App(): React.JSX.Element {
         end={{ x: 0, y: 1 }}
         style={{
           flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
+          padding: 16,
         }}
       >
-        <Text className="text-white">
-          Open up App.js to start working on your app!
-          {state}
-        </Text>
-        <TouchableOpacity onPress={() => setState((prev) => prev + 1)}>
-          <Text>Click Me!</Text>
-        </TouchableOpacity>
-        <Button text="응애2" onPress={() => setState((prev) => prev + 1)} />
+        <View className="w-full top-20">
+          <Text className="font-pr text-white font-[400] text-[22px] leading-[30px]">
+            {/* TODO: 실제 사용자 이름 넣기 */}
+            안녕하세요, 아무개님.
+          </Text>
+          <Text className="font-pr text-white font-[400] text-[22px] leading-[30px]">
+            오늘은 어디로 가 볼까요?
+          </Text>
+        </View>
       </LinearGradient>
     </LinearGradient>
   );
