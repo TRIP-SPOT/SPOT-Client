@@ -7,7 +7,16 @@ const mockData: SpotData[] = [
   {
     locationName: '주문진 방파제',
     location: '강원 강릉',
-    tags: ['바다', '도깨비'],
+    tags: [
+      '바다',
+      '도깨비',
+      '바다',
+      '도깨비',
+      '바다',
+      '도깨비',
+      '바다',
+      '도깨비',
+    ],
     liked: false,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
@@ -46,7 +55,6 @@ export default function SpotForMe() {
         나를 위한 여행지
       </Text>
       <FlatList
-        // TODO: mock 데이터 삽입
         data={mockData}
         keyExtractor={(_, index) => index.toString()}
         horizontal

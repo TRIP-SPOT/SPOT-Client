@@ -1,5 +1,7 @@
-import { ImageBackground, Text, View } from 'react-native';
+import { FlatList, ImageBackground, Text, View } from 'react-native';
 import { SpotData } from '../../types/spot';
+import Tag from './Tag';
+import TagSeperation from './TagSeperation';
 
 export default function Card({ data }: { data: SpotData }) {
   const { location, locationName, tags, backgroundImage } = data;
@@ -13,17 +15,30 @@ export default function Card({ data }: { data: SpotData }) {
         className="flex-1 justify-end"
         style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
       >
-        <View className="p-2.5">
-          <View className="flex flex-row gap-2 justify-start items-center">
-            <Text className="text-white font-[800] text-[16px] leading-[16px]">
-              {locationName}
+        <View className="p-2.5 gap-2">
+          <View>
+            <View className="flex flex-row gap-2 justify-start items-center">
+              <Text className="text-white font-[800] text-[16px] leading-[16px]">
+                {locationName}
+              </Text>
+              <Text className="text-white">하트</Text>
+            </View>
+            <Text className="text-white font-[400] text-[12px] leading-[16px]">
+              {location}
             </Text>
-            <Text className="text-white">하트</Text>
           </View>
-          <Text className="text-white font-[400] text-[12px] leading-[16px]">
-            {location}
-          </Text>
-          <Text className="text-white">{tags}</Text>
+          <View>
+            <FlatList
+              data={tags}
+              keyExtractor={(_, index) => index.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              ItemSeparatorComponent={TagSeperation}
+              // @ts-expect-error 2339
+              renderItem={({ item }) => <Tag tag={item} />}
+              className="flex flex-row"
+            />
+          </View>
         </View>
       </View>
     </ImageBackground>
