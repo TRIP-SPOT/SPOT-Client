@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { View, Text, TextInput, ScrollView, FlatList } from 'react-native';
+import { View, Text, TextInput, ScrollView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Card from './components/Card';
-import CardSeperation from './components/CardSeperation';
+import SpotForMe from './components/SpotForMe';
 
 export default function App() {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -35,19 +34,7 @@ export default function App() {
             className="rounded-md p-4 opacity-60 bg-white border text-base text-[#0F0F0F]"
           />
           <View>
-            {/* FIXME: 공통 폰트 디자인 적용: text-body1 */}
-            <Text className="text-white font-extrabold text-base mb-4">
-              나를 위한 여행지
-            </Text>
-            <FlatList
-              // TODO: mock 데이터 삽입
-              data={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
-              keyExtractor={(_, index) => index.toString()}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              ItemSeparatorComponent={CardSeperation}
-              renderItem={({ item }) => <Card locationName={item.toString()} />}
-            />
+            <SpotForMe />
           </View>
         </ScrollView>
       </LinearGradient>
