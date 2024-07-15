@@ -12,6 +12,6 @@ export const Button = ({ text, onPress }: ButtonProps) => (
     onPress={onPress}
     activeOpacity={0.8}
   >
-    <Text className="text-white text-base font-bold">{text}</Text>
+    <Text className="text-white text-base font-pb">{text}</Text>
   </TouchableOpacity>
 );
