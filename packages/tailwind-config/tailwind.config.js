@@ -5,9 +5,14 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        pm: ['Pretendard-Medium'],
-        pb: ['Pretendard-Bold'],
-        pl: ['Pretendard-Light'],
+        'Pretendard-Medium': ['Pretendard-Medium'],
+        'Pretendard-Bold': ['Pretendard-Bold'],
+        'Pretendard-Light': ['Pretendard-Light'],
+      },
+      colors: {
+        'SPOT-red': '#FF1919',
+        'SPOT-black': '#0F0F0F',
+        'SPOT-white': '#FFFFFF',
       },
     },
   },
