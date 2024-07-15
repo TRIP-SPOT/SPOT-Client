@@ -1,7 +1,10 @@
 import { View, Text, FlatList } from 'react-native';
 import Card from './common/Card';
-import CardSeperation from './common/CardSeperation';
 import { SpotData } from '../types/spot';
+
+function CardSeperation() {
+  return <View style={{ width: 16 }} />;
+}
 
 const mockData: SpotData[] = [
   {

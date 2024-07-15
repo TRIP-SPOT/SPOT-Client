@@ -1,7 +1,10 @@
 import { FlatList, ImageBackground, Text, View } from 'react-native';
 import { SpotData } from '../../types/spot';
 import Tag from './Tag';
-import TagSeperation from './TagSeperation';
+
+function TagSeperation() {
+  return <View style={{ width: 5 }} />;
+}
 
 export default function Card({ data }: { data: SpotData }) {
   const { location, locationName, tags, backgroundImage } = data;
