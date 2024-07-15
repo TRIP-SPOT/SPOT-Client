@@ -1,7 +1,10 @@
-import { View, Text } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TextInput } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 function App(): React.JSX.Element {
+  const [searchKeyword, setSearchKeyword] = useState('');
+
   return (
     <LinearGradient
       colors={['#FF1919', '#000000']}
@@ -18,14 +21,20 @@ function App(): React.JSX.Element {
           padding: 16,
         }}
       >
-        <View className="w-full top-20">
-          <Text className="font-pr text-white font-[400] text-[22px] leading-[30px]">
+        <View className="w-full top-20 flex flex-col gap-10">
+          {/* FIXME: 공통 폰트 디자인 적용: text-title1 */}
+          <Text className="text-white font-[400] text-[22px] leading-[30px]">
             {/* TODO: 실제 사용자 이름 넣기 */}
-            안녕하세요, 아무개님.
+            안녕하세요, 아무개님.{'\n'}오늘은 어디로 가 볼까요?
           </Text>
-          <Text className="font-pr text-white font-[400] text-[22px] leading-[30px]">
-            오늘은 어디로 가 볼까요?
-          </Text>
+          {/* FIXME: 공통 폰트 디자인 적용: text-body1 text-spot-black */}
+          <TextInput
+            value={searchKeyword}
+            onChangeText={(newKeyword) => setSearchKeyword(newKeyword)}
+            placeholder="드라마/영화 제목을 검색하세요."
+            placeholderTextColor="#0F0F0F"
+            className="w-full rounded-md p-4 opacity-60 bg-white border text-base text-[#0F0F0F]"
+          />
         </View>
       </LinearGradient>
     </LinearGradient>
