@@ -1,6 +1,7 @@
 import { FlatList, ImageBackground, Text, View } from 'react-native';
 import { SpotData } from '../../types/spot';
 import Tag from './Tag';
+import Heart from '../../assets/Heart';
 
 function TagSeperation() {
   return <View style={{ width: 5 }} />;
@@ -24,7 +25,9 @@ export default function Card({ data }: { data: SpotData }) {
               <Text className="text-white font-[800] text-[16px] leading-[16px]">
                 {locationName}
               </Text>
-              <Text className="text-white">하트</Text>
+              <View>
+                <Heart width={12} height={12} />
+              </View>
             </View>
             <Text className="text-white font-[400] text-[12px] leading-[16px]">
               {location}
