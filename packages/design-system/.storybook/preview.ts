@@ -10,7 +10,7 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'gray',
+      default: 'black',
       values: [
         {
           name: 'gray',
