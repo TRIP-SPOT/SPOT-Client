@@ -27,22 +27,18 @@ interface FontProps {
   color: Color;
 }
 
-const FontBase = ({ type, color, children }: FontProps) => {
+const FontRegular = ({ type, color, children }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.MEDIUM;
-  return (
-    <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>
-  );
+  return <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>;
 };
 
 const FontBold = ({ type, color, children }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.BOLD;
-  return (
-    <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>
-  );
+  return <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>;
 };
 
 const FontLight = ({ type, color, children }: FontProps) => {
@@ -50,12 +46,10 @@ const FontLight = ({ type, color, children }: FontProps) => {
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.LIGHT;
 
-  return (
-    <Text className={`${fontType} ${fontStyle} ${colorStyle}`}>{children}</Text>
-  );
+  return <Text className={`${fontType} ${fontStyle} ${colorStyle}`}>{children}</Text>;
 };
 
-const Font = Object.assign(FontBase, {
+const Font = Object.assign(FontRegular, {
   Bold: FontBold,
   Light: FontLight,
 });
