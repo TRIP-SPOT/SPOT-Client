@@ -22,7 +22,7 @@ export default function Card({ data }: { data: SpotData }) {
         <View className="p-2.5 gap-2">
           <View>
             <View className="flex flex-row gap-2 justify-start items-center">
-              <Text className="text-white font-[800] text-[16px] leading-[16px]">
+              <Text className="text-white font-[800] text-[16px] leading-[20px]">
                 {locationName}
               </Text>
               <View>
