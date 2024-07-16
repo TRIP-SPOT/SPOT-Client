@@ -29,6 +29,7 @@ export default function BottomTabNavigator() {
           textAlign: 'center',
           lineHeight: 13,
           top: -5,
+          fontFamily: 'Pretendard-Medium',
         },
         tabBarActiveTintColor: '#FF1919',
         tabBarInactiveTintColor: '#909090',
