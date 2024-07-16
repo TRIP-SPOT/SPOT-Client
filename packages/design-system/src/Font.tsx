@@ -14,8 +14,8 @@ const COLOR_PREFIX = {
 } as const;
 
 const FONT_TYPE_PREFIX = {
-  body1: 'text-base leading-6',
-  title1: 'text-[1.375rem] leading-[1.875rem]',
+  body1: 'text-[16px] leading-[24px]',
+  title1: 'text-[22px] leading-[30px]',
 };
 
 type Color = keyof typeof COLOR_PREFIX;
@@ -27,22 +27,18 @@ interface FontProps {
   color: Color;
 }
 
-const FontBase = ({ type, color, children }: FontProps) => {
+const FontRegular = ({ type, color, children }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.MEDIUM;
-  return (
-    <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>
-  );
+  return <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>;
 };
 
 const FontBold = ({ type, color, children }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.BOLD;
-  return (
-    <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>
-  );
+  return <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>;
 };
 
 const FontLight = ({ type, color, children }: FontProps) => {
@@ -50,14 +46,10 @@ const FontLight = ({ type, color, children }: FontProps) => {
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.LIGHT;
 
-  return (
-    <Text className={`${fontType} ${fontStyle} ${colorStyle}`}>{children}</Text>
-  );
+  return <Text className={`${fontType} ${fontStyle} ${colorStyle}`}>{children}</Text>;
 };
 
-const Font = Object.assign(FontBase, {
+export const Font = Object.assign(FontRegular, {
   Bold: FontBold,
   Light: FontLight,
 });
-
-export default Font;
