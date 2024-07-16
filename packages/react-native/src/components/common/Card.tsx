@@ -40,7 +40,6 @@ export default function Card({ data }: { data: SpotData }) {
               horizontal
               showsHorizontalScrollIndicator={false}
               ItemSeparatorComponent={TagSeperation}
-              // @ts-expect-error 2339
               renderItem={({ item }) => <Tag tag={item} />}
               className="flex flex-row"
             />

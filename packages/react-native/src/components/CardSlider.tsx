@@ -21,7 +21,6 @@ export default function CardSlider({ title, data }: CardSliderProps) {
         horizontal
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={CardSeperation}
-        // @ts-expect-error 2339
         renderItem={({ item }) => <Card data={item} />}
       />
     </View>

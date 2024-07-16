@@ -1,5 +1,6 @@
-import { ScrollView, View, Text, SafeAreaView } from 'react-native';
+import { ScrollView, View, SafeAreaView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { Font } from 'design-system';
 import CardSlider from '../components/CardSlider';
 import SearchBar from '../components/common/SearchBar';
 import { SpotData } from '../types/spot';
@@ -63,11 +64,11 @@ export default function Home() {
         <SafeAreaView>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View className="flex flex-col gap-10 p-4">
-              {/* FIXME: 공통 폰트 디자인 적용: text-title1 */}
-              <Text className="text-white font-[400] text-[22px] leading-[30px]">
-                {/* TODO: 실제 사용자 이름 넣기 */}
-                안녕하세요, 아무개님.{'\n'}오늘은 어디로 가 볼까요?
-              </Text>
+              <View>
+                <Font type="title1" color="white">
+                  안녕하세요, 아무개님.{'\n'}오늘은 어디로 가 볼까요?
+                </Font>
+              </View>
               <View>
                 <SearchBar placeholder="드라마/영화 제목을 검색하세요." />
               </View>
