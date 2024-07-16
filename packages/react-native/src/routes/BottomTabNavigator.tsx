@@ -1,13 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Platform } from 'react-native';
-import Home from '../../pages/Home';
-import Route from '../../pages/Route';
-import HomeIcon from '../../assets/HomeIcon';
-import Detail from '../../pages/Detail';
-import MyPage from '../../pages/MyPage';
-import MapIcon from '../../assets/MapIcon';
-import DetailIcon from '../../assets/DetailIcon';
-import MyPageIcon from '../../assets/MyPageIcon';
+import Home from '@pages/Home';
+import Route from '@pages/Route';
+import HomeIcon from '@assets/HomeIcon';
+import Detail from '@pages/Detail';
+import MyPage from '@pages/MyPage';
+import MapIcon from '@assets/MapIcon';
+import DetailIcon from '@assets/DetailIcon';
+import MyPageIcon from '@assets/MyPageIcon';
 
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Alert, TextInput, TouchableOpacity, View } from 'react-native';
-import Search from '../../assets/Search';
+import Search from '@assets/Search';
 
 interface SearchBarProps {
   placeholder: string;

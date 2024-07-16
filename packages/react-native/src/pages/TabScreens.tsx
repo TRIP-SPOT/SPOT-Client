@@ -1,4 +1,4 @@
-import BottomTabNavigator from '../components/common/BottomTabNavigator';
+import BottomTabNavigator from '@routes/BottomTabNavigator';
 
 export default function TabScreens() {
   return <BottomTabNavigator />;

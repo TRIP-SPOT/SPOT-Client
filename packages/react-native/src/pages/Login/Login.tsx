@@ -1,8 +1,8 @@
 import { SafeAreaView, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import SPOTLogo from '../assets/SPOTLogo';
-import { AppleLogin, KakaoLogin } from '../components/login/SocialLogin';
-import { LoginScreenProps } from '../components/common/StackNavigator';
+import SPOTLogo from '../../assets/SPOTLogo';
+import { AppleLogin, KakaoLogin } from '../../components/login/SocialLogin';
+import { LoginScreenProps } from '../../routes/StackNavigator';
 
 export default function Login({ navigation }: LoginScreenProps) {
   return (

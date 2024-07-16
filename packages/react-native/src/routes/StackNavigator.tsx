@@ -2,8 +2,8 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from '@react-navigation/stack';
-import Login from '../../pages/Login';
-import TabScreens from '../../pages/TabScreens';
+import Login from '@pages/Login/Login';
+import TabScreens from '@pages/TabScreens';
 
 const Stack = createStackNavigator();
 

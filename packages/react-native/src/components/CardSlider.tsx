@@ -1,7 +1,7 @@
 import { View, FlatList } from 'react-native';
 import { Font } from 'design-system';
 import Card from './common/Card';
-import { SpotData } from '../types/spot';
+import { SpotData } from '@/types/spot';
 
 interface CardSliderProps {
   title: string;

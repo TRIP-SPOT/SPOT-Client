@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import AppleIcon from '../../assets/AppleIcon';
+import AppleIcon from '@assets/AppleIcon';
 import { Font } from 'design-system';
-import KakaoIcon from '../../assets/KakaoIcon';
+import KakaoIcon from '@assets/KakaoIcon';
 
 interface SocialLoginButtonProps {
   onPress: () => void;

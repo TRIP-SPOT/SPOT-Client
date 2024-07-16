@@ -1,7 +1,7 @@
 import { FlatList, ImageBackground, Text, View } from 'react-native';
-import { SpotData } from '../../types/spot';
+import { SpotData } from '@/types/spot';
 import Tag from './Tag';
-import Heart from '../../assets/Heart';
+import Heart from '@assets/Heart';
 
 function TagSeperation() {
   return <View style={{ width: 5 }} />;
