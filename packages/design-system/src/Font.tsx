@@ -18,7 +18,7 @@ const FONT_TYPE_PREFIX = {
   title1: 'text-[22px] leading-[30px]',
 };
 
-type Color = keyof typeof COLOR_PREFIX;
+export type Color = keyof typeof COLOR_PREFIX;
 type FontType = keyof typeof FONT_TYPE_PREFIX;
 
 interface FontProps {
@@ -31,14 +31,18 @@ const FontRegular = ({ type, color, children }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.MEDIUM;
-  return <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>;
+  return (
+    <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>
+  );
 };
 
 const FontBold = ({ type, color, children }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.BOLD;
-  return <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>;
+  return (
+    <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>
+  );
 };
 
 const FontLight = ({ type, color, children }: FontProps) => {
@@ -46,7 +50,9 @@ const FontLight = ({ type, color, children }: FontProps) => {
   const colorStyle = COLOR_PREFIX[color];
   const fontStyle = FONT_PREFIX.LIGHT;
 
-  return <Text className={`${fontType} ${fontStyle} ${colorStyle}`}>{children}</Text>;
+  return (
+    <Text className={`${fontType} ${fontStyle} ${colorStyle}`}>{children}</Text>
+  );
 };
 
 export const Font = Object.assign(FontRegular, {

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Font from '../src/Font';
+import { Font } from '../src/Font';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Example/Font',
+  title: 'Spots/Font',
   component: Font,
   parameters: {
     layout: 'centered',
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>;
 export const defaultStory: Story = {
   args: {
     type: 'body1',
-    children: '프리텐다드',
+    children: 'SPOT!',
     color: 'red',
   },
 };

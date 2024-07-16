@@ -1,9 +1,9 @@
 import { ScrollView, View, SafeAreaView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Font } from 'design-system';
-import CardSlider from '../components/CardSlider';
-import SearchBar from '../components/common/SearchBar';
-import { SpotData } from '../types/spot';
+import CardSlider from '@components/CardSlider';
+import SearchBar from '@components/common/SearchBar';
+import { SpotData } from '@/types/spot';
 
 const mockData: SpotData[] = [
   {
