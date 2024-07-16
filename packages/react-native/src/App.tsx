@@ -1,5 +1,10 @@
-import Home from './pages/Home';
+import { NavigationContainer } from '@react-navigation/native';
+import BottomTabNavigator from './components/common/BottomTabNavigator';
 
 export default function App() {
-  return <Home />;
+  return (
+    <NavigationContainer>
+      <BottomTabNavigator />
+    </NavigationContainer>
+  );
 }

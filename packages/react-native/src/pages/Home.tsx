@@ -54,13 +54,11 @@ export default function Home() {
       colors={['#FF1919', '#000000']}
       start={{ x: 0, y: -0.5 }}
       end={{ x: 0, y: 0.5 }}
-      className="w-screen h-screen"
     >
       <LinearGradient
         colors={['rgba(0, 0, 0, 0.4)', 'rgba(0, 0, 0, 0.4)']}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
-        className="w-screen h-screen"
       >
         <SafeAreaView>
           <ScrollView showsVerticalScrollIndicator={false}>
