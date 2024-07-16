@@ -3,4 +3,22 @@ const { babelConfig } = require('tailwind-config');
 module.exports = {
   ...babelConfig,
   presets: ['module:@react-native/babel-preset'],
+  plugins: [
+    ...babelConfig.plugins,
+    [
+      'module-resolver',
+      {
+        alias: {
+          '@': './src',
+          '@pages': './src/pages',
+          '@routes': './src/routes',
+          '@components': './src/components',
+          '@assets': './src/assets',
+          '@types': './src/types',
+          '@constants': './src/constants',
+          '@utils': './src/utils',
+        },
+      },
+    ],
+  ],
 };
