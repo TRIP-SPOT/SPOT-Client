@@ -9,7 +9,6 @@ import MapIcon from '../../assets/MapIcon';
 import DetailIcon from '../../assets/DetailIcon';
 import MyPageIcon from '../../assets/MyPageIcon';
 
-// FIXME: 디자인 시스템 적용
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();
 
