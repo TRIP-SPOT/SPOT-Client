@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
-import { Alert, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import ViewShot from 'react-native-view-shot';
 import { Camera, PhotoFile } from 'react-native-vision-camera';
 import useCamera from '@/hooks/useCamera';
 import DownloadIcon from '@/assets/DownloadIcon';
+import useGaleryPermission from '@/hooks/useGaleryPermission';
 
 export default function CameraPage() {
   const camera = useRef<Camera>(null);
@@ -12,6 +13,7 @@ export default function CameraPage() {
   const { device, hasPermission } = useCamera();
   const [Filter] = useState(<View className="w-20 h-20 absolue bg-blue-300" />);
   const [photo, setPhoto] = useState<PhotoFile | null>(null);
+  const { savePicture } = useGaleryPermission();
 
   const takePhoto = async () => {
     if (!camera.current) return;
@@ -20,10 +22,13 @@ export default function CameraPage() {
     setPhoto(newPhoto);
   };
 
-  const savePhoto = () => {
-    if (!photo) return;
+  const savePhoto = async () => {
+    if (!photo || !captureRef.current?.capture) return;
 
-    Alert.alert('저장됨');
+    const photoUri = await captureRef.current?.capture();
+    await savePicture(photoUri);
+
+    setPhoto(null);
   };
 
   const resetPhoto = () => {
@@ -50,7 +55,7 @@ export default function CameraPage() {
             }}
           >
             <Image
-              source={{ uri: photo.path }}
+              source={{ uri: `file://${photo.path}` }}
               style={StyleSheet.absoluteFill}
             />
             {Filter}
