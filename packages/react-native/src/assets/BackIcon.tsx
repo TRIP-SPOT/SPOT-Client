@@ -16,7 +16,11 @@ export default function BackIcon({ width, height, color }: SvgProps) {
       </G>
       <Defs>
         <ClipPath id="clip0_189_922">
-          <Rect width={width || '12'} height="20.3735" fill={'white'} />
+          <Rect
+            width={width || '12'}
+            height="20.3735"
+            fill={color || 'white'}
+          />
         </ClipPath>
       </Defs>
     </Svg>
