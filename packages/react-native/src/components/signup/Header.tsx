@@ -1,7 +1,7 @@
-import Back from '@/assets/BackIcon';
-import Cancel from '@/assets/CancelIcon';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Back from '@/assets/BackIcon';
+import Cancel from '@/assets/CancelIcon';
 
 interface HeaderProps {
   onBack: () => void;

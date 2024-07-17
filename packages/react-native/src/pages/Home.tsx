@@ -4,7 +4,7 @@ import { Button, Font } from 'design-system';
 import CardSlider from '@components/CardSlider';
 import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
-import { HomeScreenProps } from '@/types/navigation';
+import { ScreenNavigationProp } from '@/types/navigation';
 
 const mockData: SpotData[] = [
   {
@@ -49,6 +49,10 @@ const mockData: SpotData[] = [
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
 ];
+
+interface HomeScreenProps {
+  navigation: ScreenNavigationProp<'Main'>;
+}
 
 export default function Home({ navigation }: HomeScreenProps) {
   return (

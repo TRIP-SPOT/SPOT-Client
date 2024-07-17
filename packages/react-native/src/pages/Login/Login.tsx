@@ -1,11 +1,11 @@
 import { SafeAreaView, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SPOTLogo from '@assets/SPOTLogo';
-import { RootStackNavigation } from '@routes/StackNavigator';
 import { SocialLogin } from 'design-system';
+import { ScreenNavigationProp } from '@/types/navigation';
 
 interface LoginPageProps {
-  navigation: RootStackNavigation<'Login'>;
+  navigation: ScreenNavigationProp<'Login'>;
 }
 
 export default function Login({ navigation }: LoginPageProps) {
@@ -19,10 +19,10 @@ export default function Login({ navigation }: LoginPageProps) {
         <SPOTLogo />
         <View className="flex flex-col w-full px-4 gap-4">
           <View>
-            <SocialLogin.Apple onPress={() => navigation.replace('Landing')} />
+            <SocialLogin.Apple onPress={() => navigation.navigate('Signup')} />
           </View>
           <View>
-            <SocialLogin.Kakao onPress={() => navigation.replace('Landing')} />
+            <SocialLogin.Kakao onPress={() => navigation.navigate('Signup')} />
           </View>
         </View>
       </SafeAreaView>

@@ -1,21 +1,15 @@
+import { createStackNavigator } from '@react-navigation/stack';
 import Niakname from '@/pages/Login/Nickname';
 import Profile from '@/pages/Login/Profile';
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-type SignupStackParamList = {
+export type SignupStackParamList = {
   'Signup/Nickname': undefined;
   'Signup/Profile': {
     nickname: string;
   };
 };
-
-export type SignupStackNavigation<T extends keyof SignupStackParamList> =
-  StackNavigationProp<SignupStackParamList, T>;
 
 export default function SignupStackNavigator() {
   return (

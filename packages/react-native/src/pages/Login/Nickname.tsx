@@ -1,9 +1,9 @@
-import Header from '@/components/signup/Header';
-import Overlay from '@/components/signup/Overlay';
-import { SignupStackNavigation } from '@/routes/SignupStackNavigator';
 import { Font } from 'design-system';
 import { useState } from 'react';
 import { TextInput, View } from 'react-native';
+import Header from '@/components/signup/Header';
+import Overlay from '@/components/signup/Overlay';
+import { SignupStackNavigation } from '@/types/navigation';
 
 interface NicknameProps {
   navigation: SignupStackNavigation<'Signup/Nickname'>;
@@ -32,7 +32,7 @@ export default function Niakname({ navigation }: NicknameProps) {
         </Font>
         <TextInput
           value={nickname}
-          onChangeText={(nickname) => setNickname(nickname)}
+          onChangeText={(newNickname) => setNickname(newNickname)}
           placeholder="닉네임"
           placeholderTextColor="#ffffff"
           className="text-SPOT-white text-body2  rounded-md p-4  placeholder-SPOT-white bg-SPOT-white/60 mt-[8px]"

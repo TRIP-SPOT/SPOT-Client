@@ -1,13 +1,9 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/routes/StackNavigator';
+import { SignupStackParamList } from '@/routes/SignupStackNavigator';
 
-type ScreenNavigationProp<T extends keyof RootStackParamList> =
+export type ScreenNavigationProp<T extends keyof RootStackParamList> =
   StackNavigationProp<RootStackParamList, T>;
 
-export type LoginScreenProps = {
-  navigation: ScreenNavigationProp<'Login'>;
-};
-
-export type HomeScreenProps = {
-  navigation: ScreenNavigationProp<'Home'>;
-};
+export type SignupStackNavigation<T extends keyof SignupStackParamList> =
+  StackNavigationProp<SignupStackParamList, T>;

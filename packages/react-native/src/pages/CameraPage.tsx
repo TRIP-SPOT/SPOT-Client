@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import ViewShot from 'react-native-view-shot';
 import { Camera, PhotoFile } from 'react-native-vision-camera';
@@ -27,6 +27,7 @@ export default function CameraPage() {
 
     const photoUri = await captureRef.current?.capture();
     await savePicture(photoUri);
+    Alert.alert('저장이 완료되었습니다.');
 
     setPhoto(null);
   };
