@@ -16,6 +16,8 @@ const COLOR_PREFIX = {
 const FONT_TYPE_PREFIX = {
   body1: 'text-[16px] leading-[24px]',
   title1: 'text-[22px] leading-[30px]',
+  mainTitle: 'text-[26px] leading-[30px]',
+  body2: 'text-[14px] leading-[18px]',
 };
 
 export type Color = keyof typeof COLOR_PREFIX;
