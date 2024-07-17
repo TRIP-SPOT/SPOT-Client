@@ -1,0 +1,32 @@
+# Workflow name
+name: ✅ CI 확인
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ✅ 코드 체크 아웃
+        uses: actions/checkout@v3
+
+      - name: ✅ 노드 세팅
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: ⬇️ 의존성 설치
+        run: yarn
+
+      - name: 🔨 린트 확인
+        run: |
+          yarn workspace react-native lint
