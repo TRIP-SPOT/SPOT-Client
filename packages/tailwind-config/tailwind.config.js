@@ -17,6 +17,8 @@ module.exports = {
       fontSize: {
         body1: ['16px', '24px'],
         title1: ['22px', '30px'],
+        mainTitle: ['26px', '30px'],
+        body2: ['14px', '18px'],
       },
     },
   },
