@@ -4,22 +4,18 @@ import {
 } from '@react-navigation/stack';
 import Login from '@pages/Login/Login';
 import TabScreens from '@pages/TabScreens';
+import SignupStackNavigator from './SignupStackNavigator';
 
 const Stack = createStackNavigator();
 
-type RootStackParamList = {
+export type RootStackParamList = {
   Login: undefined;
+  Signup: undefined;
   Landing: undefined;
 };
 
-type LoginScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'Login'
->;
-
-export type LoginScreenProps = {
-  navigation: LoginScreenNavigationProp;
-};
+export type RootStackNavigation<T extends keyof RootStackParamList> =
+  StackNavigationProp<RootStackParamList, T>;
 
 export default function StackNavigator() {
   return (
@@ -30,6 +26,7 @@ export default function StackNavigator() {
     >
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Landing" component={TabScreens} />
+      <Stack.Screen name="Signup" component={SignupStackNavigator} />
     </Stack.Navigator>
   );
 }
