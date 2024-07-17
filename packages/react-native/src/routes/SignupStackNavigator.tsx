@@ -9,6 +9,7 @@ export type SignupStackParamList = {
   'Signup/Profile': {
     nickname: string;
   };
+  Main: undefined;
 };
 
 export default function SignupStackNavigator() {
