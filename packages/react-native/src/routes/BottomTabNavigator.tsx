@@ -1,13 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Platform } from 'react-native';
 import Home from '@pages/Home';
-import Route from '@pages/Route';
 import HomeIcon from '@assets/HomeIcon';
 import Detail from '@pages/Detail';
 import MyPage from '@pages/MyPage';
 import MapIcon from '@assets/MapIcon';
 import DetailIcon from '@assets/DetailIcon';
 import MyPageIcon from '@assets/MyPageIcon';
+import CameraPage from '@/pages/CameraPage';
 
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -43,12 +43,14 @@ export default function BottomTabNavigator() {
           tabBarIcon: HomeIcon,
         }}
       />
+      {/* FIXME: 경로 페이지로 변경 */}
       <Tab.Screen
         name="Route"
-        component={Route}
+        component={CameraPage}
         options={{
           tabBarLabel: '경로',
           tabBarIcon: MapIcon,
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen

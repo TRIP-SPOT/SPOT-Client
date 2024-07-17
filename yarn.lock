@@ -14266,6 +14266,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-vision-camera@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "react-native-vision-camera@npm:4.5.0"
+  peerDependencies:
+    "@shopify/react-native-skia": "*"
+    react: "*"
+    react-native: "*"
+    react-native-reanimated: "*"
+    react-native-worklets-core: "*"
+  peerDependenciesMeta:
+    "@shopify/react-native-skia":
+      optional: true
+    react-native-reanimated:
+      optional: true
+    react-native-worklets-core:
+      optional: true
+  checksum: 5301b9cb303d3ee7b9f4d4c0368ace06d62826c6c4deb92c744a3dfb8a4de30f2fd5d40374bd529a3e5647245a02736d45fb0a2c6f9bbb3350bc9cc9951e57a6
+  languageName: node
+  linkType: hard
+
 "react-native-web@npm:^0.19.12":
   version: 0.19.12
   resolution: "react-native-web@npm:0.19.12"
@@ -14381,6 +14401,7 @@ __metadata:
     react-native-safe-area-context: ^4.10.8
     react-native-screens: ^3.32.0
     react-native-svg: ^15.4.0
+    react-native-vision-camera: ^4.5.0
     react-test-renderer: 18.2.0
     tailwind-config: "workspace:*"
     tailwindcss: 3.2.2
