@@ -19,10 +19,10 @@ export default function Login({ navigation }: LoginPageProps) {
         <SPOTLogo />
         <View className="flex flex-col w-full px-4 gap-4">
           <View>
-            <SocialLogin.Apple onPress={() => navigation.navigate('Signup')} />
+            <SocialLogin.Apple onPress={() => navigation.replace('Landing')} />
           </View>
           <View>
-            <SocialLogin.Kakao onPress={() => navigation.navigate('Signup')} />
+            <SocialLogin.Kakao onPress={() => navigation.replace('Landing')} />
           </View>
         </View>
       </SafeAreaView>
