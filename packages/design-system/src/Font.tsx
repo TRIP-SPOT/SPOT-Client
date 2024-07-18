@@ -14,10 +14,11 @@ const COLOR_PREFIX = {
 } as const;
 
 const FONT_TYPE_PREFIX = {
-  body1: 'text-[16px] leading-[24px]',
   title1: 'text-[22px] leading-[30px]',
   mainTitle: 'text-[26px] leading-[30px]',
+  body1: 'text-[16px] leading-[24px]',
   body2: 'text-[14px] leading-[18px]',
+  body3: 'text-[12px] leading-[16px]',
 };
 
 export type Color = keyof typeof COLOR_PREFIX;
