@@ -1,11 +1,11 @@
 import { SafeAreaView, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SPOTLogo from '@assets/SPOTLogo';
-import { RootStackNavigation } from '@routes/StackNavigator';
 import { SocialLogin } from 'design-system';
+import { ScreenNavigationProp } from '@/types/navigation';
 
 interface LoginPageProps {
-  navigation: RootStackNavigation<'Login'>;
+  navigation: ScreenNavigationProp<'Login'>;
 }
 
 export default function Login({ navigation }: LoginPageProps) {

@@ -7,6 +7,7 @@ interface CardSliderProps {
   title: string;
   data: SpotData[];
 }
+
 function CardSeperation() {
   return <View style={{ width: 16 }} />;
 }

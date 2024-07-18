@@ -1,9 +1,10 @@
 import { ScrollView, View, SafeAreaView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Font } from 'design-system';
+import { Button, Font } from 'design-system';
 import CardSlider from '@components/CardSlider';
 import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
+import { ScreenNavigationProp } from '@/types/navigation';
 
 const mockData: SpotData[] = [
   {
@@ -49,7 +50,11 @@ const mockData: SpotData[] = [
   },
 ];
 
-export default function Home() {
+interface HomeScreenProps {
+  navigation: ScreenNavigationProp<'Main'>;
+}
+
+export default function Home({ navigation }: HomeScreenProps) {
   return (
     <LinearGradient
       colors={['#FF1919', '#000000']}
@@ -68,6 +73,11 @@ export default function Home() {
                 <Font type="title1" color="white">
                   안녕하세요, 아무개님.{'\n'}오늘은 어디로 가 볼까요?
                 </Font>
+                {/* FIXME: 추후 삭제 */}
+                <Button
+                  onPress={() => navigation.navigate('Camera')}
+                  text="카메라"
+                />
               </View>
               <View>
                 <SearchBar placeholder="드라마/영화 제목을 검색하세요." />
