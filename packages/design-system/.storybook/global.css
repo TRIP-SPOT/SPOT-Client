@@ -22,3 +22,7 @@
     format('woff');
   font-style: normal;
 }
+
+input {
+  outline: none;
+}

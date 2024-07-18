@@ -2,12 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TextField } from '../src/TextField';
 import { useState } from 'react';
 
-const correct = () => true;
-const incorrect = () => false;
-
 const meta = {
   title: 'Spots/TextField',
-  component: ({ placeholder, onSubmit, validate }) => {
+  component: ({ placeholder, onSubmit, isCorrect }) => {
     const [inputValue, setInputValue] = useState('');
     return (
       <TextField
@@ -15,7 +12,7 @@ const meta = {
         onChange={(text) => setInputValue(text)}
         placeholder={placeholder}
         onSubmit={onSubmit}
-        validate={validate}
+        isCorrect={isCorrect}
       />
     );
   },
@@ -25,8 +22,8 @@ const meta = {
   tags: ['autodocs'],
 
   argTypes: {
-    validate: {
-      options: [correct, incorrect],
+    isCorrect: {
+      options: [true, false],
       control: 'radio',
     },
   },
@@ -42,6 +39,6 @@ export const defaultStory: Story = {
     onChange: () => {},
     placeholder: 'SPOT-Placeholder',
     onSubmit: () => {},
-    validate: () => true,
+    isCorrect: true,
   },
 };
