@@ -5,7 +5,7 @@ import ViewShot from 'react-native-view-shot';
 import { Camera, PhotoFile } from 'react-native-vision-camera';
 import useCamera from '@/hooks/useCamera';
 import DownloadIcon from '@/assets/DownloadIcon';
-import useGaleryPermission from '@/hooks/useGaleryPermission';
+import useGallery from '@/hooks/useGallery';
 
 export default function CameraPage() {
   const camera = useRef<Camera>(null);
@@ -13,7 +13,7 @@ export default function CameraPage() {
   const { device, hasPermission } = useCamera();
   const [Filter] = useState(<View className="w-20 h-20 absolue bg-blue-300" />);
   const [photo, setPhoto] = useState<PhotoFile | null>(null);
-  const { savePicture } = useGaleryPermission();
+  const { savePhoto: savePicture } = useGallery();
 
   const takePhoto = async () => {
     if (!camera.current) return;
@@ -26,10 +26,10 @@ export default function CameraPage() {
     if (!photo || !captureRef.current?.capture) return;
 
     const photoUri = await captureRef.current?.capture();
-    await savePicture(photoUri);
-    Alert.alert('저장이 완료되었습니다.');
-
-    setPhoto(null);
+    savePicture(photoUri).then(() => {
+      Alert.alert('저장이 완료되었습니다.');
+      setPhoto(null);
+    });
   };
 
   const resetPhoto = () => {
@@ -92,6 +92,7 @@ export default function CameraPage() {
             device={device}
             isActive
             photo
+            enableZoomGesture
             audio={false}
           />
           {Filter}
