@@ -28,33 +28,49 @@ interface FontProps {
   children: ReactNode;
   type: FontType;
   color: Color;
+  underline?: boolean;
 }
 
-const FontRegular = ({ type, color, children }: FontProps) => {
+const FontRegular = ({ type, color, children, underline }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
+  const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.MEDIUM;
   return (
-    <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>
+    <Text
+      className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}
+    >
+      {children}
+    </Text>
   );
 };
 
-const FontBold = ({ type, color, children }: FontProps) => {
+const FontBold = ({ type, color, children, underline }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
+  const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.BOLD;
   return (
-    <Text className={`${fontStyle} ${fontType} ${colorStyle}`}>{children}</Text>
+    <Text
+      className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}
+    >
+      {children}
+    </Text>
   );
 };
 
-const FontLight = ({ type, color, children }: FontProps) => {
+const FontLight = ({ type, color, children, underline }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
+  const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.LIGHT;
 
   return (
-    <Text className={`${fontType} ${fontStyle} ${colorStyle}`}>{children}</Text>
+    <Text
+      className={`${fontType} ${fontStyle} ${colorStyle} ${underLineStyle}`}
+    >
+      {children}
+    </Text>
   );
 };
 
