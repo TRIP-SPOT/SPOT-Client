@@ -34,25 +34,26 @@ export default function useGallery() {
     }
   };
 
-  const savePhoto = async (uri: string) => {
+  const hasGalleryPermission = async () => {
     if (Platform.OS === 'ios') {
       await request(PERMISSIONS.IOS.PHOTO_LIBRARY);
       const iosGalleryPermission = await check(PERMISSIONS.IOS.PHOTO_LIBRARY);
       const iosResult = checkGalleryPermission(iosGalleryPermission);
-      if (iosResult === 'denied') return Promise.reject();
+      if (iosResult === 'denied') return false;
     } else {
-      request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(() => {
-        check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(
-          checkGalleryPermission,
-        );
-      });
       await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE);
       const aosGalleryPermission = await check(
         PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
       );
       const aosResult = checkGalleryPermission(aosGalleryPermission);
-      if (aosResult === 'denied') return Promise.reject();
+      if (aosResult === 'denied') return false;
     }
+
+    return true;
+  };
+
+  const savePhoto = async (uri: string) => {
+    if (!(await hasGalleryPermission())) return Promise.reject();
 
     // eslint-disable-next-line consistent-return
     return CameraRoll.saveAsset(uri);
