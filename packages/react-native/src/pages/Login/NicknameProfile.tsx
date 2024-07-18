@@ -1,8 +1,8 @@
+import { Font } from 'design-system';
+import { View } from 'react-native';
 import Header from '@/components/signup/Header';
 import Overlay from '@/components/signup/Overlay';
 import { SignupStackNavigation } from '@/types/navigation';
-import { Font } from 'design-system';
-import { View } from 'react-native';
 
 interface NicknameProfileProps {
   navigation: SignupStackNavigation<'Signup/NicknameProfile'>;

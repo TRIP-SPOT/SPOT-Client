@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '@/routes/StackNavigator';
 import { SignupStackParamList } from '@/routes/SignupStackNavigator';
-import { RouteProp } from '@react-navigation/native';
 
 export type ScreenNavigationProp<T extends keyof RootStackParamList> =
   StackNavigationProp<RootStackParamList, T>;

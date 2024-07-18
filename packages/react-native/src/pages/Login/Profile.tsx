@@ -1,13 +1,13 @@
-import SelectProfile from '@/assets/SelectProfile';
 import { Button, Font } from 'design-system';
 import { Image, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useState } from 'react';
+import { useRoute } from '@react-navigation/native';
+import SelectProfile from '@/assets/SelectProfile';
 import Header from '@/components/signup/Header';
 import Overlay from '@/components/signup/Overlay';
 import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import useGallery from '@/hooks/useGallery';
-import { useState } from 'react';
-import { useRoute } from '@react-navigation/native';
 
 interface ProfileProps {
   navigation: SignupStackNavigation<'Signup/Profile'>;
@@ -17,7 +17,7 @@ export default function Profile({ navigation }: ProfileProps) {
   const { getPhoto } = useGallery();
   const [photoUri, setPhotoUri] = useState('');
   const route = useRoute<SignupRouteProps<'Signup/Profile'>>();
-  const nickname = route.params.nickname;
+  const { nickname } = route.params;
 
   const handlePhotoGet = async () => {
     const photo = await getPhoto();
