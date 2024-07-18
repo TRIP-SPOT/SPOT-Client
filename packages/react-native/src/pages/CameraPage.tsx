@@ -26,10 +26,14 @@ export default function CameraPage() {
     if (!photo || !captureRef.current?.capture) return;
 
     const photoUri = await captureRef.current?.capture();
-    await savePicture(photoUri);
-    Alert.alert('저장이 완료되었습니다.');
-
-    setPhoto(null);
+    savePicture(photoUri)
+      .then(() => {
+        Alert.alert('저장이 완료되었습니다.');
+        setPhoto(null);
+      })
+      .catch(() => {
+        Alert.alert('저장에 실패했습니다. 잠시후 다시 시도해주세요.');
+      });
   };
 
   const resetPhoto = () => {

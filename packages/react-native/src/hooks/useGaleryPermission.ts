@@ -1,26 +1,23 @@
 import { PermissionsAndroid, Platform } from 'react-native';
-import {
-  CameraRoll,
-  SaveToCameraRollOptions,
-} from '@react-native-camera-roll/camera-roll';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 
 export default function useGaleryPermission() {
   // eslint-disable-next-line consistent-return
   async function hasAndroidPermission() {
-    const getCheckPermissionPromise = async () => {
+    const getCheckPermissionPromise = () => {
       if ((Platform.Version as number) >= 33) {
-        const [hasReadMediaImagesPermission, hasReadMediaVideoPermission] =
-          await Promise.all([
-            PermissionsAndroid.check(
-              PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
-            ),
-            PermissionsAndroid.check(
-              PermissionsAndroid.PERMISSIONS.READ_MEDIA_VIDEO,
-            ),
-          ]);
-        return hasReadMediaImagesPermission && hasReadMediaVideoPermission;
+        return Promise.all([
+          PermissionsAndroid.check(
+            PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
+          ),
+          PermissionsAndroid.check(
+            PermissionsAndroid.PERMISSIONS.READ_MEDIA_VIDEO,
+          ),
+        ]).then(
+          ([hasReadMediaImagesPermission, hasReadMediaVideoPermission]) =>
+            hasReadMediaImagesPermission && hasReadMediaVideoPermission,
+        );
       }
-
       return PermissionsAndroid.check(
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
       );
@@ -43,21 +40,21 @@ export default function useGaleryPermission() {
               PermissionsAndroid.RESULTS.GRANTED,
         );
       }
-
       return PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
       ).then((status) => status === PermissionsAndroid.RESULTS.GRANTED);
     };
 
-    await getRequestPermissionPromise();
+    // eslint-disable-next-line no-return-await
+    return await getRequestPermissionPromise();
   }
 
-  async function savePicture(tag: string, option?: SaveToCameraRollOptions) {
+  async function savePicture(uri: string) {
     if (Platform.OS === 'android' && !(await hasAndroidPermission())) {
       return;
     }
 
-    CameraRoll.saveAsset(tag, { ...option });
+    CameraRoll.saveAsset(uri);
   }
 
   return { savePicture };
