@@ -38,18 +38,14 @@ export default function useGallery() {
     if (Platform.OS === 'ios') {
       await request(PERMISSIONS.IOS.PHOTO_LIBRARY);
       const iosGalleryPermission = await check(PERMISSIONS.IOS.PHOTO_LIBRARY);
-      const iosResult = checkGalleryPermission(iosGalleryPermission);
-      if (iosResult === 'denied') return false;
-    } else {
-      await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE);
-      const aosGalleryPermission = await check(
-        PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
-      );
-      const aosResult = checkGalleryPermission(aosGalleryPermission);
-      if (aosResult === 'denied') return false;
+      return checkGalleryPermission(iosGalleryPermission) === 'granted';
     }
 
-    return true;
+    await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE);
+    const aosGalleryPermission = await check(
+      PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+    );
+    return checkGalleryPermission(aosGalleryPermission) === 'granted';
   };
 
   const savePhoto = async (uri: string) => {
