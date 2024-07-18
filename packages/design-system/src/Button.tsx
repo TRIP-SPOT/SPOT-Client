@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 export type ButtonProps = {
   onPress: () => void;
-  text: string;
+  disabled: boolean;
+  children: ReactNode;
 };
 
-export const Button = ({ text, onPress }: ButtonProps) => (
-  <TouchableOpacity
-    className="px-4 py-2 flex justify-start bg-purple-700 rounded-md"
-    onPress={onPress}
-    activeOpacity={0.8}
-  >
-    <Text className="text-white text-base font-pb">{text}</Text>
-  </TouchableOpacity>
-);
+export const Button = ({ onPress, disabled, children }: ButtonProps) => {
+  return (
+    <TouchableOpacity
+      className={`py-[11px] w-full rounded-[24px] justify-center items-center ${
+        disabled ? 'bg-Button-gray opacity-40' : 'bg-Button-red'
+      }`}
+      onPress={onPress}
+      activeOpacity={0.8}
+      disabled={disabled}
+    >
+      {children}
+    </TouchableOpacity>
+  );
+};
