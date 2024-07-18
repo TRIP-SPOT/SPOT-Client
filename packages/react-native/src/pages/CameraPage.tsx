@@ -96,6 +96,7 @@ export default function CameraPage() {
             device={device}
             isActive
             photo
+            enableZoomGesture
             audio={false}
           />
           {Filter}

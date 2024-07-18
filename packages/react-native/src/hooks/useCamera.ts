@@ -1,9 +1,16 @@
 import { useEffect } from 'react';
+import { Platform } from 'react-native';
 import {
-  Camera,
   useCameraDevice,
   useCameraPermission,
 } from 'react-native-vision-camera';
+import {
+  check,
+  PERMISSIONS,
+  PermissionStatus,
+  request,
+  RESULTS,
+} from 'react-native-permissions';
 import useCameraPermissionAlert from './useCameraPermissionAlert';
 
 export default function useCamera() {
@@ -11,33 +18,26 @@ export default function useCamera() {
   const { hasPermission } = useCameraPermission();
   const cameraPermissionAlert = useCameraPermissionAlert();
 
+  const checkCameraPermission = (result: PermissionStatus) => {
+    switch (result) {
+      case RESULTS.GRANTED:
+        break;
+      default:
+        cameraPermissionAlert();
+        break;
+    }
+  };
+
   useEffect(() => {
-    const getPermission = async () => {
-      const permission = Camera.getCameraPermissionStatus();
-
-      switch (permission) {
-        case 'granted':
-          break;
-
-        case 'not-determined': {
-          const newPermission = await Camera.requestCameraPermission();
-
-          if (newPermission === 'denied') cameraPermissionAlert();
-
-          break;
-        }
-
-        case 'denied':
-          cameraPermissionAlert();
-          break;
-
-        default:
-          await Camera.requestCameraPermission();
-          break;
-      }
-    };
-
-    getPermission();
+    if (Platform.OS === 'ios') {
+      request(PERMISSIONS.IOS.CAMERA).then(() => {
+        check(PERMISSIONS.IOS.CAMERA).then(checkCameraPermission);
+      });
+    } else {
+      request(PERMISSIONS.ANDROID.CAMERA).then(() => {
+        check(PERMISSIONS.ANDROID.CAMERA).then(checkCameraPermission);
+      });
+    }
   }, []);
 
   return { device, hasPermission };
