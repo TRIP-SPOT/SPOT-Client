@@ -14,16 +14,23 @@ export default function NicknameColorPalette({
   selectedPalette,
   changeSelectedPalette,
 }: NicknameColorPaletteProps) {
-  return NICKNAME_COLOR_SET.map((color) => (
-    <TouchableOpacity key={color} onPress={() => changeSelectedPalette(color)}>
-      <View
-        className="w-[40px] h-[40px] rounded-full"
-        style={{
-          backgroundColor: color,
-          borderColor: 'white',
-          borderWidth: selectedPalette === color ? 3 : 0,
-        }}
-      />
-    </TouchableOpacity>
-  ));
+  return (
+    <View className="flex flex-row gap-4 justify-center items-center">
+      {NICKNAME_COLOR_SET.map((color) => (
+        <TouchableOpacity
+          key={color}
+          onPress={() => changeSelectedPalette(color)}
+        >
+          <View
+            className="w-[40px] h-[40px] rounded-full"
+            style={{
+              backgroundColor: color,
+              borderColor: 'white',
+              borderWidth: selectedPalette === color ? 3 : 0,
+            }}
+          />
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
 }
