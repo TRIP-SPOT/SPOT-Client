@@ -1,16 +1,15 @@
 import { Font } from 'design-system';
-import { View } from 'react-native';
-import Header from '@/components/signup/Header';
-import Overlay from '@/components/signup/Overlay';
-import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
+import { Text, View } from 'react-native';
 import ColorPicker, {
-  OpacitySlider,
-  Panel1,
   returnedResults,
   SaturationSlider,
 } from 'reanimated-color-picker';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import tinycolor from 'tinycolor2';
+import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
+import Overlay from '@/components/signup/Overlay';
+import Header from '@/components/signup/Header';
 
 interface NicknameProfileProps {
   navigation: SignupStackNavigation<'Signup/NicknameProfile'>;
@@ -32,7 +31,7 @@ export default function NicknameProfile({
   navigation,
   route,
 }: NicknameProfileProps) {
-  const nickname = route.params.nickname;
+  const { nickname } = route.params;
   const [selectColor, setSelectColor] = useState('');
   const [selectBarColor, setSelectBarColor] = useState<ColorPick>(COLOR_SET[0]);
 
@@ -43,6 +42,11 @@ export default function NicknameProfile({
   const onChangeSelectedBarColor = (color: ColorPick) => {
     setSelectColor(color);
     setSelectBarColor(color);
+  };
+
+  const getFontColor = () => {
+    const textColor = tinycolor(selectColor);
+    return textColor.darken(25).toHexString();
   };
 
   return (
@@ -62,14 +66,19 @@ export default function NicknameProfile({
         </View>
         <View className="flex justify-center items-center mt-[60px]">
           <View
-            className="w-[140px] h-[140px] rounded-full justify-center items-center"
+            className="w-[160px] h-[160px] rounded-full justify-center items-center"
             style={{
               backgroundColor: selectColor,
             }}
           >
-            <Font.Bold color="red" type="title1">
+            <Text
+              className="font-Pretendard-Medium text-[40px]"
+              style={{
+                color: getFontColor(),
+              }}
+            >
               {nickname}
-            </Font.Bold>
+            </Text>
           </View>
         </View>
         <View className="flex flex-row gap-4 justify-center items-center mt-[40px]">
