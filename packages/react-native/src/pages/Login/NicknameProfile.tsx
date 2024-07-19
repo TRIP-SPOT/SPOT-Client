@@ -10,10 +10,10 @@ import tinycolor from 'tinycolor2';
 import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
 import Overlay from '@/components/signup/Overlay';
 import Header from '@/components/signup/Header';
+import { useRoute } from '@react-navigation/native';
 
 interface NicknameProfileProps {
   navigation: SignupStackNavigation<'Signup/NicknameProfile'>;
-  route: SignupRouteProps<'Signup/NicknameProfile'>;
 }
 
 const COLOR_SET = [
@@ -27,10 +27,8 @@ const COLOR_SET = [
 
 type ColorPick = (typeof COLOR_SET)[number];
 
-export default function NicknameProfile({
-  navigation,
-  route,
-}: NicknameProfileProps) {
+export default function NicknameProfile({ navigation }: NicknameProfileProps) {
+  const route = useRoute<SignupRouteProps<'Signup/NicknameProfile'>>();
   const { nickname } = route.params;
   const [selectColor, setSelectColor] = useState('');
   const [selectBarColor, setSelectBarColor] = useState<ColorPick>(COLOR_SET[0]);
