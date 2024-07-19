@@ -1,6 +1,6 @@
-import { Font } from 'design-system';
+import { Font, TextField } from 'design-system';
 import { useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { View } from 'react-native';
 import Header from '@/components/signup/Header';
 import Overlay from '@/components/signup/Overlay';
 import { SignupStackNavigation } from '@/types/navigation';
@@ -11,6 +11,16 @@ interface NicknameProps {
 
 export default function Niakname({ navigation }: NicknameProps) {
   const [nickname, setNickname] = useState('');
+
+  const isCorrect = nickname.length > 0 && nickname.length < 7;
+
+  const handleSubmit = () => {
+    if (isCorrect) {
+      navigation.navigate('Signup/Profile', {
+        nickname,
+      });
+    }
+  };
 
   return (
     <Overlay>
@@ -30,17 +40,13 @@ export default function Niakname({ navigation }: NicknameProps) {
         <Font type="body2" color="white">
           닉네임
         </Font>
-        <TextInput
+
+        <TextField
           value={nickname}
-          onChangeText={(newNickname) => setNickname(newNickname)}
+          onChange={(newNickname) => setNickname(newNickname)}
+          onSubmit={handleSubmit}
           placeholder="닉네임"
-          placeholderTextColor="#ffffff"
-          className="text-SPOT-white text-body2  rounded-md p-4  placeholder-SPOT-white bg-SPOT-white/60 mt-[8px]"
-          onSubmitEditing={() => {
-            navigation.navigate('Signup/Profile', {
-              nickname,
-            });
-          }}
+          isCorrect={isCorrect}
         />
       </View>
     </Overlay>

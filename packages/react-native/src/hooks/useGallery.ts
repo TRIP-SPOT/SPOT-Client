@@ -1,5 +1,6 @@
 import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import { Alert, Linking, Platform } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
 import {
   check,
   PERMISSIONS,
@@ -11,7 +12,8 @@ import {
 export default function useGallery() {
   const checkGalleryPermission = (result: PermissionStatus) => {
     switch (result) {
-      case (RESULTS.GRANTED, RESULTS.LIMITED):
+      case RESULTS.GRANTED:
+      case RESULTS.LIMITED:
         return 'granted';
 
       default:
@@ -55,5 +57,21 @@ export default function useGallery() {
     return CameraRoll.saveAsset(uri);
   };
 
-  return { savePhoto };
+  const getPhoto = async () => {
+    const hasPermission = await hasGalleryPermission();
+    if (!hasPermission) return Promise.reject();
+
+    const response = await launchImageLibrary({
+      mediaType: 'photo',
+      selectionLimit: 1,
+    });
+
+    if (response.didCancel) {
+      return null;
+    }
+
+    return response.assets?.[0]?.uri;
+  };
+
+  return { savePhoto, getPhoto };
 }

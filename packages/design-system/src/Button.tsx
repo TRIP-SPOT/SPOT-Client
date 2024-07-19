@@ -1,13 +1,17 @@
 import React, { ReactNode } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 export type ButtonProps = {
-  onPress: () => void;
-  disabled: boolean;
   children: ReactNode;
+  disabled?: boolean;
+  onPress?: () => void;
 };
 
-export const Button = ({ onPress, disabled, children }: ButtonProps) => {
+export const Button = ({
+  onPress,
+  children,
+  disabled = false,
+}: ButtonProps) => {
   return (
     <TouchableOpacity
       className={`py-[11px] w-full rounded-[24px] justify-center items-center ${
