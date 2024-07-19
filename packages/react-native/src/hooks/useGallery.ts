@@ -66,9 +66,7 @@ export default function useGallery() {
       selectionLimit: 1,
     });
 
-    if (response.didCancel) {
-      return null;
-    }
+    if (response.didCancel) return null;
 
     return response.assets?.[0]?.uri;
   };

@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import {
+  CameraPosition,
   useCameraDevice,
   useCameraPermission,
 } from 'react-native-vision-camera';
@@ -14,7 +15,8 @@ import {
 import useCameraPermissionAlert from './useCameraPermissionAlert';
 
 export default function useCamera() {
-  const device = useCameraDevice('back');
+  const [cameraPosition, setCameraPosition] = useState<CameraPosition>('back');
+  const device = useCameraDevice(cameraPosition);
   const { hasPermission } = useCameraPermission();
   const cameraPermissionAlert = useCameraPermissionAlert();
 
@@ -26,6 +28,10 @@ export default function useCamera() {
         cameraPermissionAlert();
         break;
     }
+  };
+
+  const changeCameraPosition = () => {
+    setCameraPosition((prev) => (prev === 'back' ? 'front' : 'back'));
   };
 
   useEffect(() => {
@@ -40,5 +46,5 @@ export default function useCamera() {
     }
   }, []);
 
-  return { device, hasPermission };
+  return { device, hasPermission, changeCameraPosition };
 }
