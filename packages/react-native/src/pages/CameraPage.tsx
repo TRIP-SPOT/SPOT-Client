@@ -6,11 +6,12 @@ import { Camera, PhotoFile } from 'react-native-vision-camera';
 import useCamera from '@/hooks/useCamera';
 import DownloadIcon from '@/assets/DownloadIcon';
 import useGallery from '@/hooks/useGallery';
+import ChangeIcon from '@/assets/ChangeIcon';
 
 export default function CameraPage() {
   const camera = useRef<Camera>(null);
   const captureRef = useRef<ViewShot>(null);
-  const { device, hasPermission } = useCamera();
+  const { device, hasPermission, changeCameraPosition } = useCamera();
   const [Filter] = useState(<View className="w-20 h-20 absolue bg-blue-300" />);
   const [photo, setPhoto] = useState<PhotoFile | null>(null);
   const { savePhoto: savePicture } = useGallery();
@@ -96,13 +97,22 @@ export default function CameraPage() {
             audio={false}
           />
           {Filter}
-          <TouchableOpacity
-            onPress={takePhoto}
-            className="absolute bottom-24 items-center justify-center"
-          >
-            <View className="absolute bg-white w-[80px] h-[80px] rounded-full" />
-            <View className="absolute bg-white w-[72px] h-[72px] rounded-full border-[3px] border-SPOT-black" />
-          </TouchableOpacity>
+          <View className="absolute items-center justify-between flex-row bottom-0 pb-16 w-full px-10 pt-10">
+            <TouchableOpacity
+              onPress={changeCameraPosition}
+              className="items-center justify-center w-[52px] h-[52px] rounded-full bg-SPOT-black/50"
+            >
+              <ChangeIcon />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={takePhoto}
+              className="items-center justify-center"
+            >
+              <View className="absolute bg-white w-[80px] h-[80px] rounded-full" />
+              <View className="absolute bg-white w-[72px] h-[72px] rounded-full border-[3px] border-SPOT-black" />
+            </TouchableOpacity>
+            <View className="w-[52px] h-[52px]" />
+          </View>
         </>
       )}
     </View>
