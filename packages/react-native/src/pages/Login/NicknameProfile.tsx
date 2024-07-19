@@ -1,45 +1,38 @@
 import { Font } from 'design-system';
 import { Text, View } from 'react-native';
-import ColorPicker, {
-  returnedResults,
-  SaturationSlider,
-} from 'reanimated-color-picker';
+import { returnedResults } from 'reanimated-color-picker';
 import { useState } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import tinycolor from 'tinycolor2';
-import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
-import Overlay from '@/components/signup/Overlay';
-import Header from '@/components/signup/Header';
 import { useRoute } from '@react-navigation/native';
+import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
+import Overlay from '@/components/signup/common/Overlay';
+import Header from '@/components/signup/common/Header';
+import {
+  NICKNAME_COLOR_SET,
+  NicknameColorSet,
+} from '@/constants/NICKNAME_COLOR_SET';
+import NicknameColorPalette from '@/components/signup/nicknameProfile/NicknameColorPalette';
+import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
 
 interface NicknameProfileProps {
   navigation: SignupStackNavigation<'Signup/NicknameProfile'>;
 }
 
-const COLOR_SET = [
-  '#F7AFAF',
-  '#F7D6AF',
-  '#F7F4AF',
-  '#AFF7B2',
-  '#AFE1F7',
-  '#BEAFF7',
-];
-
-type ColorPick = (typeof COLOR_SET)[number];
-
 export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   const route = useRoute<SignupRouteProps<'Signup/NicknameProfile'>>();
   const { nickname } = route.params;
-  const [selectColor, setSelectColor] = useState('');
-  const [selectBarColor, setSelectBarColor] = useState<ColorPick>(COLOR_SET[0]);
+  const [selectColor, setSelectColor] = useState(NICKNAME_COLOR_SET[0]);
+  const [selectedPalette, setSelectedPalette] = useState<NicknameColorSet>(
+    NICKNAME_COLOR_SET[0],
+  );
 
   const onSelectColor = ({ hex }: returnedResults) => {
     setSelectColor(hex);
   };
 
-  const onChangeSelectedBarColor = (color: ColorPick) => {
+  const onChangeSelectedBarColor = (color: NicknameColorSet) => {
     setSelectColor(color);
-    setSelectBarColor(color);
+    setSelectedPalette(color);
   };
 
   const getFontColor = () => {
@@ -79,39 +72,16 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
             </Text>
           </View>
         </View>
+
         <View className="flex flex-row gap-4 justify-center items-center mt-[40px]">
-          {COLOR_SET.map((color) => (
-            <TouchableOpacity
-              key={color}
-              onPress={() => onChangeSelectedBarColor(color)}
-            >
-              <View
-                className="w-[40px] h-[40px] rounded-full"
-                style={{
-                  backgroundColor: color,
-                  borderColor: 'white',
-                  borderWidth: selectBarColor === color ? 3 : 0,
-                }}
-              />
-            </TouchableOpacity>
-          ))}
+          <NicknameColorPalette
+            selectedPalette={selectedPalette}
+            changeSelectedPalette={onChangeSelectedBarColor}
+          />
         </View>
+
         <View className="mt-[64px]">
-          <ColorPicker
-            style={{
-              flex: 1,
-            }}
-            value={selectBarColor}
-            onChange={onSelectColor}
-          >
-            <SaturationSlider
-              reverse
-              style={{
-                borderRadius: 50,
-                height: 36,
-              }}
-            />
-          </ColorPicker>
+          <ColorSlider baseColor={selectedPalette} onChange={onSelectColor} />
         </View>
       </View>
     </Overlay>
