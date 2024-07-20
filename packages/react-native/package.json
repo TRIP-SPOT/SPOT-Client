@@ -10,7 +10,10 @@
     "test": "jest"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": "eslint --fix"
+    "*.{js,ts,tsx}": [
+      "prettier --cache --write",
+      "eslint --cache --cache-location ./.cache/.eslintcache"
+    ]
   },
   "dependencies": {
     "@react-native-camera-roll/camera-roll": "^7.8.1",
