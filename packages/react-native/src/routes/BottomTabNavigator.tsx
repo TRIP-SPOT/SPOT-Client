@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Home from '@pages/Home';
 import HomeIcon from '@assets/HomeIcon';
 import Detail from '@pages/Detail';
@@ -11,6 +11,7 @@ import Maps from '@/pages/Maps';
 
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
@@ -21,15 +22,16 @@ export default function BottomTabNavigator() {
           backgroundColor: '#191919',
           borderTopWidth: 0.5,
           borderTopColor: '#333333',
-          height: Platform.OS === 'ios' ? 95 : 65,
+          height: 60 + insets.bottom,
+          paddingBottom: 5 + insets.bottom,
         },
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: 400,
           textAlign: 'center',
           lineHeight: 13,
-          top: -5,
           fontFamily: 'Pretendard-Medium',
+          top: -2,
         },
         tabBarActiveTintColor: '#FF1919',
         tabBarInactiveTintColor: '#909090',

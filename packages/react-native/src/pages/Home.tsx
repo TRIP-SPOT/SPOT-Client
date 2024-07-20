@@ -1,4 +1,4 @@
-import { ScrollView, View, SafeAreaView } from 'react-native';
+import { ScrollView, View, SafeAreaView, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button, Font } from 'design-system';
 import CardSlider from '@components/CardSlider';
@@ -74,10 +74,9 @@ export default function Home({ navigation }: HomeScreenProps) {
                   안녕하세요, 아무개님.{'\n'}오늘은 어디로 가 볼까요?
                 </Font>
                 {/* FIXME: 추후 삭제 */}
-                <Button
-                  onPress={() => navigation.navigate('Camera')}
-                  text="카메라"
-                />
+                <Button onPress={() => navigation.navigate('Camera')}>
+                  <Text className="text-SPOT-white">카메라</Text>
+                </Button>
               </View>
               <View>
                 <SearchBar placeholder="드라마/영화 제목을 검색하세요." />
