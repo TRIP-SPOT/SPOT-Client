@@ -1,2 +1,1 @@
-cd packages/react-native
-yarn lint
+yarn workspace react-native run lint-staged
