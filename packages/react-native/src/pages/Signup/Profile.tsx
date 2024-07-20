@@ -4,8 +4,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import { useRoute } from '@react-navigation/native';
 import SelectProfile from '@/assets/SelectProfile';
-import Header from '@/components/signup/Header';
-import Overlay from '@/components/signup/Overlay';
+import Header from '@/components/signup/common/Header';
+import Overlay from '@/components/signup/common/Overlay';
 import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
 import useGallery from '@/hooks/useGallery';
 

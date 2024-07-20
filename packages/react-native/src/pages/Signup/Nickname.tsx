@@ -1,8 +1,8 @@
 import { Font, TextField } from 'design-system';
 import { useState } from 'react';
 import { View } from 'react-native';
-import Header from '@/components/signup/Header';
-import Overlay from '@/components/signup/Overlay';
+import Header from '@/components/signup/common/Header';
+import Overlay from '@/components/signup/common/Overlay';
 import { SignupStackNavigation } from '@/types/navigation';
 
 interface NicknameProps {

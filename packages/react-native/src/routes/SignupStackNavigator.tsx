@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import Niakname from '@/pages/Login/Nickname';
-import Profile from '@/pages/Login/Profile';
-import NicknameProfile from '@/pages/Login/NicknameProfile';
+import Niakname from '@/pages/Signup/Nickname';
+import Profile from '@/pages/Signup/Profile';
+import NicknameProfile from '@/pages/Signup/NicknameProfile';
 
 const Stack = createStackNavigator();
 
