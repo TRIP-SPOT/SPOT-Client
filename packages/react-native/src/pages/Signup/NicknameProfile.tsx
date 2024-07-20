@@ -21,22 +21,22 @@ interface NicknameProfileProps {
 export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   const route = useRoute<SignupRouteProps<'Signup/NicknameProfile'>>();
   const { nickname } = route.params;
-  const [selectColor, setSelectColor] = useState(NICKNAME_COLOR_SET[0]);
+  const [selectedColor, setSelectedColor] = useState(NICKNAME_COLOR_SET[0]);
   const [selectedPalette, setSelectedPalette] = useState<NicknameColorSet>(
     NICKNAME_COLOR_SET[0],
   );
 
   const onSelectColor = ({ hex }: returnedResults) => {
-    setSelectColor(hex);
+    setSelectedColor(hex);
   };
 
   const onChangeSelectedBarColor = (color: NicknameColorSet) => {
-    setSelectColor(color);
+    setSelectedColor(color);
     setSelectedPalette(color);
   };
 
   const getFontColor = () => {
-    const textColor = tinycolor(selectColor);
+    const textColor = tinycolor(selectedColor);
     return textColor.darken(25).toHexString();
   };
 
