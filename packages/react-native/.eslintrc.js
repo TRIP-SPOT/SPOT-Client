@@ -20,6 +20,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'off',
     'import/no-extraneous-dependencies': 'off',
     'react/require-default-props': 'off',
+    'no-console': 'error',
   },
   ignorePatterns: [
     'index.js',
