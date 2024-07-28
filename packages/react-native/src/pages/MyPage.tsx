@@ -1,12 +1,17 @@
-import { Alert, View } from 'react-native';
+import { View } from 'react-native';
 import { Font } from 'design-system';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import SelectProfile from '@/assets/SelectProfile';
 import Badge from '@/components/mypage/Badge';
 import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
+import { MyPageRouteProps } from '@/types/navigation';
 
-export default function MyPage() {
+interface MyPageProps {
+  navigation: MyPageRouteProps<'myPage/profile'>;
+}
+
+export default function MyPage({ navigation }: MyPageProps) {
   return (
     <BackGroundGradient>
       <View className="flex pt-16">
@@ -16,9 +21,7 @@ export default function MyPage() {
             <SelectProfile />
             <View className="absolute right-0 bottom-0">
               <EditButton
-                onPress={() => {
-                  Alert.alert('변경');
-                }}
+                onPress={() => navigation.navigate('myPage/editProfile')}
               />
             </View>
           </View>

@@ -3,11 +3,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Home from '@pages/Home';
 import HomeIcon from '@assets/HomeIcon';
 import Detail from '@pages/Detail';
-import MyPage from '@pages/MyPage';
 import MapIcon from '@assets/MapIcon';
 import DetailIcon from '@assets/DetailIcon';
 import MyPageIcon from '@assets/MyPageIcon';
 import Maps from '@/pages/Maps';
+import MyPageStackNavigator from './MyPageStackNavigator';
 
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -45,7 +45,6 @@ export default function BottomTabNavigator() {
           tabBarIcon: HomeIcon,
         }}
       />
-      {/* FIXME: 경로 페이지로 변경 */}
       <Tab.Screen
         name="Route"
         component={Maps}
@@ -65,7 +64,7 @@ export default function BottomTabNavigator() {
       />
       <Tab.Screen
         name="MyPage"
-        component={MyPage}
+        component={MyPageStackNavigator}
         options={{
           tabBarLabel: '마이페이지',
           tabBarIcon: MyPageIcon,
