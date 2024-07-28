@@ -4,6 +4,7 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 import SelectProfile from '@/assets/SelectProfile';
 import Badge from '@/components/mypage/Badge';
 import EditButton from '@/components/common/EditButton';
+import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
 
 export default function MyPage() {
   return (
@@ -32,6 +33,9 @@ export default function MyPage() {
               </Font>
             </View>
           </View>
+        </View>
+        <View className="w-full mt-5 px-5">
+          <MyPageTabNavigator />
         </View>
       </View>
     </BackGroundGradient>
