@@ -9,7 +9,7 @@ import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
 export default function MyPage() {
   return (
     <BackGroundGradient>
-      <View className="flex flex-col mt-16">
+      <View className="flex pt-16">
         <View className="flex items-center gap-7">
           {/* FIXME: 실제 이미지 받아와서 설정 */}
           <View className="relative">
@@ -34,7 +34,7 @@ export default function MyPage() {
             </View>
           </View>
         </View>
-        <View className="w-full mt-5 px-5">
+        <View className="p-5 h-96">
           <MyPageTabNavigator />
         </View>
       </View>

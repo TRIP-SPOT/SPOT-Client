@@ -19,8 +19,8 @@ export default function BackGroundGradient({
         end={{ x: 0, y: 1 }}
         className="h-full"
       >
-        <SafeAreaView>
-          <ScrollView showsVerticalScrollIndicator={false}>
+        <SafeAreaView className="flex-1">
+          <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
             {children}
           </ScrollView>
         </SafeAreaView>
