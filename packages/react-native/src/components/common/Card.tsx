@@ -1,5 +1,5 @@
 import { FlatList, ImageBackground, Text, View } from 'react-native';
-import Heart from '@assets/Heart';
+import HeartIcon from '@assets/HeartIcon';
 import { SpotData } from '@/types/spot';
 import Tag from './Tag';
 
@@ -27,7 +27,7 @@ export default function Card({ data }: { data: SpotData }) {
                 {locationName}
               </Text>
               <View>
-                <Heart width={12} height={12} />
+                <HeartIcon width={12} height={12} />
               </View>
             </View>
             {/* FIXME: 디자인 시스템 적용 */}

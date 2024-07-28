@@ -1,6 +1,6 @@
 import { Path, Svg, SvgProps } from 'react-native-svg';
 
-export default function Heart({ width, height, color }: SvgProps) {
+export default function HeartIcon({ width, height, color }: SvgProps) {
   return (
     <Svg
       width={width || 20}
