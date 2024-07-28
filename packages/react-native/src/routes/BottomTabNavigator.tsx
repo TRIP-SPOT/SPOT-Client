@@ -35,6 +35,7 @@ export default function BottomTabNavigator() {
         },
         tabBarActiveTintColor: '#FF1919',
         tabBarInactiveTintColor: '#909090',
+        unmountOnBlur: true,
       }}
     >
       <Tab.Screen
