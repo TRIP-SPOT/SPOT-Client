@@ -7,7 +7,7 @@ import MyPage from '@pages/MyPage';
 import MapIcon from '@assets/MapIcon';
 import DetailIcon from '@assets/DetailIcon';
 import MyPageIcon from '@assets/MyPageIcon';
-import CameraPage from '@/pages/CameraPage';
+import Maps from '@/pages/Maps';
 
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -46,7 +46,7 @@ export default function BottomTabNavigator() {
       {/* FIXME: 경로 페이지로 변경 */}
       <Tab.Screen
         name="Route"
-        component={CameraPage}
+        component={Maps}
         options={{
           tabBarLabel: '경로',
           tabBarIcon: MapIcon,
