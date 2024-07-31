@@ -1,18 +1,12 @@
 import { Button, Font } from 'design-system';
 import { Text, View } from 'react-native';
-import { returnedResults } from 'reanimated-color-picker';
-import { useState } from 'react';
-import tinycolor from 'tinycolor2';
 import { useRoute } from '@react-navigation/native';
 import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
 import Overlay from '@/components/signup/common/Overlay';
 import Header from '@/components/signup/common/Header';
-import {
-  NICKNAME_COLOR_SET,
-  NicknameColorSet,
-} from '@/constants/NICKNAME_COLOR_SET';
 import NicknameColorPalette from '@/components/signup/nicknameProfile/NicknameColorPalette';
 import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
+import useColorPalette from '@/hooks/useColorPalette';
 
 interface NicknameProfileProps {
   navigation: SignupStackNavigation<'Signup/NicknameProfile'>;
@@ -21,24 +15,13 @@ interface NicknameProfileProps {
 export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   const route = useRoute<SignupRouteProps<'Signup/NicknameProfile'>>();
   const { nickname } = route.params;
-  const [selectedColor, setSelectedColor] = useState(NICKNAME_COLOR_SET[0]);
-  const [selectedPalette, setSelectedPalette] = useState<NicknameColorSet>(
-    NICKNAME_COLOR_SET[0],
-  );
-
-  const onSelectColor = ({ hex }: returnedResults) => {
-    setSelectedColor(hex);
-  };
-
-  const onChangeSelectedBarColor = (color: NicknameColorSet) => {
-    setSelectedColor(color);
-    setSelectedPalette(color);
-  };
-
-  const getFontColor = () => {
-    const textColor = tinycolor(selectedColor);
-    return textColor.darken(25).toHexString();
-  };
+  const {
+    selectedColor,
+    selectedPalette,
+    onSelectColor,
+    onChangeSelectedBarColor,
+    textColor,
+  } = useColorPalette();
 
   const handleNext = () => {
     navigation.navigate('Main');
@@ -62,7 +45,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
           </View>
           <View className="flex justify-center items-center mt-[60px]">
             <View
-              className="w-[160px] h-[160px] rounded-full justify-center items-center"
+              className="w-40 h-40 rounded-full justify-center items-center"
               style={{
                 backgroundColor: selectedColor,
               }}
@@ -70,7 +53,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
               <Text
                 className="font-Pretendard-Medium text-[40px]"
                 style={{
-                  color: getFontColor(),
+                  color: textColor,
                 }}
               >
                 {nickname}
@@ -78,14 +61,14 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
             </View>
           </View>
 
-          <View className="mt-[40px]">
+          <View className="mt-8">
             <NicknameColorPalette
               selectedPalette={selectedPalette}
               changeSelectedPalette={onChangeSelectedBarColor}
             />
           </View>
 
-          <View className="mt-[64px]">
+          <View className="mt-8">
             <ColorSlider baseColor={selectedPalette} onChange={onSelectColor} />
           </View>
         </View>
