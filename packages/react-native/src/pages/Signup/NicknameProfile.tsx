@@ -64,7 +64,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
             <View
               className="w-[160px] h-[160px] rounded-full justify-center items-center"
               style={{
-                backgroundColor: selectColor,
+                backgroundColor: selectedColor,
               }}
             >
               <Text
