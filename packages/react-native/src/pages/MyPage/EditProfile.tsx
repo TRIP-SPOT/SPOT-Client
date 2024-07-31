@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
 import { Button, Font, TextField } from 'design-system';
+import useProfileImage from '@/hooks/useProfileImage';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import SelectProfile from '@/assets/SelectProfile';
 
 export default function EditProfile() {
   // FIXME: 실제 닉네임으로 변경
+  const { ProfileImage, photoUri } = useProfileImage();
   const [nickName, setNickName] = useState('');
+
+  const handleChangeProfile = () => {
+    Alert.alert(photoUri);
+  };
 
   return (
     <>
@@ -14,7 +19,7 @@ export default function EditProfile() {
         <View className="p-4 pt-14">
           <View className="flex gap-10">
             <View className="flex items-center justify-center pt-5">
-              <SelectProfile />
+              <ProfileImage />
             </View>
             <View>
               <View>
@@ -52,7 +57,7 @@ export default function EditProfile() {
       </BackGroundGradient>
 
       <View className="bottom-16">
-        <Button onPress={() => Alert.alert('변경')}>
+        <Button onPress={handleChangeProfile}>
           <Font.Bold type="title1" color="white">
             완료
           </Font.Bold>
