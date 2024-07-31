@@ -3,11 +3,16 @@ import { Alert, TouchableOpacity, View } from 'react-native';
 import { Button, Font, TextField } from 'design-system';
 import useProfileImage from '@/hooks/useProfileImage';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
+import { MyPageStackNavigation } from '@/types/navigation';
 
-export default function EditProfile() {
+interface EditProfileProps {
+  navigation: MyPageStackNavigation<'myPage/editProfile'>;
+}
+
+export default function EditProfile({ navigation }: EditProfileProps) {
   // FIXME: 실제 닉네임으로 변경
   const { ProfileImage, photoUri } = useProfileImage();
-  const [nickName, setNickName] = useState('');
+  const [nickname, setNickname] = useState('');
 
   const handleChangeProfile = () => {
     Alert.alert(photoUri);
@@ -30,14 +35,19 @@ export default function EditProfile() {
               <View className="mt-2">
                 <TextField
                   placeholder="닉네임을 입력하세요."
-                  value={nickName}
-                  onChange={(newNickName) => setNickName(newNickName)}
+                  value={nickname}
+                  onChange={(newNickName) => setNickname(newNickName)}
                 />
               </View>
             </View>
             <View className="flex items-center gap-2">
-              {/* FIXME: 닉네임으로 프로필 사진 변경 기능 추가 */}
-              <TouchableOpacity onPress={() => Alert.alert('닉네임으로 설정')}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('myPage/editProfileWithNickname', {
+                    nickname,
+                  })
+                }
+              >
                 <Font.Bold type="body3" color="white" underline>
                   닉네임으로 프로필 사진 설정하기
                 </Font.Bold>

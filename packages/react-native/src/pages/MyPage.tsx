@@ -5,10 +5,10 @@ import SelectProfile from '@/assets/SelectProfile';
 import Badge from '@/components/mypage/Badge';
 import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
-import { MyPageRouteProps } from '@/types/navigation';
+import { MyPageStackNavigation } from '@/types/navigation';
 
 interface MyPageProps {
-  navigation: MyPageRouteProps<'myPage/profile'>;
+  navigation: MyPageStackNavigation<'myPage/profile'>;
 }
 
 export default function MyPage({ navigation }: MyPageProps) {

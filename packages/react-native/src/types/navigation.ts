@@ -15,5 +15,10 @@ export type SignupRouteProps<T extends keyof SignupStackParamList> = RouteProp<
   T
 >;
 
-export type MyPageRouteProps<T extends keyof MyPageStackParamList> =
+export type MyPageStackNavigation<T extends keyof MyPageStackParamList> =
   StackNavigationProp<MyPageStackParamList, T>;
+
+export type MyPageRouteProps<T extends keyof MyPageStackParamList> = RouteProp<
+  MyPageStackParamList,
+  T
+>;
