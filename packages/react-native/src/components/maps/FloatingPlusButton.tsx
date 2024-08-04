@@ -1,3 +1,4 @@
+import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import PlusButtonIcon from '@/assets/PlusButtonIcon';
 
@@ -17,8 +18,7 @@ export default function FloatingPlusButton({
   left,
 }: FloatingPlusButtonProps) {
   return (
-    <TouchableOpacity
-      onPress={onPress}
+    <View
       style={{
         position: 'absolute',
         top,
@@ -27,7 +27,9 @@ export default function FloatingPlusButton({
         left,
       }}
     >
-      <PlusButtonIcon />
-    </TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
+        <PlusButtonIcon />
+      </TouchableOpacity>
+    </View>
   );
 }
