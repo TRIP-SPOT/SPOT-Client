@@ -27,7 +27,7 @@ export default function Header({
           </Font.Bold>
         </View>
       )}
-      {RightActionButton}
+      {RightActionButton || <View />}
     </View>
   );
 }
