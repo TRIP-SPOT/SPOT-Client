@@ -9,6 +9,12 @@ import BottomSheet, {
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import mapData from '@/assets/mapData';
+import { KoreaLocationName } from '@/types/map';
+import { MapsStackNavigation } from '@/types/navigation';
+
+interface MapsMainProps {
+  navigation: MapsStackNavigation<'Maps/Main'>;
+}
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,9 +30,9 @@ const renderBackdropComponent = (props: BottomSheetBackdropProps) => (
   />
 );
 
-export default function Maps() {
+export default function Maps({ navigation }: MapsMainProps) {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const [region, setRegion] = useState('');
+  const [region, setRegion] = useState<KoreaLocationName>();
 
   const snapPoints = useMemo(() => ['30%'], []);
 
@@ -39,7 +45,7 @@ export default function Maps() {
 
   return (
     <View className="flex-1 bg-[#D2F3F8]">
-      <Svg width={width} height={height} onPress={() => setRegion('')}>
+      <Svg width={width} height={height}>
         <G>
           {mapData.features.map((feature) => {
             const geoFeature = feature as GeoJSON.Feature<GeoJSON.Geometry>;
@@ -80,7 +86,12 @@ export default function Maps() {
                   </Font>
                 </TouchableOpacity>
                 <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-                <TouchableOpacity className="py-2">
+                <TouchableOpacity
+                  className="py-2"
+                  onPress={() =>
+                    navigation.navigate('Maps/Log', { location: region })
+                  }
+                >
                   <Font type="title1" color="black">
                     로그보기
                   </Font>

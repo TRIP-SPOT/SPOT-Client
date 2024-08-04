@@ -3,6 +3,7 @@ import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '@/routes/StackNavigator';
 import { SignupStackParamList } from '@/routes/SignupStackNavigator';
 import { MyPageStackParamList } from '@/routes/MyPageStackNavigator';
+import { MapsStackParamList } from '@/routes/MapsStackNavigator';
 
 export type ScreenNavigationProp<T extends keyof RootStackParamList> =
   StackNavigationProp<RootStackParamList, T>;
@@ -20,5 +21,13 @@ export type MyPageStackNavigation<T extends keyof MyPageStackParamList> =
 
 export type MyPageRouteProps<T extends keyof MyPageStackParamList> = RouteProp<
   MyPageStackParamList,
+  T
+>;
+
+export type MapsStackNavigation<T extends keyof MapsStackParamList> =
+  StackNavigationProp<MapsStackParamList, T>;
+
+export type MapsRouteProps<T extends keyof MapsStackParamList> = RouteProp<
+  MapsStackParamList,
   T
 >;
