@@ -1,16 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Home from '@pages/Home';
 import HomeIcon from '@assets/HomeIcon';
 import Detail from '@pages/Detail';
-import MyPage from '@pages/MyPage';
 import MapIcon from '@assets/MapIcon';
 import DetailIcon from '@assets/DetailIcon';
 import MyPageIcon from '@assets/MyPageIcon';
 import Maps from '@/pages/Maps';
+import MyPageStackNavigator from './MyPageStackNavigator';
 
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
@@ -21,18 +22,20 @@ export default function BottomTabNavigator() {
           backgroundColor: '#191919',
           borderTopWidth: 0.5,
           borderTopColor: '#333333',
-          height: Platform.OS === 'ios' ? 95 : 65,
+          height: 60 + insets.bottom,
+          paddingBottom: 5 + insets.bottom,
         },
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: 400,
           textAlign: 'center',
           lineHeight: 13,
-          top: -5,
           fontFamily: 'Pretendard-Medium',
+          top: -2,
         },
         tabBarActiveTintColor: '#FF1919',
         tabBarInactiveTintColor: '#909090',
+        unmountOnBlur: true,
       }}
     >
       <Tab.Screen
@@ -43,7 +46,6 @@ export default function BottomTabNavigator() {
           tabBarIcon: HomeIcon,
         }}
       />
-      {/* FIXME: 경로 페이지로 변경 */}
       <Tab.Screen
         name="Route"
         component={Maps}
@@ -63,7 +65,7 @@ export default function BottomTabNavigator() {
       />
       <Tab.Screen
         name="MyPage"
-        component={MyPage}
+        component={MyPageStackNavigator}
         options={{
           tabBarLabel: '마이페이지',
           tabBarIcon: MyPageIcon,

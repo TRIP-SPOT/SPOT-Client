@@ -19,6 +19,7 @@ const FONT_TYPE_PREFIX = {
   body1: 'text-[16px] leading-[24px]',
   body2: 'text-[14px] leading-[18px]',
   body3: 'text-[12px] leading-[16px]',
+  'ui-text': 'text-[10px] leading-[10px]',
 };
 
 export type Color = keyof typeof COLOR_PREFIX;
@@ -36,13 +37,7 @@ const FontRegular = ({ type, color, children, underline }: FontProps) => {
   const colorStyle = COLOR_PREFIX[color];
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.MEDIUM;
-  return (
-    <Text
-      className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}
-    >
-      {children}
-    </Text>
-  );
+  return <Text className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}>{children}</Text>;
 };
 
 const FontBold = ({ type, color, children, underline }: FontProps) => {
@@ -50,13 +45,7 @@ const FontBold = ({ type, color, children, underline }: FontProps) => {
   const colorStyle = COLOR_PREFIX[color];
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.BOLD;
-  return (
-    <Text
-      className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}
-    >
-      {children}
-    </Text>
-  );
+  return <Text className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}>{children}</Text>;
 };
 
 const FontLight = ({ type, color, children, underline }: FontProps) => {
@@ -65,13 +54,7 @@ const FontLight = ({ type, color, children, underline }: FontProps) => {
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.LIGHT;
 
-  return (
-    <Text
-      className={`${fontType} ${fontStyle} ${colorStyle} ${underLineStyle}`}
-    >
-      {children}
-    </Text>
-  );
+  return <Text className={`${fontType} ${fontStyle} ${colorStyle} ${underLineStyle}`}>{children}</Text>;
 };
 
 export const Font = Object.assign(FontRegular, {

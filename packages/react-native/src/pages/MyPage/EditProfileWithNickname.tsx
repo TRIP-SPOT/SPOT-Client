@@ -1,19 +1,20 @@
-import { Button, Font } from 'design-system';
 import { Text, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
-import Overlay from '@/components/signup/common/Overlay';
-import Header from '@/components/signup/common/Header';
+import { Button, Font } from 'design-system';
+import { MyPageRouteProps, MyPageStackNavigation } from '@/types/navigation';
+import BackGroundGradient from '@/layouts/BackGroundGradient';
 import NicknameColorPalette from '@/components/signup/nicknameProfile/NicknameColorPalette';
 import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
 import useColorPalette from '@/hooks/useColorPalette';
 
-interface NicknameProfileProps {
-  navigation: SignupStackNavigation<'Signup/NicknameProfile'>;
+interface EditProfileWithNicknameProps {
+  navigation: MyPageStackNavigation<'myPage/editProfileWithNickname'>;
 }
 
-export default function NicknameProfile({ navigation }: NicknameProfileProps) {
-  const route = useRoute<SignupRouteProps<'Signup/NicknameProfile'>>();
+export default function EditProfileWithNickname({
+  navigation,
+}: EditProfileWithNicknameProps) {
+  const route = useRoute<MyPageRouteProps<'myPage/editProfileWithNickname'>>();
   const { nickname } = route.params;
   const {
     selectedColor,
@@ -23,26 +24,10 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
     textColor,
   } = useColorPalette();
 
-  const handleNext = () => {
-    navigation.navigate('Main');
-  };
-
   return (
-    <Overlay>
-      <View className="flex-col flex justify-between items-center w-full h-full">
-        <Header
-          onBack={() => navigation.goBack()}
-          onCancel={() => navigation.goBack()}
-        />
-        <View>
-          <View className="flex w-full mt-[30px]">
-            <Font type="mainTitle" color="white">
-              배경 색상을
-            </Font>
-            <Font type="mainTitle" color="white">
-              선택하세요
-            </Font>
-          </View>
+    <>
+      <BackGroundGradient>
+        <View className="p-4 pt-14">
           <View className="flex justify-center items-center mt-[60px]">
             <View
               className="w-40 h-40 rounded-full justify-center items-center"
@@ -72,15 +57,15 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
             <ColorSlider baseColor={selectedPalette} onChange={onSelectColor} />
           </View>
         </View>
+      </BackGroundGradient>
 
-        <View className="w-full">
-          <Button onPress={handleNext}>
-            <Font.Bold type="body2" color="white">
-              다음
-            </Font.Bold>
-          </Button>
-        </View>
+      <View className="bottom-16">
+        <Button onPress={() => navigation.goBack()}>
+          <Font.Bold type="title1" color="white">
+            완료
+          </Font.Bold>
+        </Button>
       </View>
-    </Overlay>
+    </>
   );
 }

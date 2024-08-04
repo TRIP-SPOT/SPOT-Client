@@ -4,18 +4,12 @@ import { TextInput } from 'react-native';
 interface TextField {
   value: string;
   onChange: (value: string) => void;
-  onSubmit: () => void;
+  onSubmit?: () => void;
   placeholder: string;
-  isCorrect: boolean;
+  isCorrect?: boolean;
 }
 
-export function TextField({
-  value,
-  onChange,
-  placeholder,
-  onSubmit,
-  isCorrect,
-}: TextField) {
+export function TextField({ value, onChange, placeholder, onSubmit, isCorrect }: TextField) {
   const defaultClassName =
     'text-SPOT-black text-body2 rounded-md p-4 bg-SPOT-white/60 border-[2px] border-bg-SPOT-white/60';
   const incorrectClassName = 'border-SPOT-red border-[2px]';
@@ -34,7 +28,7 @@ export function TextField({
       value={value}
       onChangeText={onChange}
       placeholder={placeholder}
-      placeholderTextColor="#ffffff"
+      placeholderTextColor='#ffffff'
       className={`${defaultClassName} ${getBorderClassName()}`}
       onSubmitEditing={onSubmit}
     />

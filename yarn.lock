@@ -3608,6 +3608,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-navigation/material-top-tabs@npm:^6.6.14":
+  version: 6.6.14
+  resolution: "@react-navigation/material-top-tabs@npm:6.6.14"
+  dependencies:
+    color: ^4.2.3
+    warn-once: ^0.1.0
+  peerDependencies:
+    "@react-navigation/native": ^6.0.0
+    react: "*"
+    react-native: "*"
+    react-native-pager-view: ">= 4.0.0"
+    react-native-tab-view: ">= 3.0.0"
+  checksum: 565919b1a9a948ab30d6448dd2d59035cb05f1d87d559f3710072a0795b344fdcc543f2eeb8884b5d699a965cac7db5d88641ba87ec7544e23245404ffb860ec
+  languageName: node
+  linkType: hard
+
 "@react-navigation/native@npm:^6.1.17":
   version: 6.1.17
   resolution: "@react-navigation/native@npm:6.1.17"
@@ -14598,6 +14614,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-pager-view@npm:^6.3.3":
+  version: 6.3.3
+  resolution: "react-native-pager-view@npm:6.3.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: b4f6ef33a7de34c254aa0cfdcdb7231c256e5d2b5c5d16f16a7c54379829bae7ec1d86e7daf23ef89dbac6088cf36e9678c3009a20e4ba786498848c86113399
+  languageName: node
+  linkType: hard
+
 "react-native-permissions@npm:^4.1.5":
   version: 4.1.5
   resolution: "react-native-permissions@npm:4.1.5"
@@ -14666,6 +14692,19 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 04f5aafa88e5d641df998c195988904760984004ae3d5b16c3313941f2027d85b4d5f9c35ac9d696ee533ccff33f4f3c9b86249ca6fec787ca4895075ee4d9d0
+  languageName: node
+  linkType: hard
+
+"react-native-tab-view@npm:^3.5.2":
+  version: 3.5.2
+  resolution: "react-native-tab-view@npm:3.5.2"
+  dependencies:
+    use-latest-callback: ^0.1.5
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-pager-view: "*"
+  checksum: bd287e5543881aa662ee55418a3bd5dacb25033425a9fcb0fff21c3a3b96f956af1a77cd9bab4e7a8e94590080a5d8e3cb99cfa8613b19bf6da24bfc9b4942d4
   languageName: node
   linkType: hard
 
@@ -14789,6 +14828,7 @@ __metadata:
     "@react-native/metro-config": 0.74.84
     "@react-native/typescript-config": 0.74.84
     "@react-navigation/bottom-tabs": ^6.6.0
+    "@react-navigation/material-top-tabs": ^6.6.14
     "@react-navigation/native": ^6.1.17
     "@react-navigation/stack": ^6.4.0
     "@tanstack/react-query": ^5.51.9
@@ -14822,11 +14862,13 @@ __metadata:
     react-native-gesture-handler: ^2.17.1
     react-native-image-picker: ^7.1.2
     react-native-linear-gradient: ^2.8.3
+    react-native-pager-view: ^6.3.3
     react-native-permissions: ^4.1.5
     react-native-reanimated: ^3.14.0
     react-native-safe-area-context: ^4.10.8
     react-native-screens: ^3.32.0
     react-native-svg: ^15.4.0
+    react-native-tab-view: ^3.5.2
     react-native-view-shot: ^3.8.0
     react-native-vision-camera: ^4.5.0
     react-test-renderer: 18.2.0
@@ -17100,7 +17142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-latest-callback@npm:^0.1.9":
+"use-latest-callback@npm:^0.1.5, use-latest-callback@npm:^0.1.9":
   version: 0.1.11
   resolution: "use-latest-callback@npm:0.1.11"
   peerDependencies:
