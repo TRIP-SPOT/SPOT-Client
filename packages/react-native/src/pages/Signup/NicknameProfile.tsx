@@ -3,10 +3,10 @@ import { Text, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
 import Overlay from '@/components/signup/common/Overlay';
-import Header from '@/components/signup/common/Header';
 import NicknameColorPalette from '@/components/signup/nicknameProfile/NicknameColorPalette';
 import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
 import useColorPalette from '@/hooks/useColorPalette';
+import SignupHeader from '@/components/signup/common/Header';
 
 interface NicknameProfileProps {
   navigation: SignupStackNavigation<'Signup/NicknameProfile'>;
@@ -30,7 +30,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   return (
     <Overlay>
       <View className="flex-col flex justify-between items-center w-full h-full">
-        <Header
+        <SignupHeader
           onBack={() => navigation.goBack()}
           onCancel={() => navigation.goBack()}
         />
