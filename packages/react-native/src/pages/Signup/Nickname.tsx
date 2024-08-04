@@ -1,9 +1,9 @@
 import { Font, TextField } from 'design-system';
 import { useState } from 'react';
 import { View } from 'react-native';
-import Header from '@/components/signup/common/Header';
 import Overlay from '@/components/signup/common/Overlay';
 import { SignupStackNavigation } from '@/types/navigation';
+import SignupHeader from '@/components/signup/common/Header';
 
 interface NicknameProps {
   navigation: SignupStackNavigation<'Signup/Nickname'>;
@@ -24,7 +24,7 @@ export default function Niakname({ navigation }: NicknameProps) {
 
   return (
     <Overlay>
-      <Header
+      <SignupHeader
         onBack={() => navigation.goBack()}
         onCancel={() => navigation.goBack()}
       />
