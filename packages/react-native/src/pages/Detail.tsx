@@ -1,10 +1,12 @@
 import { useRoute } from '@react-navigation/native';
 import { View } from 'react-native';
 import { Font } from 'design-system';
+import Carousel from 'react-native-reanimated-carousel';
 import { HomeRouteProps } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { SpotData } from '@/types/spot';
 import Card from '@/components/common/Card';
+import WordBreak from '@/components/common/WordBreak';
 
 // FIXME: 추후 제거
 const mockData: SpotData[] = [
@@ -40,6 +42,9 @@ const mockData: SpotData[] = [
   },
 ];
 
+const mockDescription =
+  '"너와 함께한 시간 모두 눈부셨다. 날이 좋아서, 날이 좋지 않아서, 날이 적당해서 모든 날이 좋았다."';
+
 export default function Detail() {
   const route = useRoute<HomeRouteProps<'home/detail'>>();
   const { title } = route.params;
@@ -51,8 +56,30 @@ export default function Detail() {
           {title}
         </Font.Bold>
       </View>
-      <View>
-        <Card data={mockData[0]} />
+      <View className="mt-4 justify-center items-center">
+        <WordBreak
+          width={220}
+          type="body1"
+          color="white"
+          content={mockDescription}
+        />
+      </View>
+      <View className="mt-5">
+        <Carousel
+          style={{
+            width: '100%',
+            height: 400,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          width={260}
+          height={350}
+          mode="horizontal-stack"
+          modeConfig={{ showLength: mockData.length }}
+          loop={false}
+          data={mockData}
+          renderItem={({ item }) => <Card data={item} />}
+        />
       </View>
     </BackGroundGradient>
   );

@@ -23,6 +23,7 @@ module.exports = {
     'no-console': 'error',
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'react/no-array-index-key': 'off',
   },
   ignorePatterns: [
     'index.js',

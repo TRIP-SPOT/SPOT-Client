@@ -22,9 +22,10 @@ function Default({ data }: { data: SpotData }) {
       source={{ uri: backgroundImage }}
       className="w-[262px] h-[350px] rounded-2xl overflow-hidden"
     >
-      <View
-        className="flex-1 justify-end"
-        style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+      <TouchableOpacity
+        className="flex-1 justify-end bg-black/40"
+        onPress={() => Alert.alert('상세정보보기')}
+        activeOpacity={1}
       >
         <View className="flex-row justify-between items-center">
           <FlatList
@@ -59,7 +60,7 @@ function Default({ data }: { data: SpotData }) {
             </Font>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </ImageBackground>
   );
 }
@@ -72,10 +73,7 @@ function Small({ data }: { data: SpotData }) {
       source={{ uri: backgroundImage }}
       className="w-[180px] h-[240px] rounded-lg overflow-hidden"
     >
-      <View
-        className="flex-1 justify-end"
-        style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-      >
+      <View className="flex-1 justify-end bg-black/40">
         <View className="p-2.5 gap-2">
           <View>
             <View className="flex flex-row justify-start items-center">

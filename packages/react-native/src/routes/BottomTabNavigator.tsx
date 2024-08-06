@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HomeIcon from '@assets/HomeIcon';
-import Detail from '@pages/Detail';
 import MapIcon from '@assets/MapIcon';
 import DetailIcon from '@assets/DetailIcon';
 import MyPageIcon from '@assets/MyPageIcon';
@@ -47,19 +46,20 @@ export default function BottomTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Route"
-        component={Maps}
-        options={{
-          tabBarLabel: '경로',
-          tabBarIcon: MapIcon,
-        }}
-      />
-      <Tab.Screen
         name="Detail"
-        component={Detail}
+        // FIXME: 추후 바텀 네비게이션 확정에 따른 수정 필요
+        component={HomeStackNavigator}
         options={{
           tabBarLabel: '상세보기',
           tabBarIcon: DetailIcon,
+        }}
+      />
+      <Tab.Screen
+        name="Route"
+        component={Maps}
+        options={{
+          tabBarLabel: '여행지도',
+          tabBarIcon: MapIcon,
         }}
       />
       <Tab.Screen
