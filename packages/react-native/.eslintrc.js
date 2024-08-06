@@ -21,6 +21,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'react/require-default-props': 'off',
     'no-console': 'error',
+    'import/prefer-default-export': 'off',
   },
   ignorePatterns: [
     'index.js',

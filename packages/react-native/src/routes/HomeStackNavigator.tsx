@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '@/pages/Home';
 import Detail from '@/pages/Detail';
+import { HEADER_STYLE } from '@/constants/HEADER_STYLE';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default function HomeStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
+        ...HEADER_STYLE,
         headerShown: false,
       }}
       initialRouteName="home/main"
