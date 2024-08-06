@@ -4,6 +4,7 @@ import { Font } from 'design-system';
 import { HomeRouteProps } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { SpotData } from '@/types/spot';
+import Card from '@/components/common/Card';
 
 // FIXME: 추후 제거
 const mockData: SpotData[] = [
@@ -49,6 +50,9 @@ export default function Detail() {
         <Font.Bold type="mainTitle" color="white">
           {title}
         </Font.Bold>
+      </View>
+      <View>
+        <Card data={mockData[0]} />
       </View>
     </BackGroundGradient>
   );

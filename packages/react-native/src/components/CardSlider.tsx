@@ -26,7 +26,7 @@ export default function CardSlider({ title, data }: CardSliderProps) {
         horizontal
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={CardSeperation}
-        renderItem={({ item }) => <Card data={item} />}
+        renderItem={({ item }) => <Card.Small data={item} />}
       />
     </View>
   );
