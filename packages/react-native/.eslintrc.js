@@ -22,6 +22,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'no-console': 'error',
     'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
   },
   ignorePatterns: [
     'index.js',
