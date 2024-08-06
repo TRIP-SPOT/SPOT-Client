@@ -4,7 +4,7 @@ import Search from '@assets/Search';
 
 interface SearchBarProps {
   placeholder: string;
-  handleSearch: (searchKeyword: string) => void;
+  handleSearch: (title: string) => void;
 }
 
 export default function SearchBar({

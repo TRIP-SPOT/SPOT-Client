@@ -1,9 +1,9 @@
-import { View, Text, Alert } from 'react-native';
+import { View, Text } from 'react-native';
 import { Button, Font } from 'design-system';
 import CardSlider from '@components/CardSlider';
 import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
-import { ScreenNavigationProp } from '@/types/navigation';
+import { HomeStackNavigation } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 
 const mockData: SpotData[] = [
@@ -51,7 +51,7 @@ const mockData: SpotData[] = [
 ];
 
 interface HomeScreenProps {
-  navigation: ScreenNavigationProp<'Main'>;
+  navigation: HomeStackNavigation<'home/main'>;
 }
 
 export default function Home({ navigation }: HomeScreenProps) {
@@ -70,7 +70,9 @@ export default function Home({ navigation }: HomeScreenProps) {
         <View>
           <SearchBar
             placeholder="드라마/영화 제목을 검색하세요."
-            handleSearch={(searchKeyword) => Alert.alert(searchKeyword)}
+            handleSearch={(title) =>
+              navigation.navigate('home/detail', { title })
+            }
           />
         </View>
         <View>
