@@ -15,7 +15,8 @@ function TagSeperation() {
 }
 
 function Default({ data }: { data: SpotData }) {
-  const { location, name, tags, backgroundImage, likeCount } = data;
+  const { location, name, tags, backgroundImage, likeCount, spotId, isLiked } =
+    data;
 
   return (
     <ImageBackground
@@ -24,7 +25,8 @@ function Default({ data }: { data: SpotData }) {
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => Alert.alert('상세정보보기')}
+        // FIXME: 실제 상세보기로 변경
+        onPress={() => Alert.alert('상세정보보기', `${spotId}`)}
         activeOpacity={1}
       >
         <View className="flex-row justify-between items-center">
@@ -40,9 +42,13 @@ function Default({ data }: { data: SpotData }) {
           <TouchableOpacity
             className="flex-row items-center p-2"
             // FIXME: 실제 좋아요 기능 추가
-            onPress={() => Alert.alert('좋아요')}
+            onPress={() => Alert.alert('좋아요', `${spotId}`)}
           >
-            <HeartIcon width={14} height={14} />
+            <HeartIcon
+              width={14}
+              height={14}
+              color={isLiked ? 'red' : undefined}
+            />
             <View className="ml-1">
               <Font type="body3" color="white">
                 {likeCount}
