@@ -3,8 +3,10 @@ import LinearGradient from 'react-native-linear-gradient';
 
 export default function BackGroundGradient({
   children,
+  withHeader = false,
 }: {
   children: React.ReactNode;
+  withHeader?: boolean;
 }) {
   return (
     <LinearGradient
@@ -20,7 +22,11 @@ export default function BackGroundGradient({
         className="h-full"
       >
         <SafeAreaView className="flex-1">
-          <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            className="flex-1"
+            style={{ paddingTop: withHeader ? 64 : 0 }}
+          >
             {children}
           </ScrollView>
         </SafeAreaView>

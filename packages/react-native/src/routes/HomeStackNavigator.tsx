@@ -25,7 +25,7 @@ export default function HomeStackNavigator() {
       <Stack.Screen
         name="home/detail"
         component={Detail}
-        options={{ headerShown: true }}
+        options={{ headerShown: true, title: '촬영지 정보' }}
       />
     </Stack.Navigator>
   );
