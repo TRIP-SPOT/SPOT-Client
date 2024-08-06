@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { Button, Font } from 'design-system';
 import CardSlider from '@components/CardSlider';
 import SearchBar from '@components/common/SearchBar';
@@ -68,7 +68,10 @@ export default function Home({ navigation }: HomeScreenProps) {
           </Button>
         </View>
         <View>
-          <SearchBar placeholder="드라마/영화 제목을 검색하세요." />
+          <SearchBar
+            placeholder="드라마/영화 제목을 검색하세요."
+            handleSearch={(searchKeyword) => Alert.alert(searchKeyword)}
+          />
         </View>
         <View>
           <CardSlider title="나를 위한 여행지" data={mockData} />

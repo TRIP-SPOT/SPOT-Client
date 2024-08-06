@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { Alert, TextInput, TouchableOpacity, View } from 'react-native';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 import Search from '@assets/Search';
 
 interface SearchBarProps {
   placeholder: string;
+  handleSearch: (searchKeyword: string) => void;
 }
 
-export default function SearchBar({ placeholder }: SearchBarProps) {
+export default function SearchBar({
+  placeholder,
+  handleSearch,
+}: SearchBarProps) {
   const [searchKeyword, setSearchKeyword] = useState('');
 
   const search = () => {
     if (!searchKeyword) return;
 
-    Alert.alert(searchKeyword);
+    handleSearch(searchKeyword);
   };
 
   return (
