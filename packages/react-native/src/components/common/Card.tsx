@@ -8,7 +8,7 @@ function TagSeperation() {
 }
 
 export default function Card({ data }: { data: SpotData }) {
-  const { location, locationName, tags, backgroundImage } = data;
+  const { location, name: locationName, tags, backgroundImage } = data;
 
   return (
     <ImageBackground

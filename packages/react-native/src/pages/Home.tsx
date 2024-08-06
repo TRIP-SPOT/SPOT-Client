@@ -8,7 +8,8 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 
 const mockData: SpotData[] = [
   {
-    locationName: '주문진 방파제',
+    spotId: 1,
+    name: '주문진 방파제',
     location: '강원 강릉',
     tags: [
       '바다',
@@ -20,31 +21,38 @@ const mockData: SpotData[] = [
       '바다',
       '도깨비',
     ],
-    liked: false,
+    isLiked: false,
+    likeCount: 20,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
   {
-    locationName: '주문진 방파제',
+    spotId: 2,
+    name: '주문진 방파제',
     location: '강원 강릉',
     tags: ['바다', '도깨비'],
-    liked: false,
+    isLiked: false,
+    likeCount: 20,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
   {
-    locationName: '주문진 방파제',
+    spotId: 3,
+    name: '주문진 방파제',
     location: '강원 강릉',
     tags: ['바다', '도깨비'],
-    liked: false,
+    isLiked: false,
+    likeCount: 20,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
   {
-    locationName: '주문진 방파제',
+    spotId: 4,
+    name: '주문진 방파제',
     location: '강원 강릉',
     tags: ['바다', '도깨비'],
-    liked: false,
+    isLiked: false,
+    likeCount: 20,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
