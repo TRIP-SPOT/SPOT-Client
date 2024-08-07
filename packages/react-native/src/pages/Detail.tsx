@@ -64,7 +64,7 @@ export default function Detail() {
           content={mockDescription}
         />
       </View>
-      <View className="mt-5">
+      <View className="mt-5 mb-20">
         <Carousel
           style={{
             width: '100%',
