@@ -37,17 +37,17 @@ function Default({ data }: { data: SpotData }) {
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={TagSeperation}
             renderItem={({ item }) => <Tag tag={item} />}
-            className="flex flex-row p-2"
+            className="flex flex-row p-3"
           />
           <TouchableOpacity
-            className="flex-row items-center p-2"
+            className="flex-row items-center p-3"
             // FIXME: 실제 좋아요 기능 추가
             onPress={() => Alert.alert('좋아요', `${spotId}`)}
           >
             <HeartIcon
-              width={14}
-              height={14}
-              color={isLiked ? 'red' : undefined}
+              width={15}
+              height={15}
+              color={isLiked ? 'red' : 'white'}
             />
             <View className="ml-1">
               <Font type="body3" color="white">
@@ -72,7 +72,7 @@ function Default({ data }: { data: SpotData }) {
 }
 
 function Small({ data }: { data: SpotData }) {
-  const { location, name, tags, backgroundImage } = data;
+  const { location, name, tags, backgroundImage, isLiked } = data;
 
   return (
     <ImageBackground
@@ -87,7 +87,11 @@ function Small({ data }: { data: SpotData }) {
                 {name}
               </Font.Bold>
               <View className="ml-2">
-                <HeartIcon width={12} height={12} />
+                <HeartIcon
+                  width={12}
+                  height={12}
+                  color={isLiked ? 'red' : 'white'}
+                />
               </View>
             </View>
             <Font type="body3" color="white">
