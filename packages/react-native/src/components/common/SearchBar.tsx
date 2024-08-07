@@ -26,7 +26,7 @@ export default function SearchBar({
         onChangeText={(newKeyword) => setSearchKeyword(newKeyword)}
         placeholder={placeholder}
         placeholderTextColor="#0F0F0F"
-        className="w-full rounded-md p-4 opacity-60 bg-white border text-SPOT-black text-body1 leading-5"
+        className="w-full rounded-md p-4 opacity-60 bg-white border text-SPOT-black text-body1 leading-5 font-Pretendard-Medium"
         onSubmitEditing={search}
       />
       <TouchableOpacity
