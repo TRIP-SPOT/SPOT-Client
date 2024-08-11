@@ -40,3 +40,8 @@ export type MapsRouteProps<T extends keyof MapsStackParamList> = RouteProp<
   MapsStackParamList,
   T
 >;
+
+export type AllRouteNavigation =
+  | SignupStackNavigation<keyof SignupStackParamList>
+  | MyPageStackNavigation<keyof MyPageStackParamList>
+  | MapsStackNavigation<keyof MapsStackParamList>;
