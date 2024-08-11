@@ -9,7 +9,7 @@ interface NicknameProps {
   navigation: SignupStackNavigation<'Signup/Nickname'>;
 }
 
-export default function Niakname({ navigation }: NicknameProps) {
+export default function NickName({ navigation }: NicknameProps) {
   const [nickname, setNickname] = useState('');
 
   const isCorrect = nickname.length > 0 && nickname.length < 7;
@@ -25,6 +25,7 @@ export default function Niakname({ navigation }: NicknameProps) {
   return (
     <Overlay>
       <SignupHeader
+        navigation={navigation}
         onBack={() => navigation.goBack()}
         onCancel={() => navigation.goBack()}
       />
