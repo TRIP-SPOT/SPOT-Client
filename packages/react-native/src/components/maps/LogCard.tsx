@@ -28,10 +28,7 @@ export default function LogCard({
         height: 240,
       }}
     >
-      <View
-        className="flex-1 justify-between px-3 py-1.5"
-        style={{ backgroundColor: 'rgba(0,0,0,0.2)' }}
-      >
+      <View className="flex-1 justify-between px-3 py-1.5 bg-black/20">
         <View className="flex items-end w-full">
           <DotMenuIcon />
         </View>
