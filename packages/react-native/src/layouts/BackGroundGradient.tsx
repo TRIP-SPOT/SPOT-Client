@@ -6,9 +6,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 export default function BackGroundGradient({
   children,
   withHeader = false,
+  marginTop = 0,
 }: {
   children: React.ReactNode;
   withHeader?: boolean;
+  marginTop?: number;
 }) {
   const headerHeight = useHeaderHeight();
   const insets = useSafeAreaInsets();
@@ -30,7 +32,9 @@ export default function BackGroundGradient({
           <ScrollView
             showsVerticalScrollIndicator={false}
             className="flex-1"
-            style={{ marginTop: withHeader ? headerHeight - insets.top : 0 }}
+            style={{
+              marginTop: withHeader ? headerHeight - insets.top : marginTop,
+            }}
           >
             {children}
           </ScrollView>

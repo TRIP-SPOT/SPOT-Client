@@ -15,7 +15,10 @@ export type MyPageStackParamList = {
 export default function MyPageStackNavigator() {
   return (
     <Stack.Navigator
-      screenOptions={{ ...HEADER_STYLE, headerShown: false }}
+      screenOptions={{
+        ...HEADER_STYLE,
+        headerShown: false,
+      }}
       initialRouteName="myPage/profile"
     >
       <Stack.Screen name="myPage/profile" component={MyPage} />
