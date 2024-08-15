@@ -1157,7 +1157,7 @@ const mapData = {
         CTPRVN_CD: '42',
         CTP_ENG_NM: 'Gangwon-do',
         CTP_KOR_NM: '강원도',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -1606,7 +1606,7 @@ const mapData = {
         CTPRVN_CD: '41',
         CTP_ENG_NM: 'Gyeonggi-do',
         CTP_KOR_NM: '경기도',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -2194,7 +2194,7 @@ const mapData = {
         CTPRVN_CD: '48',
         CTP_ENG_NM: 'Gyeongsangnam-do',
         CTP_KOR_NM: '경상남도',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -2840,7 +2840,7 @@ const mapData = {
         CTPRVN_CD: '47',
         CTP_ENG_NM: 'Gyeongsangbuk-do',
         CTP_KOR_NM: '경상북도',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -2968,7 +2968,7 @@ const mapData = {
         CTPRVN_CD: '29',
         CTP_ENG_NM: 'Gwangju',
         CTP_KOR_NM: '광주광역시',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -3207,7 +3207,7 @@ const mapData = {
         CTPRVN_CD: '27',
         CTP_ENG_NM: 'Daegu',
         CTP_KOR_NM: '대구광역시',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -3284,7 +3284,7 @@ const mapData = {
         CTPRVN_CD: '30',
         CTP_ENG_NM: 'Daejeon',
         CTP_KOR_NM: '대전광역시',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -3611,7 +3611,7 @@ const mapData = {
         CTPRVN_CD: '26',
         CTP_ENG_NM: 'Busan',
         CTP_KOR_NM: '부산광역시',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -3826,7 +3826,7 @@ const mapData = {
         CTPRVN_CD: '11',
         CTP_ENG_NM: 'Seoul',
         CTP_KOR_NM: '서울특별시',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -4103,7 +4103,7 @@ const mapData = {
         CTPRVN_CD: '36',
         CTP_ENG_NM: 'Sejong-si',
         CTP_KOR_NM: '세종특별자치시',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -4184,7 +4184,7 @@ const mapData = {
         CTPRVN_CD: '31',
         CTP_ENG_NM: 'Ulsan',
         CTP_KOR_NM: '울산광역시',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -4315,7 +4315,7 @@ const mapData = {
         CTPRVN_CD: '28',
         CTP_ENG_NM: 'Incheon',
         CTP_KOR_NM: '인천광역시',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -5774,7 +5774,7 @@ const mapData = {
         CTPRVN_CD: '46',
         CTP_ENG_NM: 'Jellanam-do',
         CTP_KOR_NM: '전라남도',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -6867,7 +6867,7 @@ const mapData = {
         CTPRVN_CD: '45',
         CTP_ENG_NM: 'Jeollabuk-do',
         CTP_KOR_NM: '전라북도',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -6919,7 +6919,7 @@ const mapData = {
         CTPRVN_CD: '50',
         CTP_ENG_NM: 'Jeju-do',
         CTP_KOR_NM: '제주특별자치도',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -7364,7 +7364,7 @@ const mapData = {
         CTPRVN_CD: '44',
         CTP_ENG_NM: 'Chungcheongnam-do',
         CTP_KOR_NM: '충청남도',
-      },
+      } as const,
     },
     {
       type: 'Feature',
@@ -8697,7 +8697,7 @@ const mapData = {
         CTPRVN_CD: '43',
         CTP_ENG_NM: 'Chungcheongbuk-do',
         CTP_KOR_NM: '충청북도',
-      },
+      } as const,
     },
   ],
 };

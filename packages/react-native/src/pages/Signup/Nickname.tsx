@@ -1,15 +1,15 @@
 import { Font, TextField } from 'design-system';
 import { useState } from 'react';
 import { View } from 'react-native';
-import Header from '@/components/signup/common/Header';
 import Overlay from '@/components/signup/common/Overlay';
 import { SignupStackNavigation } from '@/types/navigation';
+import SignupHeader from '@/components/signup/common/Header';
 
 interface NicknameProps {
   navigation: SignupStackNavigation<'Signup/Nickname'>;
 }
 
-export default function Niakname({ navigation }: NicknameProps) {
+export default function NickName({ navigation }: NicknameProps) {
   const [nickname, setNickname] = useState('');
 
   const isCorrect = nickname.length > 0 && nickname.length < 7;
@@ -24,7 +24,8 @@ export default function Niakname({ navigation }: NicknameProps) {
 
   return (
     <Overlay>
-      <Header
+      <SignupHeader
+        navigation={navigation}
         onBack={() => navigation.goBack()}
         onCancel={() => navigation.goBack()}
       />

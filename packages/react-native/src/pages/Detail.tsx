@@ -50,7 +50,7 @@ export default function Detail() {
   const { title } = route.params;
 
   return (
-    <BackGroundGradient withHeader>
+    <BackGroundGradient>
       <View className="items-center">
         <Font.Bold type="mainTitle" color="white">
           {title}

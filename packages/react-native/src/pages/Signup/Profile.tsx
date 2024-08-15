@@ -2,10 +2,10 @@ import { Button, Font } from 'design-system';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useRoute } from '@react-navigation/native';
-import Header from '@/components/signup/common/Header';
 import Overlay from '@/components/signup/common/Overlay';
 import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
 import useProfileImage from '@/hooks/useProfileImage';
+import SignupHeader from '@/components/signup/common/Header';
 
 interface ProfileProps {
   navigation: SignupStackNavigation<'Signup/Profile'>;
@@ -26,7 +26,7 @@ export default function Profile({ navigation }: ProfileProps) {
     <Overlay>
       <View className="w-full h-full justify-between">
         <View>
-          <Header
+          <SignupHeader
             onBack={() => navigation.goBack()}
             onCancel={() => navigation.navigate('Main')}
           />

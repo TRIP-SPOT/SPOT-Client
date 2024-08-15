@@ -4,9 +4,9 @@ import HomeIcon from '@assets/HomeIcon';
 import MapIcon from '@assets/MapIcon';
 import DetailIcon from '@assets/DetailIcon';
 import MyPageIcon from '@assets/MyPageIcon';
-import Maps from '@/pages/Maps';
 import MyPageStackNavigator from './MyPageStackNavigator';
 import HomeStackNavigator from './HomeStackNavigator';
+import MapsStackNavigator from './MapsStackNavigator';
 
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -56,7 +56,7 @@ export default function BottomTabNavigator() {
       />
       <Tab.Screen
         name="Route"
-        component={Maps}
+        component={MapsStackNavigator}
         options={{
           tabBarLabel: '여행지도',
           tabBarIcon: MapIcon,

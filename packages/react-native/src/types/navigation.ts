@@ -4,6 +4,7 @@ import { RootStackParamList } from '@/routes/StackNavigator';
 import { SignupStackParamList } from '@/routes/SignupStackNavigator';
 import { MyPageStackParamList } from '@/routes/MyPageStackNavigator';
 import { HomeStackParamList } from '@/routes/HomeStackNavigator';
+import { MapsStackParamList } from '@/routes/MapsStackNavigator';
 
 export type ScreenNavigationProp<T extends keyof RootStackParamList> =
   StackNavigationProp<RootStackParamList, T>;
@@ -31,3 +32,16 @@ export type HomeRouteProps<T extends keyof HomeStackParamList> = RouteProp<
   HomeStackParamList,
   T
 >;
+
+export type MapsStackNavigation<T extends keyof MapsStackParamList> =
+  StackNavigationProp<MapsStackParamList, T>;
+
+export type MapsRouteProps<T extends keyof MapsStackParamList> = RouteProp<
+  MapsStackParamList,
+  T
+>;
+
+export type AllRouteNavigation =
+  | SignupStackNavigation<keyof SignupStackParamList>
+  | MyPageStackNavigation<keyof MyPageStackParamList>
+  | MapsStackNavigation<keyof MapsStackParamList>;

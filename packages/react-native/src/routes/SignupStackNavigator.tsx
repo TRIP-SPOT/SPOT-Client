@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import Niakname from '@/pages/Signup/Nickname';
+import NickName from '@/pages/Signup/Nickname';
 import Profile from '@/pages/Signup/Profile';
 import NicknameProfile from '@/pages/Signup/NicknameProfile';
 
@@ -23,7 +23,7 @@ export default function SignupStackNavigator() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Signup/Nickname" component={Niakname} />
+      <Stack.Screen name="Signup/Nickname" component={NickName} />
       <Stack.Screen name="Signup/Profile" component={Profile} />
       <Stack.Screen name="Signup/NicknameProfile" component={NicknameProfile} />
     </Stack.Navigator>

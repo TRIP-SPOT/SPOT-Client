@@ -1,22 +1,29 @@
-import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Back from '@/assets/BackIcon';
 import Cancel from '@/assets/CancelIcon';
+import Header from '@/components/common/Header';
+import { SignupStackNavigation } from '@/types/navigation';
+import { SignupStackParamList } from '@/routes/SignupStackNavigator';
 
 interface HeaderProps {
+  navigation: SignupStackNavigation<keyof SignupStackParamList>;
   onBack: () => void;
   onCancel: () => void;
 }
 
-export default function Header({ onBack, onCancel }: HeaderProps) {
+export default function SignupHeader({
+  navigation,
+  onBack,
+  onCancel,
+}: HeaderProps) {
   return (
-    <View className="w-full flex-row justify-between">
-      <TouchableOpacity onPress={onBack}>
-        <Back />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={onCancel}>
-        <Cancel />
-      </TouchableOpacity>
-    </View>
+    <Header
+      navigation={navigation}
+      onBack={onBack}
+      RightActionButton={
+        <TouchableOpacity onPress={onCancel}>
+          <Cancel />
+        </TouchableOpacity>
+      }
+    />
   );
 }
