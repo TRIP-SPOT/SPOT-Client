@@ -23,7 +23,7 @@ const FONT_TYPE_PREFIX = {
 };
 
 export type Color = keyof typeof COLOR_PREFIX;
-type FontType = keyof typeof FONT_TYPE_PREFIX;
+export type FontType = keyof typeof FONT_TYPE_PREFIX;
 
 interface FontProps {
   children: ReactNode;

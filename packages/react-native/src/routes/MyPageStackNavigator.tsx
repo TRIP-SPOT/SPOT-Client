@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MyPage from '@/pages/MyPage';
 import EditProfile from '@/pages/MyPage/EditProfile';
 import EditProfileWithNickname from '@/pages/MyPage/EditProfileWithNickname';
+import { HEADER_STYLE } from '@/constants/HEADER_STYLE';
 
 const Stack = createStackNavigator();
 
@@ -15,16 +16,8 @@ export default function MyPageStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
+        ...HEADER_STYLE,
         headerShown: false,
-        headerTransparent: true,
-        headerBackTitleVisible: false,
-        headerTintColor: 'white',
-        headerTitleAlign: 'center',
-        headerTitleStyle: {
-          fontFamily: 'Pretendard-Medium',
-          fontSize: 16,
-          lineHeight: 24,
-        },
       }}
       initialRouteName="myPage/profile"
     >

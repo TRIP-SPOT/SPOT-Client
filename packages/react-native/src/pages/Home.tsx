@@ -3,12 +3,13 @@ import { Button, Font } from 'design-system';
 import CardSlider from '@components/CardSlider';
 import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
-import { ScreenNavigationProp } from '@/types/navigation';
+import { HomeStackNavigation } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 
 const mockData: SpotData[] = [
   {
-    locationName: '주문진 방파제',
+    spotId: 1,
+    name: '주문진 방파제',
     location: '강원 강릉',
     tags: [
       '바다',
@@ -20,38 +21,45 @@ const mockData: SpotData[] = [
       '바다',
       '도깨비',
     ],
-    liked: false,
+    isLiked: false,
+    likeCount: 20,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
   {
-    locationName: '주문진 방파제',
+    spotId: 2,
+    name: '주문진 방파제',
     location: '강원 강릉',
     tags: ['바다', '도깨비'],
-    liked: false,
+    isLiked: false,
+    likeCount: 20,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
   {
-    locationName: '주문진 방파제',
+    spotId: 3,
+    name: '주문진 방파제',
     location: '강원 강릉',
     tags: ['바다', '도깨비'],
-    liked: false,
+    isLiked: false,
+    likeCount: 20,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
   {
-    locationName: '주문진 방파제',
+    spotId: 4,
+    name: '주문진 방파제',
     location: '강원 강릉',
     tags: ['바다', '도깨비'],
-    liked: false,
+    isLiked: false,
+    likeCount: 20,
     backgroundImage:
       'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
   },
 ];
 
 interface HomeScreenProps {
-  navigation: ScreenNavigationProp<'Main'>;
+  navigation: HomeStackNavigation<'home/main'>;
 }
 
 export default function Home({ navigation }: HomeScreenProps) {
@@ -68,7 +76,12 @@ export default function Home({ navigation }: HomeScreenProps) {
           </Button>
         </View>
         <View>
-          <SearchBar placeholder="드라마/영화 제목을 검색하세요." />
+          <SearchBar
+            placeholder="드라마/영화 제목을 검색하세요."
+            handleSearch={(title) =>
+              navigation.navigate('home/detail', { title })
+            }
+          />
         </View>
         <View>
           <CardSlider title="나를 위한 여행지" data={mockData} />

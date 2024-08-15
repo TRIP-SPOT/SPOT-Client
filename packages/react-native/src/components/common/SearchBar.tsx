@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { Alert, TextInput, TouchableOpacity, View } from 'react-native';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 import Search from '@assets/Search';
 
 interface SearchBarProps {
   placeholder: string;
+  handleSearch: (title: string) => void;
 }
 
-export default function SearchBar({ placeholder }: SearchBarProps) {
+export default function SearchBar({
+  placeholder,
+  handleSearch,
+}: SearchBarProps) {
   const [searchKeyword, setSearchKeyword] = useState('');
 
   const search = () => {
     if (!searchKeyword) return;
 
-    Alert.alert(searchKeyword);
+    handleSearch(searchKeyword);
   };
 
   return (
@@ -22,12 +26,11 @@ export default function SearchBar({ placeholder }: SearchBarProps) {
         onChangeText={(newKeyword) => setSearchKeyword(newKeyword)}
         placeholder={placeholder}
         placeholderTextColor="#0F0F0F"
-        className="w-full rounded-md p-4 opacity-60 bg-white border text-SPOT-black text-body1 font-Pretendard-Medium"
+        className="w-full rounded-md p-4 opacity-60 bg-white border text-SPOT-black text-body1 leading-5 font-Pretendard-Medium"
         onSubmitEditing={search}
       />
       <TouchableOpacity
-        className="absolute right-2.5 w-10 h-10 items-center justify-center rounded-full"
-        style={{ backgroundColor: 'rgba(15,15,15,0.15)' }}
+        className="absolute right-2.5 w-10 h-10 items-center justify-center rounded-full bg-SPOT-black/[0.15]"
         onPress={search}
         disabled={!searchKeyword}
       >

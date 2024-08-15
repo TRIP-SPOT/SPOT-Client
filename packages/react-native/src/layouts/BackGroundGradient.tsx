@@ -1,11 +1,20 @@
 import { SafeAreaView, ScrollView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { useHeaderHeight } from '@react-navigation/elements';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function BackGroundGradient({
   children,
+  withHeader = false,
+  marginTop = 0,
 }: {
   children: React.ReactNode;
+  withHeader?: boolean;
+  marginTop?: number;
 }) {
+  const headerHeight = useHeaderHeight();
+  const insets = useSafeAreaInsets();
+
   return (
     <LinearGradient
       colors={['#FF1919', '#000000']}
@@ -20,7 +29,13 @@ export default function BackGroundGradient({
         className="h-full"
       >
         <SafeAreaView className="flex-1">
-          <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            className="flex-1"
+            style={{
+              marginTop: withHeader ? headerHeight - insets.top : marginTop,
+            }}
+          >
             {children}
           </ScrollView>
         </SafeAreaView>

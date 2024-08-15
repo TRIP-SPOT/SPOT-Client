@@ -13,8 +13,8 @@ interface MyPageProps {
 
 export default function MyPage({ navigation }: MyPageProps) {
   return (
-    <BackGroundGradient>
-      <View className="flex pt-16">
+    <BackGroundGradient marginTop={40}>
+      <View className="flex">
         <View className="flex items-center gap-7">
           {/* FIXME: 실제 이미지 받아와서 설정 */}
           <View className="relative">

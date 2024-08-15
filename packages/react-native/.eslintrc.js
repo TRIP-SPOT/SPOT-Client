@@ -21,6 +21,9 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'react/require-default-props': 'off',
     'no-console': 'error',
+    'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    'react/no-array-index-key': 'off',
   },
   ignorePatterns: [
     'index.js',
