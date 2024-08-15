@@ -4,43 +4,43 @@ import SortIcon from '@/assets/SortIcon';
 import FloatingPlusButton from '@/components/maps/FloatingPlusButton';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { MapsRouteProps, MapsStackNavigation } from '@/types/navigation';
-import { LOG_PADDING_X } from '@/components/maps/LogCard';
-import LogCardList from '@/components/maps/LogCardList';
+import { LOG_PADDING_X } from '@/components/maps/RecordCard';
+import RecordCardList from '@/components/maps/RecordCardList';
 import Header from '@/components/common/Header';
 
-interface LogProps {
-  navigation: MapsStackNavigation<'Maps/Log'>;
+interface RecordsProps {
+  navigation: MapsStackNavigation<'Maps/Record'>;
 }
 
-export default function Log({ navigation }: LogProps) {
+export default function Records({ navigation }: RecordsProps) {
   const sort = () => {
     // TODO: 실제 구현 필요(현재 UI없음)
   };
 
-  const route = useRoute<MapsRouteProps<'Maps/Log'>>();
+  const route = useRoute<MapsRouteProps<'Maps/Record'>>();
   return (
     <View>
-      <Header
-        navigation={navigation}
-        RightActionButton={
-          <TouchableOpacity onPress={sort} className="px-4">
-            <SortIcon />
-          </TouchableOpacity>
-        }
-        title={route.params.location}
-      />
       <BackGroundGradient>
+        <Header
+          RightActionButton={
+            <TouchableOpacity onPress={sort} className="px-4">
+              <SortIcon />
+            </TouchableOpacity>
+          }
+          title={route.params.location}
+        />
         <View
           className="relative flex-1 min-h-[100vh]"
           style={{
-            padding: LOG_PADDING_X,
+            paddingLeft: LOG_PADDING_X,
+            paddingRight: LOG_PADDING_X,
           }}
         >
-          <LogCardList />
+          <RecordCardList />
         </View>
       </BackGroundGradient>
       <FloatingPlusButton
-        onPress={() => navigation.navigate('Maps/PostLog')}
+        onPress={() => navigation.navigate('Maps/PostRecord')}
         bottom={16}
         right={16}
       />

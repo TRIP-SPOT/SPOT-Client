@@ -1,10 +1,11 @@
 import { View } from 'react-native';
-import LogCard, { CARD_GAP } from './LogCard';
+import RecordCard, { CARD_GAP } from './RecordCard';
+import { KoreaLocationName } from '@/types/map';
 
 type MockCardData = {
   id: number;
   title: string;
-  location: string;
+  location: KoreaLocationName;
   date: string;
   backgroundImage: string;
 };
@@ -30,13 +31,13 @@ const MOCK_LOG_CARD: MockCardData[] = [
     id: 3,
     title: '이미지 구하기 귀찮다',
     date: '2024.08.04',
-    location: '제주도',
+    location: '제주특별자치도',
     backgroundImage:
       'https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202406/20/starfashion/20240620094035441whlh.jpg',
   },
 ];
 
-export default function LogCardList() {
+export default function RecordCardList() {
   return (
     <View
       className="mt-8 flex flex-row flex-wrap "
@@ -46,7 +47,8 @@ export default function LogCardList() {
     >
       {MOCK_LOG_CARD.map((data) => (
         <View key={data.title + data.backgroundImage}>
-          <LogCard
+          <RecordCard
+            id={data.id}
             title={data.title}
             date={data.date}
             location={data.location}

@@ -1,5 +1,5 @@
 import { View } from 'react-native';
 
-export default function PostLog() {
+export default function PostRecord() {
   return <View />;
 }
