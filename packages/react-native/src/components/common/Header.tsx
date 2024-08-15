@@ -3,6 +3,8 @@ import React, { ReactElement, useEffect, useMemo } from 'react';
 import { View } from 'react-native';
 import { AllRouteNavigation } from '@/types/navigation';
 import BackIcon from '@/assets/BackIcon';
+import { useHeaderState } from '@/stores/header';
+import { HEADER_STYLE } from '@/constants/HEADER_STYLE';
 
 interface HeaderProps {
   navigation: AllRouteNavigation;
@@ -17,6 +19,8 @@ export default function Header({
   RightActionButton,
   onBack,
 }: HeaderProps) {
+  const { showHeader } = useHeaderState();
+
   const Right = useMemo(
     () => <View className="px-4">{RightActionButton}</View>,
     [RightActionButton],
@@ -39,12 +43,11 @@ export default function Header({
       return;
     }
 
+    showHeader();
+
     navigation.setOptions({
+      ...HEADER_STYLE,
       headerShown: true,
-      headerTransparent: true,
-      headerTitleStyle: {
-        color: 'white',
-      },
       headerRight: () => Right,
       headerLeft: () => Left,
       title: title || '',
