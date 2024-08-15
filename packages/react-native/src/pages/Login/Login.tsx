@@ -3,12 +3,24 @@ import LinearGradient from 'react-native-linear-gradient';
 import SPOTLogo from '@assets/SPOTLogo';
 import { SocialLogin } from 'design-system';
 import { ScreenNavigationProp } from '@/types/navigation';
+import { AppStorage } from '@/utils/storage';
 
 interface LoginPageProps {
   navigation: ScreenNavigationProp<'Login'>;
 }
 
 export default function Login({ navigation }: LoginPageProps) {
+  const handleLogin = async () => {
+    // TODO: 토큰 검사로 변경되어야함
+    const nickname = await AppStorage.getData('nickname');
+
+    if (!nickname) {
+      return navigation.navigate('Signup');
+    }
+
+    return navigation.navigate('Main');
+  };
+
   return (
     <LinearGradient
       colors={['#FF1919', '#000000']}
@@ -19,10 +31,10 @@ export default function Login({ navigation }: LoginPageProps) {
         <SPOTLogo />
         <View className="flex flex-col w-full px-4 gap-4">
           <View>
-            <SocialLogin.Apple onPress={() => navigation.navigate('Signup')} />
+            <SocialLogin.Apple onPress={handleLogin} />
           </View>
           <View>
-            <SocialLogin.Kakao onPress={() => navigation.navigate('Signup')} />
+            <SocialLogin.Kakao onPress={handleLogin} />
           </View>
         </View>
       </SafeAreaView>
