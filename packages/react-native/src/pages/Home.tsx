@@ -5,6 +5,7 @@ import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
 import { HomeStackNavigation } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
+import useNicknameQuery from '@/apis/queries/useNicknameQuery';
 
 const mockData: SpotData[] = [
   {
@@ -63,12 +64,14 @@ interface HomeScreenProps {
 }
 
 export default function Home({ navigation }: HomeScreenProps) {
+  const { nickname } = useNicknameQuery();
+
   return (
     <BackGroundGradient>
       <View className="flex flex-col gap-10 p-4">
         <View>
           <Font type="title1" color="white">
-            안녕하세요, 아무개님.{'\n'}오늘은 어디로 가 볼까요?
+            안녕하세요, {nickname}님{'\n'}오늘은 어디로 가 볼까요?
           </Font>
           {/* FIXME: 추후 삭제 */}
           <Button onPress={() => navigation.navigate('Camera')}>
