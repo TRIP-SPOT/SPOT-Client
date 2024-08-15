@@ -17,7 +17,6 @@ export default function SignupHeader({
 }: HeaderProps) {
   return (
     <Header
-      navigation={navigation}
       onBack={onBack}
       RightActionButton={
         <TouchableOpacity onPress={onCancel}>

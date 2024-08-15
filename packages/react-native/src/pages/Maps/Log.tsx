@@ -21,7 +21,6 @@ export default function Log({ navigation }: LogProps) {
   return (
     <View>
       <Header
-        navigation={navigation}
         RightActionButton={
           <TouchableOpacity onPress={sort} className="px-4">
             <SortIcon />
