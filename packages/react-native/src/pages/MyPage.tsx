@@ -6,12 +6,14 @@ import Badge from '@/components/mypage/Badge';
 import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
 import { MyPageStackNavigation } from '@/types/navigation';
+import useNicknameQuery from '@/apis/queries/useNicknameQuery';
 
 interface MyPageProps {
   navigation: MyPageStackNavigation<'myPage/profile'>;
 }
 
 export default function MyPage({ navigation }: MyPageProps) {
+  const { nickname } = useNicknameQuery();
   return (
     <BackGroundGradient marginTop={40}>
       <View className="flex">
@@ -32,7 +34,7 @@ export default function MyPage({ navigation }: MyPageProps) {
             <View className="mt-2">
               {/* FIXME: 실제 닉네임 받아와서 설정 */}
               <Font type="mainTitle" color="white">
-                닉네임네임
+                {nickname}
               </Font>
             </View>
           </View>

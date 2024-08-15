@@ -6,6 +6,7 @@ import Overlay from '@/components/signup/common/Overlay';
 import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
 import useProfileImage from '@/hooks/useProfileImage';
 import SignupHeader from '@/components/signup/common/Header';
+import { AppStorage } from '@/utils/storage';
 
 interface ProfileProps {
   navigation: SignupStackNavigation<'Signup/Profile'>;
@@ -16,9 +17,10 @@ export default function Profile({ navigation }: ProfileProps) {
   const route = useRoute<SignupRouteProps<'Signup/Profile'>>();
   const { nickname } = route.params;
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (!photoUri) return;
 
+    await AppStorage.saveData({ key: 'nickname', value: nickname });
     navigation.navigate('Main');
   };
 
