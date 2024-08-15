@@ -46,15 +46,6 @@ export default function BottomTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Route"
-        component={MapsStackNavigator}
-        options={{
-          tabBarLabel: '경로',
-          tabBarIcon: MapIcon,
-          unmountOnBlur: true,
-        }}
-      />
-      <Tab.Screen
         name="Detail"
         // FIXME: 추후 바텀 네비게이션 확정에 따른 수정 필요
         component={HomeStackNavigator}
@@ -65,7 +56,7 @@ export default function BottomTabNavigator() {
       />
       <Tab.Screen
         name="Route"
-        component={Maps}
+        component={MapsStackNavigator}
         options={{
           tabBarLabel: '여행지도',
           tabBarIcon: MapIcon,
