@@ -5,16 +5,11 @@ import { SignupStackNavigation } from '@/types/navigation';
 import { SignupStackParamList } from '@/routes/SignupStackNavigator';
 
 interface HeaderProps {
-  navigation: SignupStackNavigation<keyof SignupStackParamList>;
   onBack: () => void;
   onCancel: () => void;
 }
 
-export default function SignupHeader({
-  navigation,
-  onBack,
-  onCancel,
-}: HeaderProps) {
+export default function SignupHeader({ onBack, onCancel }: HeaderProps) {
   return (
     <Header
       onBack={onBack}
