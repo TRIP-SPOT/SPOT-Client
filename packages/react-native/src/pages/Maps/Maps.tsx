@@ -89,7 +89,7 @@ export default function Maps({ navigation }: MapsMainProps) {
                 <TouchableOpacity
                   className="py-2"
                   onPress={() =>
-                    navigation.navigate('Maps/Log', { location: region })
+                    navigation.navigate('Maps/Record', { location: region })
                   }
                 >
                   <Font type="title1" color="black">
