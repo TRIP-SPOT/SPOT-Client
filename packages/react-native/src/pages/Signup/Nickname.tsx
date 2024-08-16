@@ -25,7 +25,6 @@ export default function NickName({ navigation }: NicknameProps) {
   return (
     <Overlay>
       <SignupHeader
-        navigation={navigation}
         onBack={() => navigation.goBack()}
         onCancel={() => navigation.goBack()}
       />

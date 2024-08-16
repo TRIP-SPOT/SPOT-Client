@@ -40,7 +40,7 @@ const MOCK_LOG_CARD: MockCardData[] = [
 export default function RecordCardList() {
   return (
     <View
-      className="mt-8 flex flex-row flex-wrap "
+      className="mt-5 flex flex-row flex-wrap "
       style={{
         gap: CARD_GAP,
       }}
