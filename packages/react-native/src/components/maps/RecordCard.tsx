@@ -16,6 +16,7 @@ interface CardProps {
   location: KoreaLocationName;
   date: string;
   backgroundImage: string;
+  handleClickCard: () => void;
 }
 
 const { width } = Dimensions.get('window');
@@ -28,6 +29,7 @@ export default function RecordCard({
   location,
   date,
   backgroundImage,
+  handleClickCard,
 }: CardProps) {
   const navigation = useNavigation<StackNavigation<'Maps/Record'>>();
   return (
@@ -48,9 +50,12 @@ export default function RecordCard({
         }}
       >
         <View className="flex-1 justify-between px-3 py-1.5 bg-black/20">
-          <View className="flex items-end w-full">
+          <TouchableOpacity
+            className="flex items-end w-full"
+            onPress={handleClickCard}
+          >
             <DotMenuIcon />
-          </View>
+          </TouchableOpacity>
           <View className="p-2.5 gap-2">
             <Font.Bold type="body1" color="white">
               {title}
