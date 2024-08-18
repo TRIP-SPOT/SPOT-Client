@@ -6,6 +6,7 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 import NicknameColorPalette from '@/components/signup/nicknameProfile/NicknameColorPalette';
 import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
 import useColorPalette from '@/hooks/useColorPalette';
+import Header from '@/components/common/Header';
 
 interface EditProfileWithNicknameProps {
   navigation: MyPageStackNavigation<'myPage/editProfileWithNickname'>;
@@ -27,6 +28,7 @@ export default function EditProfileWithNickname({
   return (
     <>
       <BackGroundGradient>
+        <Header title="배경 색상 선택" />
         <View className="p-4 pt-14">
           <View className="flex justify-center items-center mt-[60px]">
             <View

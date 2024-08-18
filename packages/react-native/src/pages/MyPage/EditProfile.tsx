@@ -4,6 +4,7 @@ import { Button, Font, TextField } from 'design-system';
 import useProfileImage from '@/hooks/useProfileImage';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { MyPageStackNavigation } from '@/types/navigation';
+import Header from '@/components/common/Header';
 
 interface EditProfileProps {
   navigation: MyPageStackNavigation<'myPage/editProfile'>;
@@ -21,6 +22,7 @@ export default function EditProfile({ navigation }: EditProfileProps) {
   return (
     <>
       <BackGroundGradient>
+        <Header title="프로필 수정" />
         <View className="p-4 pt-14">
           <View className="flex gap-10">
             <View className="flex items-center justify-center pt-5">

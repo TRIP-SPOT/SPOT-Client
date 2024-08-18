@@ -7,6 +7,7 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { SpotData } from '@/types/spot';
 import Card from '@/components/common/Card';
 import WordBreak from '@/components/common/WordBreak';
+import Header from '@/components/common/Header';
 
 // FIXME: 추후 제거
 const mockData: SpotData[] = [
@@ -51,6 +52,7 @@ export default function Detail() {
 
   return (
     <BackGroundGradient>
+      <Header />
       <View className="items-center">
         <Font.Bold type="mainTitle" color="white">
           {title}
