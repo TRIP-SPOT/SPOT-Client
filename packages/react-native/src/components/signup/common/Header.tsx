@@ -1,8 +1,6 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Cancel from '@/assets/CancelIcon';
 import Header from '@/components/common/Header';
-import { SignupStackNavigation } from '@/types/navigation';
-import { SignupStackParamList } from '@/routes/SignupStackNavigator';
 
 interface HeaderProps {
   onBack: () => void;
