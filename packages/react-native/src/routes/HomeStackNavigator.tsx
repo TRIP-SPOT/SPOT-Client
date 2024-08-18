@@ -7,18 +7,18 @@ const Stack = createStackNavigator();
 export type HomeStackParamList = {
   // FIXME: 카메라 페이지 제거
   Camera: undefined;
-  'home/main': undefined;
-  'home/detail': { title: string };
+  'Home/Main': undefined;
+  'Home/Detail': { title: string };
 };
 
 export default function HomeStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName="home/main"
+      initialRouteName="Home/Main"
     >
-      <Stack.Screen name="home/main" component={Home} />
-      <Stack.Screen name="home/detail" component={Detail} />
+      <Stack.Screen name="Home/Main" component={Home} />
+      <Stack.Screen name="Home/Detail" component={Detail} />
     </Stack.Navigator>
   );
 }

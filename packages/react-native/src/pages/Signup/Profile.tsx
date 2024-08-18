@@ -21,7 +21,7 @@ export default function Profile({ navigation }: ProfileProps) {
     if (!photoUri) return;
 
     await AppStorage.saveData({ key: 'nickname', value: nickname });
-    navigation.navigate('Main');
+    navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
   };
 
   return (
@@ -30,7 +30,7 @@ export default function Profile({ navigation }: ProfileProps) {
         <View>
           <SignupHeader
             onBack={() => navigation.goBack()}
-            onCancel={() => navigation.navigate('Main')}
+            onCancel={() => navigation.navigate('Login')}
           />
 
           <View className="flex w-full mt-[30px]">

@@ -21,8 +21,8 @@ export default function StackNavigator() {
       }}
     >
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Main" component={TabScreens} />
       <Stack.Screen name="Signup" component={SignupStackNavigator} />
+      <Stack.Screen name="Main" component={TabScreens} />
       <Stack.Screen name="Camera" component={CameraPage} />
     </Stack.Navigator>
   );

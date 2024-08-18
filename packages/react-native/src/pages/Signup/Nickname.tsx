@@ -16,9 +16,7 @@ export default function NickName({ navigation }: NicknameProps) {
 
   const handleSubmit = () => {
     if (isCorrect) {
-      navigation.navigate('Signup/Profile', {
-        nickname,
-      });
+      navigation.navigate('Signup/Profile', { nickname });
     }
   };
 

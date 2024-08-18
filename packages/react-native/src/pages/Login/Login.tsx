@@ -18,7 +18,7 @@ export default function Login({ navigation }: LoginPageProps) {
       return navigation.navigate('Signup');
     }
 
-    return navigation.navigate('Main');
+    return navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
   };
 
   return (

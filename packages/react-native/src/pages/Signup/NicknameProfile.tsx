@@ -24,7 +24,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   } = useColorPalette();
 
   const handleNext = () => {
-    navigation.navigate('Main');
+    navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
   };
 
   return (

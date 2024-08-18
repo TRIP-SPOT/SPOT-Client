@@ -6,21 +6,21 @@ import EditProfileWithNickname from '@/pages/MyPage/EditProfileWithNickname';
 const Stack = createStackNavigator();
 
 export type MyPageStackParamList = {
-  'myPage/profile': undefined;
-  'myPage/editProfile': undefined;
-  'myPage/editProfileWithNickname': { nickname: string };
+  'MyPage/Profile': undefined;
+  'MyPage/EditProfile': undefined;
+  'MyPage/EditProfileWithNickname': { nickname: string };
 };
 
 export default function MyPageStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName="myPage/profile"
+      initialRouteName="MyPage/Profile"
     >
-      <Stack.Screen name="myPage/profile" component={MyPage} />
-      <Stack.Screen name="myPage/editProfile" component={EditProfile} />
+      <Stack.Screen name="MyPage/Profile" component={MyPage} />
+      <Stack.Screen name="MyPage/EditProfile" component={EditProfile} />
       <Stack.Screen
-        name="myPage/editProfileWithNickname"
+        name="MyPage/EditProfileWithNickname"
         component={EditProfileWithNickname}
       />
     </Stack.Navigator>

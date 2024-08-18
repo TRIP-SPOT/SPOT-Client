@@ -13,6 +13,7 @@ export type SignupStackParamList = {
   'Signup/NicknameProfile': {
     nickname: string;
   };
+  Login: undefined;
   Main: undefined;
 };
 
