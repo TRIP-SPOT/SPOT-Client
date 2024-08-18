@@ -1,8 +1,9 @@
+import React from 'react';
 import { View } from 'react-native';
 import RecordCard, { CARD_GAP } from './RecordCard';
 import { KoreaLocationName } from '@/types/map';
 
-type MockCardData = {
+export type MockCardData = {
   id: number;
   title: string;
   location: KoreaLocationName;
@@ -37,7 +38,13 @@ const MOCK_LOG_CARD: MockCardData[] = [
   },
 ];
 
-export default function RecordCardList() {
+interface RecordCardListProps {
+  handleOpenOptions: (data: MockCardData) => void;
+}
+
+export default function RecordCardList({
+  handleOpenOptions,
+}: RecordCardListProps) {
   return (
     <View
       className="mt-5 flex flex-row flex-wrap "
@@ -53,6 +60,7 @@ export default function RecordCardList() {
             date={data.date}
             location={data.location}
             backgroundImage={data.backgroundImage}
+            handleClickCard={() => handleOpenOptions(data)}
           />
         </View>
       ))}
