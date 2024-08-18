@@ -5,16 +5,16 @@ import { Font } from 'design-system';
 import useRecordDetailQuery from '@/apis/queries/records/useRecordDetailQuery';
 import Header from '@/components/common/Header';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import { MapsRouteProps, MapsStackNavigation } from '@/types/navigation';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 
 interface LogDetailProps {
-  navigation: MapsStackNavigation<'Maps/RecordDetail'>;
+  navigation: StackNavigation<'Maps/RecordDetail'>;
 }
 
 const { width: fullWidth } = Dimensions.get('window');
 
 export default function RecordDetail({ navigation }: LogDetailProps) {
-  const route = useRoute<MapsRouteProps<'Maps/RecordDetail'>>();
+  const route = useRoute<StackRouteProps<'Maps/RecordDetail'>>();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const { recordDetail } = useRecordDetailQuery({

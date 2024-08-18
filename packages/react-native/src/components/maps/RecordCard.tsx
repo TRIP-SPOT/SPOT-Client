@@ -7,8 +7,8 @@ import {
 import { Font } from 'design-system';
 import { useNavigation } from '@react-navigation/native';
 import DotMenuIcon from '@/assets/DotMenuIcon';
-import { MapsStackNavigation } from '@/types/navigation';
 import { KoreaLocationName } from '@/types/map';
+import { StackNavigation } from '@/types/navigation';
 
 interface CardProps {
   id: number;
@@ -29,7 +29,7 @@ export default function RecordCard({
   date,
   backgroundImage,
 }: CardProps) {
-  const navigation = useNavigation<MapsStackNavigation<'Maps/Record'>>();
+  const navigation = useNavigation<StackNavigation<'Maps/Record'>>();
   return (
     <TouchableOpacity
       onPress={() =>

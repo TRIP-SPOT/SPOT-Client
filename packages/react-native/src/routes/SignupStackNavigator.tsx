@@ -5,17 +5,6 @@ import NicknameProfile from '@/pages/Signup/NicknameProfile';
 
 const Stack = createStackNavigator();
 
-export type SignupStackParamList = {
-  'Signup/Nickname': undefined;
-  'Signup/Profile': {
-    nickname: string;
-  };
-  'Signup/NicknameProfile': {
-    nickname: string;
-  };
-  Main: undefined;
-};
-
 export default function SignupStackNavigator() {
   return (
     <Stack.Navigator

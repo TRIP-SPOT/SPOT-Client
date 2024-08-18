@@ -3,13 +3,13 @@ import { useRoute } from '@react-navigation/native';
 import SortIcon from '@/assets/SortIcon';
 import FloatingPlusButton from '@/components/maps/FloatingPlusButton';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import { MapsRouteProps, MapsStackNavigation } from '@/types/navigation';
 import { LOG_PADDING_X } from '@/components/maps/RecordCard';
 import RecordCardList from '@/components/maps/RecordCardList';
 import Header from '@/components/common/Header';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 
 interface RecordsProps {
-  navigation: MapsStackNavigation<'Maps/Record'>;
+  navigation: StackNavigation<'Maps/Record'>;
 }
 
 export default function Records({ navigation }: RecordsProps) {
@@ -17,7 +17,7 @@ export default function Records({ navigation }: RecordsProps) {
     // TODO: 실제 구현 필요(현재 UI없음)
   };
 
-  const route = useRoute<MapsRouteProps<'Maps/Record'>>();
+  const route = useRoute<StackRouteProps<'Maps/Record'>>();
   return (
     <View>
       <BackGroundGradient>

@@ -3,10 +3,11 @@ import { Alert, TouchableOpacity, View } from 'react-native';
 import { Button, Font, TextField } from 'design-system';
 import useProfileImage from '@/hooks/useProfileImage';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import { MyPageStackNavigation } from '@/types/navigation';
+import Header from '@/components/common/Header';
+import { StackNavigation } from '@/types/navigation';
 
 interface EditProfileProps {
-  navigation: MyPageStackNavigation<'myPage/editProfile'>;
+  navigation: StackNavigation<'MyPage/EditProfile'>;
 }
 
 export default function EditProfile({ navigation }: EditProfileProps) {
@@ -21,6 +22,7 @@ export default function EditProfile({ navigation }: EditProfileProps) {
   return (
     <>
       <BackGroundGradient>
+        <Header title="프로필 수정" />
         <View className="p-4 pt-14">
           <View className="flex gap-10">
             <View className="flex items-center justify-center pt-5">
@@ -43,7 +45,7 @@ export default function EditProfile({ navigation }: EditProfileProps) {
             <View className="flex items-center gap-2">
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('myPage/editProfileWithNickname', {
+                  navigation.navigate('MyPage/EditProfileWithNickname', {
                     nickname,
                   })
                 }

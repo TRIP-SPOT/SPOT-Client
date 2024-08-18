@@ -3,9 +3,9 @@ import { Button, Font } from 'design-system';
 import CardSlider from '@components/CardSlider';
 import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
-import { HomeStackNavigation } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import useNicknameQuery from '@/apis/queries/useNicknameQuery';
+import { StackNavigation } from '@/types/navigation';
 
 const mockData: SpotData[] = [
   {
@@ -60,14 +60,14 @@ const mockData: SpotData[] = [
 ];
 
 interface HomeScreenProps {
-  navigation: HomeStackNavigation<'home/main'>;
+  navigation: StackNavigation<'Home/Main'>;
 }
 
 export default function Home({ navigation }: HomeScreenProps) {
   const { nickname } = useNicknameQuery();
 
   return (
-    <BackGroundGradient>
+    <BackGroundGradient marginTop={40}>
       <View className="flex flex-col gap-10 p-4">
         <View>
           <Font type="title1" color="white">
@@ -82,7 +82,7 @@ export default function Home({ navigation }: HomeScreenProps) {
           <SearchBar
             placeholder="드라마/영화 제목을 검색하세요."
             handleSearch={(title) =>
-              navigation.navigate('home/detail', { title })
+              navigation.navigate('Home/Detail', { title })
             }
           />
         </View>

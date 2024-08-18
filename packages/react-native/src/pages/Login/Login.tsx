@@ -2,11 +2,11 @@ import { SafeAreaView, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SPOTLogo from '@assets/SPOTLogo';
 import { SocialLogin } from 'design-system';
-import { ScreenNavigationProp } from '@/types/navigation';
+import { StackNavigation } from '@/types/navigation';
 import { AppStorage } from '@/utils/storage';
 
 interface LoginPageProps {
-  navigation: ScreenNavigationProp<'Login'>;
+  navigation: StackNavigation<'Login'>;
 }
 
 export default function Login({ navigation }: LoginPageProps) {
@@ -18,7 +18,7 @@ export default function Login({ navigation }: LoginPageProps) {
       return navigation.navigate('Signup');
     }
 
-    return navigation.navigate('Main');
+    return navigation.reset({ routes: [{ name: 'Main' }] });
   };
 
   return (

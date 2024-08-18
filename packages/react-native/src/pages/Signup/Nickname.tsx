@@ -2,11 +2,11 @@ import { Font, TextField } from 'design-system';
 import { useState } from 'react';
 import { View } from 'react-native';
 import Overlay from '@/components/signup/common/Overlay';
-import { SignupStackNavigation } from '@/types/navigation';
+import { StackNavigation } from '@/types/navigation';
 import SignupHeader from '@/components/signup/common/Header';
 
 interface NicknameProps {
-  navigation: SignupStackNavigation<'Signup/Nickname'>;
+  navigation: StackNavigation<'Signup/Nickname'>;
 }
 
 export default function NickName({ navigation }: NicknameProps) {
@@ -16,9 +16,7 @@ export default function NickName({ navigation }: NicknameProps) {
 
   const handleSubmit = () => {
     if (isCorrect) {
-      navigation.navigate('Signup/Profile', {
-        nickname,
-      });
+      navigation.navigate('Signup/Profile', { nickname });
     }
   };
 

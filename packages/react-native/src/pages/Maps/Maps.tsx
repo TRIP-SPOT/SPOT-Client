@@ -10,10 +10,10 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet';
 import mapData from '@/assets/mapData';
 import { KoreaLocationName } from '@/types/map';
-import { MapsStackNavigation } from '@/types/navigation';
+import { StackNavigation } from '@/types/navigation';
 
 interface MapsMainProps {
-  navigation: MapsStackNavigation<'Maps/Main'>;
+  navigation: StackNavigation<'Maps/Main'>;
 }
 
 const { width, height } = Dimensions.get('window');

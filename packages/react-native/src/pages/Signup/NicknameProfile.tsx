@@ -1,19 +1,19 @@
 import { Button, Font } from 'design-system';
 import { Text, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
 import Overlay from '@/components/signup/common/Overlay';
 import NicknameColorPalette from '@/components/signup/nicknameProfile/NicknameColorPalette';
 import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
 import useColorPalette from '@/hooks/useColorPalette';
 import SignupHeader from '@/components/signup/common/Header';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 
 interface NicknameProfileProps {
-  navigation: SignupStackNavigation<'Signup/NicknameProfile'>;
+  navigation: StackNavigation<'Signup/NicknameProfile'>;
 }
 
 export default function NicknameProfile({ navigation }: NicknameProfileProps) {
-  const route = useRoute<SignupRouteProps<'Signup/NicknameProfile'>>();
+  const route = useRoute<StackRouteProps<'Signup/NicknameProfile'>>();
   const { nickname } = route.params;
   const {
     selectedColor,
@@ -24,7 +24,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   } = useColorPalette();
 
   const handleNext = () => {
-    navigation.navigate('Main');
+    navigation.reset({ routes: [{ name: 'Main' }] });
   };
 
   return (
