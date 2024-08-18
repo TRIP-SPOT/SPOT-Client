@@ -5,13 +5,18 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function BackGroundGradient({
   children,
-  marginTop = 0,
+  paddingTop = 0,
 }: {
   children: React.ReactNode;
-  marginTop?: number;
+  paddingTop?: number;
 }) {
   const headerHeight = useHeaderHeight();
   const insets = useSafeAreaInsets();
+
+  const defaultPaddingTop =
+    headerHeight - insets.top > 0
+      ? headerHeight - insets.top + paddingTop
+      : paddingTop;
 
   return (
     <LinearGradient
@@ -31,7 +36,7 @@ export default function BackGroundGradient({
             showsVerticalScrollIndicator={false}
             className="flex-1"
             style={{
-              marginTop: headerHeight - insets.top + marginTop,
+              paddingTop: defaultPaddingTop,
             }}
           >
             {children}

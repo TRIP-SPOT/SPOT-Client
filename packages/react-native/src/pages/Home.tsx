@@ -67,7 +67,7 @@ export default function Home({ navigation }: HomeScreenProps) {
   const { nickname } = useNicknameQuery();
 
   return (
-    <BackGroundGradient marginTop={40}>
+    <BackGroundGradient paddingTop={20}>
       <View className="flex flex-col gap-10 p-4">
         <View>
           <Font type="title1" color="white">

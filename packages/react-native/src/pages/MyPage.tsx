@@ -15,7 +15,7 @@ interface MyPageProps {
 export default function MyPage({ navigation }: MyPageProps) {
   const { nickname } = useNicknameQuery();
   return (
-    <BackGroundGradient marginTop={40}>
+    <BackGroundGradient paddingTop={40}>
       <View className="flex">
         <View className="flex items-center gap-7">
           {/* FIXME: 실제 이미지 받아와서 설정 */}
