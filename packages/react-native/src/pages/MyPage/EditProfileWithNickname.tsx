@@ -1,21 +1,21 @@
 import { Text, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Button, Font } from 'design-system';
-import { MyPageRouteProps, MyPageStackNavigation } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import NicknameColorPalette from '@/components/signup/nicknameProfile/NicknameColorPalette';
 import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
 import useColorPalette from '@/hooks/useColorPalette';
 import Header from '@/components/common/Header';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 
 interface EditProfileWithNicknameProps {
-  navigation: MyPageStackNavigation<'myPage/editProfileWithNickname'>;
+  navigation: StackNavigation<'MyPage/EditProfileWithNickname'>;
 }
 
 export default function EditProfileWithNickname({
   navigation,
 }: EditProfileWithNicknameProps) {
-  const route = useRoute<MyPageRouteProps<'myPage/editProfileWithNickname'>>();
+  const route = useRoute<StackRouteProps<'MyPage/EditProfileWithNickname'>>();
   const { nickname } = route.params;
   const {
     selectedColor,

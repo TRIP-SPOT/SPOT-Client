@@ -3,25 +3,25 @@ import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useRoute } from '@react-navigation/native';
 import Overlay from '@/components/signup/common/Overlay';
-import { SignupRouteProps, SignupStackNavigation } from '@/types/navigation';
 import useProfileImage from '@/hooks/useProfileImage';
 import SignupHeader from '@/components/signup/common/Header';
 import { AppStorage } from '@/utils/storage';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 
 interface ProfileProps {
-  navigation: SignupStackNavigation<'Signup/Profile'>;
+  navigation: StackNavigation<'Signup/Profile'>;
 }
 
 export default function Profile({ navigation }: ProfileProps) {
   const { ProfileImage, photoUri } = useProfileImage();
-  const route = useRoute<SignupRouteProps<'Signup/Profile'>>();
+  const route = useRoute<StackRouteProps<'Signup/Profile'>>();
   const { nickname } = route.params;
 
   const handleNext = async () => {
     if (!photoUri) return;
 
     await AppStorage.saveData({ key: 'nickname', value: nickname });
-    navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
+    navigation.reset({ routes: [{ name: 'Main' }] });
   };
 
   return (

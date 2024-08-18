@@ -3,15 +3,9 @@ import Login from '@pages/Login/Login';
 import TabScreens from '@pages/TabScreens';
 import CameraPage from '@/pages/CameraPage';
 import SignupStackNavigator from './SignupStackNavigator';
+import { StackParamList } from '@/types/navigation';
 
-export type RootStackParamList = {
-  Login: undefined;
-  Signup: undefined;
-  Main: undefined;
-  Camera: undefined;
-};
-
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<StackParamList>();
 
 export default function StackNavigator() {
   return (

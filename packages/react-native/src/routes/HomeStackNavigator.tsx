@@ -4,13 +4,6 @@ import Detail from '@/pages/Detail';
 
 const Stack = createStackNavigator();
 
-export type HomeStackParamList = {
-  // FIXME: 카메라 페이지 제거
-  Camera: undefined;
-  'Home/Main': undefined;
-  'Home/Detail': { title: string };
-};
-
 export default function HomeStackNavigator() {
   return (
     <Stack.Navigator

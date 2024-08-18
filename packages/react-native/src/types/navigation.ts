@@ -1,47 +1,38 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '@/routes/StackNavigator';
-import { SignupStackParamList } from '@/routes/SignupStackNavigator';
-import { MyPageStackParamList } from '@/routes/MyPageStackNavigator';
-import { HomeStackParamList } from '@/routes/HomeStackNavigator';
-import { MapsStackParamList } from '@/routes/MapsStackNavigator';
+import { KoreaLocationName } from './map';
 
-export type ScreenNavigationProp<T extends keyof RootStackParamList> =
-  StackNavigationProp<RootStackParamList, T>;
+export type StackParamList = {
+  Login: undefined;
+  Main: undefined;
+  Signup: undefined;
+  Camera: undefined;
 
-export type SignupStackNavigation<T extends keyof SignupStackParamList> =
-  StackNavigationProp<SignupStackParamList, T>;
+  'Signup/Nickname': undefined;
+  'Signup/Profile': { nickname: string };
+  'Signup/NicknameProfile': { nickname: string };
 
-export type SignupRouteProps<T extends keyof SignupStackParamList> = RouteProp<
-  SignupStackParamList,
+  'MyPage/Profile': undefined;
+  'MyPage/EditProfile': undefined;
+  'MyPage/EditProfileWithNickname': { nickname: string };
+
+  'Home/Main': undefined;
+  'Home/Detail': { title: string };
+
+  'Maps/Main': undefined;
+  'Maps/Record': { location: KoreaLocationName };
+  'Maps/PostRecord': undefined;
+  'Maps/ModifyRecord': undefined;
+  'Maps/RecordDetail': {
+    recordId: number;
+    location: KoreaLocationName;
+  };
+};
+
+export type StackNavigation<T extends keyof StackParamList> =
+  StackNavigationProp<StackParamList, T>;
+
+export type StackRouteProps<T extends keyof StackParamList> = RouteProp<
+  StackParamList,
   T
 >;
-
-export type MyPageStackNavigation<T extends keyof MyPageStackParamList> =
-  StackNavigationProp<MyPageStackParamList, T>;
-
-export type MyPageRouteProps<T extends keyof MyPageStackParamList> = RouteProp<
-  MyPageStackParamList,
-  T
->;
-
-export type HomeStackNavigation<T extends keyof HomeStackParamList> =
-  StackNavigationProp<HomeStackParamList, T>;
-
-export type HomeRouteProps<T extends keyof HomeStackParamList> = RouteProp<
-  HomeStackParamList,
-  T
->;
-
-export type MapsStackNavigation<T extends keyof MapsStackParamList> =
-  StackNavigationProp<MapsStackParamList, T>;
-
-export type MapsRouteProps<T extends keyof MapsStackParamList> = RouteProp<
-  MapsStackParamList,
-  T
->;
-
-export type AllRouteNavigation =
-  | SignupStackNavigation<keyof SignupStackParamList>
-  | MyPageStackNavigation<keyof MyPageStackParamList>
-  | MapsStackNavigation<keyof MapsStackParamList>;

@@ -5,11 +5,11 @@ import SelectProfile from '@/assets/SelectProfile';
 import Badge from '@/components/mypage/Badge';
 import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
-import { MyPageStackNavigation } from '@/types/navigation';
 import useNicknameQuery from '@/apis/queries/useNicknameQuery';
+import { StackNavigation } from '@/types/navigation';
 
 interface MyPageProps {
-  navigation: MyPageStackNavigation<'myPage/profile'>;
+  navigation: StackNavigation<'MyPage/Profile'>;
 }
 
 export default function MyPage({ navigation }: MyPageProps) {
@@ -23,7 +23,7 @@ export default function MyPage({ navigation }: MyPageProps) {
             <SelectProfile />
             <View className="absolute right-0 bottom-0">
               <EditButton
-                onPress={() => navigation.navigate('myPage/editProfile')}
+                onPress={() => navigation.navigate('MyPage/EditProfile')}
               />
             </View>
           </View>

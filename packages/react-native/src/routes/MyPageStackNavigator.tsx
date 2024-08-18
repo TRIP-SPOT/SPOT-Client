@@ -5,12 +5,6 @@ import EditProfileWithNickname from '@/pages/MyPage/EditProfileWithNickname';
 
 const Stack = createStackNavigator();
 
-export type MyPageStackParamList = {
-  'MyPage/Profile': undefined;
-  'MyPage/EditProfile': undefined;
-  'MyPage/EditProfileWithNickname': { nickname: string };
-};
-
 export default function MyPageStackNavigator() {
   return (
     <Stack.Navigator
