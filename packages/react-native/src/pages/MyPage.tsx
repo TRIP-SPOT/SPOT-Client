@@ -1,6 +1,5 @@
-import { View, Dimensions, Platform } from 'react-native';
+import { View } from 'react-native';
 import { Font } from 'design-system';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import SelectProfile from '@/assets/SelectProfile';
 import Badge from '@/components/mypage/Badge';
@@ -15,15 +14,10 @@ interface MyPageProps {
 
 export default function MyPage({ navigation }: MyPageProps) {
   const { nickname } = useNicknameQuery();
-  const insets = useSafeAreaInsets();
-  let contentsHeight =
-    Dimensions.get('screen').height - insets.top - insets.bottom * 2 - 60;
-
-  if (Platform.OS === 'android') contentsHeight -= 100;
 
   return (
-    <BackGroundGradient paddingTop={40}>
-      <View className="flex-1" style={{ height: contentsHeight }}>
+    <BackGroundGradient paddingTop={40} withoutScroll>
+      <View className="flex-1">
         <View className="flex items-center gap-7">
           {/* FIXME: 실제 이미지 받아와서 설정 */}
           <View className="relative">
@@ -46,7 +40,7 @@ export default function MyPage({ navigation }: MyPageProps) {
             </View>
           </View>
         </View>
-        <View className="flex-1 p-3">
+        <View className="flex-1 p-2">
           <MyPageTabNavigator />
         </View>
       </View>
