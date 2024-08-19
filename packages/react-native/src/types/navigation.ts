@@ -17,7 +17,8 @@ export type StackParamList = {
   'MyPage/EditProfileWithNickname': { nickname: string };
 
   'Home/Main': undefined;
-  'Home/Detail': { title: string };
+  'Home/Search': { title: string };
+  'Home/Detail': { location: string };
 
   'Maps/Main': undefined;
   'Maps/Record': { location: KoreaLocationName };

@@ -82,7 +82,7 @@ export default function Home({ navigation }: HomeScreenProps) {
           <SearchBar
             placeholder="드라마/영화 제목을 검색하세요."
             handleSearch={(title) =>
-              navigation.navigate('Home/Detail', { title })
+              navigation.navigate('Home/Search', { title })
             }
           />
         </View>
