@@ -1,6 +1,5 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MyBadge from '@/pages/MyPage/MyBadge';
-import MyRoute from '@/pages/MyPage/MyRoute';
 import MySpot from '@/pages/MyPage/MySpot';
 
 export default function MyPageTabNavigator() {
@@ -15,12 +14,16 @@ export default function MyPageTabNavigator() {
           borderTopColor: 'transparent',
           borderColor: 'transparent',
           borderWidth: 0,
+          marginBottom: 10,
         },
         tabBarIndicatorStyle: {
           backgroundColor: '#FF1919',
         },
         tabBarLabelStyle: {
           fontFamily: 'Pretendard-Medium',
+          fontWeight: 800,
+          fontSize: 14,
+          lineHeight: 16,
           textTransform: 'none',
         },
         tabBarInactiveTintColor: 'rgba(255,255,255,0.5)',
@@ -37,11 +40,11 @@ export default function MyPageTabNavigator() {
         component={MyBadge}
         options={{ tabBarLabel: '활동배지' }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="myRoute"
         component={MyRoute}
         options={{ tabBarLabel: 'My Route' }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
