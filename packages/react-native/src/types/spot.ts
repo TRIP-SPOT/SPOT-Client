@@ -25,4 +25,5 @@ export interface SpotAroundData {
   title: string;
   content: string;
   backgroundImage: string;
+  address: string;
 }
