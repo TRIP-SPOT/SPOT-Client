@@ -18,7 +18,7 @@ export type StackParamList = {
 
   'Home/Main': undefined;
   'Home/Search': { title: string };
-  'Home/Detail': { location: string };
+  'Home/Detail': { id: number };
 
   'Maps/Main': undefined;
   'Maps/Record': { location: KoreaLocationName };

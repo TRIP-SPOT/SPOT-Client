@@ -6,9 +6,11 @@ import {
   View,
 } from 'react-native';
 import HeartIcon from '@assets/HeartIcon';
+import { useNavigation } from '@react-navigation/native';
 import { Font } from 'design-system';
 import { SpotData } from '@/types/spot';
 import Tag from './Tag';
+import { StackNavigation } from '@/types/navigation';
 
 function TagSeperation() {
   return <View style={{ width: 5 }} />;
@@ -17,6 +19,7 @@ function TagSeperation() {
 function Default({ data }: { data: SpotData }) {
   const { location, name, tags, backgroundImage, likeCount, spotId, isLiked } =
     data;
+  const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   return (
     <ImageBackground
@@ -25,8 +28,7 @@ function Default({ data }: { data: SpotData }) {
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        // FIXME: 실제 상세보기로 변경
-        onPress={() => Alert.alert('상세정보보기', `${spotId}`)}
+        onPress={() => navigation.navigate('Home/Detail', { id: spotId })}
         activeOpacity={1}
       >
         <View className="flex-row justify-between items-center">
@@ -72,14 +74,18 @@ function Default({ data }: { data: SpotData }) {
 }
 
 function Small({ data }: { data: SpotData }) {
-  const { location, name, tags, backgroundImage, isLiked } = data;
+  const { spotId, location, name, tags, backgroundImage, isLiked } = data;
+  const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   return (
     <ImageBackground
       source={{ uri: backgroundImage }}
       className="w-[180px] h-[240px] rounded-lg overflow-hidden"
     >
-      <View className="flex-1 justify-end bg-black/40">
+      <TouchableOpacity
+        className="flex-1 justify-end bg-black/40"
+        onPress={() => navigation.navigate('Home/Detail', { id: spotId })}
+      >
         <View className="p-2.5 gap-2">
           <View>
             <View className="flex flex-row justify-start items-center">
@@ -110,7 +116,7 @@ function Small({ data }: { data: SpotData }) {
             />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </ImageBackground>
   );
 }

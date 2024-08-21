@@ -17,3 +17,12 @@ export interface LocationList {
     data: SpotData[];
   };
 }
+
+export interface SpotAroundData {
+  id: number;
+  name: string;
+  location: string;
+  title: string;
+  content: string;
+  backgroundImage: string;
+}
