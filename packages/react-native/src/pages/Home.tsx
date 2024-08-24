@@ -67,7 +67,7 @@ export default function Home({ navigation }: HomeScreenProps) {
   const { nickname } = useNicknameQuery();
 
   return (
-    <BackGroundGradient marginTop={40}>
+    <BackGroundGradient paddingTop={20}>
       <View className="flex flex-col gap-10 p-4">
         <View>
           <Font type="title1" color="white">
@@ -82,7 +82,7 @@ export default function Home({ navigation }: HomeScreenProps) {
           <SearchBar
             placeholder="드라마/영화 제목을 검색하세요."
             handleSearch={(title) =>
-              navigation.navigate('Home/Detail', { title })
+              navigation.navigate('Home/Search', { title })
             }
           />
         </View>

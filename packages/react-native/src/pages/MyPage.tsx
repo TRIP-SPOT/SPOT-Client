@@ -14,9 +14,10 @@ interface MyPageProps {
 
 export default function MyPage({ navigation }: MyPageProps) {
   const { nickname } = useNicknameQuery();
+
   return (
-    <BackGroundGradient marginTop={40}>
-      <View className="flex">
+    <BackGroundGradient paddingTop={40} withoutScroll>
+      <View className="flex-1">
         <View className="flex items-center gap-7">
           {/* FIXME: 실제 이미지 받아와서 설정 */}
           <View className="relative">
@@ -39,7 +40,7 @@ export default function MyPage({ navigation }: MyPageProps) {
             </View>
           </View>
         </View>
-        <View className="p-5 h-96">
+        <View className="flex-1 p-2">
           <MyPageTabNavigator />
         </View>
       </View>

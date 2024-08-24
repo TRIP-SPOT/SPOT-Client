@@ -30,31 +30,44 @@ interface FontProps {
   type: FontType;
   color: Color;
   underline?: boolean;
+  opacity?: number;
 }
 
-const FontRegular = ({ type, color, children, underline }: FontProps) => {
+const FontRegular = ({ type, color, children, underline, opacity = 1 }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.MEDIUM;
-  return <Text className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}>{children}</Text>;
+  return (
+    <Text className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`} style={{ opacity }}>
+      {children}
+    </Text>
+  );
 };
 
-const FontBold = ({ type, color, children, underline }: FontProps) => {
+const FontBold = ({ type, color, children, underline, opacity = 1 }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.BOLD;
-  return <Text className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}>{children}</Text>;
+  return (
+    <Text className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`} style={{ opacity }}>
+      {children}
+    </Text>
+  );
 };
 
-const FontLight = ({ type, color, children, underline }: FontProps) => {
+const FontLight = ({ type, color, children, underline, opacity = 10 }: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.LIGHT;
 
-  return <Text className={`${fontType} ${fontStyle} ${colorStyle} ${underLineStyle}`}>{children}</Text>;
+  return (
+    <Text className={`${fontType} ${fontStyle} ${colorStyle} ${underLineStyle}`} style={{ opacity }}>
+      {children}
+    </Text>
+  );
 };
 
 export const Font = Object.assign(FontRegular, {

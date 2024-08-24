@@ -1,20 +1,20 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import MyBadge from '@/pages/MyPage/MyBadge';
-import MySpot from '@/pages/MyPage/MySpot';
+import DetailInfo from '@/pages/Detail/DetailInfo';
+import DetailSpot from '@/pages/Detail/DetailSpot';
 
-export default function MyPageTabNavigator() {
-  const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
+export default function DetailTabNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="mySpot"
+      initialRouteName="Detail/Info"
       screenOptions={{
         tabBarStyle: {
           backgroundColor: 'transparent',
           borderTopColor: 'transparent',
           borderColor: 'transparent',
           borderWidth: 0,
-          marginBottom: 10,
+          marginBottom: 20,
         },
         tabBarIndicatorStyle: {
           backgroundColor: '#FF1919',
@@ -31,20 +31,15 @@ export default function MyPageTabNavigator() {
       }}
     >
       <Tab.Screen
-        name="mySpot"
-        component={MySpot}
-        options={{ tabBarLabel: 'My Spot!' }}
+        name="Detail/Info"
+        component={DetailInfo}
+        options={{ tabBarLabel: '상세정보' }}
       />
       <Tab.Screen
-        name="myBadge"
-        component={MyBadge}
-        options={{ tabBarLabel: '활동배지' }}
+        name="Detail/Spot"
+        component={DetailSpot}
+        options={{ tabBarLabel: 'SPOT!' }}
       />
-      {/* <Tab.Screen
-        name="myRoute"
-        component={MyRoute}
-        options={{ tabBarLabel: 'My Route' }}
-      /> */}
     </Tab.Navigator>
   );
 }
