@@ -1,7 +1,6 @@
-import { View, ScrollView, FlatList } from 'react-native';
-import { Font } from 'design-system';
+import { View, ScrollView } from 'react-native';
 import AroundCard from '@/components/detail/AroundCard';
-import { CardSeperation } from '@/components/common/CardSeperation';
+import CardSlider from '@/components/common/CardSlider';
 
 const mockData = [
   {
@@ -42,18 +41,31 @@ export default function DetailSpot() {
           flex: 1,
           justifyContent: 'space-between',
           gap: 20,
+          paddingBottom: 20,
         }}
       >
-        <View>
-          <Font.Bold type="body1" color="white">
-            주변 관광지
-          </Font.Bold>
-          <FlatList
+        <View
+          style={{
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'space-between',
+            gap: 35,
+          }}
+        >
+          <CardSlider
+            title="주변 관광지"
             data={mockData}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(_, index) => index.toString()}
-            ItemSeparatorComponent={CardSeperation}
+            renderItem={({ item }) => (
+              <AroundCard
+                id={item.id}
+                backgroundImage={item.backgroundImage}
+                title={item.title}
+              />
+            )}
+          />
+          <CardSlider
+            title="음식점"
+            data={mockData}
             renderItem={({ item }) => (
               <AroundCard
                 id={item.id}
