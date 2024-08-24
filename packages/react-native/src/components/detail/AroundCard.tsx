@@ -1,6 +1,6 @@
 import { Font } from 'design-system';
-import { Alert, ImageBackground, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Alert, ImageBackground, TouchableOpacity, View } from 'react-native';
+import CheckBox from '../common/CheckBox';
 
 interface AroundCardProps {
   id: number;
@@ -13,6 +13,14 @@ export default function AroundCard({
   title,
   backgroundImage,
 }: AroundCardProps) {
+  const selectCard = (cardId: number) => {
+    Alert.alert(`${cardId}-select`);
+  };
+
+  const getInfo = (cardId: number) => {
+    Alert.alert(`${cardId}-info`);
+  };
+
   return (
     <ImageBackground
       source={{ uri: backgroundImage }}
@@ -20,8 +28,13 @@ export default function AroundCard({
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => Alert.alert(`${id}`)}
+        onPress={() => getInfo(id)}
+        onLongPress={() => selectCard(id)}
+        activeOpacity={0.8}
       >
+        <View className="absolute top-2 left-2">
+          <CheckBox onPress={() => selectCard(id)} selected />
+        </View>
         <View className="p-2">
           <Font.Bold type="body1" color="white">
             {title}
