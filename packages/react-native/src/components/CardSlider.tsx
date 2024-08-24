@@ -2,14 +2,11 @@ import { View, FlatList } from 'react-native';
 import { Font } from 'design-system';
 import Card from './common/Card';
 import { SpotData } from '@/types/spot';
+import { CardSeperation } from './common/CardSeperation';
 
 interface CardSliderProps {
   title: string;
   data: SpotData[];
-}
-
-function CardSeperation() {
-  return <View style={{ width: 16 }} />;
 }
 
 export default function CardSlider({ title, data }: CardSliderProps) {

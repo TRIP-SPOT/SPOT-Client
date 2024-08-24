@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native';
 import { Button, Font } from 'design-system';
-import CardSlider from '@components/CardSlider';
 import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import useNicknameQuery from '@/apis/queries/useNicknameQuery';
 import { StackNavigation } from '@/types/navigation';
+import CardSlider from '@/components/CardSlider';
 
 const mockData: SpotData[] = [
   {
