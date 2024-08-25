@@ -5,7 +5,7 @@ export default function CheckIcon({ width, height, color }: SvgProps) {
     <Svg
       width={width || '14'}
       height={height || '12'}
-      viewBox="0 0 14 12"
+      viewBox="0 0 14 13"
       fill="none"
     >
       <Path

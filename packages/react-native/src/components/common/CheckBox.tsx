@@ -1,5 +1,6 @@
-import { GestureResponderEvent, TouchableOpacity } from 'react-native';
+import { GestureResponderEvent, TouchableOpacity, View } from 'react-native';
 import CheckIcon from '@/assets/CheckIcon';
+import CheckSelectedIcon from '@/assets/CheckSelectedIcon';
 
 interface CheckBoxProps {
   onPress?: (event: GestureResponderEvent) => void;
@@ -13,15 +14,18 @@ export default function CheckBox({ size, onPress, selected }: CheckBoxProps) {
       style={{
         width: size || 25,
         height: size || 25,
-        backgroundColor: selected
-          ? 'rgba(255,255,255,0.5)' // TODO: 실제 선택된 색상으로 변경 필요
-          : 'rgba(255,255,255,0.5)',
       }}
       onPress={onPress}
-      className="rounded-full items-center justify-center p-1.5"
+      className="rounded-full items-center justify-center"
       activeOpacity={1}
     >
-      <CheckIcon color={selected ? '#ff1919' : undefined} />
+      {selected ? (
+        <CheckSelectedIcon />
+      ) : (
+        <View className="bg-SPOT-white/50 p-[3.5px] rounded-full">
+          <CheckIcon width={20} height={20} />
+        </View>
+      )}
     </TouchableOpacity>
   );
 }

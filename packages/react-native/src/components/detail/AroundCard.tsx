@@ -33,7 +33,7 @@ export default function AroundCard({
         activeOpacity={0.8}
       >
         <View className="absolute top-2 left-2">
-          <CheckBox onPress={() => selectCard(id)} selected />
+          <CheckBox onPress={() => selectCard(id)} selected={id === 1} />
         </View>
         <View className="p-2">
           <Font.Bold type="body1" color="white">
