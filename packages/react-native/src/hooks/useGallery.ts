@@ -57,18 +57,24 @@ export default function useGallery() {
     return CameraRoll.saveAsset(uri);
   };
 
-  const getPhoto = async () => {
+  const getPhoto = async (selectionLimit?: number) => {
     const hasPermission = await hasGalleryPermission();
     if (!hasPermission) return Promise.reject();
 
     const response = await launchImageLibrary({
       mediaType: 'photo',
-      selectionLimit: 1,
+      selectionLimit: selectionLimit || 1,
     });
 
     if (response.didCancel) return null;
 
-    return response.assets?.[0]?.uri;
+    if (!response.assets) return null;
+
+    if (!selectionLimit) return response.assets[0]?.uri;
+
+    return response.assets
+      .map((asset) => asset.uri)
+      .filter((url) => url !== undefined);
   };
 
   return { savePhoto, getPhoto };
