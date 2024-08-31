@@ -1,18 +1,22 @@
 import { useState } from 'react';
 import { FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { Button, Font, TextField } from 'design-system';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Calendar from '@/assets/Calendar';
 import PlusIcon from '@/assets/PlusIcon';
 import Header from '@/components/common/Header';
 import DatePickers from '@/components/maps/DatePickers';
 import useGallery from '@/hooks/useGallery';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 
 const MAX_TITLE_LENGTH = 20;
 
 export default function PostRecord() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
+  const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
   const { getPhoto } = useGallery();
 
   const [images, setImages] = useState<string[]>();
@@ -25,6 +29,16 @@ export default function PostRecord() {
 
   const validate = () => {
     return title.length > 0;
+  };
+
+  const handlePress = () => {
+    if (!validate()) {
+      return;
+    }
+
+    navigate.navigate('Maps/Record', {
+      location: params.location,
+    });
   };
 
   return (
@@ -118,7 +132,7 @@ export default function PostRecord() {
         </View>
       </View>
       <View className="mt-6">
-        <Button disabled={!validate()}>
+        <Button disabled={!validate()} onPress={handlePress}>
           <Font type="body2" color="white">
             완료
           </Font>
