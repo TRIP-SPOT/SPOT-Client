@@ -9,17 +9,21 @@ import DatePickers from '@/components/maps/DatePickers';
 import useGallery from '@/hooks/useGallery';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
+import usePostRecordMutation from '@/apis/mutations/usePostRecordMutation';
 
 const MAX_TITLE_LENGTH = 20;
 
 export default function PostRecord() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
   const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
+
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [images, setImages] = useState<string[]>([]);
+
   const { getPhoto } = useGallery();
 
-  const [images, setImages] = useState<string[]>();
+  const { mutateAsync } = usePostRecordMutation();
 
   const handleChange = (value: string) => {
     if (value.length <= 20) {
@@ -28,13 +32,22 @@ export default function PostRecord() {
   };
 
   const validate = () => {
-    return title.length > 0;
+    return title.length > 0 && images.length > 0;
   };
 
-  const handlePress = () => {
+  const handlePress = async () => {
     if (!validate()) {
       return;
     }
+
+    await mutateAsync({
+      record: {
+        name: title,
+        description,
+        region: params.location,
+      },
+      images,
+    });
 
     navigate.navigate('Maps/Record', {
       location: params.location,
