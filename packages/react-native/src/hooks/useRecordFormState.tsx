@@ -86,7 +86,7 @@ export function RecordFormProvider({ children }: { children: ReactNode }) {
       setDate,
       setSelectionMode,
     }),
-    [title, description, images],
+    [title, description, images, date, selectionMode],
   );
 
   return (
