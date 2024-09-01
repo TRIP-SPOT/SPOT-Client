@@ -32,7 +32,7 @@ export function TextField({
 
     return 'border-none';
   };
-  console.log(numberOfLines, Platform.OS);
+
   return (
     <TextInput
       multiline={multiline}
