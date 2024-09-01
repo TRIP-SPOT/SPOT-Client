@@ -19,7 +19,7 @@ const Detail = withSuspense(() => {
       <ImageBackground className="h-[200px]" source={{ uri: backgroundImage }}>
         <View className="flex-1 justify-end bg-black/20" />
       </ImageBackground>
-      <View className="flex-1 bg-[#100F0F] p-4">
+      <View className="flex-1 bg-[#100F0F] p-4 pb-0">
         <View>
           <Font type="mainTitle" color="white">
             {title}

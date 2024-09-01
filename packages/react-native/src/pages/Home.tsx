@@ -1,11 +1,13 @@
 import { View, Text } from 'react-native';
 import { Button, Font } from 'design-system';
-import CardSlider from '@components/CardSlider';
 import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import useNicknameQuery from '@/apis/queries/useNicknameQuery';
 import { StackNavigation } from '@/types/navigation';
+import Card from '@/components/common/Card';
+import CardSlider from '@/components/common/CardSlider';
+import Header from '@/components/common/Header';
 
 const mockData: SpotData[] = [
   {
@@ -67,7 +69,8 @@ export default function Home({ navigation }: HomeScreenProps) {
   const { nickname } = useNicknameQuery();
 
   return (
-    <BackGroundGradient paddingTop={20}>
+    <BackGroundGradient>
+      <Header type="logo" />
       <View className="flex flex-col gap-10 p-4">
         <View>
           <Font type="title1" color="white">
@@ -87,10 +90,18 @@ export default function Home({ navigation }: HomeScreenProps) {
           />
         </View>
         <View>
-          <CardSlider title="나를 위한 여행지" data={mockData} />
+          <CardSlider
+            title="나를 위한 여행지"
+            data={mockData}
+            renderItem={({ item }) => <Card.Small data={item} />}
+          />
         </View>
         <View>
-          <CardSlider title="지금 인기있는 여행지" data={mockData} />
+          <CardSlider
+            title="지금 인기있는 여행지"
+            data={mockData}
+            renderItem={({ item }) => <Card.Small data={item} />}
+          />
         </View>
       </View>
     </BackGroundGradient>

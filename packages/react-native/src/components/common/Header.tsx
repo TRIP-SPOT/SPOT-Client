@@ -4,17 +4,20 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackIcon from '@/assets/BackIcon';
 import { HEADER_STYLE } from '@/constants/HEADER_STYLE';
+import SPOTLogo from '@/assets/SPOTLogo';
 
 interface HeaderProps {
   title?: string;
   RightActionButton?: ReactElement;
   onBack?: () => void;
+  type?: 'logo' | 'default';
 }
 
 export default function Header({
-  title,
+  title = '',
   RightActionButton,
   onBack,
+  type = 'default',
 }: HeaderProps) {
   const navigation = useNavigation();
 
@@ -24,14 +27,19 @@ export default function Header({
   );
 
   const Left = useMemo(
-    () => (
-      <TouchableOpacity
-        onPress={onBack ? () => onBack() : () => navigation.goBack()}
-        className="px-4"
-      >
-        <BackIcon />
-      </TouchableOpacity>
-    ),
+    () =>
+      type === 'default' ? (
+        <TouchableOpacity
+          onPress={onBack ? () => onBack() : () => navigation.goBack()}
+          className="px-4"
+        >
+          <BackIcon />
+        </TouchableOpacity>
+      ) : (
+        <View className="px-4 pb-4">
+          <SPOTLogo height={45} width={110} />
+        </View>
+      ),
     [onBack],
   );
 
@@ -45,7 +53,7 @@ export default function Header({
       headerShown: true,
       headerRight: () => Right,
       headerLeft: () => Left,
-      title: title || '',
+      title,
     });
   }, [title, RightActionButton, onBack]);
 

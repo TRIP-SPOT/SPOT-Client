@@ -13,6 +13,7 @@ export default function DetailInfo() {
           flex: 1,
           justifyContent: 'space-between',
           gap: 20,
+          paddingBottom: 20,
         }}
       >
         <Block title="주소" content="강원 강릉시 주문진읍 해안로 1609" />

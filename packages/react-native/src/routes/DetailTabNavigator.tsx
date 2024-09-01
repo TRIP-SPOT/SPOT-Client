@@ -14,7 +14,7 @@ export default function DetailTabNavigator() {
           borderTopColor: 'transparent',
           borderColor: 'transparent',
           borderWidth: 0,
-          marginBottom: 20,
+          marginBottom: 10,
         },
         tabBarIndicatorStyle: {
           backgroundColor: '#FF1919',
