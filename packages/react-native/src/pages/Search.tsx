@@ -1,13 +1,15 @@
+import { useRef, useState } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { View } from 'react-native';
 import { Font } from 'design-system';
-import Carousel from 'react-native-reanimated-carousel';
+import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { SpotData } from '@/types/spot';
 import Card from '@/components/common/Card';
 import WordBreak from '@/components/common/WordBreak';
 import Header from '@/components/common/Header';
 import { StackRouteProps } from '@/types/navigation';
+import { DEFAULT_COLOR } from '@/constants/DEFAULT_COLOR';
 
 // FIXME: 추후 제거
 const mockData: SpotData[] = [
@@ -47,8 +49,16 @@ const mockDescription =
   '"너와 함께한 시간 모두 눈부셨다. 날이 좋아서, 날이 좋지 않아서, 날이 적당해서 모든 날이 좋았다."';
 
 export default function Search() {
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const carouselRef = useRef<ICarouselInstance>(null);
   const route = useRoute<StackRouteProps<'Home/Search'>>();
   const { title } = route.params;
+
+  const onProgressChange = () => {
+    if (!carouselRef.current) return;
+    const index = carouselRef.current.getCurrentIndex();
+    setCarouselIndex(index);
+  };
 
   return (
     <BackGroundGradient>
@@ -74,6 +84,8 @@ export default function Search() {
             alignItems: 'center',
             justifyContent: 'center',
           }}
+          ref={carouselRef}
+          onProgressChange={onProgressChange}
           width={260}
           height={350}
           mode="horizontal-stack"
@@ -82,6 +94,20 @@ export default function Search() {
           data={mockData}
           renderItem={({ item }) => <Card data={item} />}
         />
+        <View className="flex-row justify-center gap-2">
+          {mockData.map((_, index) => (
+            <View
+              key={index}
+              className="w-2 h-2 rounded-full"
+              style={{
+                backgroundColor:
+                  carouselIndex === index
+                    ? DEFAULT_COLOR.SPOT_RED
+                    : DEFAULT_COLOR.SPOT_GRAY,
+              }}
+            />
+          ))}
+        </View>
       </View>
     </BackGroundGradient>
   );
