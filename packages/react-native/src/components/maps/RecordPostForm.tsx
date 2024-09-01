@@ -1,15 +1,15 @@
 import { Button, Font } from 'design-system';
-import { FlatList, Image, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import RecordFormTitle from './RecordFormTitle';
 import RecordFormDatePicker from './RecordFormDatePickers';
 import Calendar from '@/assets/Calendar';
-import PlusIcon from '@/assets/PlusIcon';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import useRecordFormState from '@/hooks/useRecordFormState';
 import useGallery from '@/hooks/useGallery';
 import useRecordMutation from '@/apis/mutations/useRecordMutation';
 import RecordFormDescription from './RecordFormDescription';
+import RecordFormImages from './RecordFormImages';
 
 export default function RecordPostForm() {
   const { description, title, validate, images, resetImages } =
@@ -18,6 +18,11 @@ export default function RecordPostForm() {
   const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
 
   const { getPhoto } = useGallery();
+
+  const handlePressAddPhoto = async () => {
+    const photos = await getPhoto(10);
+    if (photos && Array.isArray(photos)) resetImages(photos);
+  };
 
   const { postMutate } = useRecordMutation();
 
@@ -64,37 +69,7 @@ export default function RecordPostForm() {
         </View>
 
         <View>
-          <Font type="body2" color="white">
-            이미지 첨부
-          </Font>
-          <View className="flex-row items-center mt-2 ">
-            <TouchableOpacity
-              className="bg-SPOT-white/60 rounded-md p-6 aspect-square w-16 justify-center items-center "
-              onPress={async () => {
-                const photos = await getPhoto(10);
-                if (photos && Array.isArray(photos)) resetImages(photos);
-              }}
-            >
-              <PlusIcon />
-            </TouchableOpacity>
-            <FlatList
-              className="ml-2"
-              horizontal
-              data={images}
-              renderItem={({ item }) => {
-                return (
-                  <Image
-                    source={{ uri: item }}
-                    style={{
-                      width: 64,
-                      height: 64,
-                      borderRadius: 6,
-                    }}
-                  />
-                );
-              }}
-            />
-          </View>
+          <RecordFormImages handlePressAddPhoto={handlePressAddPhoto} />
         </View>
         <View>
           <RecordFormDescription />
