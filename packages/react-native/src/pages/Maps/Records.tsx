@@ -52,7 +52,11 @@ export default function Records({ navigation }: RecordsProps) {
         </View>
       </BackGroundGradient>
       <FloatingPlusButton
-        onPress={() => navigation.navigate('Maps/PostRecord')}
+        onPress={() =>
+          navigation.navigate('Maps/PostRecord', {
+            location: route.params.location,
+          })
+        }
         bottom={16}
         right={16}
       />

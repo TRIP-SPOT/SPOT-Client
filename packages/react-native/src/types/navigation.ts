@@ -22,7 +22,9 @@ export type StackParamList = {
 
   'Maps/Main': undefined;
   'Maps/Record': { location: KoreaLocationName };
-  'Maps/PostRecord': undefined;
+  'Maps/PostRecord': {
+    location: KoreaLocationName;
+  };
   'Maps/ModifyRecord': undefined;
   'Maps/RecordDetail': {
     recordId: number;
