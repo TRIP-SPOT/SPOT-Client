@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { Button, Font, TextField } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -9,38 +8,34 @@ import DatePickers from '@/components/maps/DatePickers';
 import useGallery from '@/hooks/useGallery';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
-import usePostRecordMutation from '@/apis/mutations/usePostRecordMutation';
+import useRecordMutation from '@/apis/mutations/useRecordMutation';
+import useRecordFormState from '@/hooks/useRecordFormState';
 
 const MAX_TITLE_LENGTH = 20;
 
 export default function PostRecord() {
   const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
   const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
-
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [images, setImages] = useState<string[]>([]);
+  const {
+    title,
+    description,
+    images,
+    validate,
+    resetImages,
+    handleDescriptionChange,
+    handleTitleChange,
+  } = useRecordFormState();
 
   const { getPhoto } = useGallery();
 
-  const { mutateAsync } = usePostRecordMutation();
-
-  const handleChange = (value: string) => {
-    if (value.length <= 20) {
-      setTitle(value);
-    }
-  };
-
-  const validate = () => {
-    return title.length > 0 && images.length > 0;
-  };
+  const { postMutate } = useRecordMutation();
 
   const handlePress = async () => {
     if (!validate()) {
       return;
     }
 
-    await mutateAsync({
+    await postMutate({
       record: {
         name: title,
         description,
@@ -70,7 +65,7 @@ export default function PostRecord() {
           <View className="mt-2">
             <TextField
               value={title}
-              onChange={handleChange}
+              onChange={handleTitleChange}
               placeholder="제목"
             />
             <View className="w-full justify-center items-end mt-2.5">
@@ -103,7 +98,7 @@ export default function PostRecord() {
               className="bg-SPOT-white/60 rounded-md p-6 aspect-square w-16 justify-center items-center "
               onPress={async () => {
                 const photos = await getPhoto(10);
-                if (photos && Array.isArray(photos)) setImages(photos);
+                if (photos && Array.isArray(photos)) resetImages(photos);
               }}
             >
               <PlusIcon />
@@ -136,9 +131,7 @@ export default function PostRecord() {
               multiline
               numberOfLines={3}
               value={description}
-              onChange={(value) => {
-                setDescription(value);
-              }}
+              onChange={handleDescriptionChange}
               placeholder="내용을 작성해주세요."
             />
           </View>
