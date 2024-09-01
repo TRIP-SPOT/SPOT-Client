@@ -25,7 +25,10 @@ export type StackParamList = {
   'Maps/PostRecord': {
     location: KoreaLocationName;
   };
-  'Maps/ModifyRecord': undefined;
+  'Maps/ModifyRecord': {
+    recordId: number;
+    location: KoreaLocationName;
+  };
   'Maps/RecordDetail': {
     recordId: number;
     location: KoreaLocationName;

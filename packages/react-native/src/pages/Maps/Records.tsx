@@ -60,28 +60,38 @@ export default function Records({ navigation }: RecordsProps) {
         bottom={16}
         right={16}
       />
-      <BottomSheet isShow={Boolean(selectedRecord)}>
-        <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
-          <View className="flex">
-            <Font.Bold type="mainTitle" color="black">
-              {selectedRecord?.title}
-            </Font.Bold>
+      {selectedRecord && (
+        <BottomSheet isShow={Boolean(selectedRecord)}>
+          <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
+            <View className="flex">
+              <Font.Bold type="mainTitle" color="black">
+                {selectedRecord.title}
+              </Font.Bold>
+            </View>
+            <View className="flex items-center w-full ">
+              <TouchableOpacity
+                className="py-2"
+                onPress={() =>
+                  navigation.navigate('Maps/ModifyRecord', {
+                    location: route.params.location,
+                    recordId: selectedRecord.id,
+                  })
+                }
+              >
+                <Font.Light type="title1" color="black">
+                  수정
+                </Font.Light>
+              </TouchableOpacity>
+              <View className="w-[90%] h-[0.5px] bg-[#333333]" />
+              <TouchableOpacity className="py-2">
+                <Font.Light type="title1" color="black">
+                  삭제
+                </Font.Light>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View className="flex items-center w-full ">
-            <TouchableOpacity className="py-2">
-              <Font.Light type="title1" color="black">
-                수정
-              </Font.Light>
-            </TouchableOpacity>
-            <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-            <TouchableOpacity className="py-2">
-              <Font.Light type="title1" color="black">
-                삭제
-              </Font.Light>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </BottomSheet>
+        </BottomSheet>
+      )}
     </View>
   );
 }
