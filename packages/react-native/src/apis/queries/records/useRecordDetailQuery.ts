@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
-interface RecordGetResponse {
+export interface RecordGetResponse {
   recordId: number;
   name: string;
   description: string;
@@ -15,7 +15,6 @@ interface UseRecordDetailQueryParams {
 
 interface UseRecordDetailQueryReturn {
   recordDetail?: RecordGetResponse;
-  isLoading: boolean;
   isError: boolean;
   refetch: () => void;
 }
@@ -25,7 +24,7 @@ export default function useRecordDetailQuery({
 }: UseRecordDetailQueryParams) {
   const returnRef = useRef({} as UseRecordDetailQueryReturn);
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data, isError, refetch } = useSuspenseQuery({
     queryKey: ['logDetail'],
     queryFn: async () => ({
       recordId,
@@ -40,7 +39,6 @@ export default function useRecordDetailQuery({
   });
 
   returnRef.current.recordDetail = data;
-  returnRef.current.isLoading = isLoading;
   returnRef.current.isError = isError;
   returnRef.current.refetch = refetch;
 
