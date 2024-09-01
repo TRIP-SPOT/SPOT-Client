@@ -7,6 +7,7 @@ import useNicknameQuery from '@/apis/queries/useNicknameQuery';
 import { StackNavigation } from '@/types/navigation';
 import Card from '@/components/common/Card';
 import CardSlider from '@/components/common/CardSlider';
+import Header from '@/components/common/Header';
 
 const mockData: SpotData[] = [
   {
@@ -69,6 +70,7 @@ export default function Home({ navigation }: HomeScreenProps) {
 
   return (
     <BackGroundGradient>
+      <Header type="logo" />
       <View className="flex flex-col gap-10 p-4">
         <View>
           <Font type="title1" color="white">
