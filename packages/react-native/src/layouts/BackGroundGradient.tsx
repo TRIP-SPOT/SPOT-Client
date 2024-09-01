@@ -38,7 +38,7 @@ export default function BackGroundGradient({
             <View
               className="flex-1"
               style={{
-                paddingTop: defaultPaddingTop,
+                marginTop: defaultPaddingTop,
               }}
             >
               {children}
@@ -48,7 +48,7 @@ export default function BackGroundGradient({
               showsVerticalScrollIndicator={false}
               className="flex-1"
               style={{
-                paddingTop: defaultPaddingTop,
+                marginTop: defaultPaddingTop,
               }}
             >
               {children}
