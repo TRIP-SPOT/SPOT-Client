@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
+import { RecordGetResponse } from '@/apis/queries/records/useRecordDetailQuery';
 
 interface RecordFormContextState {
   title: string;
@@ -26,12 +27,22 @@ interface RecordFormContextState {
   >;
 }
 
+interface RecordFormProviderDefulatProps {
+  children: ReactNode;
+  defaultProps?: RecordGetResponse;
+}
+
 const RecordFormContext = createContext<RecordFormContextState | null>(null);
 
-export function RecordFormProvider({ children }: { children: ReactNode }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [images, setImages] = useState<string[]>([]);
+export function RecordFormProvider({
+  children,
+  defaultProps,
+}: RecordFormProviderDefulatProps) {
+  const [title, setTitle] = useState(defaultProps?.name || '');
+  const [description, setDescription] = useState(
+    defaultProps?.description || '',
+  );
+  const [images, setImages] = useState<string[]>(defaultProps?.imageUrls || []);
 
   const [date, setDate] = useState({
     start: new Date(),
