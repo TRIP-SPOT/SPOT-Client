@@ -6,6 +6,7 @@ import useRecordDetailQuery from '@/apis/queries/records/useRecordDetailQuery';
 import Header from '@/components/common/Header';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
+import withSuspense from '@/components/HOC/withSuspense';
 
 interface LogDetailProps {
   navigation: StackNavigation<'Maps/RecordDetail'>;
@@ -13,7 +14,9 @@ interface LogDetailProps {
 
 const { width: fullWidth } = Dimensions.get('window');
 
-export default function RecordDetail({ navigation }: LogDetailProps) {
+export default withSuspense(function RecordDetail({
+  navigation,
+}: LogDetailProps) {
   const route = useRoute<StackRouteProps<'Maps/RecordDetail'>>();
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -93,4 +96,4 @@ export default function RecordDetail({ navigation }: LogDetailProps) {
       </View>
     </BackGroundGradient>
   );
-}
+});
