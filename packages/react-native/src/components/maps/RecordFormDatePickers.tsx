@@ -2,19 +2,15 @@ import { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { Font } from 'design-system';
+import useRecordFormState from '@/hooks/useRecordFormState';
 
 const getDisplayDate = (displayDate: Date) => {
   return `${displayDate.getFullYear()}-${displayDate.getMonth() + 1}-${displayDate.getDate()}`;
 };
 
-export default function DatePickers() {
-  const [date, setDate] = useState({
-    start: new Date(),
-    end: new Date(),
-  });
-
-  const [selectionMode, setSelectionMode] = useState<'start' | 'end'>();
-
+export default function RecordFormDatePickers() {
+  const { date, setDate, selectionMode, setSelectionMode } =
+    useRecordFormState();
   const [open, setOpen] = useState(false);
   return (
     <>

@@ -3,6 +3,11 @@ import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 interface RecordFormContextState {
   title: string;
   description: string;
+  date: {
+    start: Date;
+    end: Date;
+  };
+  selectionMode?: 'start' | 'end';
   images: string[];
   handleTitleChange: (value: string) => void;
   handleDescriptionChange: (value: string) => void;
@@ -10,6 +15,15 @@ interface RecordFormContextState {
   removeImages: (imgUrl: string) => void;
   resetImages: (imgList?: string[]) => void;
   validate: () => boolean;
+  setDate: React.Dispatch<
+    React.SetStateAction<{
+      start: Date;
+      end: Date;
+    }>
+  >;
+  setSelectionMode: React.Dispatch<
+    React.SetStateAction<'start' | 'end' | undefined>
+  >;
 }
 
 const RecordFormContext = createContext<RecordFormContextState | null>(null);
@@ -18,6 +32,13 @@ export function RecordFormProvider({ children }: { children: ReactNode }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<string[]>([]);
+
+  const [date, setDate] = useState({
+    start: new Date(),
+    end: new Date(),
+  });
+
+  const [selectionMode, setSelectionMode] = useState<'start' | 'end'>();
 
   const handleTitleChange = (value: string) => {
     if (value.length <= 20) {
@@ -54,12 +75,16 @@ export function RecordFormProvider({ children }: { children: ReactNode }) {
       title,
       description,
       images,
+      date,
+      selectionMode,
       handleTitleChange,
       handleDescriptionChange,
       addImages,
       removeImages,
       resetImages,
       validate,
+      setDate,
+      setSelectionMode,
     }),
     [title, description, images],
   );

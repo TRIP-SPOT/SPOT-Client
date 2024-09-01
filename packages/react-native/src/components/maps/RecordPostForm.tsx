@@ -2,7 +2,7 @@ import { Button, Font } from 'design-system';
 import { FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import RecordFormTitle from './RecordFormTitle';
-import DatePickers from './DatePickers';
+import RecordFormDatePicker from './RecordFormDatePickers';
 import Calendar from '@/assets/Calendar';
 import PlusIcon from '@/assets/PlusIcon';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
@@ -59,7 +59,7 @@ export default function RecordPostForm() {
             <View className="mr-3">
               <Calendar color="white" />
             </View>
-            <DatePickers />
+            <RecordFormDatePicker />
           </View>
         </View>
 
