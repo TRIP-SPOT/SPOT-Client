@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Alert, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import SelectProfile from '@/assets/SelectProfile';
@@ -7,6 +7,7 @@ import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
 import useNicknameQuery from '@/apis/queries/useNicknameQuery';
 import { StackNavigation } from '@/types/navigation';
+import CogWheelIcon from '@/assets/CogWheelIcon';
 
 interface MyPageProps {
   navigation: StackNavigation<'MyPage/Profile'>;
@@ -40,6 +41,13 @@ export default function MyPage({ navigation }: MyPageProps) {
             </View>
           </View>
         </View>
+        <TouchableOpacity
+          className="absolute -top-4 right-0 p-4"
+          activeOpacity={1}
+          onPress={() => Alert.alert('test')}
+        >
+          <CogWheelIcon />
+        </TouchableOpacity>
         <View className="flex-1 p-2">
           <MyPageTabNavigator />
         </View>
