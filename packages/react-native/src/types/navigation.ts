@@ -30,6 +30,8 @@ export type StackParamList = {
     recordId: number;
     location: KoreaLocationName;
   };
+
+  'Setting/Main': undefined;
 };
 
 export type StackNavigation<T extends keyof StackParamList> =

@@ -1,4 +1,4 @@
-import { Alert, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import SelectProfile from '@/assets/SelectProfile';
@@ -44,7 +44,7 @@ export default function MyPage({ navigation }: MyPageProps) {
         <TouchableOpacity
           className="absolute -top-4 right-0 p-4"
           activeOpacity={1}
-          onPress={() => Alert.alert('test')}
+          onPress={() => navigation.navigate('Setting/Main')}
         >
           <CogWheelIcon />
         </TouchableOpacity>
