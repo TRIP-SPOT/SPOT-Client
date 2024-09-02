@@ -7,6 +7,7 @@ import MyPageIcon from '@assets/MyPageIcon';
 import MyPageStackNavigator from './MyPageStackNavigator';
 import HomeStackNavigator from './HomeStackNavigator';
 import MapsStackNavigator from './MapsStackNavigator';
+import GamificationStackNavigator from './GamificationStackNavigator';
 
 export default function BottomTabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -45,6 +46,12 @@ export default function BottomTabNavigator() {
           tabBarIcon: HomeIcon,
         }}
       />
+      <Tab.Screen
+        name="Gamification"
+        component={GamificationStackNavigator}
+        options={{ tabBarLabel: '게이미피케이션', tabBarIcon: HomeIcon }}
+      />
+
       <Tab.Screen
         name="Detail"
         // FIXME: 추후 바텀 네비게이션 확정에 따른 수정 필요
