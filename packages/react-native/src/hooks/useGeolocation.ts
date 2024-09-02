@@ -1,4 +1,6 @@
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation, {
+  GeolocationResponse,
+} from '@react-native-community/geolocation';
 import { Alert, Linking, Platform } from 'react-native';
 import {
   check,
@@ -52,11 +54,11 @@ export default function useGeolocation() {
       return null;
     }
 
-    const result = new Promise((resolve) => {
+    const result = new Promise<GeolocationResponse>((resolve) => {
       Geolocation.getCurrentPosition((pos) => resolve(pos));
     });
     return result;
   };
 
-  return getGeolocation;
+  return { getGeolocation };
 }
