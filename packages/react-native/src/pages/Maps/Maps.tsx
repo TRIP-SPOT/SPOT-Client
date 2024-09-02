@@ -8,6 +8,7 @@ import { KoreaLocationName } from '@/types/map';
 import { StackNavigation } from '@/types/navigation';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import useGallery from '@/hooks/useGallery';
+import Header from '@/components/common/Header';
 
 interface MapsMainProps {
   navigation: StackNavigation<'Maps/Main'>;
@@ -42,6 +43,7 @@ export default function Maps({ navigation }: MapsMainProps) {
 
   return (
     <View className="flex-1 bg-[#D2F3F8]">
+      <Header type="logo" />
       <Svg width={width} height={height}>
         <Defs>
           {mapData.features.map((feature) => {
