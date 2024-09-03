@@ -21,6 +21,9 @@ export type StackParamList = {
   'Home/Detail': { id: number };
 
   'Gamification/Main': undefined;
+  'Gamification/Quiz': {
+    quizId: number;
+  };
 
   'Maps/Main': undefined;
   'Maps/Record': { location: KoreaLocationName };
