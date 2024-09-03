@@ -3,7 +3,7 @@ import QuizLoading from '@components/gamification/QuizLoading';
 import QuizSlider from '@components/gamification/QuizSlider';
 import withSuspense from '@/components/HOC/withSuspense';
 import useGeolocation from '@/hooks/useGeolocation';
-import useQuizzesQuery, { Location } from '@/apis/queries/useQuizzesQuery';
+import useQuizzesQuery, { Location } from '@/apis/queries/quiz/useQuizzesQuery';
 
 export default withSuspense(
   function Gamification() {
