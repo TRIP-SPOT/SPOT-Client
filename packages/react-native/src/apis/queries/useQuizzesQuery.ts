@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 export interface Location {
   latitude?: number;
@@ -34,11 +34,14 @@ const mockQuizzes = [
 ] as QuizzesResponse[];
 
 export default function useQuizzesQuery({ location }: UseQuizzesQueryParams) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['Quizzes', location],
     queryFn: async () => {
+      if (!location) {
+        return null;
+      }
+
       return mockQuizzes;
     },
-    enabled: Boolean(location),
   });
 }
