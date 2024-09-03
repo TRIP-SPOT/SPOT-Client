@@ -20,6 +20,8 @@ export type StackParamList = {
   'Home/Search': { title: string };
   'Home/Detail': { id: number };
 
+  'Gamification/Main': undefined;
+
   'Maps/Main': undefined;
   'Maps/Record': { location: KoreaLocationName };
   'Maps/PostRecord': {

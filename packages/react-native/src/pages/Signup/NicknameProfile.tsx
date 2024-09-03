@@ -7,6 +7,7 @@ import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
 import useColorPalette from '@/hooks/useColorPalette';
 import SignupHeader from '@/components/signup/common/Header';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
+import { AppStorage } from '@/utils/storage';
 
 interface NicknameProfileProps {
   navigation: StackNavigation<'Signup/NicknameProfile'>;
@@ -23,7 +24,9 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
     textColor,
   } = useColorPalette();
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    await AppStorage.saveData({ key: 'nickname', value: nickname });
+
     navigation.reset({ routes: [{ name: 'Main' }] });
   };
 
