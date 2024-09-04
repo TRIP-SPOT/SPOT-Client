@@ -34,6 +34,7 @@ export default withSuspense(function Quiz() {
           {data.choices.map((content) => (
             <View>
               <QuizSelection
+                key={content}
                 onPress={() => setSelectedContent(content)}
                 isSelected={selectedContent === content}
                 content={content}
