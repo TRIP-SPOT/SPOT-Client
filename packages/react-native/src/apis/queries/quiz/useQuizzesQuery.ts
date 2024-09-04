@@ -6,6 +6,7 @@ export interface Location {
 }
 
 export interface QuizzesResponse {
+  id: number;
   title: string;
   location: string;
   region: string;
@@ -18,6 +19,7 @@ interface UseQuizzesQueryParams {
 
 const mockQuizzes = [
   {
+    id: 1,
     title: '도깨비',
     location: '주문진 방파제',
     region: '강원도 강릉',
@@ -25,6 +27,7 @@ const mockQuizzes = [
       'https://t1.daumcdn.net/news/202406/27/poctan/20240627172416746baii.jpg',
   },
   {
+    id: 2,
     title: '도깨비2',
     location: '주문한 방파제',
     region: '강원도 강릉',

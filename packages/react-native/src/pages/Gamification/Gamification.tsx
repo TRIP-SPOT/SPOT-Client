@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import useGeolocation from '@/hooks/useGeolocation';
-import useQuizzesQuery, { Location } from '@/apis/queries/useQuizzesQuery';
-import QuizLoading from './Gamification/QuizLoading';
-import QuizSlider from './Gamification/QuizSlider';
+import QuizLoading from '@components/gamification/QuizLoading';
+import QuizSlider from '@components/gamification/QuizSlider';
 import withSuspense from '@/components/HOC/withSuspense';
+import useGeolocation from '@/hooks/useGeolocation';
+import useQuizzesQuery, { Location } from '@/apis/queries/quiz/useQuizzesQuery';
 
 export default withSuspense(
   function Gamification() {

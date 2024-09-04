@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Dimensions, View, ViewToken } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { QuizzesResponse } from '@/apis/queries/useQuizzesQuery';
+import { QuizzesResponse } from '@/apis/queries/quiz/useQuizzesQuery';
 import Header from '@/components/common/Header';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import QuizCard from './QuizCard';
@@ -25,7 +25,7 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
 
   return (
     <BackGroundGradient withoutScroll>
-      <Header title={quizListData[0].title} />
+      <Header title={quizListData[currentIndex].title} />
       <View className="flex-1 justify-center">
         <View className="justify-center items-center gap-2">
           <FlatList
