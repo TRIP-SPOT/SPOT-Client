@@ -36,29 +36,44 @@ export default function useGallery() {
     }
   };
 
-  const hasGalleryPermission = async () => {
+  const hasGalleryPermission = async (type?: 'write' | 'read') => {
     if (Platform.OS === 'ios') {
       await request(PERMISSIONS.IOS.PHOTO_LIBRARY);
       const iosGalleryPermission = await check(PERMISSIONS.IOS.PHOTO_LIBRARY);
       return checkGalleryPermission(iosGalleryPermission) === 'granted';
     }
 
-    await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE);
-    const aosGalleryPermission = await check(
-      PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
-    );
-    return checkGalleryPermission(aosGalleryPermission) === 'granted';
+    if (Platform.OS === 'android') {
+      if (type === 'write') {
+        if (Platform.Version >= 29) {
+          return true;
+        }
+        // API 레벨 28 이하에서만 쓰기 권한 요청
+        const permission = PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE;
+        const permissionStatus = await request(permission);
+        return checkGalleryPermission(permissionStatus) === 'granted';
+      }
+
+      // 읽기 권한 요청
+      const permission =
+        Platform.Version >= 33
+          ? PERMISSIONS.ANDROID.READ_MEDIA_IMAGES
+          : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+      const permissionStatus = await request(permission);
+      return checkGalleryPermission(permissionStatus) === 'granted';
+    }
+    return false;
   };
 
   const savePhoto = async (uri: string) => {
-    if (!(await hasGalleryPermission())) return Promise.reject();
+    if (!(await hasGalleryPermission('write'))) return Promise.reject();
 
     // eslint-disable-next-line consistent-return
     return CameraRoll.saveAsset(uri);
   };
 
   const getPhoto = async (selectionLimit?: number) => {
-    const hasPermission = await hasGalleryPermission();
+    const hasPermission = await hasGalleryPermission('read');
     if (!hasPermission) return Promise.reject();
 
     const response = await launchImageLibrary({

@@ -1,14 +1,17 @@
-import { Dimensions, View, TouchableOpacity } from 'react-native';
+import { useRef, useState } from 'react';
+import { Dimensions, View, TouchableOpacity, Alert } from 'react-native';
 import { Font } from 'design-system';
 import { geoPath, geoMercator } from 'd3-geo';
 import { Svg, G, Path, Image, Defs, Pattern } from 'react-native-svg';
-import { useState } from 'react';
+import { captureRef } from 'react-native-view-shot';
 import mapData from '@/assets/mapData';
 import { KoreaLocationName } from '@/types/map';
 import { StackNavigation } from '@/types/navigation';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import useGallery from '@/hooks/useGallery';
 import Header from '@/components/common/Header';
+import MapSaveButtonIcon from '@/assets/MapSaveButtonIcon';
+import MapDownloadIcon from '@/assets/MapDownloadIcon';
 
 interface MapsMainProps {
   navigation: StackNavigation<'Maps/Main'>;
@@ -23,6 +26,9 @@ export default function Maps({ navigation }: MapsMainProps) {
   const { BottomSheet, showBottonSheet } = useBottomSheet();
   const [regionImage, setRegionImage] = useState<RegionRepresentImage>();
   const { getPhoto } = useGallery();
+  const [isButtonClicked, setButtonClicked] = useState(false);
+  const ref = useRef<View>(null);
+  const { savePhoto } = useGallery();
 
   const projection = geoMercator()
     .scale(3300)
@@ -41,60 +47,85 @@ export default function Maps({ navigation }: MapsMainProps) {
     }
   };
 
+  const handleCapture = async () => {
+    const result = await captureRef(ref, {
+      format: 'png',
+      quality: 0.8,
+    });
+    await savePhoto(result);
+    Alert.alert('지도가 저장됐어요!');
+    setButtonClicked(false);
+  };
+
   return (
-    <View className="flex-1 bg-[#D2F3F8]">
+    <View className="flex-1 bg-[#D2F3F8] relative">
       <Header type="logo" />
-      <Svg width={width} height={height}>
-        <Defs>
-          {mapData.features.map((feature) => {
-            const regionName = feature.properties.CTP_KOR_NM;
-            const patternImage = regionImage?.[regionName];
-            return (
-              patternImage && (
-                <Pattern
-                  key={regionName}
-                  id={`${regionName}Image`}
-                  patternUnits="userSpaceOnUse"
-                  width={width / 4}
-                  height={height / 4}
-                >
-                  <Image
-                    href={patternImage}
+      <View className="bg-[#D2F3F8]" ref={ref}>
+        <Svg width={width} height={height}>
+          <Defs>
+            {mapData.features.map((feature) => {
+              const regionName = feature.properties.CTP_KOR_NM;
+              const patternImage = regionImage?.[regionName];
+              return (
+                patternImage && (
+                  <Pattern
+                    key={regionName}
+                    id={`${regionName}Image`}
+                    patternUnits="userSpaceOnUse"
                     width={width / 4}
                     height={height / 4}
-                    preserveAspectRatio="xMidYMid slice"
-                  />
-                </Pattern>
-              )
-            );
-          })}
-        </Defs>
-        <G>
-          {mapData.features.map((feature) => {
-            const geoFeature = feature as GeoJSON.Feature<GeoJSON.Geometry>;
-            const regionName = feature.properties.CTP_KOR_NM;
-            const patternId = `${regionName}Image`;
+                  >
+                    <Image
+                      href={patternImage}
+                      width={width / 4}
+                      height={height / 4}
+                      preserveAspectRatio="xMidYMid slice"
+                    />
+                  </Pattern>
+                )
+              );
+            })}
+          </Defs>
+          <G>
+            {mapData.features.map((feature) => {
+              const geoFeature = feature as GeoJSON.Feature<GeoJSON.Geometry>;
+              const regionName = feature.properties.CTP_KOR_NM;
+              const patternId = `${regionName}Image`;
 
-            return (
-              <Path
-                key={regionName}
-                d={pathGenerator(geoFeature) || ''}
-                fill={
-                  regionImage?.[regionName] ? `url(#${patternId})` : 'white'
-                }
-                stroke="#000"
-                strokeWidth={1}
-                onPress={() => {
-                  setRegion(regionName);
-                  showBottonSheet();
-                }}
-              />
-            );
-          })}
-        </G>
-      </Svg>
+              return (
+                <Path
+                  key={regionName}
+                  d={pathGenerator(geoFeature) || ''}
+                  fill={
+                    regionImage?.[regionName] ? `url(#${patternId})` : 'white'
+                  }
+                  stroke="#000"
+                  strokeWidth={1}
+                  onPress={() => {
+                    setRegion(regionName);
+                    showBottonSheet();
+                  }}
+                />
+              );
+            })}
+          </G>
+        </Svg>
+      </View>
+
+      <TouchableOpacity
+        className="absolute bottom-6 right-6"
+        onPress={() => {
+          setRegion(undefined);
+          setButtonClicked(true);
+        }}
+      >
+        <MapSaveButtonIcon />
+      </TouchableOpacity>
       {region && (
-        <BottomSheet isShow={Boolean(region)}>
+        <BottomSheet
+          isShow={Boolean(region)}
+          handleClose={() => setRegion(undefined)}
+        >
           <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
             <View className="flex">
               <Font.Bold type="mainTitle" color="black">
@@ -125,6 +156,43 @@ export default function Maps({ navigation }: MapsMainProps) {
             </View>
           </View>
         </BottomSheet>
+      )}
+
+      {isButtonClicked && (
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            position: 'absolute',
+            width,
+            height: '100%',
+            top: 0,
+            left: 0,
+            backgroundColor: 'rgba(0,0,0,0.6)',
+          }}
+          activeOpacity={1}
+          onPress={() => setButtonClicked(false)}
+        >
+          <View
+            className="absolute right-6 flex flex-row items-center justify-center"
+            style={{
+              bottom: 108,
+            }}
+          >
+            <Font type="title1" color="white">
+              이미지 저장
+            </Font>
+            <TouchableOpacity
+              className="bg-SPOT-red/20 rounded-full justify-center items-center ml-4"
+              style={{
+                width: 70,
+                height: 70,
+              }}
+              onPress={handleCapture}
+            >
+              <MapDownloadIcon />
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
       )}
     </View>
   );

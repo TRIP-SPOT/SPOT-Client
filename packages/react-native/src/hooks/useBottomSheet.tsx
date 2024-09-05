@@ -8,6 +8,7 @@ import BottomSheet, {
 interface BottomSheetProps {
   isShow?: boolean;
   children: ReactNode;
+  handleClose?: () => void;
 }
 
 const SNAP_POINTS = ['30%'];
@@ -27,7 +28,11 @@ const renderBackdropComponent = (props: BottomSheetBackdropProps) => (
 export default function useBottomSheet() {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  function BottomSheetComponent({ isShow, children }: BottomSheetProps) {
+  function BottomSheetComponent({
+    isShow,
+    handleClose,
+    children,
+  }: BottomSheetProps) {
     if (!isShow) {
       return null;
     }
@@ -38,6 +43,7 @@ export default function useBottomSheet() {
         ref={bottomSheetRef}
         snapPoints={SNAP_POINTS}
         enablePanDownToClose
+        onClose={handleClose}
       >
         <BottomSheetView>{children}</BottomSheetView>
       </BottomSheet>
