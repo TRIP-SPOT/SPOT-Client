@@ -1,5 +1,11 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { RecordGetResponse } from '@/apis/queries/records/useRecordDetailQuery';
+import { City } from '@/constants/CITY';
+
+export interface RecordFormSelectValue {
+  label: string;
+  value: City;
+}
 
 interface RecordFormContextState {
   title: string;
@@ -10,6 +16,7 @@ interface RecordFormContextState {
   };
   selectionMode?: 'start' | 'end';
   images: string[];
+  selectedCity: RecordFormSelectValue | undefined;
   handleTitleChange: (value: string) => void;
   handleDescriptionChange: (value: string) => void;
   addImages: (imgUrl: string) => void;
@@ -25,6 +32,7 @@ interface RecordFormContextState {
   setSelectionMode: React.Dispatch<
     React.SetStateAction<'start' | 'end' | undefined>
   >;
+  handleSelectChange: (item: RecordFormSelectValue) => void;
 }
 
 interface RecordFormProviderDefulatProps {
@@ -42,6 +50,8 @@ export function RecordFormProvider({
   const [description, setDescription] = useState(
     defaultProps?.description || '',
   );
+  const [selectedCity, setSelectedCity] = useState<RecordFormSelectValue>();
+
   const [images, setImages] = useState<string[]>(defaultProps?.imageUrls || []);
 
   const [date, setDate] = useState({
@@ -81,6 +91,9 @@ export function RecordFormProvider({
     return setImages([]);
   };
 
+  const handleSelectChange = (item: RecordFormSelectValue) =>
+    setSelectedCity(item);
+
   const value = useMemo(
     () => ({
       title,
@@ -88,6 +101,7 @@ export function RecordFormProvider({
       images,
       date,
       selectionMode,
+      selectedCity,
       handleTitleChange,
       handleDescriptionChange,
       addImages,
@@ -96,6 +110,7 @@ export function RecordFormProvider({
       validate,
       setDate,
       setSelectionMode,
+      handleSelectChange,
     }),
     [title, description, images, date, selectionMode],
   );

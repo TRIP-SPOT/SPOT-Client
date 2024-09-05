@@ -10,6 +10,7 @@ import useGallery from '@/hooks/useGallery';
 import useRecordMutation from '@/apis/mutations/useRecordMutation';
 import RecordFormDescription from './RecordFormDescription';
 import RecordFormImages from './RecordFormImages';
+import RecordFormCitySelect from './RecordFormCitySelect';
 
 export default function RecordPostForm() {
   const { description, title, validate, images, resetImages } =
@@ -48,10 +49,9 @@ export default function RecordPostForm() {
     <>
       <View className="gap-4 flex flex-col flex-1 px-4">
         <View>
-          <Font type="body2" color="white">
-            지역 선택
-          </Font>
+          <RecordFormCitySelect />
         </View>
+
         <View>
           <RecordFormTitle />
         </View>
