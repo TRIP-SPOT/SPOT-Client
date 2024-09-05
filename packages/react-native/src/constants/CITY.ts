@@ -420,3 +420,23 @@ export const REGION_MAPPER: Record<KoreaLocationName, Region> = {
   충청남도: Region.CHUNGNAM,
   충청북도: Region.CHUNGBUK,
 };
+
+export const REVERSE_REGION_MAPPER: Record<Region, KoreaLocationName> = {
+  [Region.GANGWON]: '강원도',
+  [Region.GYEONGGI]: '경기도',
+  [Region.GYEONGNAM]: '경상남도',
+  [Region.GYEONGBUK]: '경상북도',
+  [Region.JEONNAM]: '전라남도',
+  [Region.JEONBUK]: '전라북도',
+  [Region.SEOUL]: '서울특별시',
+  [Region.GWANGJU]: '광주광역시',
+  [Region.DAEGU]: '대구광역시',
+  [Region.DAEJEON]: '대전광역시',
+  [Region.BUSAN]: '부산광역시',
+  [Region.SEJONG]: '세종특별자치시',
+  [Region.ULSAN]: '울산광역시',
+  [Region.INCHEON]: '인천광역시',
+  [Region.JEJU]: '제주특별자치도',
+  [Region.CHUNGNAM]: '충청남도',
+  [Region.CHUNGBUK]: '충청북도',
+};
