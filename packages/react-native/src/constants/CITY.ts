@@ -1,3 +1,5 @@
+import { KoreaLocationName } from '@/types/map';
+
 /* eslint-disable no-shadow */
 export enum City {
   SEOUL,
@@ -387,7 +389,7 @@ export enum Region {
   JEONBUK,
   JEONNAM,
   CHUNGBUK,
-  CHUNGANG,
+  CHUNGNAM,
   SEOUL,
   INCHEON,
   DAEGU,
@@ -398,3 +400,23 @@ export enum Region {
   ULSAN,
   JEJU,
 }
+
+export const REGION_MAPPER: Record<KoreaLocationName, Region> = {
+  강원도: Region.GANGWON,
+  경기도: Region.GYEONGGI,
+  경상남도: Region.GYEONGNAM,
+  경상북도: Region.GYEONGBUK,
+  전라남도: Region.JEONNAM,
+  전라북도: Region.JEONBUK,
+  서울특별시: Region.SEOUL,
+  광주광역시: Region.GWANGJU,
+  대구광역시: Region.DAEGU,
+  대전광역시: Region.DAEJEON,
+  부산광역시: Region.BUSAN,
+  세종특별자치시: Region.SEJONG,
+  울산광역시: Region.ULSAN,
+  인천광역시: Region.INCHEON,
+  제주특별자치도: Region.JEJU,
+  충청남도: Region.CHUNGNAM,
+  충청북도: Region.CHUNGBUK,
+};

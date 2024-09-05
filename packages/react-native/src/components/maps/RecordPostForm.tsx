@@ -11,9 +11,10 @@ import useRecordMutation from '@/apis/mutations/useRecordMutation';
 import RecordFormDescription from './RecordFormDescription';
 import RecordFormImages from './RecordFormImages';
 import RecordFormCitySelect from './RecordFormCitySelect';
+import { REGION_MAPPER } from '@/constants/CITY';
 
 export default function RecordPostForm() {
-  const { description, title, validate, images, resetImages } =
+  const { description, title, validate, images, resetImages, selectedCity } =
     useRecordFormState();
   const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
   const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
@@ -36,7 +37,8 @@ export default function RecordPostForm() {
       record: {
         name: title,
         description,
-        region: params.location,
+        region: REGION_MAPPER[params.location],
+        city: selectedCity,
       },
       images,
     });
