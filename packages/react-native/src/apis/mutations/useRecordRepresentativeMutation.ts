@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { REGION_MAPPER } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
@@ -27,6 +28,9 @@ export default function useRecordRepresentativeMutation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['Representative'] });
+    },
+    onError: () => {
+      Alert.alert('대표사진 저장에 실패했어요.', '잠시후에 다시 시도해주세요.');
     },
   });
 }
