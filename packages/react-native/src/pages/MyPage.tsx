@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import SelectProfile from '@/assets/SelectProfile';
@@ -22,7 +22,25 @@ export default function MyPage({ navigation }: MyPageProps) {
         <View className="flex items-center gap-7">
           {/* FIXME: 실제 이미지 받아와서 설정 */}
           <View className="relative">
-            <SelectProfile />
+            {nickname?.colorSet ? (
+              <View
+                className="w-40 h-40 rounded-full justify-center items-center"
+                style={{
+                  backgroundColor: nickname.colorSet.bgColor,
+                }}
+              >
+                <Text
+                  className="font-Pretendard-Medium text-[40px]"
+                  style={{
+                    color: nickname.colorSet.color,
+                  }}
+                >
+                  {nickname.value}
+                </Text>
+              </View>
+            ) : (
+              <SelectProfile />
+            )}
             <View className="absolute right-0 bottom-0">
               <EditButton
                 onPress={() => navigation.navigate('MyPage/EditProfile')}
@@ -36,7 +54,7 @@ export default function MyPage({ navigation }: MyPageProps) {
             <View className="mt-2">
               {/* FIXME: 실제 닉네임 받아와서 설정 */}
               <Font type="mainTitle" color="white">
-                {nickname}
+                {nickname?.value}
               </Font>
             </View>
           </View>

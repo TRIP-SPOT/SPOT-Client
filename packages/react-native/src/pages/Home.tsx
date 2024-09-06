@@ -70,7 +70,7 @@ export default function Home({ navigation }: HomeScreenProps) {
       <View className="flex flex-col gap-10 p-4">
         <View>
           <Font type="title1" color="white">
-            안녕하세요, {nickname}님{'\n'}오늘은 어디로 가 볼까요?
+            안녕하세요, {nickname?.value}님{'\n'}오늘은 어디로 가 볼까요?
           </Font>
           {/* FIXME: 추후 삭제 */}
           <Button onPress={() => navigation.navigate('Camera')}>
