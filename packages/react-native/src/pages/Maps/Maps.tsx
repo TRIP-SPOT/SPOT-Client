@@ -12,23 +12,26 @@ import useGallery from '@/hooks/useGallery';
 import Header from '@/components/common/Header';
 import MapSaveButtonIcon from '@/assets/MapSaveButtonIcon';
 import MapDownloadIcon from '@/assets/MapDownloadIcon';
+import useRecordRepresentativeMutation from '@/apis/mutations/useRecordRepresentativeMutation';
+import useRecordRepresentativeQuery from '@/apis/queries/records/useRecordRepresentativeQuery';
 
 interface MapsMainProps {
   navigation: StackNavigation<'Maps/Main'>;
 }
-
-type RegionRepresentImage = Partial<Record<KoreaLocationName, string>>;
 
 const { width, height } = Dimensions.get('window');
 
 export default function Maps({ navigation }: MapsMainProps) {
   const [region, setRegion] = useState<KoreaLocationName>();
   const { BottomSheet, showBottonSheet } = useBottomSheet();
-  const [regionImage, setRegionImage] = useState<RegionRepresentImage>();
   const { getPhoto } = useGallery();
   const [isButtonClicked, setButtonClicked] = useState(false);
   const ref = useRef<View>(null);
   const { savePhoto } = useGallery();
+
+  const { data: regionImage } = useRecordRepresentativeQuery();
+  const { mutateAsync: postRepresentativeImage } =
+    useRecordRepresentativeMutation();
 
   const projection = geoMercator()
     .scale(3300)
@@ -39,12 +42,11 @@ export default function Maps({ navigation }: MapsMainProps) {
 
   const handleAddRegionImage = async (regionName: KoreaLocationName) => {
     const photo = (await getPhoto()) as string;
-    if (photo) {
-      setRegionImage((prev) => ({
-        ...prev,
-        [regionName]: photo,
-      }));
-    }
+
+    await postRepresentativeImage({
+      region: regionName,
+      imageUri: photo,
+    });
   };
 
   const handleCapture = async () => {

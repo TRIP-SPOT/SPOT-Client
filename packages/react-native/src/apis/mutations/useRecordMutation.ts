@@ -1,11 +1,14 @@
-import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { Region } from '@/constants/CITY';
+import { RecordFormSelectValue } from '@/hooks/useRecordFormState';
 
 interface PostRecordRequest {
   record: {
     name: string;
     description: string;
-    region: string;
+    region: Region;
+    city?: RecordFormSelectValue;
   };
   images: string[];
 }
@@ -13,6 +16,8 @@ interface PostRecordRequest {
 interface PatchRecordRequest {
   name?: string;
   description?: string;
+  region: Region;
+  city?: RecordFormSelectValue;
   image?: string[];
 }
 
