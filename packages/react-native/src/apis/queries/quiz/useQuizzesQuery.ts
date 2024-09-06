@@ -40,7 +40,7 @@ export default function useQuizzesQuery({ location }: UseQuizzesQueryParams) {
   return useSuspenseQuery({
     queryKey: ['Quizzes', location],
     queryFn: async () => {
-      if (!location) {
+      if (!location?.latitude || !location.longitude) {
         return null;
       }
 
