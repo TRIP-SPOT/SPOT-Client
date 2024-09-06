@@ -26,8 +26,7 @@ const mockData: SpotData[] = [
     ],
     isLiked: false,
     likeCount: 20,
-    backgroundImage:
-      'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
+    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
   },
   {
     spotId: 2,
@@ -36,8 +35,7 @@ const mockData: SpotData[] = [
     tags: ['바다', '도깨비'],
     isLiked: false,
     likeCount: 20,
-    backgroundImage:
-      'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
+    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
   },
   {
     spotId: 3,
@@ -46,8 +44,7 @@ const mockData: SpotData[] = [
     tags: ['바다', '도깨비'],
     isLiked: false,
     likeCount: 20,
-    backgroundImage:
-      'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
+    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
   },
   {
     spotId: 4,
@@ -56,8 +53,7 @@ const mockData: SpotData[] = [
     tags: ['바다', '도깨비'],
     isLiked: false,
     likeCount: 20,
-    backgroundImage:
-      'https://i.namu.wiki/i/rPbIK73UvaZkqrOVZ2XUs2bqFr8krBAeJRDZIu9dy_2lNEVv2A8ukPsMT2WCQg0mcAIKmVqw7YhdXMek2BUPLUu7pBrT9RRwvnfMRzwLxUL3k7Amfo44GQWagFtAIRfbVPWuGDAHTBDOWN5asD7o7A.webp',
+    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
   },
 ];
 
