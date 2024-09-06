@@ -32,9 +32,8 @@ export default withSuspense(function Quiz() {
         </View>
         <View className="flex flex-col justify-start gap-2.5 ">
           {data.choices.map((content) => (
-            <View>
+            <View key={content}>
               <QuizSelection
-                key={content}
                 onPress={() => setSelectedContent(content)}
                 isSelected={selectedContent === content}
                 content={content}
