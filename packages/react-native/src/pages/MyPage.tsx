@@ -24,7 +24,7 @@ export default function MyPage({ navigation }: MyPageProps) {
           <View className="relative">
             {nickname?.colorSet ? (
               <View
-                className="w-40 h-40 rounded-full justify-center items-center"
+                className="w-[140px] h-[140px] rounded-full justify-center items-center"
                 style={{
                   backgroundColor: nickname.colorSet.bgColor,
                 }}
