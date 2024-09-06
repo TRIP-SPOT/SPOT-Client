@@ -13,9 +13,11 @@ export default function useRecordRepresentativeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ region, imageUri }: MutationRequestParams) => {
+      const prevImages = await AppStorage.getData('representImage');
       await AppStorage.saveData({
         key: 'representImage',
         value: {
+          ...prevImages,
           [region]: imageUri,
         },
       });
