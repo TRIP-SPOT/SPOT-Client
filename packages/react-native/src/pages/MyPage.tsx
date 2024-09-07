@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import SelectProfile from '@/assets/SelectProfile';
-import Badge from '@/components/mypage/Badge';
+import Rank from '@/components/mypage/Rank';
 import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
 import useNicknameQuery from '@/apis/queries/useNicknameQuery';
@@ -49,7 +49,7 @@ export default function MyPage({ navigation }: MyPageProps) {
           </View>
           <View className="flex flex-col items-center">
             <View>
-              <Badge content="Beginner" />
+              <Rank content="Beginner" />
             </View>
             <View className="mt-2">
               {/* FIXME: 실제 닉네임 받아와서 설정 */}
