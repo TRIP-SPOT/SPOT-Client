@@ -66,7 +66,7 @@ export default function MyPage({ navigation }: MyPageProps) {
         >
           <CogWheelIcon />
         </TouchableOpacity>
-        <View className="flex-1 p-2">
+        <View className="flex-1">
           <MyPageTabNavigator />
         </View>
       </View>

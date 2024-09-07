@@ -37,7 +37,7 @@ export default function Badge({
   preventFade = false,
 }: BadgeProps) {
   return (
-    <View className="mb-5">
+    <View>
       <TouchableOpacity onPress={onPress} activeOpacity={1}>
         <Image source={badgePath[location]} style={{ width, height: width }} />
         {label && (
