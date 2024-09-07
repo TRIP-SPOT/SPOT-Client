@@ -9,6 +9,14 @@ import { View } from 'react-native';
 import { badgePath } from '../common/Badge';
 import BadgeListItem from './BadgeListItem';
 
+// FIXME: 실제 데이터 받아오기: selectedBadge를 기준으로 데이터를 받아오면 됨
+const mockData = [
+  { id: 1, title: '안동1', date: '2024. 08. 16.', content: 'SPOT! 퀴즈 정답' },
+  { id: 2, title: '안동2', date: '2024. 08. 16.', content: 'SPOT! 퀴즈 정답' },
+  { id: 3, title: '안동3', date: '2024. 08. 16.', content: 'SPOT! 퀴즈 정답' },
+  { id: 4, title: '안동4', date: '2024. 08. 16.', content: 'SPOT! 퀴즈 정답' },
+];
+
 const renderBackdropComponent = (props: BottomSheetBackdropProps) => (
   <BottomSheetBackdrop
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -29,8 +37,6 @@ export default function BadgeListBottomSheet({
   onClose,
 }: BadgeListBottomSheetProps) {
   const sheetRef = useRef<BottomSheet>(null);
-  // FIXME: 실제 데이터 받아오기: selectedBadge를 기준으로 데이터를 받아오면 됨
-  const mockData = [1, 2, 3, 4];
 
   return (
     <BottomSheet
@@ -49,12 +55,18 @@ export default function BadgeListBottomSheet({
         showsVerticalScrollIndicator={false}
         style={{ paddingHorizontal: 16 }}
       >
-        {mockData.map((_, index) => (
+        {mockData.map((badgeInfo, index) => (
           <>
-            <BadgeListItem key={`data-${index}`} location={selectedBadge} />
+            <BadgeListItem
+              key={`data-${badgeInfo.id}`}
+              location={selectedBadge}
+              title={badgeInfo.title}
+              date={badgeInfo.date}
+              content={badgeInfo.content}
+            />
             {index !== mockData.length - 1 && (
               <View
-                key={`sep-${index}`}
+                key={`sep-${badgeInfo.id}`}
                 className="h-[0.5px] bg-[#333333] bg-opacity-30 w-full"
               />
             )}
