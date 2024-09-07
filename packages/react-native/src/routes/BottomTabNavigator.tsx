@@ -2,15 +2,24 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HomeIcon from '@assets/HomeIcon';
 import MapIcon from '@assets/MapIcon';
-import DetailIcon from '@assets/DetailIcon';
 import MyPageIcon from '@assets/MyPageIcon';
 import MyPageStackNavigator from './MyPageStackNavigator';
 import HomeStackNavigator from './HomeStackNavigator';
 import MapsStackNavigator from './MapsStackNavigator';
 import GamificationStackNavigator from './GamificationStackNavigator';
+import RouteIcon from '@/assets/RouteIcon';
+import EarthIcon from '@/assets/EarthIcon';
+
+type BottomTabNavigationList = {
+  Home: undefined;
+  TripPlanner: undefined;
+  Filter: undefined;
+  TravelLog: undefined;
+  MyPage: undefined;
+};
 
 export default function BottomTabNavigator() {
-  const Tab = createBottomTabNavigator();
+  const Tab = createBottomTabNavigator<BottomTabNavigationList>();
   const insets = useSafeAreaInsets();
 
   return (
@@ -22,7 +31,7 @@ export default function BottomTabNavigator() {
           backgroundColor: '#191919',
           borderTopWidth: 0.5,
           borderTopColor: '#333333',
-          height: 60 + insets.bottom,
+          height: 65 + insets.bottom,
           paddingBottom: 5 + insets.bottom,
         },
         tabBarLabelStyle: {
@@ -42,30 +51,29 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeStackNavigator}
         options={{
-          tabBarLabel: '홈',
+          tabBarLabel: 'Home',
           tabBarIcon: HomeIcon,
         }}
       />
       <Tab.Screen
-        name="Gamification"
+        name="TripPlanner"
         component={GamificationStackNavigator}
-        options={{ tabBarLabel: '게이미피케이션', tabBarIcon: HomeIcon }}
+        options={{ tabBarLabel: 'Trip Planner', tabBarIcon: RouteIcon }}
       />
 
       <Tab.Screen
-        name="Detail"
-        // FIXME: 추후 바텀 네비게이션 확정에 따른 수정 필요
-        component={HomeStackNavigator}
+        name="Filter"
+        component={GamificationStackNavigator}
         options={{
-          tabBarLabel: '상세보기',
-          tabBarIcon: DetailIcon,
+          tabBarLabel: 'Filter & Quiz',
+          tabBarIcon: EarthIcon,
         }}
       />
       <Tab.Screen
-        name="Route"
+        name="TravelLog"
         component={MapsStackNavigator}
         options={{
-          tabBarLabel: '여행지도',
+          tabBarLabel: 'Travel Log',
           tabBarIcon: MapIcon,
         }}
       />
@@ -73,7 +81,7 @@ export default function BottomTabNavigator() {
         name="MyPage"
         component={MyPageStackNavigator}
         options={{
-          tabBarLabel: '마이페이지',
+          tabBarLabel: 'My Page',
           tabBarIcon: MyPageIcon,
         }}
       />
