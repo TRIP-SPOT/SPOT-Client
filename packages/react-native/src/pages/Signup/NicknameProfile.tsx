@@ -25,7 +25,16 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   } = useColorPalette();
 
   const handleNext = async () => {
-    await AppStorage.saveData({ key: 'nickname', value: nickname });
+    await AppStorage.saveData({
+      key: 'nickname',
+      value: {
+        value: nickname,
+        colorSet: {
+          color: textColor,
+          bgColor: selectedColor,
+        },
+      },
+    });
 
     navigation.reset({ routes: [{ name: 'Main' }] });
   };

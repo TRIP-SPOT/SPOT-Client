@@ -18,7 +18,7 @@ export default withSuspense(
           longitude: res?.coords.longitude,
         });
       });
-    });
+    }, []);
 
     if (!data) {
       return <QuizLoading />;

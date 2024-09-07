@@ -3,7 +3,13 @@ import { useQuery } from '@tanstack/react-query';
 import { AppStorage } from '@/utils/storage';
 
 interface UseNicknameQueryReturn {
-  nickname: string;
+  nickname?: {
+    value: string;
+    colorSet?: {
+      color: string;
+      bgColor: string;
+    };
+  };
   isLoading: boolean;
   isError: boolean;
   refetch: () => void;
@@ -21,7 +27,9 @@ export default function useNicknameQuery() {
       }
 
       // TODO: 서버데이터 패칭 로직 추가 필요
-      return '';
+      return {
+        value: '',
+      };
     },
   });
 

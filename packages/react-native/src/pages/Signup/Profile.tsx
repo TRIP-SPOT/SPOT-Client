@@ -20,7 +20,12 @@ export default function Profile({ navigation }: ProfileProps) {
   const handleNext = async () => {
     if (!photoUri) return;
 
-    await AppStorage.saveData({ key: 'nickname', value: nickname });
+    await AppStorage.saveData({
+      key: 'nickname',
+      value: {
+        value: nickname,
+      },
+    });
     navigation.reset({ routes: [{ name: 'Main' }] });
   };
 
