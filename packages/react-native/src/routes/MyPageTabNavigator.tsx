@@ -15,6 +15,7 @@ export default function MyPageTabNavigator() {
           borderColor: 'transparent',
           borderWidth: 0,
           marginBottom: 10,
+          marginHorizontal: 20,
         },
         tabBarIndicatorStyle: {
           backgroundColor: '#FF1919',

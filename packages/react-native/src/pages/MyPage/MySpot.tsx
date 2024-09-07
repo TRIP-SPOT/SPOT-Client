@@ -50,13 +50,14 @@ const mockData = [
 export default function MySpot() {
   const [containerWidth, setContainerWidth] = useState(0);
   const numColumns = 2;
+  const paddingHorizontal = 8;
   const gap = 16;
 
   return (
     <FlatList
       data={mockData}
       onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
-      style={{ flex: 1, backgroundColor: 'black' }}
+      style={{ flex: 1, backgroundColor: 'black', paddingHorizontal }}
       renderItem={({ item }) => (
         <MySpotBlock
           id={item.id}
@@ -64,7 +65,9 @@ export default function MySpot() {
           backgroundImage={item.backgroundImage}
           location={item.location}
           date={item.date}
-          width={(containerWidth - gap * 2) / numColumns}
+          width={
+            (containerWidth - gap * 2 - paddingHorizontal * 2) / numColumns
+          }
           gap={gap}
         />
       )}
