@@ -7,6 +7,7 @@ export type StackParamList = {
   Main: undefined;
   Signup: undefined;
   Camera: undefined;
+  Landing: undefined;
 
   'Signup/Nickname': undefined;
   'Signup/Profile': { nickname: string };

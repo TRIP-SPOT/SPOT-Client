@@ -5,6 +5,7 @@ import CameraPage from '@/pages/CameraPage';
 import SignupStackNavigator from './SignupStackNavigator';
 import { StackParamList } from '@/types/navigation';
 import SettingStackNavigator from './SettingStackNavigator';
+import Landing from '@/pages/Landing';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -25,6 +26,7 @@ export default function StackNavigator() {
       <Stack.Screen name="Main" component={TabScreens} />
       <Stack.Screen name="Camera" component={CameraPage} />
       <Stack.Screen name="Setting/Main" component={SettingStackNavigator} />
+      <Stack.Screen name="Landing" component={Landing} />
     </Stack.Navigator>
   );
 }

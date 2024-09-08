@@ -76,6 +76,10 @@ export default function Home({ navigation }: HomeScreenProps) {
           <Button onPress={() => navigation.navigate('Camera')}>
             <Text className="text-SPOT-white">카메라</Text>
           </Button>
+          {/* FIXME: 추후 삭제 */}
+          <Button onPress={() => navigation.navigate('Landing')}>
+            <Text className="text-SPOT-white">랜딩</Text>
+          </Button>
         </View>
         <View>
           <SearchBar
