@@ -10760,7 +10760,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"invariant@npm:^2.2.4":
+"invariant@npm:2.2.4, invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
   dependencies:
@@ -14830,6 +14830,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-webview@npm:^13.12.1":
+  version: 13.12.1
+  resolution: "react-native-webview@npm:13.12.1"
+  dependencies:
+    escape-string-regexp: ^4.0.0
+    invariant: 2.2.4
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 7433a1e15b9ba677f86652f0429cc4f2430cc3e5fc26bac22d358b19d2a66317b6a651a4980567bcd6b83f5bcc8850f5ef099371e4872665f8ebe13ef2507338
+  languageName: node
+  linkType: hard
+
 "react-native@npm:0.74.3":
   version: 0.74.3
   resolution: "react-native@npm:0.74.3"
@@ -14947,6 +14960,7 @@ __metadata:
     react-native-tab-view: ^3.5.2
     react-native-view-shot: ^3.8.0
     react-native-vision-camera: ^4.5.0
+    react-native-webview: ^13.12.1
     react-test-renderer: 18.2.0
     reanimated-color-picker: ^3.0.4
     tailwind-config: "workspace:*"
