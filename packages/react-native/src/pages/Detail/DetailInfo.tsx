@@ -1,5 +1,6 @@
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Block from '@/components/detail/Block';
+import DetailMap from './DetailMap';
 
 export default function DetailInfo() {
   return (
@@ -18,8 +19,7 @@ export default function DetailInfo() {
       >
         <Block title="주소" content="강원 강릉시 주문진읍 해안로 1609" />
         <View className="rounded-lg overflow-hidden items-center justify-center">
-          {/* eslint-disable-next-line global-require */}
-          <Image source={require('../../assets/map.png')} />
+          <DetailMap />
         </View>
         <Block
           title="내용 타이틀"
