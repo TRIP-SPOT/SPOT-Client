@@ -8358,7 +8358,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.0.0":
+"dotenv@npm:^16.0.0, dotenv@npm:^16.4.5":
   version: 16.4.5
   resolution: "dotenv@npm:16.4.5"
   checksum: 301a12c3d44fd49888b74eb9ccf9f07a1f5df43f489e7fcb89647a2edcd84c42d6bc349dc8df099cd18f07c35c7b04685c1a4f3e6a6a9e6b30f8d48c15b7f49c
@@ -14626,6 +14626,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-dotenv@npm:^3.4.11":
+  version: 3.4.11
+  resolution: "react-native-dotenv@npm:3.4.11"
+  dependencies:
+    dotenv: ^16.4.5
+  peerDependencies:
+    "@babel/runtime": ^7.20.6
+  checksum: 3ebac2c2ed79dd7e4920fd3fc2da9187413b7190231618e4858b46c47833677838b96d531afe7bd5c4b0a60454dba40cb8708722210df5d522e30aefbf41da05
+  languageName: node
+  linkType: hard
+
 "react-native-element-dropdown@npm:^2.12.1":
   version: 2.12.1
   resolution: "react-native-element-dropdown@npm:2.12.1"
@@ -14946,6 +14957,7 @@ __metadata:
     react: 18.2.0
     react-native: 0.74.3
     react-native-date-picker: ^5.0.4
+    react-native-dotenv: ^3.4.11
     react-native-element-dropdown: ^2.12.1
     react-native-gesture-handler: ^2.17.1
     react-native-image-picker: ^7.1.2
