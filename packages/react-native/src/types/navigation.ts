@@ -13,6 +13,8 @@ export type StackParamList = {
   'Signup/Profile': { nickname: string };
   'Signup/NicknameProfile': { nickname: string };
 
+  'TripPlanner/Main': undefined;
+
   'MyPage/Profile': undefined;
   'MyPage/EditProfile': undefined;
   'MyPage/EditProfileWithNickname': { nickname: string };
