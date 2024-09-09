@@ -46,7 +46,7 @@ export default function TripPlanner() {
             }}
           >
             {data?.map((plan) => (
-              <View key={plan.backgroundImage}>
+              <View key={plan.id}>
                 <TripPlanCard
                   cardData={plan}
                   onOptionClick={handleClickCard}
