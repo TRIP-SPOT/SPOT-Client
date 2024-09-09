@@ -1,6 +1,6 @@
 import { GestureResponderEvent, TouchableOpacity, View } from 'react-native';
-import CheckIcon from '@/assets/CheckIcon';
-import CheckSelectedIcon from '@/assets/CheckSelectedIcon';
+import CheckIcon from './assets/CheckIcon';
+import CheckSelectedIcon from './assets/CheckSelectedIcon';
 
 interface CheckBoxProps {
   onPress?: (event: GestureResponderEvent) => void;
@@ -8,7 +8,7 @@ interface CheckBoxProps {
   selected?: boolean;
 }
 
-export default function CheckBox({ size, onPress, selected }: CheckBoxProps) {
+export function CheckBox({ size, onPress, selected }: CheckBoxProps) {
   return (
     <TouchableOpacity
       style={{
