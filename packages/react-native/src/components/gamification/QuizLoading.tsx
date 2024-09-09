@@ -19,11 +19,11 @@ export default function QuizLoading() {
             검색하고 있습니다...
           </Font.Bold>
         </View>
-        <View className="p-3 flex justify-center items-start gap-4">
+        <View className="p-3 flex justify-center items-center gap-4">
           <Font.Bold type="body2" color="white">
             Q. 지역 배지는 어떻게 받을 수 있나요?
           </Font.Bold>
-          <View>
+          <View className="bg-[#191919] p-3 rounded-xl justify-center">
             <Font.Bold type="body3" color="white">
               해당 Spot에 직접 방문해서 ..
             </Font.Bold>
