@@ -4,6 +4,7 @@ import QuizSlider from '@components/gamification/QuizSlider';
 import withSuspense from '@/components/HOC/withSuspense';
 import useGeolocation from '@/hooks/useGeolocation';
 import useQuizzesQuery, { Location } from '@/apis/queries/quiz/useQuizzesQuery';
+import NoQuiz from '@/components/gamification/NoQuiz';
 
 export default withSuspense(
   function Gamification() {
@@ -20,8 +21,12 @@ export default withSuspense(
       });
     }, []);
 
-    if (!data) {
+    if (!location?.latitude || !location.longitude) {
       return <QuizLoading />;
+    }
+
+    if (!data) {
+      return <NoQuiz />;
     }
 
     return <QuizSlider quizListData={data} />;
