@@ -1,9 +1,8 @@
 import { TouchableOpacity, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useState } from 'react';
-import { Font } from 'design-system';
+import { Font, FloatingPlusButton } from 'design-system';
 import SortIcon from '@/assets/SortIcon';
-import FloatingPlusButton from '@/components/maps/FloatingPlusButton';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { LOG_PADDING_X } from '@/components/maps/RecordCard';
 import RecordCardList, { MockCardData } from '@/components/maps/RecordCardList';
