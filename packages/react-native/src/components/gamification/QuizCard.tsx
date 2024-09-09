@@ -65,7 +65,12 @@ export default function QuizCard({ quizData }: QuizCardProps) {
                 퀴즈 풀기
               </Font.Bold>
             </TouchableOpacity>
-            <TouchableOpacity className="bg-Button-gray justify-center items-center px-6 py-1.5 rounded-lg">
+            <TouchableOpacity
+              className="bg-Button-gray justify-center items-center px-6 py-1.5 rounded-lg"
+              onPress={() => {
+                navigate.navigate('Camera');
+              }}
+            >
               <Font.Bold type="body3" color="white">
                 Spot! 필터
               </Font.Bold>
