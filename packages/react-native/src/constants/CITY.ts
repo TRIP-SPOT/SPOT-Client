@@ -1,3 +1,4 @@
+import { badgePath } from '@/components/common/Badge';
 import { KoreaLocationName } from '@/types/map';
 
 /* eslint-disable no-shadow */
@@ -439,4 +440,24 @@ export const REVERSE_REGION_MAPPER: Record<Region, KoreaLocationName> = {
   [Region.JEJU]: '제주특별자치도',
   [Region.CHUNGNAM]: '충청남도',
   [Region.CHUNGBUK]: '충청북도',
+};
+
+export const BADGE_MAPPER: Record<Region, keyof typeof badgePath> = {
+  [Region.SEOUL]: '서울',
+  [Region.GYEONGGI]: '경기',
+  [Region.INCHEON]: '인천',
+  [Region.GANGWON]: '강원',
+  [Region.CHUNGBUK]: '충청',
+  [Region.CHUNGNAM]: '충청',
+  [Region.SEJONG]: '세종',
+  [Region.DAEJEON]: '대전',
+  [Region.JEONBUK]: '전라',
+  [Region.JEONNAM]: '전라',
+  [Region.GWANGJU]: '광주',
+  [Region.GYEONGNAM]: '경상',
+  [Region.GYEONGBUK]: '경상',
+  [Region.DAEGU]: '대구',
+  [Region.ULSAN]: '울산',
+  [Region.BUSAN]: '부산',
+  [Region.JEJU]: '제주',
 };
