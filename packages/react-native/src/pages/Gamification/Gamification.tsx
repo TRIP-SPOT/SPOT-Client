@@ -25,7 +25,7 @@ export default withSuspense(
       return <QuizLoading />;
     }
 
-    if (!data) {
+    if (!data || data?.length === 0) {
       return <NoQuiz />;
     }
 
