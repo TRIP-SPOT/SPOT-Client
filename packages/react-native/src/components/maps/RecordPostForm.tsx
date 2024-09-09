@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import RecordFormTitle from './RecordFormTitle';
 import RecordFormDatePicker from './RecordFormDatePickers';
-import Calendar from '@/assets/Calendar';
+import CalendarIcon from '@/assets/CalendarIcon';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import useRecordFormState from '@/hooks/useRecordFormState';
 import useGallery from '@/hooks/useGallery';
@@ -64,7 +64,7 @@ export default function RecordPostForm() {
           </Font>
           <View className="bg-SPOT-white/60 rounded-md flex flex-row justify-start px-4 py-3.5 items-center mt-2">
             <View className="mr-3">
-              <Calendar color="white" />
+              <CalendarIcon color="white" />
             </View>
             <RecordFormDatePicker />
           </View>
