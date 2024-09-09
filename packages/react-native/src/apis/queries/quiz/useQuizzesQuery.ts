@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export interface Location {
   latitude?: number;

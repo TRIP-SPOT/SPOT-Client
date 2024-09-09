@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
-import Search from '@assets/Search';
+import SearchIcon from '@assets/SearchIcon';
 
 interface SearchBarProps {
   placeholder: string;
@@ -34,7 +34,7 @@ export default function SearchBar({
         onPress={search}
         disabled={!searchKeyword}
       >
-        <Search color="#0F0F0F" />
+        <SearchIcon color="#0F0F0F" />
       </TouchableOpacity>
     </View>
   );

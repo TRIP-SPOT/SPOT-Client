@@ -39,7 +39,7 @@ export default function useGeolocation() {
 
   const hasLocationPermission = async () => {
     if (Platform.OS === 'ios') {
-      const result = await request(PERMISSIONS.IOS.LOCATION_ALWAYS);
+      await request(PERMISSIONS.IOS.LOCATION_ALWAYS);
       const permission = await check(PERMISSIONS.IOS.LOCATION_ALWAYS);
       return checkLocationPermission(permission) === 'granted';
     }

@@ -9,6 +9,7 @@ import MapsStackNavigator from './MapsStackNavigator';
 import GamificationStackNavigator from './GamificationStackNavigator';
 import RouteIcon from '@/assets/RouteIcon';
 import EarthIcon from '@/assets/EarthIcon';
+import TripPlannerStackNavigator from './TripPlannerStackNavigator';
 
 type BottomTabNavigationList = {
   Home: undefined;
@@ -57,7 +58,7 @@ export default function BottomTabNavigator() {
       />
       <Tab.Screen
         name="TripPlanner"
-        component={GamificationStackNavigator}
+        component={TripPlannerStackNavigator}
         options={{ tabBarLabel: 'Trip Planner', tabBarIcon: RouteIcon }}
       />
 

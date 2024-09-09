@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import SelectProfile from '@/assets/SelectProfile';
+import SelectProfileIcon from '@/assets/SelectProfileIcon';
 import Rank from '@/components/mypage/Rank';
 import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
@@ -39,7 +39,7 @@ export default function MyPage({ navigation }: MyPageProps) {
                 </Text>
               </View>
             ) : (
-              <SelectProfile />
+              <SelectProfileIcon />
             )}
             <View className="absolute right-0 bottom-0">
               <EditButton

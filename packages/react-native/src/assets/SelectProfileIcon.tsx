@@ -1,6 +1,6 @@
 import { Circle, Path, Svg, SvgProps } from 'react-native-svg';
 
-export default function SelectProfile({ width, height, color }: SvgProps) {
+export default function SelectProfileIcon({ width, height, color }: SvgProps) {
   return (
     <Svg
       width={width || '140'}

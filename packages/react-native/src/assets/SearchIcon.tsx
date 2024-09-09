@@ -1,6 +1,6 @@
 import { Path, Svg, SvgProps } from 'react-native-svg';
 
-export default function Search({ width, height, color }: SvgProps) {
+export default function SearchIcon({ width, height, color }: SvgProps) {
   return (
     <Svg
       width={width || 18}
