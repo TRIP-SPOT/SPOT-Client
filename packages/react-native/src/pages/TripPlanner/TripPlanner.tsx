@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Font, FloatingPlusButton } from 'design-system';
+import { BottomSheetView } from '@gorhom/bottom-sheet';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
 import SortIcon from '@/assets/SortIcon';
@@ -60,19 +61,26 @@ export default function TripPlanner() {
       <FloatingPlusButton bottom={16} right={16} onPress={() => {}} />
       {selectedPlan && (
         <BottomSheet isShow={Boolean(selectedPlan)} snapPoints={['20%']}>
-          <View className="flex items-center w-full justify-center flex-col">
-            <TouchableOpacity className="py-2" onPress={() => {}}>
-              <Font.Light type="title1" color="black">
-                수정
-              </Font.Light>
-            </TouchableOpacity>
-            <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-            <TouchableOpacity className="py-2">
-              <Font.Light type="title1" color="black">
-                삭제
-              </Font.Light>
-            </TouchableOpacity>
-          </View>
+          <BottomSheetView
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+            }}
+          >
+            <View className="flex items-center w-full justify-center flex-col">
+              <TouchableOpacity className="py-2" onPress={() => {}}>
+                <Font.Light type="title1" color="black">
+                  수정
+                </Font.Light>
+              </TouchableOpacity>
+              <View className="w-[90%] h-[0.5px] bg-[#333333]" />
+              <TouchableOpacity className="py-2">
+                <Font.Light type="title1" color="black">
+                  삭제
+                </Font.Light>
+              </TouchableOpacity>
+            </View>
+          </BottomSheetView>
         </BottomSheet>
       )}
     </View>

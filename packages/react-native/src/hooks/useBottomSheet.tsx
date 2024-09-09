@@ -1,8 +1,8 @@
-import { ReactNode, useRef } from 'react';
-import BottomSheet, {
+import { ReactNode, useEffect, useRef } from 'react';
+import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
-  BottomSheetView,
+  BottomSheetModal,
 } from '@gorhom/bottom-sheet';
 
 interface BottomSheetProps {
@@ -27,7 +27,7 @@ const renderBackdropComponent = (props: BottomSheetBackdropProps) => (
 );
 
 export default function useBottomSheet() {
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   function BottomSheetComponent({
     isShow,
@@ -35,36 +35,42 @@ export default function useBottomSheet() {
     children,
     snapPoints,
   }: BottomSheetProps) {
+    useEffect(() => {
+      if (!isShow) {
+        bottomSheetRef.current?.dismiss();
+        return;
+      }
+
+      bottomSheetRef.current?.present();
+      // eslint-disable-next-line consistent-return
+      return () => {
+        bottomSheetRef.current?.dismiss();
+      };
+    }, [bottomSheetRef.current, isShow]);
+
     if (!isShow) {
       return null;
     }
 
     return (
-      <BottomSheet
+      <BottomSheetModal
         backdropComponent={renderBackdropComponent}
         ref={bottomSheetRef}
         snapPoints={snapPoints || SNAP_POINTS}
         enablePanDownToClose
-        onClose={handleClose}
+        onDismiss={handleClose}
       >
-        <BottomSheetView
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-          }}
-        >
-          {children}
-        </BottomSheetView>
-      </BottomSheet>
+        {children}
+      </BottomSheetModal>
     );
   }
 
   const hideBottomSheet = () => {
-    bottomSheetRef.current?.close();
+    bottomSheetRef.current?.dismiss();
   };
 
   const showBottonSheet = () => {
-    bottomSheetRef.current?.snapToIndex(0);
+    bottomSheetRef.current?.present();
   };
 
   return {
