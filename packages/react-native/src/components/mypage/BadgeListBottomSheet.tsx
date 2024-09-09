@@ -1,7 +1,8 @@
-import { useRef } from 'react';
-import BottomSheet, {
+import { useEffect, useRef } from 'react';
+import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
+  BottomSheetModal,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import { Font } from 'design-system';
@@ -36,15 +37,22 @@ export default function BadgeListBottomSheet({
   selectedBadge,
   onClose,
 }: BadgeListBottomSheetProps) {
-  const sheetRef = useRef<BottomSheet>(null);
+  const sheetRef = useRef<BottomSheetModal>(null);
+
+  useEffect(() => {
+    sheetRef.current?.present();
+    return () => {
+      sheetRef.current?.dismiss();
+    };
+  }, [sheetRef.current]);
 
   return (
-    <BottomSheet
+    <BottomSheetModal
       backdropComponent={renderBackdropComponent}
       ref={sheetRef}
       snapPoints={['60%']}
       enablePanDownToClose
-      onClose={onClose}
+      onDismiss={onClose}
     >
       <View className="items-center my-2">
         <Font.Bold type="mainTitle" color="black">
@@ -73,6 +81,6 @@ export default function BadgeListBottomSheet({
           </>
         ))}
       </BottomSheetScrollView>
-    </BottomSheet>
+    </BottomSheetModal>
   );
 }

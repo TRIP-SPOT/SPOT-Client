@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigator from '@routes/StackNavigator';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -8,9 +9,11 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <NavigationContainer>
-          <StackNavigator />
-        </NavigationContainer>
+        <BottomSheetModalProvider>
+          <NavigationContainer>
+            <StackNavigator />
+          </NavigationContainer>
+        </BottomSheetModalProvider>
       </GestureHandlerRootView>
     </QueryClientProvider>
   );
