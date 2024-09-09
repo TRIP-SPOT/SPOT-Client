@@ -1,6 +1,7 @@
 import { FlatList } from 'react-native';
 import { useState } from 'react';
 import MySpotBlock from '@/components/mypage/MySpotBlock';
+import MySpotBottomSheet from '@/components/mypage/MySpotDetailBottomSheet';
 
 const mockData = [
   {
@@ -49,30 +50,38 @@ const mockData = [
 
 export default function MySpot() {
   const [containerWidth, setContainerWidth] = useState(0);
+  const [selectedDetailSpotId, setSelectedDetailSpotId] = useState<number>();
   const numColumns = 2;
   const paddingHorizontal = 8;
   const gap = 16;
 
   return (
-    <FlatList
-      data={mockData}
-      onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
-      style={{ flex: 1, backgroundColor: 'black', paddingHorizontal }}
-      renderItem={({ item }) => (
-        <MySpotBlock
-          id={item.id}
-          title={item.title}
-          backgroundImage={item.backgroundImage}
-          location={item.location}
-          date={item.date}
-          width={
-            (containerWidth - gap * 2 - paddingHorizontal * 2) / numColumns
-          }
-          gap={gap}
-        />
-      )}
-      keyExtractor={(item) => item.title + item.location + item.date}
-      numColumns={numColumns}
-    />
+    <>
+      <FlatList
+        data={mockData}
+        onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
+        style={{ flex: 1, backgroundColor: 'black', paddingHorizontal }}
+        renderItem={({ item }) => (
+          <MySpotBlock
+            id={item.id}
+            title={item.title}
+            backgroundImage={item.backgroundImage}
+            location={item.location}
+            date={item.date}
+            width={
+              (containerWidth - gap * 2 - paddingHorizontal * 2) / numColumns
+            }
+            gap={gap}
+            handleClickBlock={() => setSelectedDetailSpotId(item.id)}
+          />
+        )}
+        keyExtractor={(item) => item.title + item.location + item.date}
+        numColumns={numColumns}
+      />
+      <MySpotBottomSheet
+        selectedDetailSpotId={selectedDetailSpotId}
+        onClose={() => setSelectedDetailSpotId(undefined)}
+      />
+    </>
   );
 }

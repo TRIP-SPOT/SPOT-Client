@@ -10,6 +10,7 @@ interface MySpotBlockProps {
   date: string;
   width: number;
   gap: number;
+  handleClickBlock: () => void;
 }
 
 export default function MySpotBlock({
@@ -20,6 +21,7 @@ export default function MySpotBlock({
   date,
   width,
   gap,
+  handleClickBlock,
 }: MySpotBlockProps) {
   return (
     <ImageBackground
@@ -29,7 +31,7 @@ export default function MySpotBlock({
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => Alert.alert(`${id}`)}
+        onPress={handleClickBlock}
       >
         <View className="p-2">
           <Font.Bold type="title1" color="white">
