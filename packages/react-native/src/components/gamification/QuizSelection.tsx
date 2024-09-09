@@ -1,6 +1,5 @@
-import { Font } from 'design-system';
+import { Font, CheckBox } from 'design-system';
 import { TouchableOpacity, View } from 'react-native';
-import CheckBox from '../common/CheckBox';
 
 interface QuizSelectionProps {
   isSelected: boolean;
