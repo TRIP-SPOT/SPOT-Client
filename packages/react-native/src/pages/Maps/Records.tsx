@@ -2,6 +2,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useState } from 'react';
 import { Font, FloatingPlusButton } from 'design-system';
+import { BottomSheetView } from '@gorhom/bottom-sheet';
 import SortIcon from '@/assets/SortIcon';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { LOG_PADDING_X } from '@/components/maps/RecordCard';
@@ -15,7 +16,7 @@ interface RecordsProps {
 }
 
 export default function Records({ navigation }: RecordsProps) {
-  const { BottomSheet, showBottonSheet } = useBottomSheet();
+  const { BottomSheet, showBottonSheet, hideBottomSheet } = useBottomSheet();
 
   const [selectedRecord, setSelectedRecord] = useState<MockCardData>();
   const sort = () => {
@@ -51,44 +52,53 @@ export default function Records({ navigation }: RecordsProps) {
         </View>
       </BackGroundGradient>
       <FloatingPlusButton
-        onPress={() =>
+        onPress={() => {
+          hideBottomSheet();
           navigation.navigate('Maps/PostRecord', {
             location: route.params.location,
-          })
-        }
+          });
+        }}
         bottom={16}
         right={16}
       />
       {selectedRecord && (
         <BottomSheet isShow={Boolean(selectedRecord)}>
-          <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
-            <View className="flex">
-              <Font.Bold type="mainTitle" color="black">
-                {selectedRecord.title}
-              </Font.Bold>
+          <BottomSheetView
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+            }}
+          >
+            <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
+              <View className="flex">
+                <Font.Bold type="mainTitle" color="black">
+                  {selectedRecord.title}
+                </Font.Bold>
+              </View>
+              <View className="flex items-center w-full ">
+                <TouchableOpacity
+                  className="py-2"
+                  onPress={() => {
+                    hideBottomSheet();
+                    navigation.navigate('Maps/ModifyRecord', {
+                      location: route.params.location,
+                      recordId: selectedRecord.id,
+                    });
+                  }}
+                >
+                  <Font.Light type="title1" color="black">
+                    수정
+                  </Font.Light>
+                </TouchableOpacity>
+                <View className="w-[90%] h-[0.5px] bg-[#333333]" />
+                <TouchableOpacity className="py-2">
+                  <Font.Light type="title1" color="black">
+                    삭제
+                  </Font.Light>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View className="flex items-center w-full ">
-              <TouchableOpacity
-                className="py-2"
-                onPress={() =>
-                  navigation.navigate('Maps/ModifyRecord', {
-                    location: route.params.location,
-                    recordId: selectedRecord.id,
-                  })
-                }
-              >
-                <Font.Light type="title1" color="black">
-                  수정
-                </Font.Light>
-              </TouchableOpacity>
-              <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-              <TouchableOpacity className="py-2">
-                <Font.Light type="title1" color="black">
-                  삭제
-                </Font.Light>
-              </TouchableOpacity>
-            </View>
-          </View>
+          </BottomSheetView>
         </BottomSheet>
       )}
     </View>

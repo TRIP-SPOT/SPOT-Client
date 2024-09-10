@@ -1,13 +1,9 @@
-import { useRef } from 'react';
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetBackdropProps,
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet';
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Font } from 'design-system';
 import { View } from 'react-native';
 import { badgePath } from '../common/Badge';
 import BadgeListItem from './BadgeListItem';
+import useBottomSheet from '@/hooks/useBottomSheet';
 
 // FIXME: 실제 데이터 받아오기: selectedBadge를 기준으로 데이터를 받아오면 됨
 const mockData = [
@@ -16,16 +12,6 @@ const mockData = [
   { id: 3, title: '안동3', date: '2024. 08. 16.', content: 'SPOT! 퀴즈 정답' },
   { id: 4, title: '안동4', date: '2024. 08. 16.', content: 'SPOT! 퀴즈 정답' },
 ];
-
-const renderBackdropComponent = (props: BottomSheetBackdropProps) => (
-  <BottomSheetBackdrop
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    {...props}
-    pressBehavior="close"
-    appearsOnIndex={0}
-    disappearsOnIndex={-1}
-  />
-);
 
 interface BadgeListBottomSheetProps {
   selectedBadge: keyof typeof badgePath;
@@ -36,16 +22,9 @@ export default function BadgeListBottomSheet({
   selectedBadge,
   onClose,
 }: BadgeListBottomSheetProps) {
-  const sheetRef = useRef<BottomSheet>(null);
-
+  const { BottomSheet } = useBottomSheet();
   return (
-    <BottomSheet
-      backdropComponent={renderBackdropComponent}
-      ref={sheetRef}
-      snapPoints={['60%']}
-      enablePanDownToClose
-      onClose={onClose}
-    >
+    <BottomSheet snapPoints={['60%']} isShow handleClose={onClose}>
       <View className="items-center my-2">
         <Font.Bold type="mainTitle" color="black">
           {selectedBadge}

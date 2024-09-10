@@ -4,6 +4,7 @@ import { Font } from 'design-system';
 import { geoPath, geoMercator } from 'd3-geo';
 import { Svg, G, Path, Image, Defs, Pattern } from 'react-native-svg';
 import { captureRef } from 'react-native-view-shot';
+import { BottomSheetView } from '@gorhom/bottom-sheet';
 import mapData from '@/assets/mapData';
 import { KoreaLocationName } from '@/types/map';
 import { StackNavigation } from '@/types/navigation';
@@ -23,7 +24,7 @@ const { width, height } = Dimensions.get('window');
 
 export default function Maps({ navigation }: MapsMainProps) {
   const [region, setRegion] = useState<KoreaLocationName>();
-  const { BottomSheet, showBottonSheet } = useBottomSheet();
+  const { BottomSheet, showBottonSheet, hideBottomSheet } = useBottomSheet();
   const { getPhoto } = useGallery();
   const [isButtonClicked, setButtonClicked] = useState(false);
   const ref = useRef<View>(null);
@@ -41,6 +42,7 @@ export default function Maps({ navigation }: MapsMainProps) {
   const pathGenerator = geoPath().projection(projection);
 
   const handleAddRegionImage = async (regionName: KoreaLocationName) => {
+    hideBottomSheet();
     const photo = (await getPhoto()) as string;
 
     await postRepresentativeImage({
@@ -128,35 +130,44 @@ export default function Maps({ navigation }: MapsMainProps) {
           isShow={Boolean(region)}
           handleClose={() => setRegion(undefined)}
         >
-          <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
-            <View className="flex">
-              <Font.Bold type="mainTitle" color="black">
-                {region}
-              </Font.Bold>
+          <BottomSheetView
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+            }}
+          >
+            <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
+              <View className="flex">
+                <Font.Bold type="mainTitle" color="black">
+                  {region}
+                </Font.Bold>
+              </View>
+              <View className="flex items-center w-full ">
+                <TouchableOpacity
+                  className="py-2"
+                  onPress={() => handleAddRegionImage(region)}
+                >
+                  <Font type="title1" color="black">
+                    대표사진 설정하기
+                  </Font>
+                </TouchableOpacity>
+                <View className="w-[90%] h-[0.5px] bg-[#333333]" />
+                <TouchableOpacity
+                  className="py-2"
+                  onPress={() => {
+                    hideBottomSheet();
+                    if (region) {
+                      navigation.navigate('Maps/Record', { location: region });
+                    }
+                  }}
+                >
+                  <Font type="title1" color="black">
+                    로그보기
+                  </Font>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View className="flex items-center w-full ">
-              <TouchableOpacity
-                className="py-2"
-                onPress={() => handleAddRegionImage(region)}
-              >
-                <Font type="title1" color="black">
-                  대표사진 설정하기
-                </Font>
-              </TouchableOpacity>
-              <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-              <TouchableOpacity
-                className="py-2"
-                onPress={() =>
-                  region &&
-                  navigation.navigate('Maps/Record', { location: region })
-                }
-              >
-                <Font type="title1" color="black">
-                  로그보기
-                </Font>
-              </TouchableOpacity>
-            </View>
-          </View>
+          </BottomSheetView>
         </BottomSheet>
       )}
 
