@@ -1,10 +1,15 @@
+import { useRoute } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import DetailInfo from '@/pages/Detail/DetailInfo';
 import DetailSpot from '@/pages/Detail/DetailSpot';
+import { StackRouteProps } from '@/types/navigation';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function DetailTabNavigator() {
+  const route = useRoute<StackRouteProps<'Home/Detail'>>();
+  const { id } = route.params;
+
   return (
     <Tab.Navigator
       initialRouteName="Detail/Info"
@@ -34,11 +39,15 @@ export default function DetailTabNavigator() {
         name="Detail/Info"
         component={DetailInfo}
         options={{ tabBarLabel: '상세정보' }}
+        initialParams={{
+          id,
+        }}
       />
       <Tab.Screen
         name="Detail/Spot"
         component={DetailSpot}
         options={{ tabBarLabel: 'SPOT!' }}
+        initialParams={{ id }}
       />
     </Tab.Navigator>
   );
