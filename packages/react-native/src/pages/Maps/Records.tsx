@@ -9,15 +9,15 @@ import { LOG_PADDING_X } from '@/components/maps/RecordCard';
 import RecordCardList, { MockCardData } from '@/components/maps/RecordCardList';
 import Header from '@/components/common/Header';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
-import useBottomSheet from '@/hooks/useBottomSheet';
+import useToggle from '@/hooks/useToggle';
+import BottomSheet from '@/components/common/BottomSheet';
 
 interface RecordsProps {
   navigation: StackNavigation<'Maps/Record'>;
 }
 
 export default function Records({ navigation }: RecordsProps) {
-  const { BottomSheet, showBottonSheet, hideBottomSheet } = useBottomSheet();
-
+  const [showBottomSheet, toggleBottomSheet] = useToggle();
   const [selectedRecord, setSelectedRecord] = useState<MockCardData>();
   const sort = () => {
     // TODO: 실제 구현 필요(현재 UI없음)
@@ -26,7 +26,7 @@ export default function Records({ navigation }: RecordsProps) {
   const route = useRoute<StackRouteProps<'Maps/Record'>>();
 
   const handleClickCard = (selectedCardData: MockCardData) => {
-    showBottonSheet();
+    toggleBottomSheet();
     setSelectedRecord(selectedCardData);
   };
 
@@ -53,7 +53,7 @@ export default function Records({ navigation }: RecordsProps) {
       </BackGroundGradient>
       <FloatingPlusButton
         onPress={() => {
-          hideBottomSheet();
+          toggleBottomSheet();
           navigation.navigate('Maps/PostRecord', {
             location: route.params.location,
           });
@@ -62,7 +62,7 @@ export default function Records({ navigation }: RecordsProps) {
         right={16}
       />
       {selectedRecord && (
-        <BottomSheet isShow={Boolean(selectedRecord)}>
+        <BottomSheet isShow={showBottomSheet}>
           <BottomSheetView
             style={{
               flex: 1,
@@ -79,7 +79,7 @@ export default function Records({ navigation }: RecordsProps) {
                 <TouchableOpacity
                   className="py-2"
                   onPress={() => {
-                    hideBottomSheet();
+                    toggleBottomSheet();
                     navigation.navigate('Maps/ModifyRecord', {
                       location: route.params.location,
                       recordId: selectedRecord.id,

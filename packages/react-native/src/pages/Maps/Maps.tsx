@@ -8,13 +8,14 @@ import { BottomSheetView } from '@gorhom/bottom-sheet';
 import mapData from '@/assets/mapData';
 import { KoreaLocationName } from '@/types/map';
 import { StackNavigation } from '@/types/navigation';
-import useBottomSheet from '@/hooks/useBottomSheet';
 import useGallery from '@/hooks/useGallery';
 import Header from '@/components/common/Header';
 import MapSaveButtonIcon from '@/assets/MapSaveButtonIcon';
 import MapDownloadIcon from '@/assets/MapDownloadIcon';
 import useRecordRepresentativeMutation from '@/apis/mutations/useRecordRepresentativeMutation';
 import useRecordRepresentativeQuery from '@/apis/queries/records/useRecordRepresentativeQuery';
+import useToggle from '@/hooks/useToggle';
+import BottomSheet from '@/components/common/BottomSheet';
 
 interface MapsMainProps {
   navigation: StackNavigation<'Maps/Main'>;
@@ -24,9 +25,9 @@ const { width, height } = Dimensions.get('window');
 
 export default function Maps({ navigation }: MapsMainProps) {
   const [region, setRegion] = useState<KoreaLocationName>();
-  const { BottomSheet, showBottonSheet, hideBottomSheet } = useBottomSheet();
   const { getPhoto } = useGallery();
   const [isButtonClicked, setButtonClicked] = useState(false);
+  const [showBottomSheet, toggleBottomSheet] = useToggle();
   const ref = useRef<View>(null);
   const { savePhoto } = useGallery();
 
@@ -42,7 +43,7 @@ export default function Maps({ navigation }: MapsMainProps) {
   const pathGenerator = geoPath().projection(projection);
 
   const handleAddRegionImage = async (regionName: KoreaLocationName) => {
-    hideBottomSheet();
+    toggleBottomSheet();
     const photo = (await getPhoto()) as string;
 
     await postRepresentativeImage({
@@ -107,7 +108,7 @@ export default function Maps({ navigation }: MapsMainProps) {
                   strokeWidth={1}
                   onPress={() => {
                     setRegion(regionName);
-                    showBottonSheet();
+                    toggleBottomSheet();
                   }}
                 />
               );
@@ -127,7 +128,7 @@ export default function Maps({ navigation }: MapsMainProps) {
       </TouchableOpacity>
       {region && (
         <BottomSheet
-          isShow={Boolean(region)}
+          isShow={showBottomSheet}
           handleClose={() => setRegion(undefined)}
         >
           <BottomSheetView
@@ -155,7 +156,7 @@ export default function Maps({ navigation }: MapsMainProps) {
                 <TouchableOpacity
                   className="py-2"
                   onPress={() => {
-                    hideBottomSheet();
+                    toggleBottomSheet();
                     if (region) {
                       navigation.navigate('Maps/Record', { location: region });
                     }

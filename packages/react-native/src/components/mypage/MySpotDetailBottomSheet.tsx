@@ -2,8 +2,8 @@ import { Dimensions, View } from 'react-native';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Font } from 'design-system';
 import useSpotDetailQuery from '@/apis/queries/spot/useSpotDetailQuery';
-import useBottomSheet from '@/hooks/useBottomSheet';
 import DetailMap from '@/pages/Detail/DetailMap';
+import BottomSheet from '../common/BottomSheet';
 
 const { width: fullWidth } = Dimensions.get('window');
 const BOTTOM_SHEET_PADDING = 10;
@@ -17,15 +17,14 @@ export default function MySpotDetailBottomSheet({
   selectedDetailSpotId,
   onClose,
 }: MySpotBottomSheetProps) {
-  const { BottomSheet } = useBottomSheet();
   const { data } = useSpotDetailQuery({ id: selectedDetailSpotId });
 
-  if (!selectedDetailSpotId) {
-    return null;
-  }
-
   return (
-    <BottomSheet snapPoints={['90%']} handleClose={onClose}>
+    <BottomSheet
+      snapPoints={['90%']}
+      handleClose={onClose}
+      isShow={Boolean(selectedDetailSpotId)}
+    >
       <BottomSheetView
         style={{
           flex: 1,

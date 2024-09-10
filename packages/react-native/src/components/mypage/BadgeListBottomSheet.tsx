@@ -3,7 +3,7 @@ import { Font } from 'design-system';
 import { View } from 'react-native';
 import { badgePath } from '../common/Badge';
 import BadgeListItem from './BadgeListItem';
-import useBottomSheet from '@/hooks/useBottomSheet';
+import BottomSheet from '../common/BottomSheet';
 
 // FIXME: 실제 데이터 받아오기: selectedBadge를 기준으로 데이터를 받아오면 됨
 const mockData = [
@@ -22,14 +22,12 @@ export default function BadgeListBottomSheet({
   selectedBadge,
   onClose,
 }: BadgeListBottomSheetProps) {
-  const { BottomSheet } = useBottomSheet();
-
-  if (!selectedBadge) {
-    return null;
-  }
-
   return (
-    <BottomSheet snapPoints={['60%']} handleClose={onClose}>
+    <BottomSheet
+      isShow={Boolean(selectedBadge)}
+      snapPoints={['60%']}
+      handleClose={onClose}
+    >
       <View className="items-center my-2">
         <Font.Bold type="mainTitle" color="black">
           {selectedBadge}
@@ -39,23 +37,24 @@ export default function BadgeListBottomSheet({
         showsVerticalScrollIndicator={false}
         style={{ paddingHorizontal: 16 }}
       >
-        {mockData.map((badgeInfo, index) => (
-          <>
-            <BadgeListItem
-              key={`data-${badgeInfo.id}`}
-              location={selectedBadge}
-              title={badgeInfo.title}
-              date={badgeInfo.date}
-              content={badgeInfo.content}
-            />
-            {index !== mockData.length - 1 && (
-              <View
-                key={`sep-${badgeInfo.id}`}
-                className="h-[0.5px] bg-[#333333] bg-opacity-30 w-full"
+        {selectedBadge &&
+          mockData.map((badgeInfo, index) => (
+            <>
+              <BadgeListItem
+                key={`data-${badgeInfo.id}`}
+                location={selectedBadge}
+                title={badgeInfo.title}
+                date={badgeInfo.date}
+                content={badgeInfo.content}
               />
-            )}
-          </>
-        ))}
+              {index !== mockData.length - 1 && (
+                <View
+                  key={`sep-${badgeInfo.id}`}
+                  className="h-[0.5px] bg-[#333333] bg-opacity-30 w-full"
+                />
+              )}
+            </>
+          ))}
       </BottomSheetScrollView>
     </BottomSheet>
   );
