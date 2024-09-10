@@ -1,24 +1,23 @@
+import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Font, CheckBox } from 'design-system';
-import { Alert, ImageBackground, TouchableOpacity, View } from 'react-native';
+import { AroundSpot } from '@/apis/queries/detail/useAroundSpotQuery';
 
 interface AroundCardProps {
-  id: number;
-  title: string;
-  backgroundImage: string;
+  data: AroundSpot;
+  selectedSpots: number[];
+  isLongPressMode: boolean;
+  onCardClick: (id: number) => void;
+  startLongPress: (id: number) => void;
 }
 
 export default function AroundCard({
-  id,
-  title,
-  backgroundImage,
+  data,
+  selectedSpots,
+  isLongPressMode,
+  onCardClick,
+  startLongPress,
 }: AroundCardProps) {
-  const selectCard = (cardId: number) => {
-    Alert.alert(`${cardId}-select`);
-  };
-
-  const getInfo = (cardId: number) => {
-    Alert.alert(`${cardId}-info`);
-  };
+  const { backgroundImage, id, title } = data;
 
   return (
     <ImageBackground
@@ -27,13 +26,18 @@ export default function AroundCard({
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => getInfo(id)}
-        onLongPress={() => selectCard(id)}
+        onPress={() => onCardClick(id)}
+        onLongPress={() => startLongPress(id)}
         activeOpacity={0.8}
       >
-        <View className="absolute top-2 left-2">
-          <CheckBox onPress={() => selectCard(id)} selected={id === 1} />
-        </View>
+        {isLongPressMode && (
+          <View className="absolute top-2 left-2">
+            <CheckBox
+              onPress={() => onCardClick(id)}
+              selected={selectedSpots.includes(id)}
+            />
+          </View>
+        )}
         <View className="p-2">
           <Font.Bold type="body1" color="white">
             {title}
