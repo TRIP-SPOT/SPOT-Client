@@ -6,7 +6,6 @@ import {
 } from '@gorhom/bottom-sheet';
 
 interface BottomSheetProps {
-  isShow?: boolean;
   children: ReactNode;
   handleClose?: () => void;
   snapPoints?: string[];
@@ -30,27 +29,17 @@ export default function useBottomSheet() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   function BottomSheetComponent({
-    isShow,
     handleClose,
     children,
     snapPoints,
   }: BottomSheetProps) {
     useEffect(() => {
-      if (!isShow) {
-        bottomSheetRef.current?.dismiss();
-        return;
-      }
-
       bottomSheetRef.current?.present();
       // eslint-disable-next-line consistent-return
       return () => {
         bottomSheetRef.current?.dismiss();
       };
-    }, [bottomSheetRef.current, isShow]);
-
-    if (!isShow) {
-      return null;
-    }
+    }, [bottomSheetRef.current]);
 
     return (
       <BottomSheetModal
@@ -58,7 +47,7 @@ export default function useBottomSheet() {
         ref={bottomSheetRef}
         snapPoints={snapPoints || SNAP_POINTS}
         enablePanDownToClose
-        onDismiss={handleClose}
+        onChange={(index) => index === -1 && handleClose && handleClose()}
       >
         {children}
       </BottomSheetModal>

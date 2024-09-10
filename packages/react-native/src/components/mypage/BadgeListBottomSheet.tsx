@@ -14,7 +14,7 @@ const mockData = [
 ];
 
 interface BadgeListBottomSheetProps {
-  selectedBadge: keyof typeof badgePath;
+  selectedBadge?: keyof typeof badgePath;
   onClose: () => void;
 }
 
@@ -23,8 +23,13 @@ export default function BadgeListBottomSheet({
   onClose,
 }: BadgeListBottomSheetProps) {
   const { BottomSheet } = useBottomSheet();
+
+  if (!selectedBadge) {
+    return null;
+  }
+
   return (
-    <BottomSheet snapPoints={['60%']} isShow handleClose={onClose}>
+    <BottomSheet snapPoints={['60%']} handleClose={onClose}>
       <View className="items-center my-2">
         <Font.Bold type="mainTitle" color="black">
           {selectedBadge}

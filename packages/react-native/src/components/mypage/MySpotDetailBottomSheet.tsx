@@ -20,12 +20,12 @@ export default function MySpotDetailBottomSheet({
   const { BottomSheet } = useBottomSheet();
   const { data } = useSpotDetailQuery({ id: selectedDetailSpotId });
 
+  if (!selectedDetailSpotId) {
+    return null;
+  }
+
   return (
-    <BottomSheet
-      snapPoints={['90%']}
-      isShow={Boolean(selectedDetailSpotId)}
-      handleClose={onClose}
-    >
+    <BottomSheet snapPoints={['90%']} handleClose={onClose}>
       <BottomSheetView
         style={{
           flex: 1,
