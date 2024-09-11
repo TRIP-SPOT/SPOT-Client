@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { FloatingPlusButton } from 'design-system';
 import AroundCard from '@/components/detail/AroundCard';
 import CardSlider from '@/components/common/CardSlider';
-import BottomSheet from '@/components/common/BottomSheet';
 import useAroundSpotQuery from '@/apis/queries/detail/useAroundSpotQuery';
 import { StackRouteProps } from '@/types/navigation';
 import MySpotDetailBottomSheet from '@/components/mypage/MySpotDetailBottomSheet';
@@ -47,59 +46,64 @@ export default function DetailSpot() {
   }
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      className="bg-[#100F0F] flex-1"
-    >
-      <View
-        style={{
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'space-between',
-          gap: 20,
-          paddingBottom: 20,
-        }}
+    <>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="bg-[#100F0F] flex-1 relative"
       >
         <View
           style={{
             display: 'flex',
             flex: 1,
             justifyContent: 'space-between',
-            gap: 35,
+            gap: 20,
+            paddingBottom: 20,
           }}
         >
-          <CardSlider
-            title="주변 관광지"
-            data={data.attractions}
-            renderItem={({ item }) => (
-              <AroundCard
-                data={item}
-                isLongPressMode={longPressMode}
-                selectedSpots={selectedSpots}
-                onCardClick={handleCardClick}
-                startLongPress={startLongPress}
-              />
-            )}
-          />
-          <CardSlider
-            title="음식점"
-            data={data.restaurants}
-            renderItem={({ item }) => (
-              <AroundCard
-                data={item}
-                isLongPressMode={longPressMode}
-                selectedSpots={selectedSpots}
-                startLongPress={startLongPress}
-                onCardClick={handleCardClick}
-              />
-            )}
-          />
+          <View
+            style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'space-between',
+              gap: 35,
+            }}
+          >
+            <CardSlider
+              title="주변 관광지"
+              data={data.attractions}
+              renderItem={({ item }) => (
+                <AroundCard
+                  data={item}
+                  isLongPressMode={longPressMode}
+                  selectedSpots={selectedSpots}
+                  onCardClick={handleCardClick}
+                  startLongPress={startLongPress}
+                />
+              )}
+            />
+            <CardSlider
+              title="음식점"
+              data={data.restaurants}
+              renderItem={({ item }) => (
+                <AroundCard
+                  data={item}
+                  isLongPressMode={longPressMode}
+                  selectedSpots={selectedSpots}
+                  startLongPress={startLongPress}
+                  onCardClick={handleCardClick}
+                />
+              )}
+            />
+          </View>
         </View>
-      </View>
-      <MySpotDetailBottomSheet
-        selectedDetailSpotId={selectedSpot}
-        onClose={() => setSelectedSpot(undefined)}
-      />
-    </ScrollView>
+        <MySpotDetailBottomSheet
+          selectedDetailSpotId={selectedSpot}
+          onClose={() => setSelectedSpot(undefined)}
+        />
+      </ScrollView>
+      {longPressMode && (
+        <FloatingPlusButton bottom={16} right={16} onPress={() => {}} />
+      )}
+    </>
   );
 }
