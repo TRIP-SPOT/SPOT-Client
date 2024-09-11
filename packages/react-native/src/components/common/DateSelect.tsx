@@ -31,11 +31,12 @@ export default function DateSelect({
   setSelectionMode,
 }: DateSelectProps) {
   const [open, setOpen] = useState(false);
+
   return (
     <>
-      <View className="justify-evenly flex-row flex-1">
+      <View className="justify-between flex-row flex-1 pr-20">
         <View>
-          <Font color="black" type="ui-text">
+          <Font color="white" type="ui-text">
             From
           </Font>
           <TouchableOpacity
@@ -44,13 +45,13 @@ export default function DateSelect({
               setSelectionMode('start');
             }}
           >
-            <Font color="black" type="body1">
+            <Font color="white" type="body1">
               {getDisplayDate(date.start)}
             </Font>
           </TouchableOpacity>
         </View>
         <View>
-          <Font color="black" type="ui-text">
+          <Font color="white" type="ui-text">
             To
           </Font>
           <TouchableOpacity
@@ -59,7 +60,7 @@ export default function DateSelect({
               setSelectionMode('end');
             }}
           >
-            <Font color="black" type="body1">
+            <Font color="white" type="body1">
               {getDisplayDate(date.end)}
             </Font>
           </TouchableOpacity>
