@@ -18,10 +18,10 @@ export default function ImageSelect({
       </Font>
       <View className="flex-row items-center mt-2 ">
         <TouchableOpacity
-          className="bg-SPOT-white/60 rounded-md p-6 aspect-square w-16 justify-center items-center "
+          className="bg-Button-gray rounded-md p-6 aspect-square w-16 justify-center items-center "
           onPress={handlePressAddPhoto}
         >
-          <PlusIcon />
+          <PlusIcon color="#ff1919" />
         </TouchableOpacity>
         {Array.isArray(image) ? (
           <FlatList

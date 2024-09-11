@@ -32,7 +32,7 @@ export default function CitySelect({
           borderRadius: 6,
         }}
         style={{
-          backgroundColor: 'rgba(255,255,255,0.6)',
+          backgroundColor: '#4C4C4C',
           borderRadius: 6,
           paddingVertical: 16,
           paddingHorizontal: 14,

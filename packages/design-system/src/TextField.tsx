@@ -21,7 +21,7 @@ export function TextField({
   numberOfLines,
 }: TextField) {
   const defaultClassName =
-    'text-SPOT-black text-body2 rounded-md p-4 bg-SPOT-white/60 border-[2px] border-bg-SPOT-white/60';
+    'text-SPOT-black text-body2 rounded-md p-4 bg-Button-gray border-[2px] border-bg-Button-gray';
   const incorrectClassName = 'border-SPOT-red border-[2px]';
   const correctClassName = 'border-Permission-green border-[2px]';
 
