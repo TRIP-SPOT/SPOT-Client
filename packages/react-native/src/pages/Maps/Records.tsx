@@ -6,11 +6,14 @@ import { BottomSheetView } from '@gorhom/bottom-sheet';
 import SortIcon from '@/assets/SortIcon';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { LOG_PADDING_X } from '@/components/maps/RecordCard';
-import RecordCardList, { MockCardData } from '@/components/maps/RecordCardList';
+import RecordCardList from '@/components/maps/RecordCardList';
 import Header from '@/components/common/Header';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import useToggle from '@/hooks/useToggle';
 import BottomSheet from '@/components/common/BottomSheet';
+import useRecordsQuery, {
+  RecordResponse,
+} from '@/apis/queries/records/useRecordsQuery';
 
 interface RecordsProps {
   navigation: StackNavigation<'Maps/Record'>;
@@ -18,21 +21,27 @@ interface RecordsProps {
 
 export default function Records({ navigation }: RecordsProps) {
   const [showBottomSheet, toggleBottomSheet] = useToggle();
-  const [selectedRecord, setSelectedRecord] = useState<MockCardData>();
+  const [selectedRecord, setSelectedRecord] = useState<RecordResponse>();
   const sort = () => {
     // TODO: 실제 구현 필요(현재 UI없음)
   };
 
   const route = useRoute<StackRouteProps<'Maps/Record'>>();
 
-  const handleClickCard = (selectedCardData: MockCardData) => {
+  const { data: recordsData } = useRecordsQuery({
+    location: route.params.location,
+  });
+
+  const handleClickCard = (selectedCardData: RecordResponse) => {
     toggleBottomSheet();
     setSelectedRecord(selectedCardData);
   };
 
+  const isEmpty = !recordsData || recordsData.length === 0;
+
   return (
     <View>
-      <BackGroundGradient>
+      <BackGroundGradient withoutScroll={isEmpty}>
         <Header
           RightActionButton={
             <TouchableOpacity onPress={sort} className="px-4">
@@ -41,15 +50,29 @@ export default function Records({ navigation }: RecordsProps) {
           }
           title={route.params.location}
         />
-        <View
-          className="relative flex-1 min-h-[100vh]"
-          style={{
-            paddingLeft: LOG_PADDING_X,
-            paddingRight: LOG_PADDING_X,
-          }}
-        >
-          <RecordCardList handleOpenOptions={handleClickCard} />
-        </View>
+        {isEmpty ? (
+          <View className="flex justify-center flex-1 items-center">
+            <Font type="body1" color="white">
+              비어있어요
+            </Font>
+            <Font type="body1" color="white">
+              나만의 여행 기록을 채워보세요
+            </Font>
+          </View>
+        ) : (
+          <View
+            className="relative flex-1 min-h-[100vh]"
+            style={{
+              paddingLeft: LOG_PADDING_X,
+              paddingRight: LOG_PADDING_X,
+            }}
+          >
+            <RecordCardList
+              cards={recordsData}
+              handleOpenOptions={handleClickCard}
+            />
+          </View>
+        )}
       </BackGroundGradient>
       <FloatingPlusButton
         onPress={() => {

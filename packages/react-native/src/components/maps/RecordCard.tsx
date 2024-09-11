@@ -7,15 +7,12 @@ import {
 import { Font } from 'design-system';
 import { useNavigation } from '@react-navigation/native';
 import DotMenuIcon from '@/assets/DotMenuIcon';
-import { KoreaLocationName } from '@/types/map';
 import { StackNavigation } from '@/types/navigation';
+import { RecordResponse } from '@/apis/queries/records/useRecordsQuery';
+import { REVERSE_REGION_MAPPER } from '@/constants/CITY';
 
 interface CardProps {
-  id: number;
-  title: string;
-  location: KoreaLocationName;
-  date: string;
-  backgroundImage: string;
+  data: RecordResponse;
   handleClickCard: () => void;
 }
 
@@ -23,26 +20,22 @@ const { width } = Dimensions.get('window');
 export const LOG_PADDING_X = 16;
 export const CARD_GAP = 8;
 
-export default function RecordCard({
-  id,
-  title,
-  location,
-  date,
-  backgroundImage,
-  handleClickCard,
-}: CardProps) {
+export default function RecordCard({ data, handleClickCard }: CardProps) {
+  const { id, title, location, city, startDate, endDate, imageUrl } = data;
   const navigation = useNavigation<StackNavigation<'Maps/Record'>>();
+  const locationName = REVERSE_REGION_MAPPER[location];
+
   return (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate('Maps/RecordDetail', {
           recordId: id,
-          location,
+          location: locationName,
         })
       }
     >
       <ImageBackground
-        source={{ uri: backgroundImage }}
+        source={{ uri: imageUrl }}
         className="h-[240px] rounded-lg overflow-hidden"
         style={{
           width: (width - 2 * LOG_PADDING_X - CARD_GAP) / 2,
@@ -64,7 +57,7 @@ export default function RecordCard({
               {location}
             </Font.Light>
             <Font.Light type="body1" color="white">
-              {date}
+              {startDate} ~ {endDate}
             </Font.Light>
           </View>
         </View>
