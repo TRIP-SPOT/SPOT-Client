@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 
@@ -50,7 +50,7 @@ interface UseRecordsQueryParams {
 }
 
 export default function useRecordsQuery({ location }: UseRecordsQueryParams) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['records', location],
     queryFn: async () => {
       return mockRecord;

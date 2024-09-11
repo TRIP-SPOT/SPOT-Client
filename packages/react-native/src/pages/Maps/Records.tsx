@@ -14,12 +14,13 @@ import BottomSheet from '@/components/common/BottomSheet';
 import useRecordsQuery, {
   RecordResponse,
 } from '@/apis/queries/records/useRecordsQuery';
+import withSuspense from '@/components/HOC/withSuspense';
 
 interface RecordsProps {
   navigation: StackNavigation<'Maps/Record'>;
 }
 
-export default function Records({ navigation }: RecordsProps) {
+export default withSuspense(function Records({ navigation }: RecordsProps) {
   const [showBottomSheet, toggleBottomSheet] = useToggle();
   const [selectedRecord, setSelectedRecord] = useState<RecordResponse>();
   const sort = () => {
@@ -37,7 +38,7 @@ export default function Records({ navigation }: RecordsProps) {
     setSelectedRecord(selectedCardData);
   };
 
-  const isEmpty = !recordsData || recordsData.length === 0;
+  const isEmpty = recordsData.length === 0;
 
   return (
     <View>
@@ -126,4 +127,4 @@ export default function Records({ navigation }: RecordsProps) {
       )}
     </View>
   );
-}
+});
