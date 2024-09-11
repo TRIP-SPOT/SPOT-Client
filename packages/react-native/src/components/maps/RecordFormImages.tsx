@@ -13,6 +13,6 @@ export default function RecordFormImages({
 }: RecordFormImagesProps) {
   const { images } = useRecordFormState();
   return (
-    <ImageSelect images={images} handlePressAddPhoto={handlePressAddPhoto} />
+    <ImageSelect image={images} handlePressAddPhoto={handlePressAddPhoto} />
   );
 }
