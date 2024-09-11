@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native';
+import { Alert, TouchableOpacity, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useState } from 'react';
 import { Font, FloatingPlusButton } from 'design-system';
@@ -115,7 +115,22 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
                   </Font.Light>
                 </TouchableOpacity>
                 <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-                <TouchableOpacity className="py-2">
+                <TouchableOpacity
+                  className="py-2"
+                  onPress={() => {
+                    Alert.alert('정말 삭제하시겠습니까?', '', [
+                      {
+                        text: '삭제',
+                        onPress: () => {},
+                        style: 'destructive',
+                      },
+                      {
+                        text: '취소',
+                        onPress: () => {},
+                      },
+                    ]);
+                  }}
+                >
                   <Font.Light type="title1" color="black">
                     삭제
                   </Font.Light>
