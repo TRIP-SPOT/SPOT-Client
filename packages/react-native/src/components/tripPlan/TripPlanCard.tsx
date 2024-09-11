@@ -15,7 +15,7 @@ export const CARD_GAP = 8;
 
 interface TripPlanCardProps {
   cardData: TripPlanResponse;
-  onOptionClick: (id: number) => void;
+  onOptionClick: (tripPlan: TripPlanResponse) => void;
   onCardClick: () => void;
 }
 
@@ -43,7 +43,7 @@ export default function TripPlanCard({
         <View className="flex-1 justify-between px-3 py-1.5 bg-black/20">
           <TouchableOpacity
             className="flex items-end w-full"
-            onPress={() => onOptionClick(cardData.id)}
+            onPress={() => onOptionClick(cardData)}
           >
             <DotMenuIcon />
           </TouchableOpacity>
