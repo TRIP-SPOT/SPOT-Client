@@ -15,6 +15,7 @@ import useRecordsQuery, {
   RecordResponse,
 } from '@/apis/queries/records/useRecordsQuery';
 import withSuspense from '@/components/HOC/withSuspense';
+import useRecordMutation from '@/apis/mutations/useRecordMutation';
 
 interface RecordsProps {
   navigation: StackNavigation<'Maps/Record'>;
@@ -32,10 +33,11 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
   const { data: recordsData } = useRecordsQuery({
     location: route.params.location,
   });
+  const { deleteMutate } = useRecordMutation();
 
-  const handleClickCard = (selectedCardData: RecordResponse) => {
-    toggleBottomSheet();
+  const handleOpenOption = (selectedCardData: RecordResponse) => {
     setSelectedRecord(selectedCardData);
+    toggleBottomSheet(true);
   };
 
   const isEmpty = recordsData.length === 0;
@@ -70,14 +72,13 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
           >
             <RecordCardList
               cards={recordsData}
-              handleOpenOptions={handleClickCard}
+              handleOpenOptions={handleOpenOption}
             />
           </View>
         )}
       </BackGroundGradient>
       <FloatingPlusButton
         onPress={() => {
-          toggleBottomSheet();
           navigation.navigate('Maps/PostRecord', {
             location: route.params.location,
           });
@@ -86,7 +87,10 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
         right={16}
       />
       {selectedRecord && (
-        <BottomSheet isShow={showBottomSheet}>
+        <BottomSheet
+          isShow={showBottomSheet}
+          handleClose={() => toggleBottomSheet(false)}
+        >
           <BottomSheetView
             style={{
               flex: 1,
@@ -103,7 +107,7 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
                 <TouchableOpacity
                   className="py-2"
                   onPress={() => {
-                    toggleBottomSheet();
+                    toggleBottomSheet(false);
                     navigation.navigate('Maps/ModifyRecord', {
                       location: route.params.location,
                       recordId: selectedRecord.id,
@@ -121,12 +125,15 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
                     Alert.alert('정말 삭제하시겠습니까?', '', [
                       {
                         text: '삭제',
-                        onPress: () => {},
+                        onPress: async () => {
+                          await deleteMutate({ id: selectedRecord.id });
+                          toggleBottomSheet(false);
+                        },
                         style: 'destructive',
                       },
                       {
                         text: '취소',
-                        onPress: () => {},
+                        onPress: () => toggleBottomSheet(false),
                       },
                     ]);
                   }}
