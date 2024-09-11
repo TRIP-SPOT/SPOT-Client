@@ -1,6 +1,3 @@
-import { FlatList, Image, TouchableOpacity, View } from 'react-native';
-import { Font } from 'design-system';
-import PlusIcon from '@/assets/PlusIcon';
 import useRecordFormState from '@/hooks/useRecordFormState';
 import ImageSelect from '../common/ImageSelect';
 
