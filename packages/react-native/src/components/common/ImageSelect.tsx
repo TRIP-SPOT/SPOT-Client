@@ -3,7 +3,7 @@ import { Font } from 'design-system';
 import PlusIcon from '@/assets/PlusIcon';
 
 interface ImageSelectProps {
-  image: string | string[];
+  image?: string | string[];
   handlePressAddPhoto: () => Promise<unknown>;
 }
 
@@ -48,6 +48,7 @@ export default function ImageSelect({
               width: 64,
               height: 64,
               borderRadius: 6,
+              marginLeft: 8,
             }}
           />
         )}
