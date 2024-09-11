@@ -1,34 +1,21 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { RecordGetResponse } from '@/apis/queries/records/useRecordDetailQuery';
-import { FormSelectValue } from '@/components/common/CitySelect';
+import { CitySelectValue } from '@/components/common/CitySelect';
+import { DateSelectProps } from '@/components/common/DateSelect';
 
-interface RecordFormContextState {
+type RecordFormContextState = DateSelectProps & {
   title: string;
-  description: string;
-  date: {
-    start: Date;
-    end: Date;
-  };
-  selectionMode?: 'start' | 'end';
-  images: string[];
-  selectedCity: FormSelectValue | undefined;
   handleTitleChange: (value: string) => void;
+  description: string;
   handleDescriptionChange: (value: string) => void;
+  selectedCity: CitySelectValue | undefined;
+  handleSelectCityChange: (item: CitySelectValue) => void;
+  images: string[];
   addImages: (imgUrl: string) => void;
   removeImages: (imgUrl: string) => void;
   resetImages: (imgList?: string[]) => void;
   validate: () => boolean;
-  setDate: React.Dispatch<
-    React.SetStateAction<{
-      start: Date;
-      end: Date;
-    }>
-  >;
-  setSelectionMode: React.Dispatch<
-    React.SetStateAction<'start' | 'end' | undefined>
-  >;
-  handleSelectChange: (item: FormSelectValue) => void;
-}
+};
 
 interface RecordFormProviderDefulatProps {
   children: ReactNode;
@@ -45,7 +32,7 @@ export function RecordFormProvider({
   const [description, setDescription] = useState(
     defaultProps?.description || '',
   );
-  const [selectedCity, setSelectedCity] = useState<FormSelectValue>();
+  const [selectedCity, setSelectedCity] = useState<CitySelectValue>();
 
   const [images, setImages] = useState<string[]>(defaultProps?.imageUrls || []);
 
@@ -86,7 +73,8 @@ export function RecordFormProvider({
     return setImages([]);
   };
 
-  const handleSelectChange = (item: FormSelectValue) => setSelectedCity(item);
+  const handleSelectCityChange = (item: CitySelectValue) =>
+    setSelectedCity(item);
 
   const value = useMemo(
     () => ({
@@ -104,7 +92,7 @@ export function RecordFormProvider({
       validate,
       setDate,
       setSelectionMode,
-      handleSelectChange,
+      handleSelectCityChange,
     }),
     [title, description, images, date, selectionMode],
   );

@@ -4,15 +4,15 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { City, REGION } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 
-export interface FormSelectValue {
+export interface CitySelectValue {
   label: string;
   value: City;
 }
 
 interface CitySelectProps {
   region: KoreaLocationName;
-  selectedValue?: FormSelectValue;
-  handleSelectedChange: (item: FormSelectValue) => void;
+  selectedValue?: CitySelectValue;
+  handleSelectedChange: (item: CitySelectValue) => void;
 }
 
 export default function CitySelect({

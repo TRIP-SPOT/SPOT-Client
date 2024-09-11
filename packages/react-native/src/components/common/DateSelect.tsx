@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
-interface DateSelectProps {
+export interface DateSelectProps {
   date: {
     start: Date;
     end: Date;
   };
-
   setDate: React.Dispatch<
     React.SetStateAction<{
       start: Date;

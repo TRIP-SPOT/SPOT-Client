@@ -6,13 +6,13 @@ import CitySelect from '../common/CitySelect';
 export default function RecordFormCitySelect() {
   const { params } =
     useRoute<StackRouteProps<'Maps/PostRecord' | 'Maps/ModifyRecord'>>();
-  const { selectedCity, handleSelectChange } = useRecordFormState();
+  const { selectedCity, handleSelectCityChange } = useRecordFormState();
 
   return (
     <CitySelect
       region={params.location}
       selectedValue={selectedCity}
-      handleSelectedChange={handleSelectChange}
+      handleSelectedChange={handleSelectCityChange}
     />
   );
 }
