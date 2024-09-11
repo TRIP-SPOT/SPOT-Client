@@ -1,4 +1,3 @@
-import { View } from 'react-native';
 import Header from '@/components/common/Header';
 import TripPlanPostForm from '@/components/tripPlan/TripPlanPostForm';
 import { TripFormProvider } from '@/hooks/useTripPlanFormState';
