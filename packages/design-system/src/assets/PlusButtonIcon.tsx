@@ -8,7 +8,7 @@ export default function PlusButtonIcon({ width, height, color }: SvgProps) {
       viewBox="0 0 56 56"
       fill="none"
     >
-      <Circle opacity="0.2" cx="28" cy="28" r="28" fill={color || '#FF1919'} />
+      <Circle cx="28" cy="28" r="28" fill={color || '#3F1111'} />
       <Path
         opacity="0.7"
         fill-rule="evenodd"

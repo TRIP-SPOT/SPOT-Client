@@ -33,12 +33,10 @@ export default function MyBadge() {
         keyExtractor={(item) => item}
         numColumns={numColumns}
       />
-      {selectedBadge && (
-        <BadgeListBottomSheet
-          selectedBadge={selectedBadge}
-          onClose={() => setSelectedBadge(undefined)}
-        />
-      )}
+      <BadgeListBottomSheet
+        selectedBadge={selectedBadge}
+        onClose={() => setSelectedBadge(undefined)}
+      />
     </>
   );
 }
