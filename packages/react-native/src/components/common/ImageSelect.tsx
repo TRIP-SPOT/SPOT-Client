@@ -3,12 +3,12 @@ import { Font } from 'design-system';
 import PlusIcon from '@/assets/PlusIcon';
 
 interface ImageSelectProps {
-  images: string[];
+  image: string | string[];
   handlePressAddPhoto: () => Promise<unknown>;
 }
 
 export default function ImageSelect({
-  images,
+  image,
   handlePressAddPhoto,
 }: ImageSelectProps) {
   return (
@@ -23,23 +23,34 @@ export default function ImageSelect({
         >
           <PlusIcon />
         </TouchableOpacity>
-        <FlatList
-          className="ml-2"
-          horizontal
-          data={images}
-          renderItem={({ item }) => {
-            return (
-              <Image
-                source={{ uri: item }}
-                style={{
-                  width: 64,
-                  height: 64,
-                  borderRadius: 6,
-                }}
-              />
-            );
-          }}
-        />
+        {Array.isArray(image) ? (
+          <FlatList
+            className="ml-2"
+            horizontal
+            data={image}
+            renderItem={({ item }) => {
+              return (
+                <Image
+                  source={{ uri: item }}
+                  style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: 6,
+                  }}
+                />
+              );
+            }}
+          />
+        ) : (
+          <Image
+            source={{ uri: image }}
+            style={{
+              width: 64,
+              height: 64,
+              borderRadius: 6,
+            }}
+          />
+        )}
       </View>
     </>
   );
