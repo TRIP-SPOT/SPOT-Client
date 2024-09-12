@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Dimensions } from 'react-native';
 import { Font, FloatingPlusButton } from 'design-system';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +13,7 @@ import TripPlanCard, { CARD_GAP } from '@/components/tripPlan/TripPlanCard';
 import BottomSheet from '@/components/common/BottomSheet';
 import { StackNavigation } from '@/types/navigation';
 import { REGION, REVERSE_REGION_MAPPER } from '@/constants/CITY';
+import withSuspense from '@/components/HOC/withSuspense';
 
 const getDisplayRegion = (selectedPlan: TripPlanResponse) => {
   const region = REVERSE_REGION_MAPPER[selectedPlan.location];
@@ -25,7 +26,9 @@ const getDisplayRegion = (selectedPlan: TripPlanResponse) => {
   return `${region} ${city}`;
 };
 
-export default function TripPlanner() {
+const { height } = Dimensions.get('window');
+
+export default withSuspense(function TripPlanner() {
   const { data } = useTripPlansQuery();
   const [selectedPlan, setSelectedPlan] = useState<TripPlanResponse>();
 
@@ -37,15 +40,18 @@ export default function TripPlanner() {
     setSelectedPlan(selectedCardData);
   };
 
+  const isEmpty = data.length === 0;
+
   return (
     <View>
-      <BackGroundGradient>
+      <BackGroundGradient withoutScroll={isEmpty}>
         <Header type="logo" />
         <View
-          className="relative flex-1 min-h-[100vh]"
+          className="relative flex-1"
           style={{
             paddingLeft: 16,
             paddingRight: 16,
+            minHeight: isEmpty ? undefined : height,
           }}
         >
           <View className="flex flex-row items-center justify-between">
@@ -56,22 +62,33 @@ export default function TripPlanner() {
               <SortIcon />
             </TouchableOpacity>
           </View>
-          <View
-            className="mt-5 flex flex-row flex-wrap "
-            style={{
-              gap: CARD_GAP,
-            }}
-          >
-            {data?.map((plan) => (
-              <View key={plan.id}>
-                <TripPlanCard
-                  cardData={plan}
-                  onOptionClick={handleClickCard}
-                  onCardClick={() => {}}
-                />
-              </View>
-            ))}
-          </View>
+          {isEmpty ? (
+            <View className="justify-center items-center flex-grow">
+              <Font type="body1" color="white">
+                비어있어요
+              </Font>
+              <Font type="body1" color="white">
+                나만의 여행을 채워보세요
+              </Font>
+            </View>
+          ) : (
+            <View
+              className="mt-5 flex flex-row flex-wrap "
+              style={{
+                gap: CARD_GAP,
+              }}
+            >
+              {data?.map((plan) => (
+                <View key={plan.id}>
+                  <TripPlanCard
+                    cardData={plan}
+                    onOptionClick={handleClickCard}
+                    onCardClick={() => {}}
+                  />
+                </View>
+              ))}
+            </View>
+          )}
         </View>
       </BackGroundGradient>
       <FloatingPlusButton
@@ -114,4 +131,4 @@ export default function TripPlanner() {
       )}
     </View>
   );
-}
+});
