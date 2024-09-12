@@ -14,6 +14,7 @@ export type StackParamList = {
   'Signup/NicknameProfile': { nickname: string };
 
   'TripPlanner/Main': undefined;
+  'TripPlanner/Post': undefined;
 
   'MyPage/Profile': undefined;
   'MyPage/EditProfile': undefined;

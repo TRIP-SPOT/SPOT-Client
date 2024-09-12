@@ -62,9 +62,9 @@ export default function RecordPostForm() {
           <Font type="body2" color="white">
             여행 기간
           </Font>
-          <View className="bg-SPOT-white/60 rounded-md flex flex-row justify-start px-4 py-3.5 items-center mt-2">
+          <View className="bg-Button-gray rounded-md flex flex-row justify-start px-4 py-3.5 items-center mt-2">
             <View className="mr-3">
-              <CalendarIcon color="white" />
+              <CalendarIcon color="#FF1919" />
             </View>
             <RecordFormDatePicker />
           </View>
