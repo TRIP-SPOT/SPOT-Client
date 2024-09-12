@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native';
+import { Alert, TouchableOpacity, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useState } from 'react';
 import { Font, FloatingPlusButton } from 'design-system';
@@ -6,33 +6,45 @@ import { BottomSheetView } from '@gorhom/bottom-sheet';
 import SortIcon from '@/assets/SortIcon';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { LOG_PADDING_X } from '@/components/maps/RecordCard';
-import RecordCardList, { MockCardData } from '@/components/maps/RecordCardList';
+import RecordCardList from '@/components/maps/RecordCardList';
 import Header from '@/components/common/Header';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import useToggle from '@/hooks/useToggle';
 import BottomSheet from '@/components/common/BottomSheet';
+import useRecordsQuery, {
+  RecordResponse,
+} from '@/apis/queries/records/useRecordsQuery';
+import withSuspense from '@/components/HOC/withSuspense';
+import useRecordMutation from '@/apis/mutations/useRecordMutation';
 
 interface RecordsProps {
   navigation: StackNavigation<'Maps/Record'>;
 }
 
-export default function Records({ navigation }: RecordsProps) {
+export default withSuspense(function Records({ navigation }: RecordsProps) {
   const [showBottomSheet, toggleBottomSheet] = useToggle();
-  const [selectedRecord, setSelectedRecord] = useState<MockCardData>();
+  const [selectedRecord, setSelectedRecord] = useState<RecordResponse>();
   const sort = () => {
     // TODO: 실제 구현 필요(현재 UI없음)
   };
 
   const route = useRoute<StackRouteProps<'Maps/Record'>>();
 
-  const handleClickCard = (selectedCardData: MockCardData) => {
-    toggleBottomSheet();
+  const { data: recordsData } = useRecordsQuery({
+    location: route.params.location,
+  });
+  const { deleteMutate } = useRecordMutation();
+
+  const handleOpenOption = (selectedCardData: RecordResponse) => {
     setSelectedRecord(selectedCardData);
+    toggleBottomSheet(true);
   };
+
+  const isEmpty = recordsData.length === 0;
 
   return (
     <View>
-      <BackGroundGradient>
+      <BackGroundGradient withoutScroll={isEmpty}>
         <Header
           RightActionButton={
             <TouchableOpacity onPress={sort} className="px-4">
@@ -41,19 +53,32 @@ export default function Records({ navigation }: RecordsProps) {
           }
           title={route.params.location}
         />
-        <View
-          className="relative flex-1 min-h-[100vh]"
-          style={{
-            paddingLeft: LOG_PADDING_X,
-            paddingRight: LOG_PADDING_X,
-          }}
-        >
-          <RecordCardList handleOpenOptions={handleClickCard} />
-        </View>
+        {isEmpty ? (
+          <View className="flex justify-center flex-1 items-center">
+            <Font type="body1" color="white">
+              비어있어요
+            </Font>
+            <Font type="body1" color="white">
+              나만의 여행 기록을 채워보세요
+            </Font>
+          </View>
+        ) : (
+          <View
+            className="relative flex-1 min-h-[100vh]"
+            style={{
+              paddingLeft: LOG_PADDING_X,
+              paddingRight: LOG_PADDING_X,
+            }}
+          >
+            <RecordCardList
+              cards={recordsData}
+              handleOpenOptions={handleOpenOption}
+            />
+          </View>
+        )}
       </BackGroundGradient>
       <FloatingPlusButton
         onPress={() => {
-          toggleBottomSheet();
           navigation.navigate('Maps/PostRecord', {
             location: route.params.location,
           });
@@ -62,7 +87,10 @@ export default function Records({ navigation }: RecordsProps) {
         right={16}
       />
       {selectedRecord && (
-        <BottomSheet isShow={showBottomSheet}>
+        <BottomSheet
+          isShow={showBottomSheet}
+          handleClose={() => toggleBottomSheet(false)}
+        >
           <BottomSheetView
             style={{
               flex: 1,
@@ -79,7 +107,7 @@ export default function Records({ navigation }: RecordsProps) {
                 <TouchableOpacity
                   className="py-2"
                   onPress={() => {
-                    toggleBottomSheet();
+                    toggleBottomSheet(false);
                     navigation.navigate('Maps/ModifyRecord', {
                       location: route.params.location,
                       recordId: selectedRecord.id,
@@ -91,7 +119,25 @@ export default function Records({ navigation }: RecordsProps) {
                   </Font.Light>
                 </TouchableOpacity>
                 <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-                <TouchableOpacity className="py-2">
+                <TouchableOpacity
+                  className="py-2"
+                  onPress={() => {
+                    Alert.alert('정말 삭제하시겠습니까?', '', [
+                      {
+                        text: '삭제',
+                        onPress: async () => {
+                          await deleteMutate({ id: selectedRecord.id });
+                          toggleBottomSheet(false);
+                        },
+                        style: 'destructive',
+                      },
+                      {
+                        text: '취소',
+                        onPress: () => toggleBottomSheet(false),
+                      },
+                    ]);
+                  }}
+                >
                   <Font.Light type="title1" color="black">
                     삭제
                   </Font.Light>
@@ -103,4 +149,4 @@ export default function Records({ navigation }: RecordsProps) {
       )}
     </View>
   );
-}
+});
