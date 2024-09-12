@@ -7,6 +7,7 @@ import { REGION, REVERSE_REGION_MAPPER } from '@/constants/CITY';
 
 interface TripPlannerBottomSheetProps {
   selectedPlan?: TripPlanResponse;
+  handleClose: () => void;
 }
 
 const getDisplayRegion = (selectedPlan: TripPlanResponse) => {
@@ -22,19 +23,25 @@ const getDisplayRegion = (selectedPlan: TripPlanResponse) => {
 
 export default function TripPlannerBottomSheet({
   selectedPlan,
+  handleClose,
 }: TripPlannerBottomSheetProps) {
   if (!selectedPlan) {
     return null;
   }
+
   return (
-    <BottomSheet isShow={Boolean(selectedPlan)} snapPoints={['30%']}>
+    <BottomSheet
+      isShow={Boolean(selectedPlan)}
+      snapPoints={['30%']}
+      handleClose={handleClose}
+    >
       <BottomSheetView
         style={{
           flex: 1,
           justifyContent: 'center',
         }}
       >
-        <View className="flex items-center w-full justify-center flex-col">
+        <View className="flex items-center w-full justify-center flex-col gap-2">
           <Font.Bold type="mainTitle" color="black">
             {getDisplayRegion(selectedPlan)}
           </Font.Bold>

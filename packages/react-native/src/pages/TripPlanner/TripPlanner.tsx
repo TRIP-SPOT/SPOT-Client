@@ -77,7 +77,10 @@ export default withSuspense(function TripPlanner() {
         right={16}
         onPress={() => navigation.navigate('TripPlanner/Post')}
       />
-      <TripPlannerBottomSheet selectedPlan={selectedPlan} />
+      <TripPlannerBottomSheet
+        selectedPlan={selectedPlan}
+        handleClose={() => setSelectedPlan(undefined)}
+      />
     </View>
   );
 });
