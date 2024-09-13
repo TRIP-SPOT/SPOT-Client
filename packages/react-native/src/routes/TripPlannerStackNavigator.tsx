@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StackParamList } from '@/types/navigation';
 import TripPlanner from '@/pages/TripPlanner/TripPlanner';
 import TripPlannerPost from '@/pages/TripPlanner/TripPlannerPost';
+import TripPlannerDetail from '@/pages/TripPlanner/TripPlannerDetail';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -13,6 +14,7 @@ export default function TripPlannerStackNavigator() {
     >
       <Stack.Screen name="TripPlanner/Main" component={TripPlanner} />
       <Stack.Screen name="TripPlanner/Post" component={TripPlannerPost} />
+      <Stack.Screen name="TripPlanner/Detail" component={TripPlannerDetail} />
     </Stack.Navigator>
   );
 }
