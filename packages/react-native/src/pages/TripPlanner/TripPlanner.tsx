@@ -63,8 +63,12 @@ export default withSuspense(function TripPlanner() {
                 <View key={plan.id}>
                   <TripPlanCard
                     cardData={plan}
-                    onOptionClick={handleClickCard}
-                    onCardClick={() => {}}
+                    onOptionClick={handleClickCardOption}
+                    onCardClick={() =>
+                      navigation.navigate('TripPlanner/Detail', {
+                        tripId: plan.id,
+                      })
+                    }
                   />
                 </View>
               ))}

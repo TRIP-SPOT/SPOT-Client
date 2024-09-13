@@ -4,22 +4,12 @@ import { BottomSheetView, TouchableOpacity } from '@gorhom/bottom-sheet';
 import { TripPlanResponse } from '@/apis/queries/tripPlan/useTripPlansQuery';
 import BottomSheet from '../common/BottomSheet';
 import { REGION, REVERSE_REGION_MAPPER } from '@/constants/CITY';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 interface TripPlannerBottomSheetProps {
   selectedPlan?: TripPlanResponse;
   handleClose: () => void;
 }
-
-const getDisplayRegion = (selectedPlan: TripPlanResponse) => {
-  const region = REVERSE_REGION_MAPPER[selectedPlan.location];
-  const city = Object.entries(
-    REGION[REVERSE_REGION_MAPPER[selectedPlan.location]],
-  ).find((entry) => {
-    return entry[1] === selectedPlan.city;
-  })?.[0];
-
-  return `${region} ${city}`;
-};
 
 export default function TripPlannerBottomSheet({
   selectedPlan,
@@ -43,7 +33,10 @@ export default function TripPlannerBottomSheet({
       >
         <View className="flex items-center w-full justify-center flex-col gap-2">
           <Font.Bold type="mainTitle" color="black">
-            {getDisplayRegion(selectedPlan)}
+            {getDisplayRegion({
+              locationEnum: selectedPlan.location,
+              cityEnum: selectedPlan.city,
+            })}
           </Font.Bold>
           <TouchableOpacity className="py-2" onPress={() => {}}>
             <Font.Light type="title1" color="black">
