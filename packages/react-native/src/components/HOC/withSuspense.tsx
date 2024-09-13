@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Skeleton from '../common/Skeleton';
+import Loading from '../common/Loading';
 
 interface WithSuspenseOptions {
   fallback?: React.ReactNode;
@@ -7,7 +7,7 @@ interface WithSuspenseOptions {
 
 export default function withSuspense<T extends object>(
   Component: React.ComponentType<T>,
-  options: WithSuspenseOptions = { fallback: <Skeleton /> },
+  options: WithSuspenseOptions = { fallback: <Loading /> },
 ) {
   return function SuspenseComponent({ ...props }: T) {
     return (
