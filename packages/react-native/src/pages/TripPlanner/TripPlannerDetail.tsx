@@ -1,4 +1,4 @@
-import { ScrollView, View } from 'react-native';
+import { ImageBackground, ScrollView, View } from 'react-native';
 import { Font } from 'design-system';
 import { useRoute } from '@react-navigation/native';
 import useTripPlanDetailQuery from '@/apis/queries/tripPlan/useTripPlanDetailQuery';
@@ -8,6 +8,7 @@ import withSuspense from '@/components/HOC/withSuspense';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackRouteProps } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import AroundCard from '@/components/detail/AroundCard';
 
 export default withSuspense(function TripPlannerDetail() {
   const route = useRoute<StackRouteProps<'TripPlanner/Detail'>>();
@@ -33,14 +34,23 @@ export default withSuspense(function TripPlannerDetail() {
         <ScrollView className="px-5 py-6">
           <View>
             <CardSlider
+              gap={8}
               title="나의 SPOT"
+              titleColor="black"
               data={data.mySpots}
+              titleGap={4}
               renderItem={({ item }) => (
-                <View>
-                  <Font type="body2" color="white">
-                    {item.spotName}
-                  </Font>
-                </View>
+                <AroundCard data={item} onCardClick={() => {}} />
+              )}
+            />
+            <CardSlider
+              gap={8}
+              title="담은 음식점"
+              titleColor="black"
+              titleGap={4}
+              data={data.resturant}
+              renderItem={({ item }) => (
+                <AroundCard data={item} onCardClick={() => {}} />
               )}
             />
           </View>

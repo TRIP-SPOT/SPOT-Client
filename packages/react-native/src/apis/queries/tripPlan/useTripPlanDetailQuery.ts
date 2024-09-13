@@ -47,6 +47,14 @@ const getTrip = async () => {
         location: Region.BUSAN,
         city: City.BUSAN,
       },
+      {
+        id: 3,
+        spotName: '주문진 레스토랑',
+        image:
+          'https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202406/20/starfashion/20240620094035441whlh.jpg',
+        location: Region.BUSAN,
+        city: City.BUSAN,
+      },
     ],
   } as TripDetailResponse;
 };
