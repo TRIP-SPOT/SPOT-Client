@@ -1,4 +1,5 @@
-import { ImageBackground, ScrollView, View } from 'react-native';
+import { useState } from 'react';
+import { ScrollView, View } from 'react-native';
 import { Font } from 'design-system';
 import { useRoute } from '@react-navigation/native';
 import useTripPlanDetailQuery from '@/apis/queries/tripPlan/useTripPlanDetailQuery';
@@ -9,10 +10,12 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackRouteProps } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import AroundCard from '@/components/detail/AroundCard';
+import MySpotDetailBottomSheet from '@/components/mypage/MySpotDetailBottomSheet';
 
 export default withSuspense(function TripPlannerDetail() {
   const route = useRoute<StackRouteProps<'TripPlanner/Detail'>>();
   const { data } = useTripPlanDetailQuery({ id: route.params.tripId });
+  const [selectedSpot, setSelectedSpot] = useState<number>();
 
   return (
     <BackGroundGradient withoutScroll>
@@ -40,7 +43,10 @@ export default withSuspense(function TripPlannerDetail() {
               data={data.mySpots}
               titleGap={4}
               renderItem={({ item }) => (
-                <AroundCard data={item} onCardClick={() => {}} />
+                <AroundCard
+                  data={item}
+                  onCardClick={() => setSelectedSpot(item.id)}
+                />
               )}
             />
             <CardSlider
@@ -50,12 +56,19 @@ export default withSuspense(function TripPlannerDetail() {
               titleGap={4}
               data={data.resturant}
               renderItem={({ item }) => (
-                <AroundCard data={item} onCardClick={() => {}} />
+                <AroundCard
+                  data={item}
+                  onCardClick={() => setSelectedSpot(item.id)}
+                />
               )}
             />
           </View>
         </ScrollView>
       </View>
+      <MySpotDetailBottomSheet
+        selectedDetailSpotId={selectedSpot}
+        onClose={() => setSelectedSpot(undefined)}
+      />
     </BackGroundGradient>
   );
 });

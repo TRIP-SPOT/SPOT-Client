@@ -1,22 +1,15 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { TripPlanResponse } from './useTripPlansQuery';
 import { City, Region } from '@/constants/CITY';
+import { AroundSpot } from '../detail/useAroundSpotQuery';
 
 interface UseTripPlanDetailQueryProps {
   id: number;
 }
 
-interface Spot {
-  id: number;
-  spotName: string;
-  location: Region;
-  image: string;
-  city: City;
-}
-
 interface TripDetailResponse extends TripPlanResponse {
-  mySpots: Spot[];
-  resturant: Spot[];
+  mySpots: AroundSpot[];
+  resturant: AroundSpot[];
 }
 
 const getTrip = async () => {
