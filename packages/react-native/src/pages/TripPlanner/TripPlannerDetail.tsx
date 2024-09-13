@@ -10,7 +10,7 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackRouteProps } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import AroundCard from '@/components/detail/AroundCard';
-import MySpotDetailBottomSheet from '@/components/mypage/MySpotDetailBottomSheet';
+import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
 
 export default withSuspense(function TripPlannerDetail() {
   const route = useRoute<StackRouteProps<'TripPlanner/Detail'>>();
@@ -65,7 +65,7 @@ export default withSuspense(function TripPlannerDetail() {
           </View>
         </ScrollView>
       </View>
-      <MySpotDetailBottomSheet
+      <SpotDetailBottomSheet
         selectedDetailSpotId={selectedSpot}
         onClose={() => setSelectedSpot(undefined)}
       />

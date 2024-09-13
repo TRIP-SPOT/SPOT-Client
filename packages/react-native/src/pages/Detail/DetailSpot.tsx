@@ -6,7 +6,7 @@ import AroundCard from '@/components/detail/AroundCard';
 import CardSlider from '@/components/common/CardSlider';
 import useAroundSpotQuery from '@/apis/queries/detail/useAroundSpotQuery';
 import { StackRouteProps } from '@/types/navigation';
-import MySpotDetailBottomSheet from '@/components/mypage/MySpotDetailBottomSheet';
+import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
 import useArrayToggle from '@/hooks/useArrayToggle';
 
 export default function DetailSpot() {
@@ -88,7 +88,7 @@ export default function DetailSpot() {
             />
           </View>
         </View>
-        <MySpotDetailBottomSheet
+        <SpotDetailBottomSheet
           selectedDetailSpotId={selectedSpot}
           onClose={() => setSelectedSpot(undefined)}
         />
