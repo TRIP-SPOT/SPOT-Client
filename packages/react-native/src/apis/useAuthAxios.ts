@@ -17,7 +17,7 @@ const useAuthAxios = () => {
     headers: {
       Authorization: `Bearer ${access}`,
     },
-    timeout: 3000,
+    timeout: 100000,
   });
 
   instance.interceptors.response.use(
