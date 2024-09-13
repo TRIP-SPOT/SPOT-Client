@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
 
 export interface TripPlanResponse {
@@ -50,7 +50,7 @@ const mockTripPlans: TripPlanResponse[] = [
 ];
 
 export default function useTripPlansQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['tripPlans'],
     queryFn: () => {
       return mockTripPlans;
