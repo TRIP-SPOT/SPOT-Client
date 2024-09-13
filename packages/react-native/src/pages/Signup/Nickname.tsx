@@ -4,6 +4,8 @@ import { View } from 'react-native';
 import Overlay from '@/components/signup/common/Overlay';
 import { StackNavigation } from '@/types/navigation';
 import SignupHeader from '@/components/signup/common/Header';
+import useNicknameMutation from '@/apis/mutations/useNicknameMutation';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 interface NicknameProps {
   navigation: StackNavigation<'Signup/Nickname'>;
@@ -11,17 +13,20 @@ interface NicknameProps {
 
 export default function NickName({ navigation }: NicknameProps) {
   const [nickname, setNickname] = useState('');
+  const { postMutate, isPostLoading } = useNicknameMutation();
 
   const isCorrect = nickname.length > 0 && nickname.length < 7;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isCorrect) {
+      await postMutate(nickname);
       navigation.navigate('Signup/Profile', { nickname });
     }
   };
 
   return (
     <Overlay>
+      <MutationLoadingModal isSubmiting={isPostLoading} />
       <SignupHeader
         onBack={() => navigation.goBack()}
         onCancel={() => navigation.goBack()}

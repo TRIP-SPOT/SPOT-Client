@@ -8,6 +8,8 @@ import useColorPalette from '@/hooks/useColorPalette';
 import SignupHeader from '@/components/signup/common/Header';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import { AppStorage } from '@/utils/storage';
+import useNicknameColorMutation from '@/apis/mutations/useNicknameColorMutation';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 interface NicknameProfileProps {
   navigation: StackNavigation<'Signup/NicknameProfile'>;
@@ -15,6 +17,7 @@ interface NicknameProfileProps {
 
 export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   const route = useRoute<StackRouteProps<'Signup/NicknameProfile'>>();
+  const { postLoading, postMutate } = useNicknameColorMutation();
   const { nickname } = route.params;
   const {
     selectedColor,
@@ -25,6 +28,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
   } = useColorPalette();
 
   const handleNext = async () => {
+    await postMutate(selectedColor);
     await AppStorage.saveData({
       key: 'nickname',
       value: {
@@ -41,6 +45,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
 
   return (
     <Overlay>
+      <MutationLoadingModal isSubmiting={postLoading} />
       <View className="flex-col flex justify-between items-center w-full h-full">
         <SignupHeader
           onBack={() => navigation.goBack()}
