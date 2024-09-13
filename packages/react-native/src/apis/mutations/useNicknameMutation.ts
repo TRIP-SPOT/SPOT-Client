@@ -4,7 +4,9 @@ import useAuthAxios from '../useAuthAxios';
 
 interface UseNickNameMutationReturn {
   postMutate: (nickname: string) => Promise<void>;
+  isPostLoading: boolean;
   patchMutate: (nickname: string) => Promise<void>;
+  isPatchLoading: boolean;
 }
 
 export default function useNicknameMutation() {
@@ -12,7 +14,7 @@ export default function useNicknameMutation() {
   const authAxios = useAuthAxios();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: postMutate } = useMutation({
+  const { mutateAsync: postMutate, isPending: isPostLoading } = useMutation({
     mutationFn: async (nickname: string) => {
       await authAxios.post('api/user/nickname', {
         nickname,
@@ -21,7 +23,7 @@ export default function useNicknameMutation() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['nickname'] }),
   });
 
-  const { mutateAsync: pathMutate } = useMutation({
+  const { mutateAsync: pathMutate, isPending: isPatchLoading } = useMutation({
     mutationFn: async (nickname: string) => {
       await authAxios.patch('api/user/nickname', {
         nickname,
@@ -31,7 +33,9 @@ export default function useNicknameMutation() {
   });
 
   ref.current.postMutate = postMutate;
+  ref.current.isPostLoading = isPostLoading;
   ref.current.patchMutate = pathMutate;
+  ref.current.isPatchLoading = isPatchLoading;
 
   return ref.current;
 }
