@@ -3,7 +3,7 @@ import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Font } from 'design-system';
 import useSpotDetailQuery from '@/apis/queries/spot/useSpotDetailQuery';
 import DetailMap from '@/pages/Detail/DetailMap';
-import BottomSheet from '../common/BottomSheet';
+import BottomSheet from './BottomSheet';
 
 const { width: fullWidth } = Dimensions.get('window');
 const BOTTOM_SHEET_PADDING = 10;
@@ -13,7 +13,7 @@ interface MySpotBottomSheetProps {
   onClose: () => void;
 }
 
-export default function MySpotDetailBottomSheet({
+export default function SpotDetailBottomSheet({
   selectedDetailSpotId,
   onClose,
 }: MySpotBottomSheetProps) {

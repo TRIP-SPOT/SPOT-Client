@@ -1,10 +1,12 @@
 import { View, FlatList, ListRenderItem } from 'react-native';
-import { Font } from 'design-system';
+import { Color, Font } from 'design-system';
 
 interface CardSliderProps<T> {
   title: string;
   data: ArrayLike<T> | null | undefined;
   renderItem: ListRenderItem<T> | null | undefined;
+  titleColor?: Color;
+  titleGap?: number;
   gap?: number;
 }
 
@@ -17,11 +19,17 @@ export default function CardSlider<T>({
   data,
   renderItem,
   gap = 16,
+  titleColor,
+  titleGap,
 }: CardSliderProps<T>) {
   return (
     <View>
-      <View className="mb-4">
-        <Font.Bold type="body1" color="white">
+      <View
+        style={{
+          marginBottom: titleGap || 16,
+        }}
+      >
+        <Font.Bold type="body1" color={titleColor || 'white'}>
           {title}
         </Font.Bold>
       </View>

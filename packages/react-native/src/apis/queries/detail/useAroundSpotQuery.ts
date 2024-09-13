@@ -1,4 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { City, Region } from '@/constants/CITY';
 
 interface UseAroundSpotQueryParams {
   id: number;
@@ -6,30 +7,40 @@ interface UseAroundSpotQueryParams {
 
 export interface AroundSpot {
   id: number;
-  title: string;
-  backgroundImage: string;
+  spotName: string;
+  location: Region;
+  image: string;
+  city: City;
 }
 
 const mockData: AroundSpot[] = [
   {
     id: 1,
-    title: '관광지 정보1',
-    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    spotName: '어쩌고',
+    location: Region.BUSAN,
+    city: City.BUSAN,
+    image: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
   },
   {
     id: 2,
-    title: '관광지 정보2',
-    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    spotName: '어쩌고',
+    location: Region.BUSAN,
+    city: City.BUSAN,
+    image: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
   },
   {
     id: 3,
-    title: '관광지 정보3',
-    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    spotName: '어쩌고',
+    location: Region.BUSAN,
+    city: City.BUSAN,
+    image: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
   },
   {
     id: 4,
-    title: '관광지 정보4',
-    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    spotName: '어쩌고',
+    location: Region.BUSAN,
+    city: City.BUSAN,
+    image: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
   },
 ];
 

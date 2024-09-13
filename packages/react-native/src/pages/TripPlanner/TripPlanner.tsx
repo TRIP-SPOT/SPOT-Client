@@ -24,7 +24,7 @@ export default withSuspense(function TripPlanner() {
 
   const sort = () => {};
 
-  const handleClickCard = (selectedCardData: TripPlanResponse) => {
+  const handleClickCardOption = (selectedCardData: TripPlanResponse) => {
     setSelectedPlan(selectedCardData);
   };
 
@@ -63,8 +63,12 @@ export default withSuspense(function TripPlanner() {
                 <View key={plan.id}>
                   <TripPlanCard
                     cardData={plan}
-                    onOptionClick={handleClickCard}
-                    onCardClick={() => {}}
+                    onOptionClick={handleClickCardOption}
+                    onCardClick={() =>
+                      navigation.navigate('TripPlanner/Detail', {
+                        tripId: plan.id,
+                      })
+                    }
                   />
                 </View>
               ))}

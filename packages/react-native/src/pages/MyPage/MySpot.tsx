@@ -1,7 +1,7 @@
 import { FlatList } from 'react-native';
 import { useState } from 'react';
 import MySpotBlock from '@/components/mypage/MySpotBlock';
-import MySpotBottomSheet from '@/components/mypage/MySpotDetailBottomSheet';
+import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
 
 const mockData = [
   {
@@ -78,7 +78,7 @@ export default function MySpot() {
         keyExtractor={(item) => item.title + item.location + item.date}
         numColumns={numColumns}
       />
-      <MySpotBottomSheet
+      <SpotDetailBottomSheet
         selectedDetailSpotId={selectedDetailSpotId}
         onClose={() => setSelectedDetailSpotId(undefined)}
       />
