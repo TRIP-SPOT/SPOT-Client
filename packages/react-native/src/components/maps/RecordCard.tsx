@@ -10,6 +10,7 @@ import DotMenuIcon from '@/assets/DotMenuIcon';
 import { StackNavigation } from '@/types/navigation';
 import { RecordResponse } from '@/apis/queries/records/useRecordsQuery';
 import { REVERSE_REGION_MAPPER } from '@/constants/CITY';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 interface CardProps {
   data: RecordResponse;
@@ -54,7 +55,11 @@ export default function RecordCard({ data, handleClickCard }: CardProps) {
               {title}
             </Font.Bold>
             <Font.Light type="body1" color="white">
-              {location}
+              {getDisplayRegion({
+                locationEnum: location,
+                cityEnum: city,
+                onlyCity: true,
+              })}
             </Font.Light>
             <Font.Light type="body1" color="white">
               {startDate} ~ {endDate}
