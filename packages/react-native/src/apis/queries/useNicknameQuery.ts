@@ -1,6 +1,8 @@
 import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import tinycolor from 'tinycolor2';
 import { AppStorage } from '@/utils/storage';
+import useAuthAxios from '../useAuthAxios';
 
 interface UseNicknameQueryReturn {
   nickname?: {
@@ -16,20 +18,40 @@ interface UseNicknameQueryReturn {
 }
 
 export default function useNicknameQuery() {
+  const authAxios = useAuthAxios();
   const ref = useRef({} as UseNicknameQueryReturn);
 
-  const { data, refetch, isLoading, isError } = useQuery({
+  const getProfile = async () => {
+    const result = await authAxios.get('/api/user/profile');
+    return result.data.result as {
+      profileUrl: string;
+      color: string;
+      nickname: string;
+    };
+  };
+
+  const { data, refetch, isLoading, isError } = useSuspenseQuery({
     queryKey: ['nickname'],
     queryFn: async () => {
+      const profile = await getProfile();
+      AppStorage.saveData({
+        key: 'nickname',
+        value: {
+          value: profile.nickname,
+          colorSet: {
+            bgColor: profile.color,
+            color: tinycolor(profile.color).darken(25).toHexString(),
+          },
+        },
+      });
+
       const savedNickname = await AppStorage.getData('nickname');
-      if (savedNickname) {
-        return savedNickname;
+
+      if (!savedNickname) {
+        throw new Error('닉네임을 불러올 수 없습니다. 다시 한번 시도해보세요');
       }
 
-      // TODO: 서버데이터 패칭 로직 추가 필요
-      return {
-        value: '',
-      };
+      return savedNickname;
     },
   });
 
