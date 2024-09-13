@@ -24,7 +24,7 @@ export default withSuspense(function TripPlanner() {
 
   const sort = () => {};
 
-  const handleClickCard = (selectedCardData: TripPlanResponse) => {
+  const handleClickCardOption = (selectedCardData: TripPlanResponse) => {
     setSelectedPlan(selectedCardData);
   };
 
