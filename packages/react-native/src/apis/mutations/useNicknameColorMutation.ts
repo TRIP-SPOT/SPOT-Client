@@ -4,7 +4,9 @@ import useAuthAxios from '../useAuthAxios';
 
 interface UseNicknameColorMutationReturn {
   postMutate: (color: string) => Promise<void>;
+  postLoading: boolean;
   patchMutate: (color: string) => Promise<void>;
+  patchLoading: boolean;
 }
 
 export default function useNicknameColorMutation() {
@@ -12,7 +14,7 @@ export default function useNicknameColorMutation() {
   const authAxios = useAuthAxios();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: patchMutate } = useMutation({
+  const { mutateAsync: patchMutate, isPending: patchLoading } = useMutation({
     mutationFn: async (color: string) => {
       await authAxios.patch('/api/user/color', {
         colorCode: color,
@@ -23,7 +25,7 @@ export default function useNicknameColorMutation() {
     },
   });
 
-  const { mutateAsync: postMutate } = useMutation({
+  const { mutateAsync: postMutate, isPending: postLoading } = useMutation({
     mutationFn: async (color: string) => {
       await authAxios.post('/api/user/color', {
         colorCode: color,
@@ -35,7 +37,10 @@ export default function useNicknameColorMutation() {
   });
 
   ref.current.postMutate = postMutate;
+  ref.current.postLoading = postLoading;
+
   ref.current.patchMutate = patchMutate;
+  ref.current.patchLoading = patchLoading;
 
   return ref.current;
 }
