@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { View, ScrollView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { FloatingPlusButton } from 'design-system';
 import AroundCard from '@/components/detail/AroundCard';
 import CardSlider from '@/components/common/CardSlider';
-import useAroundSpotQuery from '@/apis/queries/detail/useAroundSpotQuery';
-import { StackRouteProps } from '@/types/navigation';
+import useAroundSpotQuery, {
+  AroundSpot,
+} from '@/apis/queries/detail/useAroundSpotQuery';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
 import useArrayToggle from '@/hooks/useArrayToggle';
 
@@ -13,24 +15,25 @@ export default function DetailSpot() {
   const route = useRoute<StackRouteProps<'Home/Detail'>>();
   const [longPressMode, setLongPressMode] = useState(false);
   const [selectedSpot, setSelectedSpot] = useState<number>();
-  const { list, toggleItem } = useArrayToggle<number>();
+  const { list, toggleItem } = useArrayToggle<AroundSpot>();
+  const navigation = useNavigation<StackNavigation<'Home/Detail'>>();
 
   const { id } = route.params;
 
   const { data } = useAroundSpotQuery({ id });
 
-  const startLongPress = (spotId: number) => {
+  const startLongPress = (spot: AroundSpot) => {
     if (!longPressMode) {
       setLongPressMode(true);
-      toggleItem(spotId);
+      toggleItem(spot, 'id');
     }
   };
 
-  const handleCardClick = (spotId: number) => {
+  const handleCardClick = (spot: AroundSpot) => {
     if (longPressMode) {
-      return toggleItem(spotId);
+      return toggleItem(spot, 'id');
     }
-    return setSelectedSpot(spotId);
+    return setSelectedSpot(spot.id);
   };
 
   if (!data) {
@@ -94,7 +97,15 @@ export default function DetailSpot() {
         />
       </ScrollView>
       {longPressMode && (
-        <FloatingPlusButton bottom={16} right={16} onPress={() => {}} />
+        <FloatingPlusButton
+          bottom={16}
+          right={16}
+          onPress={() => {
+            navigation.navigate('Home/AddSpot', {
+              spots: list,
+            });
+          }}
+        />
       )}
     </>
   );
