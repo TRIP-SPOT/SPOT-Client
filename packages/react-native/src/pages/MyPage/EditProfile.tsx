@@ -5,22 +5,28 @@ import useProfileImage from '@/hooks/useProfileImage';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
 import { StackNavigation } from '@/types/navigation';
+import useNicknameMutation from '@/apis/mutations/useNicknameMutation';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 interface EditProfileProps {
   navigation: StackNavigation<'MyPage/EditProfile'>;
 }
 
 export default function EditProfile({ navigation }: EditProfileProps) {
-  // FIXME: 실제 닉네임으로 변경
-  const { ProfileImage, photoUri } = useProfileImage();
+  const { patchMutate, isPatchLoading } = useNicknameMutation();
+  const { ProfileImage } = useProfileImage();
   const [nickname, setNickname] = useState('');
 
-  const handleChangeProfile = () => {
-    Alert.alert(photoUri);
+  const handleChangeProfile = async () => {
+    if (nickname) {
+      await patchMutate(nickname);
+      navigation.goBack();
+    }
   };
 
   return (
     <>
+      <MutationLoadingModal isSubmiting={isPatchLoading} />
       <BackGroundGradient>
         <Header title="프로필 수정" />
         <View className="p-4 pt-14">

@@ -7,6 +7,8 @@ import ColorSlider from '@/components/signup/nicknameProfile/ColorSlider';
 import useColorPalette from '@/hooks/useColorPalette';
 import Header from '@/components/common/Header';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
+import useNicknameColorMutation from '@/apis/mutations/useNicknameColorMutation';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 interface EditProfileWithNicknameProps {
   navigation: StackNavigation<'MyPage/EditProfileWithNickname'>;
@@ -16,6 +18,7 @@ export default function EditProfileWithNickname({
   navigation,
 }: EditProfileWithNicknameProps) {
   const route = useRoute<StackRouteProps<'MyPage/EditProfileWithNickname'>>();
+  const { patchMutate, patchLoading } = useNicknameColorMutation();
   const { nickname } = route.params;
   const {
     selectedColor,
@@ -25,8 +28,14 @@ export default function EditProfileWithNickname({
     textColor,
   } = useColorPalette();
 
+  const handleSubmit = async () => {
+    await patchMutate(selectedColor);
+    navigation.goBack();
+  };
+
   return (
     <>
+      <MutationLoadingModal isSubmiting={patchLoading} />
       <BackGroundGradient>
         <Header title="배경 색상 선택" />
         <View className="p-4 pt-14">
@@ -62,7 +71,7 @@ export default function EditProfileWithNickname({
       </BackGroundGradient>
 
       <View className="bottom-16">
-        <Button onPress={() => navigation.goBack()}>
+        <Button onPress={handleSubmit}>
           <Font.Bold type="title1" color="white">
             완료
           </Font.Bold>

@@ -4,7 +4,13 @@ import StackNavigator from '@routes/StackNavigator';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>

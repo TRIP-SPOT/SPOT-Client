@@ -8,6 +8,7 @@ import { StackNavigation } from '@/types/navigation';
 import Card from '@/components/common/Card';
 import CardSlider from '@/components/common/CardSlider';
 import Header from '@/components/common/Header';
+import withSuspense from '@/components/HOC/withSuspense';
 
 const mockData: SpotData[] = [
   {
@@ -61,7 +62,7 @@ interface HomeScreenProps {
   navigation: StackNavigation<'Home/Main'>;
 }
 
-export default function Home({ navigation }: HomeScreenProps) {
+export default withSuspense(function Home({ navigation }: HomeScreenProps) {
   const { nickname } = useNicknameQuery();
 
   return (
@@ -106,4 +107,4 @@ export default function Home({ navigation }: HomeScreenProps) {
       </View>
     </BackGroundGradient>
   );
-}
+});
