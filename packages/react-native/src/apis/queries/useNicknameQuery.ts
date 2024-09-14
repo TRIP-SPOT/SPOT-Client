@@ -17,17 +17,21 @@ interface UseNicknameQueryReturn {
   refetch: () => void;
 }
 
+interface ProfileResponse {
+  result: {
+    profileUrl: string;
+    color: string;
+    nickname: string;
+  };
+}
+
 export default function useNicknameQuery() {
   const authAxios = useAuthAxios();
   const ref = useRef({} as UseNicknameQueryReturn);
 
   const getProfile = async () => {
-    const result = await authAxios.get('/api/user/profile');
-    return result.data.result as {
-      profileUrl: string;
-      color: string;
-      nickname: string;
-    };
+    const result = await authAxios.get<ProfileResponse>('/api/user/profile');
+    return result.data.result;
   };
 
   const { data, refetch, isLoading, isError } = useSuspenseQuery({
