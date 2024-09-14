@@ -1,6 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { KoreaLocationName } from './map';
+import { AroundSpot } from '@/apis/queries/detail/useAroundSpotQuery';
 
 export type StackParamList = {
   Login: undefined;
@@ -26,6 +27,9 @@ export type StackParamList = {
   'Home/Main': undefined;
   'Home/Search': { title: string };
   'Home/Detail': { id: number };
+  'Home/AddSpot': {
+    spots: AroundSpot[];
+  };
 
   'Gamification/Main': undefined;
   'Gamification/Quiz': {
