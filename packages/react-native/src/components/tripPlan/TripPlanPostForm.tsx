@@ -20,8 +20,6 @@ export default function TripPlanPostForm() {
     handleSelectCityChange,
     date,
     setDate,
-    selectionMode,
-    setSelectionMode,
     validate,
   } = useTripPlanFormState();
 
@@ -61,12 +59,7 @@ export default function TripPlanPostForm() {
             <View className="mr-3">
               <CalendarIcon color="#FF1919" />
             </View>
-            <DateSelect
-              date={date}
-              setDate={setDate}
-              selectionMode={selectionMode}
-              setSelectionMode={setSelectionMode}
-            />
+            <DateSelect date={date} setDate={setDate} />
           </View>
         </View>
         <View>
