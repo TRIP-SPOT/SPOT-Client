@@ -5,10 +5,10 @@ import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 interface AroundCardProps {
   data: AroundSpot;
-  onCardClick: (id: number) => void;
-  selectedSpots?: number[];
+  onCardClick: (spot: AroundSpot) => void;
+  selectedSpots?: AroundSpot[];
   isLongPressMode?: boolean;
-  startLongPress?: (id: number) => void;
+  startLongPress?: (spot: AroundSpot) => void;
 }
 
 export default function AroundCard({
@@ -27,15 +27,18 @@ export default function AroundCard({
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/30"
-        onPress={() => onCardClick(id)}
-        onLongPress={() => startLongPress && startLongPress(id)}
+        onPress={() => onCardClick(data)}
+        onLongPress={() => startLongPress && startLongPress(data)}
         activeOpacity={0.8}
       >
         {isLongPressMode && (
           <View className="absolute top-2 left-2">
             <CheckBox
-              onPress={() => onCardClick(id)}
-              selected={selectedSpots && selectedSpots.includes(id)}
+              onPress={() => onCardClick(data)}
+              selected={
+                selectedSpots &&
+                selectedSpots.some((spot) => spot.id === data.id)
+              }
             />
           </View>
         )}

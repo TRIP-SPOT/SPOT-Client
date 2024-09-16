@@ -3,6 +3,7 @@ import Home from '@/pages/Home';
 import { StackParamList } from '@/types/navigation';
 import Search from '@/pages/Search';
 import Detail from '@/pages/Detail';
+import HomeSpotAdd from '@/pages/HomeSpotAdd';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -15,6 +16,7 @@ export default function HomeStackNavigator() {
       <Stack.Screen name="Home/Main" component={Home} />
       <Stack.Screen name="Home/Search" component={Search} />
       <Stack.Screen name="Home/Detail" component={Detail} />
+      <Stack.Screen name="Home/AddSpot" component={HomeSpotAdd} />
     </Stack.Navigator>
   );
 }
