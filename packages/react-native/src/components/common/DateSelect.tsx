@@ -59,7 +59,6 @@ const calendarTheme: any = {
 export default function DateSelect({ date, setDate }: DateSelectProps) {
   const [openCalendar, setOpenCalendar] = useState(false);
   const { date: selectedDate, dateRange, updateDate } = useCalendar();
-  // console.log(JSON.stringify(dateRange, null, 2));
 
   useEffect(() => {
     setDate(selectedDate);

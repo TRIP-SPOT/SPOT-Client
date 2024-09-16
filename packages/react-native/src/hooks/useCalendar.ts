@@ -25,6 +25,41 @@ const normalizeDate = (date?: Date | string) => {
   return normalizedDate;
 };
 
+const generateDateRange = (startDate: Date, endDate: Date) => {
+  const normalizedStartDate = normalizeDate(startDate);
+  const normalizedEndDate = normalizeDate(endDate);
+
+  const result: Record<string, DateSelectionInfo> = {};
+
+  const day = normalizeDate(normalizedStartDate);
+  for (; day <= normalizedEndDate; day.setDate(day.getDate() + 1)) {
+    const dateString = day.toISOString().split('T')[0]; // YYYY-MM-DD
+
+    const entry: DateSelectionInfo = {
+      color: '#ffbaba',
+      customContainerStyle: { borderRadius: 8 },
+    };
+
+    // 시작 날짜인 경우
+    if (day.getTime() === normalizedStartDate.getTime()) {
+      entry.startingDay = true;
+      entry.textColor = 'white';
+      entry.color = '#FF1919';
+    }
+
+    // 끝 날짜인 경우
+    if (day.getTime() === normalizedEndDate.getTime()) {
+      entry.endingDay = true;
+      entry.textColor = 'white';
+      entry.color = '#FF1919';
+    }
+
+    result[dateString] = entry;
+  }
+
+  return result;
+};
+
 export default function useCalendar(
   initialStartDate?: Date,
   initialEndDate?: Date,
@@ -33,42 +68,6 @@ export default function useCalendar(
     start: normalizeDate(initialStartDate),
     end: normalizeDate(initialEndDate),
   });
-  const [dateRange, setDateRange] = useState<dateRangeData>({});
-
-  const generateDateRange = (startDate: Date, endDate: Date) => {
-    const normalizedStartDate = normalizeDate(startDate);
-    const normalizedEndDate = normalizeDate(endDate);
-
-    const result: Record<string, DateSelectionInfo> = {};
-
-    const day = normalizeDate(normalizedStartDate);
-    for (; day <= normalizedEndDate; day.setDate(day.getDate() + 1)) {
-      const dateString = day.toISOString().split('T')[0]; // YYYY-MM-DD
-
-      const entry: DateSelectionInfo = {
-        color: '#ffbaba',
-        customContainerStyle: { borderRadius: 8 },
-      };
-
-      // 시작 날짜인 경우
-      if (day.getTime() === normalizedStartDate.getTime()) {
-        entry.startingDay = true;
-        entry.textColor = 'white';
-        entry.color = '#FF1919';
-      }
-
-      // 끝 날짜인 경우
-      if (day.getTime() === normalizedEndDate.getTime()) {
-        entry.endingDay = true;
-        entry.textColor = 'white';
-        entry.color = '#FF1919';
-      }
-
-      result[dateString] = entry;
-    }
-
-    return result;
-  };
 
   const updateDate = (selectedDate: Date | string) => {
     const normalizedDate = normalizeDate(selectedDate);
@@ -108,9 +107,9 @@ export default function useCalendar(
     }
   };
 
-  useEffect(() => {
-    setDateRange(generateDateRange(date.start, date.end));
-  }, [date]);
-
-  return { date, dateRange, updateDate };
+  return {
+    date,
+    dateRange: generateDateRange(date.start, date.end),
+    updateDate,
+  };
 }
