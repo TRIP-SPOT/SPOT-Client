@@ -4,6 +4,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import BottomSheet from './BottomSheet';
 import useCalendar from '@/hooks/useCalendar';
+import { CALENDAR_THEME } from '@/constants/CALENDAR_THEME';
 
 export interface DateSelectProps {
   date: {
@@ -20,40 +21,6 @@ export interface DateSelectProps {
 
 const getDisplayDate = (displayDate: Date) => {
   return displayDate.toISOString().split('T')[0];
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const calendarTheme: any = {
-  'stylesheet.calendar.header': {
-    dayHeader: {
-      marginTop: 2,
-      marginBottom: 7,
-      width: 32,
-      textAlign: 'center',
-      color: '#4C4C4C',
-    },
-    dayTextAtIndex0: {
-      color: '#FF1919',
-    },
-    dayTextAtIndex6: {
-      color: 'blue',
-    },
-    arrowImage: {
-      tintColor: '#4C4C4C',
-    },
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      paddingLeft: 10,
-      paddingRight: 10,
-      marginTop: 6,
-      alignItems: 'center',
-      gap: 30,
-    },
-  },
-  textDayFontSize: 16,
-  textMonthFontSize: 16,
-  textMonthFontWeight: 600,
 };
 
 export default function DateSelect({ date, setDate }: DateSelectProps) {
@@ -107,7 +74,7 @@ export default function DateSelect({ date, setDate }: DateSelectProps) {
             monthFormat="yyyy M월"
             onDayPress={(day) => updateDate(day.dateString /* YYYY-MM-DD */)}
             enableSwipeMonths
-            theme={calendarTheme}
+            theme={CALENDAR_THEME}
             markingType="period"
             markedDates={dateRange}
             disableMonthChange
