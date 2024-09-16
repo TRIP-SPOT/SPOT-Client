@@ -1,4 +1,5 @@
-import { TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import { useRoute } from '@react-navigation/native';
 import { StackRouteProps } from '@/types/navigation';
@@ -7,11 +8,13 @@ import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import useTripPlanEditDetailQuery from '@/apis/queries/tripPlan/useTripPlanEditDetailQuery';
-import { getDateString } from '@/utils/date';
+import { getDateList, getDateString } from '@/utils/date';
 import BackIcon from '@/assets/BackIcon';
+import Spacing from '@/components/common/Spacing';
 
 const EditTripPlan = withSuspense(() => {
   const route = useRoute<StackRouteProps<'TripPlanner/EditPlan'>>();
+  const [selectedDate, setSelectedDate] = useState(0);
   const { tripId } = route.params;
 
   const { data } = useTripPlanEditDetailQuery(tripId);
@@ -44,6 +47,36 @@ const EditTripPlan = withSuspense(() => {
             <BackIcon />
           </TouchableOpacity>
         </View>
+      </View>
+      <View>
+        <FlatList
+          horizontal
+          className="px-2 mt-8"
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item.date + item.day}
+          data={getDateList(data.startDate, data.endDate)}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              className={`p-2.5 px-3 rounded-xl w-12 items-center ${selectedDate === index ? 'bg-SPOT-white/80' : 'bg-SPOT-white/20'}`}
+              onPress={() => setSelectedDate(index)}
+            >
+              <Font
+                type="body1"
+                color={selectedDate === index ? 'black' : 'white'}
+              >
+                {item.day}
+              </Font>
+              <Spacing height={3} />
+              <Font
+                type="body1"
+                color={selectedDate === index ? 'black' : 'white'}
+              >
+                {item.date}
+              </Font>
+            </TouchableOpacity>
+          )}
+          ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
+        />
       </View>
     </BackGroundGradient>
   );

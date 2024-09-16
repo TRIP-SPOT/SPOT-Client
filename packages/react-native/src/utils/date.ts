@@ -19,11 +19,12 @@ export const getDateString = (date: Date | string, seperator: string = '-') => {
   return `${tmpDate.getFullYear()}${seperator}${String(tmpDate.getMonth() + 1).padStart(2, '0')}${seperator}${String(tmpDate.getDate()).padStart(2, '0')}`;
 };
 
+const week = ['일', '월', '화', '수', '목', '금', '토'];
+
 /**
  * 시작 Date와 끝 Date를 포함하는 날짜 배열 반환
  * @param startDate 시작날짜
  * @param endDate 끝날짜
- * @returns 날짜 배열
  */
 export const getDateList = (
   startDate: Date | string,
@@ -37,7 +38,10 @@ export const getDateList = (
   if (normalizedStartDate.getTime() > normalizedEndDate.getTime()) return [];
 
   while (normalizedStartDate <= normalizedEndDate) {
-    dateList.push(normalizedStartDate.getDate());
+    dateList.push({
+      date: normalizedStartDate.getDate(),
+      day: week[normalizedStartDate.getDay()],
+    });
     normalizedStartDate.setDate(normalizedStartDate.getDate() + 1);
   }
 
