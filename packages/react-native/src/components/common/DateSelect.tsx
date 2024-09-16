@@ -1,7 +1,10 @@
-import { Font } from 'design-system';
-import { useState } from 'react';
+import { Button, Font } from 'design-system';
+import { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import DatePicker from 'react-native-date-picker';
+import { Calendar } from 'react-native-calendars';
+import BottomSheet from './BottomSheet';
+import useCalendar from '@/hooks/useCalendar';
+import { CALENDAR_THEME } from '@/constants/CALENDAR_THEME';
 
 export interface DateSelectProps {
   date: {
@@ -14,76 +17,77 @@ export interface DateSelectProps {
       end: Date;
     }>
   >;
-  selectionMode?: 'start' | 'end';
-  setSelectionMode: React.Dispatch<
-    React.SetStateAction<'start' | 'end' | undefined>
-  >;
 }
 
 const getDisplayDate = (displayDate: Date) => {
-  return `${displayDate.getFullYear()}-${displayDate.getMonth() + 1}-${displayDate.getDate()}`;
+  return displayDate.toISOString().split('T')[0];
 };
 
-export default function DateSelect({
-  date,
-  selectionMode,
-  setDate,
-  setSelectionMode,
-}: DateSelectProps) {
-  const [open, setOpen] = useState(false);
+export default function DateSelect({ date, setDate }: DateSelectProps) {
+  const [openCalendar, setOpenCalendar] = useState(false);
+  const { date: selectedDate, dateRange, updateDate } = useCalendar();
+
+  useEffect(() => {
+    setDate(selectedDate);
+  }, [selectedDate]);
 
   return (
     <>
-      <View className="justify-between flex-row flex-1 pr-20">
+      <TouchableOpacity
+        className="justify-between flex-row flex-1 pr-20"
+        onPress={() => setOpenCalendar(true)}
+      >
         <View>
           <Font color="white" type="ui-text">
             From
           </Font>
-          <TouchableOpacity
-            onPress={() => {
-              setOpen(true);
-              setSelectionMode('start');
-            }}
-          >
+          <View>
             <Font color="white" type="body1">
               {getDisplayDate(date.start)}
             </Font>
-          </TouchableOpacity>
+          </View>
         </View>
         <View>
           <Font color="white" type="ui-text">
             To
           </Font>
-          <TouchableOpacity
-            onPress={() => {
-              setOpen(true);
-              setSelectionMode('end');
-            }}
-          >
+          <View>
             <Font color="white" type="body1">
               {getDisplayDate(date.end)}
             </Font>
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      {selectionMode && (
-        <DatePicker
-          modal
-          open={open}
-          date={date[selectionMode]}
-          mode="date"
-          onConfirm={(selectedDate) => {
-            setOpen(false);
-            setDate((prev) => ({
-              ...prev,
-              [selectionMode]: selectedDate,
-            }));
-          }}
-          onCancel={() => {
-            setOpen(false);
-          }}
-        />
-      )}
+      </TouchableOpacity>
+
+      <BottomSheet
+        isShow={openCalendar}
+        snapPoints={['60%', '90%']}
+        handleClose={() => setOpenCalendar(false)}
+      >
+        <View className="items-center my-3">
+          <Font.Bold type="mainTitle" color="black">
+            여행 기간 선택
+          </Font.Bold>
+        </View>
+        <View className="flex flex-col justify-between">
+          <Calendar
+            monthFormat="yyyy M월"
+            onDayPress={(day) => updateDate(day.dateString /* YYYY-MM-DD */)}
+            enableSwipeMonths
+            theme={CALENDAR_THEME}
+            markingType="period"
+            markedDates={dateRange}
+            disableMonthChange
+          />
+        </View>
+        <View className="mx-4">
+          <Button onPress={() => setOpenCalendar(false)}>
+            <Font.Bold type="title1" color="white">
+              완료
+            </Font.Bold>
+          </Button>
+        </View>
+      </BottomSheet>
     </>
   );
 }
