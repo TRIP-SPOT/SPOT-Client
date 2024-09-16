@@ -9,14 +9,14 @@ export const normalizeDate = (date?: Date | string) => {
 };
 
 /**
- * `seperator`를 기준으로 날짜 문자열 반환
+ * `separator`를 기준으로 날짜 문자열 반환
  *
  * `default`: YYYY-MM-DD
  */
-export const getDateString = (date: Date | string, seperator: string = '-') => {
+export const getDateString = (date: Date | string, separator: string = '-') => {
   const tmpDate = new Date(date);
 
-  return `${tmpDate.getFullYear()}${seperator}${String(tmpDate.getMonth() + 1).padStart(2, '0')}${seperator}${String(tmpDate.getDate()).padStart(2, '0')}`;
+  return `${tmpDate.getFullYear()}${separator}${String(tmpDate.getMonth() + 1).padStart(2, '0')}${separator}${String(tmpDate.getDate()).padStart(2, '0')}`;
 };
 
 const week = ['일', '월', '화', '수', '목', '금', '토'];
@@ -46,4 +46,24 @@ export const getDateList = (
   }
 
   return dateList;
+};
+
+/**
+ * 간략한 날짜 문자열 - 두 번째 인자에 includeWeek를 false로 설정하면 요일은 제외
+ *
+ * e.g. 2.8 (월)
+ */
+export const getMinimalDateString = (
+  date: Date | string,
+  options?: {
+    separator?: string;
+    includeWeek?: boolean;
+  },
+) => {
+  const { separator = '.', includeWeek = true } = options || {};
+  const normalizedDate = normalizeDate(date);
+  const month = normalizedDate.getMonth() + 1;
+  const day = normalizedDate.getDay();
+
+  return `${month}${separator}${normalizedDate.getDate()}${includeWeek ? ` (${week[day]})` : ''}`;
 };
