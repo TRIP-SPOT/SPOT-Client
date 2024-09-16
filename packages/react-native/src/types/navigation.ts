@@ -19,6 +19,9 @@ export type StackParamList = {
   'TripPlanner/Detail': {
     tripId: number;
   };
+  'TripPlanner/EditPlan': {
+    tripId: number;
+  };
 
   'MyPage/Profile': undefined;
   'MyPage/EditProfile': undefined;

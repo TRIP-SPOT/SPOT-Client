@@ -1,10 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 import { Font } from 'design-system';
 import { BottomSheetView, TouchableOpacity } from '@gorhom/bottom-sheet';
 import { TripPlanResponse } from '@/apis/queries/tripPlan/useTripPlansQuery';
 import BottomSheet from '../common/BottomSheet';
-import { REGION, REVERSE_REGION_MAPPER } from '@/constants/CITY';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import { StackNavigation } from '@/types/navigation';
 
 interface TripPlannerBottomSheetProps {
   selectedPlan?: TripPlanResponse;
@@ -15,6 +16,8 @@ export default function TripPlannerBottomSheet({
   selectedPlan,
   handleClose,
 }: TripPlannerBottomSheetProps) {
+  const navigation = useNavigation<StackNavigation<'TripPlanner/Main'>>();
+
   if (!selectedPlan) {
     return null;
   }
@@ -38,7 +41,15 @@ export default function TripPlannerBottomSheet({
               cityEnum: selectedPlan.city,
             })}
           </Font.Bold>
-          <TouchableOpacity className="py-2" onPress={() => {}}>
+          <TouchableOpacity
+            className="py-2"
+            onPress={() => {
+              navigation.navigate('TripPlanner/EditPlan', {
+                tripId: selectedPlan.id,
+              });
+              handleClose();
+            }}
+          >
             <Font.Light type="title1" color="black">
               여행기간 변경
             </Font.Light>

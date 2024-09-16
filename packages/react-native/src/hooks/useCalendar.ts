@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { normalizeDate } from '@/utils/date';
 
 interface DateSelectionInfo {
   startingDay?: boolean;
@@ -8,22 +9,10 @@ interface DateSelectionInfo {
   customContainerStyle?: { borderRadius: number };
 }
 
-type dateRangeData = Record<string, DateSelectionInfo>;
-
 interface DateRange {
   start: Date;
   end: Date;
 }
-
-/**
- * Date 객체의 모든 시간을 통일
- * @description 정확한 시간을 비교할 경우 `new Date` 대신 사용
- */
-const normalizeDate = (date?: Date | string) => {
-  const normalizedDate = date ? new Date(date) : new Date();
-  normalizedDate.setUTCHours(0, 0, 0, 0);
-  return normalizedDate;
-};
 
 const generateDateRange = (startDate: Date, endDate: Date) => {
   const normalizedStartDate = normalizeDate(startDate);
