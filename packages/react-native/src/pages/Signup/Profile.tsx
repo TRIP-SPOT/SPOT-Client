@@ -7,6 +7,8 @@ import useProfileImage from '@/hooks/useProfileImage';
 import SignupHeader from '@/components/signup/common/Header';
 import { AppStorage } from '@/utils/storage';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
+import useProfileImageMutation from '@/apis/mutations/useProfileImageMutation';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 interface ProfileProps {
   navigation: StackNavigation<'Signup/Profile'>;
@@ -14,12 +16,14 @@ interface ProfileProps {
 
 export default function Profile({ navigation }: ProfileProps) {
   const { ProfileImage, photoUri } = useProfileImage();
+  const { postMutate, isPostPending } = useProfileImageMutation();
   const route = useRoute<StackRouteProps<'Signup/Profile'>>();
   const { nickname } = route.params;
 
   const handleNext = async () => {
     if (!photoUri) return;
 
+    await postMutate(photoUri);
     await AppStorage.saveData({
       key: 'nickname',
       value: {
@@ -31,6 +35,7 @@ export default function Profile({ navigation }: ProfileProps) {
 
   return (
     <Overlay>
+      <MutationLoadingModal isSubmiting={isPostPending} />
       <View className="w-full h-full justify-between">
         <View>
           <SignupHeader
