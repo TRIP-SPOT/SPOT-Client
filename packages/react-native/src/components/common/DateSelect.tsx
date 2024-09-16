@@ -106,13 +106,12 @@ export default function DateSelect({ date, setDate }: DateSelectProps) {
         <View className="flex flex-col justify-between">
           <Calendar
             monthFormat="yyyy M월"
-            onDayPress={(day) =>
-              updateDate(new Date(day.dateString /* YYYY-MM-DD */))
-            }
+            onDayPress={(day) => updateDate(day.dateString /* YYYY-MM-DD */)}
             enableSwipeMonths
             theme={calendarTheme}
             markingType="period"
             markedDates={dateRange}
+            disableMonthChange
           />
         </View>
         <View className="mx-4">

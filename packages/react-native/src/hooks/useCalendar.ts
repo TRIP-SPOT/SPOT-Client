@@ -19,7 +19,7 @@ interface DateRange {
  * Date 객체의 모든 시간을 통일
  * @description 정확한 시간을 비교할 경우 `new Date` 대신 사용
  */
-const normalizeDate = (date?: Date) => {
+const normalizeDate = (date?: Date | string) => {
   const normalizedDate = date ? new Date(date) : new Date();
   normalizedDate.setUTCHours(0, 0, 0, 0);
   return normalizedDate;
@@ -70,7 +70,7 @@ export default function useCalendar(
     return result;
   };
 
-  const updateDate = (selectedDate: Date) => {
+  const updateDate = (selectedDate: Date | string) => {
     const normalizedDate = normalizeDate(selectedDate);
     if (!date.start && !date.end) {
       setDate({ start: normalizedDate, end: normalizedDate }); // 선택된 범위가 없을 때
