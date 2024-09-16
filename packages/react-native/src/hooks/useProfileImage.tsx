@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import useGallery from './useGallery';
 import SelectProfileIcon from '@/assets/SelectProfileIcon';
-import useNicknameQuery from '@/apis/queries/useNicknameQuery';
+import useProfileQuery from '@/apis/queries/useProfileQuery';
 
 export default function useProfileImage(uri?: string) {
   const { getPhoto } = useGallery();
-  const { nickname } = useNicknameQuery();
+  const { profile } = useProfileQuery();
   const [photoUri, setPhotoUri] = useState(uri || '');
 
   const getPhtoFromLibrary = async () => {
@@ -18,30 +18,31 @@ export default function useProfileImage(uri?: string) {
   };
 
   const renderProfileContent = () => {
-    if (photoUri) {
+    if (photoUri || profile?.image) {
       return (
         <Image
           className="w-[140px] h-[140px] rounded-full bg-SPOT-white"
-          source={{ uri: photoUri }}
+          source={{ uri: photoUri || profile?.image }}
           resizeMode="contain"
         />
       );
     }
-    if (nickname && nickname.colorSet) {
+
+    if (profile && profile.colorSet?.bgColor) {
       return (
         <View
           className="w-[140px] h-[140px] rounded-full justify-center items-center"
           style={{
-            backgroundColor: nickname?.colorSet.bgColor,
+            backgroundColor: profile?.colorSet.bgColor,
           }}
         >
           <Text
             className="font-Pretendard-Medium text-[40px]"
             style={{
-              color: nickname.colorSet.color,
+              color: profile.colorSet.color,
             }}
           >
-            {nickname.value}
+            {profile.nickname}
           </Text>
         </View>
       );

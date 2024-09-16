@@ -3,7 +3,7 @@ import { Button, Font } from 'design-system';
 import SearchBar from '@components/common/SearchBar';
 import { SpotData } from '@/types/spot';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import useNicknameQuery from '@/apis/queries/useNicknameQuery';
+import useProfileQuery from '@/apis/queries/useProfileQuery';
 import { StackNavigation } from '@/types/navigation';
 import Card from '@/components/common/Card';
 import CardSlider from '@/components/common/CardSlider';
@@ -63,7 +63,7 @@ interface HomeScreenProps {
 }
 
 export default withSuspense(function Home({ navigation }: HomeScreenProps) {
-  const { nickname } = useNicknameQuery();
+  const { profile } = useProfileQuery();
 
   return (
     <BackGroundGradient>
@@ -71,7 +71,7 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
       <View className="flex flex-col gap-10 p-4">
         <View>
           <Font type="title1" color="white">
-            안녕하세요, {nickname?.value}님{'\n'}오늘은 어디로 가 볼까요?
+            안녕하세요, {profile?.nickname}님{'\n'}오늘은 어디로 가 볼까요?
           </Font>
           {/* FIXME: 추후 삭제 */}
           <Button onPress={() => navigation.navigate('Camera')}>

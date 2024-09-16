@@ -4,7 +4,7 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Rank from '@/components/mypage/Rank';
 import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
-import useNicknameQuery from '@/apis/queries/useNicknameQuery';
+import useProfileQuery from '@/apis/queries/useProfileQuery';
 import { StackNavigation } from '@/types/navigation';
 import CogWheelIcon from '@/assets/CogWheelIcon';
 import useProfileImage from '@/hooks/useProfileImage';
@@ -14,7 +14,7 @@ interface MyPageProps {
 }
 
 export default function MyPage({ navigation }: MyPageProps) {
-  const { nickname } = useNicknameQuery();
+  const { profile } = useProfileQuery();
   const { ProfileImage } = useProfileImage();
 
   return (
@@ -35,7 +35,7 @@ export default function MyPage({ navigation }: MyPageProps) {
             </View>
             <View className="mt-2">
               <Font type="mainTitle" color="white">
-                {nickname?.value}
+                {profile?.nickname}
               </Font>
             </View>
           </View>
