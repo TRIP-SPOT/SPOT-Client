@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Font } from 'design-system';
+import { CheckBox, Font } from 'design-system';
 import { TripPlanResponse } from '@/apis/queries/tripPlan/useTripPlansQuery';
 import DotMenuIcon from '@/assets/DotMenuIcon';
 import { REGION, REVERSE_REGION_MAPPER } from '@/constants/CITY';
@@ -15,14 +15,18 @@ export const CARD_GAP = 8;
 
 interface TripPlanCardProps {
   cardData: TripPlanResponse;
-  onOptionClick: (tripPlan: TripPlanResponse) => void;
+  onOptionClick?: (tripPlan: TripPlanResponse) => void;
   onCardClick: () => void;
+  isSelectionMode?: boolean;
+  isSelect?: boolean;
 }
 
 export default function TripPlanCard({
   cardData,
   onOptionClick,
   onCardClick,
+  isSelectionMode,
+  isSelect,
 }: TripPlanCardProps) {
   const { location, city, backgroundImage, startDate, endDate } = cardData;
   const locationName = REVERSE_REGION_MAPPER[location];
@@ -41,12 +45,18 @@ export default function TripPlanCard({
         }}
       >
         <View className="flex-1 justify-between px-3 py-1.5 bg-black/20">
-          <TouchableOpacity
-            className="flex items-end w-full"
-            onPress={() => onOptionClick(cardData)}
-          >
-            <DotMenuIcon />
-          </TouchableOpacity>
+          {isSelectionMode ? (
+            <View className="pt-1">
+              <CheckBox selected={isSelect} />
+            </View>
+          ) : (
+            <TouchableOpacity
+              className="flex items-end w-full"
+              onPress={() => onOptionClick && onOptionClick(cardData)}
+            >
+              <DotMenuIcon />
+            </TouchableOpacity>
+          )}
           <View className="p-2.5 gap-2">
             <Font.Bold type="body1" color="white">
               {locationName} {cityName}
