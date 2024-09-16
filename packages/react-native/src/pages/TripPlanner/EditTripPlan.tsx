@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FlatList, TouchableOpacity, View } from 'react-native';
+import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import { useRoute } from '@react-navigation/native';
 import { StackRouteProps } from '@/types/navigation';
@@ -28,7 +28,7 @@ const EditTripPlan = withSuspense(() => {
   selectedDateObj.setDate(selectedDateObj.getDate() + selectedDate);
 
   return (
-    <BackGroundGradient>
+    <BackGroundGradient withoutScroll>
       <Header title="일정" />
       <View className="p-4">
         <View className="items-center">
@@ -101,6 +101,39 @@ const EditTripPlan = withSuspense(() => {
               <EditIcon />
             </TouchableOpacity>
           </View>
+          <ScrollView className="h-full mt-6">
+            <View className="flex-row justify-between items-center">
+              <View className="rounded-sm w-5 h-5 items-center justify-center bg-[#4c4c4c] mr-4">
+                <Font.Bold type="body2" color="white">
+                  1
+                </Font.Bold>
+              </View>
+              <View className="bg-SPOT-white/40 p-2.5 px-3 rounded-md flex-1">
+                <Font.Bold type="title1" color="white">
+                  주문진 방파제
+                </Font.Bold>
+                <Font type="body1" color="white">
+                  도깨비 촬영지{' '}
+                </Font>
+              </View>
+            </View>
+            <Spacing height={10} />
+            <View className="flex-row justify-between items-center">
+              <View className="rounded-sm w-5 h-5 items-center justify-center bg-[#4c4c4c] mr-4">
+                <Font.Bold type="body2" color="white">
+                  2
+                </Font.Bold>
+              </View>
+              <View className="bg-SPOT-white/40 p-2.5 px-3 rounded-md flex-1">
+                <Font.Bold type="title1" color="white">
+                  주문진 방파제
+                </Font.Bold>
+                <Font type="body1" color="white">
+                  도깨비 촬영지{' '}
+                </Font>
+              </View>
+            </View>
+          </ScrollView>
         </View>
       </View>
     </BackGroundGradient>
