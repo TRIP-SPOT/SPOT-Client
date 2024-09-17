@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuthAxios from '../useAuthAxios';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface UseNicknameColorMutationReturn {
   postMutate: (color: string) => Promise<void>;
@@ -21,7 +22,7 @@ export default function useNicknameColorMutation() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['nickname'] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PROFILE] });
     },
   });
 
@@ -32,7 +33,7 @@ export default function useNicknameColorMutation() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['nickname'] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PROFILE] });
     },
   });
 

@@ -6,6 +6,7 @@ import { KoreaLocationName } from '@/types/map';
 import { AppStorage } from '@/utils/storage';
 import useAuthAxios from '../useAuthAxios';
 import CustomForm from '@/utils/CustomForm';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface MutationRequestParams {
   region: KoreaLocationName;
@@ -39,7 +40,7 @@ export default function useRecordRepresentativeMutation() {
   return useMutation({
     mutationFn: requestRepresentativeImage,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['Representative'] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REPERSENT_IMAGE] });
     },
     onError: () => {
       Alert.alert('대표사진 저장에 실패했어요.', '잠시후에 다시 시도해주세요.');

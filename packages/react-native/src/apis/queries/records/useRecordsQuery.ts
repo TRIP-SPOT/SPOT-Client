@@ -2,6 +2,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { City, Region, REGION_MAPPER } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 import useAuthAxios from '@/apis/useAuthAxios';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 export type RecordResponse = {
   id: number;
@@ -32,7 +33,7 @@ export default function useRecordsQuery({ location }: UseRecordsQueryParams) {
   };
 
   return useSuspenseQuery({
-    queryKey: ['records', location],
+    queryKey: [QUERY_KEYS.RECORDS, location],
     queryFn: getRecords,
   });
 }

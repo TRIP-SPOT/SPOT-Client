@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { City, Region } from '@/constants/CITY';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 export interface RecordGetResponse {
   id: number;
@@ -42,7 +43,7 @@ export default function useRecordDetailQuery({
   };
 
   const { data, isError, refetch } = useSuspenseQuery({
-    queryKey: ['recordDetail', recordId],
+    queryKey: [QUERY_KEYS.RECORD, recordId],
     queryFn: getDetailRecord,
   });
 
