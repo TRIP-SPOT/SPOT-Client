@@ -28,6 +28,6 @@ export const CALENDAR_THEME: any = {
     },
   },
   textDayFontSize: 16,
-  textMonthFontSize: 16,
-  textMonthFontWeight: 600,
+  // textMonthFontSize: 16,
+  // textMonthFontWeight: 600,
 };

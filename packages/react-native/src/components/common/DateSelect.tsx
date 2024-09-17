@@ -5,6 +5,7 @@ import { Calendar } from 'react-native-calendars';
 import BottomSheet from './BottomSheet';
 import useCalendar from '@/hooks/useCalendar';
 import { CALENDAR_THEME } from '@/constants/CALENDAR_THEME';
+import BackIcon from '@/assets/BackIcon';
 
 export interface DateSelectProps {
   date: {
@@ -34,7 +35,7 @@ export default function DateSelect({ date, setDate }: DateSelectProps) {
   return (
     <>
       <TouchableOpacity
-        className="justify-between flex-row flex-1 pr-20"
+        className="justify-between flex-row flex-1"
         onPress={() => setOpenCalendar(true)}
       >
         <View>
@@ -47,7 +48,7 @@ export default function DateSelect({ date, setDate }: DateSelectProps) {
             </Font>
           </View>
         </View>
-        <View>
+        <View className="pr-10">
           <Font color="white" type="ui-text">
             To
           </Font>
@@ -61,7 +62,7 @@ export default function DateSelect({ date, setDate }: DateSelectProps) {
 
       <BottomSheet
         isShow={openCalendar}
-        snapPoints={['60%', '90%']}
+        snapPoints={['90%']}
         handleClose={() => setOpenCalendar(false)}
       >
         <View className="items-center my-3">
@@ -78,9 +79,22 @@ export default function DateSelect({ date, setDate }: DateSelectProps) {
             markingType="period"
             markedDates={dateRange}
             disableMonthChange
+            showSixWeeks
+            renderArrow={(direction) =>
+              direction === 'left' ? (
+                <BackIcon color="black" />
+              ) : (
+                <View className="rotate-180">
+                  <BackIcon color="black" />
+                </View>
+              )
+            }
           />
         </View>
-        <View className="mx-4">
+        <View
+          className="px-2"
+          style={{ position: 'absolute', bottom: 30, width: '100%' }}
+        >
           <Button onPress={() => setOpenCalendar(false)}>
             <Font.Bold type="title1" color="white">
               완료
