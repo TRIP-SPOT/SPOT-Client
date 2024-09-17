@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
-import { Font } from 'design-system';
+import { Button, FloatingPlusButton, Font } from 'design-system';
 import { useRoute } from '@react-navigation/native';
 import { StackRouteProps } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
@@ -16,11 +16,21 @@ import ScheduleBlock from '@/components/editPlan/ScheduleBlock';
 const EditTripPlan = withSuspense(() => {
   const route = useRoute<StackRouteProps<'TripPlanner/EditPlan'>>();
   const [selectedDate, setSelectedDate] = useState(0);
+  const [editMode, setEditMode] = useState(false);
+  const [selectedSchedules, setSelectedSchedules] = useState<number[]>([]);
   const { tripId } = route.params;
 
   const { data } = useTripPlanEditDetailQuery(tripId);
   const selectedDateObj = normalizeDate(data.startDate);
   selectedDateObj.setDate(selectedDateObj.getDate() + selectedDate);
+
+  const selectSchedule = (id: number) => {
+    if (selectedSchedules.includes(id)) {
+      setSelectedSchedules((prev) =>
+        prev.filter((selectedIds) => selectedIds !== id),
+      );
+    } else setSelectedSchedules((prev) => [...prev, id]);
+  };
 
   return (
     <BackGroundGradient withoutScroll>
@@ -72,7 +82,13 @@ const EditTripPlan = withSuspense(() => {
                 {getMinimalDateString(selectedDateObj)}
               </Font.Light>
             </View>
-            <TouchableOpacity className="bg-[#4c4c4c] p-2 rounded-full">
+            <TouchableOpacity
+              className="bg-[#4c4c4c] p-2 rounded-full"
+              onPress={() => {
+                setEditMode((prev) => !prev);
+                setSelectedSchedules([]);
+              }}
+            >
               <EditIcon />
             </TouchableOpacity>
           </View>
@@ -87,6 +103,9 @@ const EditTripPlan = withSuspense(() => {
                     title={info.name}
                     description={info.description}
                     order={info.order}
+                    editMode={editMode}
+                    onSelect={() => selectSchedule(info.id)}
+                    selected={selectedSchedules.includes(info.id)}
                   />
                   <Spacing height={10} />
                 </>
@@ -94,6 +113,18 @@ const EditTripPlan = withSuspense(() => {
           </ScrollView>
         </View>
       </View>
+      {!editMode && (
+        <FloatingPlusButton onPress={() => {}} bottom={14} right={12} />
+      )}
+      {editMode && (
+        <View style={{ position: 'absolute', bottom: 14, width: '100%' }}>
+          <Button disabled={selectedSchedules.length === 0} onPress={() => {}}>
+            <Font.Bold type="title1" color="white">
+              삭제하기
+            </Font.Bold>
+          </Button>
+        </View>
+      )}
     </BackGroundGradient>
   );
 });
