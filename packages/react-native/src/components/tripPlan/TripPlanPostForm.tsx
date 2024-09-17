@@ -66,7 +66,7 @@ export default function TripPlanPostForm() {
           <ImageSelect image={image} handlePressAddPhoto={handleChangeImage} />
         </View>
       </View>
-      <View className="px-4">
+      <View>
         <Button disabled={!validate()} onPress={navigateTripPlan}>
           <Font.Bold color="white" type="title1">
             여행 만들기
