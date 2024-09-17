@@ -1,14 +1,19 @@
 import { useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { Region } from '@/constants/CITY';
-import { RecordFormSelectValue } from '@/hooks/useRecordFormState';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { City, Region } from '@/constants/CITY';
+import { CitySelectValue } from '@/components/common/CitySelect';
+import useAuthAxios from '../useAuthAxios';
+import { KoreaLocationName } from '@/types/map';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface PostRecordRequest {
   record: {
-    name: string;
+    title: string;
     description: string;
     region: Region;
-    city?: RecordFormSelectValue;
+    city?: City;
+    startDate: string;
+    endDate: string;
   };
   images: string[];
 }
@@ -17,7 +22,7 @@ interface PatchRecordRequest {
   name?: string;
   description?: string;
   region: Region;
-  city?: RecordFormSelectValue;
+  city?: CitySelectValue;
   image?: string[];
 }
 
@@ -34,26 +39,43 @@ interface UseRecordMutationReturn {
   isDeletePending: boolean;
 }
 
-export default function useRecordMutation() {
+interface UseRecordMutationParams {
+  location: KoreaLocationName;
+}
+
+export default function useRecordMutation({
+  location,
+}: UseRecordMutationParams) {
   const ref = useRef({} as UseRecordMutationReturn);
+  const authAxios = useAuthAxios();
+  const queryClient = useQueryClient();
+
+  const invalidateRecords = () => {
+    queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.RECORDS, location],
+    });
+  };
 
   const { mutateAsync: postMutate, isPending: isPostPending } = useMutation({
     mutationFn: async (requestParams: PostRecordRequest) => {
       return requestParams;
     },
+    onSuccess: invalidateRecords,
   });
 
   const { mutateAsync: patchMutate, isPending: isPatchPending } = useMutation({
     mutationFn: async (requestParams: PatchRecordRequest) => {
       return requestParams;
     },
+    onSuccess: invalidateRecords,
   });
 
   const { mutateAsync: deleteMutate, isPending: isDeletePending } = useMutation(
     {
       mutationFn: async (requestParams: DeleteRecordRequest) => {
-        return requestParams;
+        await authAxios.delete(`api/record/${requestParams.id}`);
       },
+      onSuccess: invalidateRecords,
     },
   );
 

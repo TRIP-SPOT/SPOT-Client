@@ -33,7 +33,10 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
   const { data: recordsData } = useRecordsQuery({
     location: route.params.location,
   });
-  const { deleteMutate } = useRecordMutation();
+
+  const { deleteMutate } = useRecordMutation({
+    location: route.params.location,
+  });
 
   const handleOpenOption = (selectedCardData: RecordResponse) => {
     setSelectedRecord(selectedCardData);
@@ -126,7 +129,9 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
                       {
                         text: '삭제',
                         onPress: async () => {
-                          await deleteMutate({ id: selectedRecord.id });
+                          await deleteMutate({
+                            id: selectedRecord.id,
+                          });
                           toggleBottomSheet(false);
                         },
                         style: 'destructive',
