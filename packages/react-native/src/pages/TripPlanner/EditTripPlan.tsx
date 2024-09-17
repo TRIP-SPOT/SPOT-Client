@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Button, FloatingPlusButton, Font } from 'design-system';
-import { useRoute } from '@react-navigation/native';
-import { StackRouteProps } from '@/types/navigation';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
@@ -15,6 +15,7 @@ import ScheduleBlock from '@/components/editPlan/ScheduleBlock';
 
 const EditTripPlan = withSuspense(() => {
   const route = useRoute<StackRouteProps<'TripPlanner/EditPlan'>>();
+  const navigation = useNavigation<StackNavigation<'TripPlanner/EditPlan'>>();
   const [selectedDate, setSelectedDate] = useState(0);
   const [editMode, setEditMode] = useState(false);
   const [selectedSchedules, setSelectedSchedules] = useState<number[]>([]);
@@ -114,7 +115,13 @@ const EditTripPlan = withSuspense(() => {
         </View>
       </View>
       {!editMode && (
-        <FloatingPlusButton onPress={() => {}} bottom={14} right={12} />
+        <FloatingPlusButton
+          onPress={() =>
+            navigation.navigate('TripPlanner/AddSchedule', { tripId })
+          }
+          bottom={14}
+          right={12}
+        />
       )}
       {editMode && (
         <View style={{ position: 'absolute', bottom: 14, width: '100%' }}>
