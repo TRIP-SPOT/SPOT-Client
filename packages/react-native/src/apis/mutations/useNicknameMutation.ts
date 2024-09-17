@@ -20,21 +20,21 @@ export default function useNicknameMutation() {
         nickname,
       });
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['nickname'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['profile'] }),
   });
 
-  const { mutateAsync: pathMutate, isPending: isPatchLoading } = useMutation({
+  const { mutateAsync: patchMutate, isPending: isPatchLoading } = useMutation({
     mutationFn: async (nickname: string) => {
       await authAxios.patch('api/user/nickname', {
         nickname,
       });
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['nickname'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['profile'] }),
   });
 
   ref.current.postMutate = postMutate;
   ref.current.isPostLoading = isPostLoading;
-  ref.current.patchMutate = pathMutate;
+  ref.current.patchMutate = patchMutate;
   ref.current.isPatchLoading = isPatchLoading;
 
   return ref.current;

@@ -7,6 +7,7 @@ import Header from '@/components/common/Header';
 import { StackNavigation } from '@/types/navigation';
 import useNicknameMutation from '@/apis/mutations/useNicknameMutation';
 import MutationLoadingModal from '@/components/common/MutationLoadingModal';
+import useProfileImageMutation from '@/apis/mutations/useProfileImageMutation';
 
 interface EditProfileProps {
   navigation: StackNavigation<'MyPage/EditProfile'>;
@@ -14,19 +15,29 @@ interface EditProfileProps {
 
 export default function EditProfile({ navigation }: EditProfileProps) {
   const { patchMutate, isPatchLoading } = useNicknameMutation();
-  const { ProfileImage } = useProfileImage();
+  const { ProfileImage, photoUri } = useProfileImage();
+  const {
+    patchMutate: profileImagePatch,
+    isPatchPending: isProfileImagePatchLoading,
+  } = useProfileImageMutation();
+
   const [nickname, setNickname] = useState('');
 
   const handleChangeProfile = async () => {
     if (nickname) {
       await patchMutate(nickname);
-      navigation.goBack();
     }
+    if (photoUri) {
+      await profileImagePatch(photoUri);
+    }
+    navigation.goBack();
   };
 
   return (
     <>
-      <MutationLoadingModal isSubmiting={isPatchLoading} />
+      <MutationLoadingModal
+        isSubmiting={isPatchLoading || isProfileImagePatchLoading}
+      />
       <BackGroundGradient>
         <Header title="프로필 수정" />
         <View className="p-4 pt-14">

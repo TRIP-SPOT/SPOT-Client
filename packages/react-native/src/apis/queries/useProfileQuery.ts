@@ -4,9 +4,10 @@ import tinycolor from 'tinycolor2';
 import { AppStorage } from '@/utils/storage';
 import useAuthAxios from '../useAuthAxios';
 
-interface UseNicknameQueryReturn {
-  nickname?: {
-    value: string;
+interface UseProfileQueryReturn {
+  profile?: {
+    nickname: string;
+    image: string;
     colorSet?: {
       color: string;
       bgColor: string;
@@ -25,39 +26,60 @@ interface ProfileResponse {
   };
 }
 
-export default function useNicknameQuery() {
+interface NicknameResponse {
+  result: {
+    nickname: string;
+  };
+}
+
+export default function useProfileQuery() {
   const authAxios = useAuthAxios();
-  const ref = useRef({} as UseNicknameQueryReturn);
+  const ref = useRef({} as UseProfileQueryReturn);
 
   const getProfile = async () => {
-    const result = await authAxios.get<ProfileResponse>('/api/user/profile');
-    const profile = result.data.result;
-    AppStorage.saveData({
+    const profileResut =
+      await authAxios.get<ProfileResponse>('/api/user/profile');
+    const nicknameResult =
+      await authAxios.get<NicknameResponse>('/api/user/nickname');
+
+    const profile = profileResut.data.result;
+    const { nickname } = nicknameResult.data.result;
+
+    await AppStorage.saveData({
+      key: 'profileImage',
+      value: profile.profileUrl,
+    });
+
+    await AppStorage.saveData({
       key: 'nickname',
       value: {
-        value: profile.nickname,
+        value: nickname,
         colorSet: {
           bgColor: profile.color,
           color: tinycolor(profile.color).darken(25).toHexString(),
         },
       },
     });
-
     const savedNickname = await AppStorage.getData('nickname');
+    const savedProfile = await AppStorage.getData('profileImage');
 
-    if (!savedNickname) {
+    if (!savedNickname || !savedProfile) {
       throw new Error('닉네임을 불러올 수 없습니다. 다시 한번 시도해보세요');
     }
 
-    return savedNickname;
+    return {
+      nickname: savedNickname.value,
+      image: savedProfile,
+      colorSet: savedNickname.colorSet,
+    };
   };
 
   const { data, refetch, isLoading, isError } = useSuspenseQuery({
-    queryKey: ['nickname'],
+    queryKey: ['profile'],
     queryFn: getProfile,
   });
 
-  ref.current.nickname = data;
+  ref.current.profile = data;
   ref.current.isError = isError;
   ref.current.isLoading = isLoading;
   ref.current.refetch = refetch;

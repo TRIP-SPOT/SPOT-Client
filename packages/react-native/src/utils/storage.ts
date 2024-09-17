@@ -17,6 +17,7 @@ type RegionRepresentImageStorageValue = RegionRepresentImage;
 type StorageData = {
   nickname: NicknameStorageValue;
   representImage: RegionRepresentImageStorageValue;
+  profileImage: string;
 };
 
 interface SaveDataParams {
