@@ -1,12 +1,21 @@
 import { useRef } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import useAuthAxios from '@/apis/useAuthAxios';
+import { City, Region } from '@/constants/CITY';
 
 export interface RecordGetResponse {
-  recordId: number;
-  name: string;
+  id: number;
+  title: string;
+  region: Region;
+  city: City;
   description: string;
-  imageUrls: string[];
-  isRepresentation: boolean;
+  startDate: string;
+  endDate: string;
+  images: string[];
+}
+
+interface GetRecordApiResponse {
+  result: RecordGetResponse;
 }
 
 interface UseRecordDetailQueryParams {
@@ -14,7 +23,7 @@ interface UseRecordDetailQueryParams {
 }
 
 interface UseRecordDetailQueryReturn {
-  recordDetail?: RecordGetResponse;
+  recordDetail: RecordGetResponse;
   isError: boolean;
   refetch: () => void;
 }
@@ -22,20 +31,19 @@ interface UseRecordDetailQueryReturn {
 export default function useRecordDetailQuery({
   recordId,
 }: UseRecordDetailQueryParams) {
+  const authAxios = useAuthAxios();
   const returnRef = useRef({} as UseRecordDetailQueryReturn);
 
+  const getDetailRecord = async () => {
+    const result = await authAxios.get<GetRecordApiResponse>(
+      `api/record/${recordId}`,
+    );
+    return result.data.result;
+  };
+
   const { data, isError, refetch } = useSuspenseQuery({
-    queryKey: ['logDetail'],
-    queryFn: async () => ({
-      recordId,
-      name: '부산 풀코스',
-      description: '부산이 좋지',
-      imageUrls: [
-        'https://t1.daumcdn.net/news/202406/27/poctan/20240627172416746baii.jpg',
-        'https://i.namu.wiki/i/8BAuDmjlFbHoGpGTyTUJyeIsrWw7vrGKTvbOBS1DbaLNHHFL6D05TSZEyVGGffn_RIs6zrf4jCb5Xq5Lnbs8QQ.webp',
-      ],
-      isRepresentation: false,
-    }),
+    queryKey: ['recordDetail', recordId],
+    queryFn: getDetailRecord,
   });
 
   returnRef.current.recordDetail = data;
