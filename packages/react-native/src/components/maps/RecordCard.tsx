@@ -11,6 +11,7 @@ import { StackNavigation } from '@/types/navigation';
 import { RecordResponse } from '@/apis/queries/records/useRecordsQuery';
 import { REVERSE_REGION_MAPPER } from '@/constants/CITY';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import { getDateString } from '@/utils/date';
 
 interface CardProps {
   data: RecordResponse;
@@ -22,10 +23,9 @@ export const LOG_PADDING_X = 16;
 export const CARD_GAP = 8;
 
 export default function RecordCard({ data, handleClickCard }: CardProps) {
-  const { id, title, location, city, startDate, endDate, imageUrl } = data;
+  const { id, title, location, city, startDate, endDate, image } = data;
   const navigation = useNavigation<StackNavigation<'Maps/Record'>>();
   const locationName = REVERSE_REGION_MAPPER[location];
-
   return (
     <TouchableOpacity
       onPress={() =>
@@ -36,7 +36,7 @@ export default function RecordCard({ data, handleClickCard }: CardProps) {
       }
     >
       <ImageBackground
-        source={{ uri: imageUrl }}
+        source={{ uri: image }}
         className="h-[240px] rounded-lg overflow-hidden"
         style={{
           width: (width - 2 * LOG_PADDING_X - CARD_GAP) / 2,
@@ -62,7 +62,7 @@ export default function RecordCard({ data, handleClickCard }: CardProps) {
               })}
             </Font.Light>
             <Font.Light type="body1" color="white">
-              {startDate} ~ {endDate}
+              {getDateString(startDate)} ~ {getDateString(endDate)}
             </Font.Light>
           </View>
         </View>

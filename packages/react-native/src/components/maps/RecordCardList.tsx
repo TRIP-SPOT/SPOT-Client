@@ -20,7 +20,7 @@ export default function RecordCardList({
       }}
     >
       {cards.map((card) => (
-        <View key={card.title + card.imageUrl}>
+        <View key={card.title + card.image}>
           <RecordCard
             data={card}
             handleClickCard={() => handleOpenOptions(card)}
