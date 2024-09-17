@@ -14,8 +14,16 @@ import RecordFormCitySelect from './RecordFormCitySelect';
 import { REGION_MAPPER } from '@/constants/CITY';
 
 export default function RecordPostForm() {
-  const { description, title, validate, images, resetImages, selectedCity } =
-    useRecordFormState();
+  const {
+    description,
+    title,
+    validate,
+    images,
+    resetImages,
+    selectedCity,
+    date,
+  } = useRecordFormState();
+
   const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
   const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
 
@@ -26,7 +34,9 @@ export default function RecordPostForm() {
     if (photos && Array.isArray(photos)) resetImages(photos);
   };
 
-  const { postMutate } = useRecordMutation();
+  const { postMutate } = useRecordMutation({
+    location: params.location,
+  });
 
   const handlePress = async () => {
     if (!validate()) {
@@ -35,10 +45,12 @@ export default function RecordPostForm() {
 
     await postMutate({
       record: {
-        name: title,
+        title,
         description,
         region: REGION_MAPPER[params.location],
-        city: selectedCity,
+        city: selectedCity?.value,
+        startDate: date.start.toISOString(),
+        endDate: date.end.toISOString(),
       },
       images,
     });
