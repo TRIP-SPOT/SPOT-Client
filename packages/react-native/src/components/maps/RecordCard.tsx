@@ -32,9 +32,9 @@ const getRecordPeriod = (startDateString: string, endDateString: string) => {
 };
 
 export default function RecordCard({ data, handleClickCard }: CardProps) {
-  const { id, title, location, city, startDate, endDate, image } = data;
+  const { id, title, region, city, startDate, endDate, image } = data;
   const navigation = useNavigation<StackNavigation<'Maps/Record'>>();
-  const locationName = REVERSE_REGION_MAPPER[location];
+  const locationName = REVERSE_REGION_MAPPER[region];
 
   return (
     <TouchableOpacity
@@ -66,7 +66,7 @@ export default function RecordCard({ data, handleClickCard }: CardProps) {
             </Font.Bold>
             <Font.Light type="body1" color="white">
               {getDisplayRegion({
-                locationEnum: location,
+                locationEnum: region,
                 cityEnum: city,
                 onlyCity: true,
               })}

@@ -7,7 +7,7 @@ import QUERY_KEYS from '@/constants/QUERY_KEYS';
 export type RecordResponse = {
   id: number;
   title: string;
-  location: Region;
+  region: Region;
   city: City;
   startDate: string;
   endDate: string;
