@@ -1,10 +1,13 @@
 import { useRef } from 'react';
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigation } from '@react-navigation/native';
 import { BASE_URL } from '@env';
 import { useToken } from '@/hooks/useToken';
 import { ServerResponse } from '@/types/response';
 import { AppStorage } from '@/utils/storage';
+import { NicknameResponse } from '../queries/useProfileQuery';
+import { StackNavigation } from '@/types/navigation';
 
 interface LoginResponse {
   accessToken: string;
@@ -18,10 +21,7 @@ interface UseLoginMutationReturn {
 
 const sendTokenToServer = async (kakaoToken: string) => {
   const result = await axios.post<ServerResponse<LoginResponse>>(
-    `${BASE_URL}/api/login/kakao`,
-    {
-      token: kakaoToken,
-    },
+    `${BASE_URL}/api/login/kakao?accessToken=${kakaoToken}`,
   );
   return result.data.result;
 };
@@ -29,6 +29,7 @@ const sendTokenToServer = async (kakaoToken: string) => {
 export default function useLoginMutation() {
   const ref = useRef({} as UseLoginMutationReturn);
   const { setAccess, setRefresh } = useToken();
+  const navigation = useNavigation<StackNavigation<'Login'>>();
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (kakaoToken: string) => sendTokenToServer(kakaoToken),
@@ -42,6 +43,21 @@ export default function useLoginMutation() {
       });
       setRefresh(data.refreshToken);
       setAccess(data.accessToken);
+
+      const nicknameResult = await axios.get<NicknameResponse>(
+        `${BASE_URL}/api/user/nickname`,
+        {
+          headers: {
+            Authorization: `Bearer ${data.accessToken}`,
+          },
+        },
+      );
+
+      if (!nicknameResult.data.result.nickname) {
+        return navigation.navigate('Signup');
+      }
+
+      return navigation.reset({ routes: [{ name: 'Main' }] });
     },
   });
 
