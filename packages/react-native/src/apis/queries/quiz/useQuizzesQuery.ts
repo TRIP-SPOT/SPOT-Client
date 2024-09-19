@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import useAuthAxios from '@/apis/useAuthAxios';
+import { City, Region } from '@/constants/CITY';
 
 export interface Location {
   latitude?: number;
@@ -7,10 +8,11 @@ export interface Location {
 }
 
 export interface QuizzesResponse {
-  id: number;
-  title: string;
-  location: string;
-  region: string;
+  quizId: number;
+  workName: string;
+  spotName: string;
+  region: Region;
+  city: City;
   image: string;
 }
 

@@ -3,6 +3,7 @@ import { Font } from 'design-system';
 import { useNavigation } from '@react-navigation/native';
 import { QuizzesResponse } from '@/apis/queries/quiz/useQuizzesQuery';
 import { StackNavigation } from '@/types/navigation';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 interface QuizCardProps {
   quizData: QuizzesResponse;
@@ -17,7 +18,7 @@ export default function QuizCard({ quizData }: QuizCardProps) {
 
   const handleClickQuizStart = () => {
     navigate.navigate('Gamification/Quiz', {
-      quizId: quizData.id,
+      quizId: quizData.quizId,
     });
   };
 
@@ -43,16 +44,19 @@ export default function QuizCard({ quizData }: QuizCardProps) {
         <View className="flex gap-1">
           <View className="justify-center items-center gap-1 flex flex-col">
             <Font.Bold type="title1" color="white">
-              {quizData.title}
+              {quizData.workName}
             </Font.Bold>
             <View>
               <Font.Bold type="body2" color="white">
-                {quizData.location}
+                {quizData.spotName}
               </Font.Bold>
             </View>
             <View>
               <Font.Bold type="ui-text" color="white">
-                {quizData.region}
+                {getDisplayRegion({
+                  locationEnum: quizData.region,
+                  cityEnum: quizData.city,
+                })}
               </Font.Bold>
             </View>
           </View>

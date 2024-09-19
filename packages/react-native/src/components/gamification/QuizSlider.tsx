@@ -25,7 +25,7 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
 
   return (
     <BackGroundGradient withoutScroll>
-      <Header title={quizListData[currentIndex].title} />
+      <Header title={quizListData[currentIndex].workName} />
       <View className="flex-1 justify-center">
         <View className="justify-center items-center gap-2">
           <FlatList
