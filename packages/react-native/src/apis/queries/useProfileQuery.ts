@@ -7,7 +7,7 @@ import useAuthAxios from '../useAuthAxios';
 interface UseProfileQueryReturn {
   profile?: {
     nickname: string;
-    image: string;
+    image?: string;
     colorSet?: {
       color: string;
       bgColor: string;
@@ -26,7 +26,7 @@ interface ProfileResponse {
   };
 }
 
-interface NicknameResponse {
+export interface NicknameResponse {
   result: {
     nickname: string;
   };
@@ -63,13 +63,13 @@ export default function useProfileQuery() {
     const savedNickname = await AppStorage.getData('nickname');
     const savedProfile = await AppStorage.getData('profileImage');
 
-    if (!savedNickname || !savedProfile) {
+    if (!savedNickname) {
       throw new Error('닉네임을 불러올 수 없습니다. 다시 한번 시도해보세요');
     }
 
     return {
       nickname: savedNickname.value,
-      image: savedProfile,
+      image: savedProfile || undefined,
       colorSet: savedNickname.colorSet,
     };
   };
