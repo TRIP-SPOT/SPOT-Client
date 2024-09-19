@@ -6,6 +6,7 @@ import SignupStackNavigator from './SignupStackNavigator';
 import { StackParamList } from '@/types/navigation';
 import SettingStackNavigator from './SettingStackNavigator';
 import Landing from '@/pages/Landing';
+import Splash from '@/pages/Splash';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -21,6 +22,7 @@ export default function StackNavigator() {
         headerShown: false,
       }}
     >
+      <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={SignupStackNavigator} />
       <Stack.Screen name="Main" component={TabScreens} />
