@@ -40,18 +40,13 @@ export default withSuspense(function Quiz() {
 
   return (
     <BackGroundGradient>
-      <Header title={data.title} />
+      <Header title={route.params.quizWorkName} />
       <View className="p-4 gap-9">
         <View className="gap-2.5">
           <View>
             <Font.Bold type="mainTitle" color="white">
               Q. {data.question}
             </Font.Bold>
-          </View>
-          <View>
-            <Font type="body2" color="white">
-              {data.description}
-            </Font>
           </View>
         </View>
         <View className="flex flex-col justify-start gap-2.5 ">

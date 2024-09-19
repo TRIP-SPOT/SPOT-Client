@@ -38,6 +38,7 @@ export type StackParamList = {
   'Gamification/Main': undefined;
   'Gamification/Quiz': {
     quizId: number;
+    quizWorkName: string;
   };
 
   'Maps/Main': undefined;

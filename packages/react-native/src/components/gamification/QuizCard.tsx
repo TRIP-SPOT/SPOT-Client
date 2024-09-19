@@ -19,6 +19,7 @@ export default function QuizCard({ quizData }: QuizCardProps) {
   const handleClickQuizStart = () => {
     navigate.navigate('Gamification/Quiz', {
       quizId: quizData.quizId,
+      quizWorkName: quizData.workName,
     });
   };
 
