@@ -1,10 +1,9 @@
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 import { DEV_ACCESS_TOKEN, DEV_REFRESH_TOKEN } from '@env';
+import { AuthToken } from '@/types/storage';
 
-interface AuthState {
-  access: string;
-  refresh: string;
+interface AuthState extends AuthToken {
   setAccess: (value: string) => void;
   setRefresh: (value: string) => void;
 }
