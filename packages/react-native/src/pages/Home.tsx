@@ -74,10 +74,6 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
             안녕하세요, {profile?.nickname}님{'\n'}오늘은 어디로 가 볼까요?
           </Font>
           {/* FIXME: 추후 삭제 */}
-          <Button onPress={() => navigation.navigate('Camera')}>
-            <Text className="text-SPOT-white">카메라</Text>
-          </Button>
-          {/* FIXME: 추후 삭제 */}
           <Button onPress={() => navigation.navigate('Landing')}>
             <Text className="text-SPOT-white">랜딩</Text>
           </Button>
