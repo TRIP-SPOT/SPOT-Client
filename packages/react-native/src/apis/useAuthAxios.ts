@@ -1,12 +1,21 @@
 import axios from 'axios';
 import { BASE_URL } from '@env';
 import { useToken } from '@/hooks/useToken';
+import { ServerResponse } from '@/types/response';
+
+interface RefreshTokenResponse {
+  accessToken: string;
+  refreshToken: string;
+}
 
 const getNewToken = async (baseURL: string, refresh: string) => {
-  const { data } = await axios.post(`${baseURL}/api/refresh`, {
-    headers: { Authorization: `Bearer ${refresh}` },
-  });
-  return data as { accessToken: string; refreshToken: string };
+  const { data } = await axios.post<ServerResponse<RefreshTokenResponse>>(
+    `${baseURL}/api/refresh`,
+    {
+      refreshToken: refresh,
+    },
+  );
+  return data.result;
 };
 
 const useAuthAxios = () => {
