@@ -31,16 +31,17 @@ export default function useQuizQuery({ id }: UseQuizQueryParams) {
     >(`/api/quiz/${id}`);
     const rawResult = rawResponse.data.result;
 
-    const result = {} as QuizResponse;
-    result.id = rawResult.id;
-    result.question = rawResult.question;
-    result.region = rawResult.region;
-    result.choices = [
-      rawResult.choice1,
-      rawResult.choice2,
-      rawResult.choice3,
-      rawResult.choice4,
-    ];
+    const result = {
+      id: rawResult.id,
+      question: rawResult.question,
+      region: rawResult.region,
+      choices: [
+        rawResult.choice1,
+        rawResult.choice2,
+        rawResult.choice3,
+        rawResult.choice4,
+      ],
+    } as QuizResponse;
 
     return result;
   };
