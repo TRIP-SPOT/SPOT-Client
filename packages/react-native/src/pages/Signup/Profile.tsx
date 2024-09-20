@@ -15,15 +15,15 @@ interface ProfileProps {
 }
 
 export default function Profile({ navigation }: ProfileProps) {
-  const { ProfileImage, photoUri } = useProfileImage();
+  const { ProfileImage, photoAsset } = useProfileImage();
   const { postMutate, isPostPending } = useProfileImageMutation();
   const route = useRoute<StackRouteProps<'Signup/Profile'>>();
   const { nickname } = route.params;
 
   const handleNext = async () => {
-    if (!photoUri) return;
+    if (!photoAsset) return;
 
-    await postMutate(photoUri);
+    await postMutate(photoAsset);
     await AppStorage.saveData({
       key: 'nickname',
       value: {
@@ -65,7 +65,7 @@ export default function Profile({ navigation }: ProfileProps) {
             </TouchableOpacity>
           </View>
         </View>
-        <Button onPress={handleNext} disabled={photoUri === ''}>
+        <Button onPress={handleNext} disabled={photoAsset?.uri === ''}>
           <Font.Bold type="body2" color="white">
             다음
           </Font.Bold>

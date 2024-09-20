@@ -15,7 +15,7 @@ interface EditProfileProps {
 
 export default function EditProfile({ navigation }: EditProfileProps) {
   const { patchMutate, isPatchLoading } = useNicknameMutation();
-  const { ProfileImage, photoUri } = useProfileImage();
+  const { ProfileImage, photoAsset } = useProfileImage();
   const {
     patchMutate: profileImagePatch,
     isPatchPending: isProfileImagePatchLoading,
@@ -27,8 +27,8 @@ export default function EditProfile({ navigation }: EditProfileProps) {
     if (nickname) {
       await patchMutate(nickname);
     }
-    if (photoUri) {
-      await profileImagePatch(photoUri);
+    if (photoAsset?.uri) {
+      await profileImagePatch(photoAsset);
     }
     navigation.goBack();
   };

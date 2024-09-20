@@ -2,43 +2,50 @@ import { useQuery } from '@tanstack/react-query';
 import { Region, REVERSE_REGION_MAPPER } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 import { AppStorage } from '@/utils/storage';
+import useAuthAxios from '@/apis/useAuthAxios';
+import { ServerResponse } from '@/types/response';
 
 interface RepresentativeImage {
-  imageId: number;
+  id: number;
   region: Region;
-  imageUrl: string;
+  url: string;
 }
-type RepresentativeResponse = RepresentativeImage[];
-
-const mockRepresentativeImages: RepresentativeResponse = [
-  {
-    imageId: 1,
-    region: Region.BUSAN,
-    imageUrl:
-      'https://ojsfile.ohmynews.com/STD_IMG_FILE/2023/0116/IE003101648_STD.jpg',
-  },
-];
 
 export type RegionRepresentImage = Partial<Record<KoreaLocationName, string>>;
 
-const getRepresentativeImages = async () => {
-  return mockRepresentativeImages;
-};
-
 export default function useRecordRepresentativeQuery() {
+  const authAxios = useAuthAxios();
+
+  const getRepresentativeImages = async () => {
+    const result = await authAxios.get<ServerResponse<RepresentativeImage[]>>(
+      '/api/record/representative',
+    );
+
+    return result.data.result;
+  };
+
   return useQuery({
     queryKey: ['Representative'],
     queryFn: async () => {
-      const result: RegionRepresentImage = {};
-      const images = await getRepresentativeImages();
-      const stroageImages = await AppStorage.getData('representImage');
+      try {
+        const result: RegionRepresentImage = {};
+        const images = await getRepresentativeImages();
 
-      images.forEach(({ region, imageUrl }) => {
-        const v = REVERSE_REGION_MAPPER[region];
-        result[v] = imageUrl;
-      });
+        images.forEach(({ region, url }) => {
+          const v = REVERSE_REGION_MAPPER[region];
+          result[v] = url;
+        });
 
-      return { ...stroageImages, ...result };
+        await AppStorage.saveData({
+          key: 'representImage',
+          value: result,
+        });
+
+        return result;
+      } catch (err) {
+        const stroageImages = await AppStorage.getData('representImage');
+        return stroageImages;
+      }
     },
   });
 }

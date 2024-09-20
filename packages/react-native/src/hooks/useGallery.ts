@@ -1,6 +1,6 @@
 import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import { Alert, Linking, Platform } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
+import { Asset, launchImageLibrary } from 'react-native-image-picker';
 import {
   check,
   PERMISSIONS,
@@ -8,6 +8,22 @@ import {
   request,
   RESULTS,
 } from 'react-native-permissions';
+
+interface GetPhotoOptions {
+  selectionLimit?: number;
+  fullObject?: boolean;
+}
+
+type GetPhotoReturnType<T extends GetPhotoOptions | undefined> = T extends {
+  selectionLimit: number;
+  fullObject: true;
+}
+  ? Asset[]
+  : T extends { selectionLimit: number }
+    ? string[]
+    : T extends { fullObject: true }
+      ? Asset
+      : string;
 
 export default function useGallery() {
   const checkGalleryPermission = (result: PermissionStatus) => {
@@ -72,24 +88,42 @@ export default function useGallery() {
     return CameraRoll.saveAsset(uri);
   };
 
-  const getPhoto = async (selectionLimit?: number) => {
+  const getPhoto = async <T extends GetPhotoOptions | undefined>(
+    options?: T,
+  ): Promise<GetPhotoReturnType<T> | null> => {
     const hasPermission = await hasGalleryPermission('read');
     if (!hasPermission) return Promise.reject();
 
     const response = await launchImageLibrary({
       mediaType: 'photo',
-      selectionLimit: selectionLimit || 1,
+      selectionLimit: options?.selectionLimit || 1,
     });
 
     if (response.didCancel) return null;
 
     if (!response.assets) return null;
 
-    if (!selectionLimit) return response.assets[0]?.uri;
+    // 옵션이 없는 경우 한장의 uri를 리턴
+    if (!options) {
+      return response.assets[0].uri as GetPhotoReturnType<T>;
+    }
 
-    return response.assets
-      .map((asset) => asset.uri)
-      .filter((url) => url !== undefined);
+    // selectionLimit가 없는 경우는 1장
+    if (options.selectionLimit) {
+      if (options.fullObject) {
+        return response.assets as GetPhotoReturnType<T>;
+      }
+
+      return response.assets
+        .map((asset) => asset.uri)
+        .filter((url) => url !== undefined) as GetPhotoReturnType<T>;
+    }
+
+    if (options.fullObject) {
+      return response.assets[0] as GetPhotoReturnType<T>;
+    }
+
+    return response.assets[0].uri as GetPhotoReturnType<T>;
   };
 
   return { savePhoto, getPhoto };

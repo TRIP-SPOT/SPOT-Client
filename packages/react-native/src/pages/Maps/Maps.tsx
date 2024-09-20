@@ -16,6 +16,7 @@ import useRecordRepresentativeMutation from '@/apis/mutations/useRecordRepresent
 import useRecordRepresentativeQuery from '@/apis/queries/records/useRecordRepresentativeQuery';
 import useToggle from '@/hooks/useToggle';
 import BottomSheet from '@/components/common/BottomSheet';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 interface MapsMainProps {
   navigation: StackNavigation<'Maps/Main'>;
@@ -25,14 +26,13 @@ const { width, height } = Dimensions.get('window');
 
 export default function Maps({ navigation }: MapsMainProps) {
   const [region, setRegion] = useState<KoreaLocationName>();
-  const { getPhoto } = useGallery();
+  const { getPhoto, savePhoto } = useGallery();
   const [isButtonClicked, setButtonClicked] = useState(false);
   const [showBottomSheet, toggleBottomSheet] = useToggle();
   const ref = useRef<View>(null);
-  const { savePhoto } = useGallery();
 
   const { data: regionImage } = useRecordRepresentativeQuery();
-  const { mutateAsync: postRepresentativeImage } =
+  const { mutateAsync: requestSettingImage, isPending: isSettingImagePending } =
     useRecordRepresentativeMutation();
 
   const projection = geoMercator()
@@ -44,11 +44,16 @@ export default function Maps({ navigation }: MapsMainProps) {
 
   const handleAddRegionImage = async (regionName: KoreaLocationName) => {
     toggleBottomSheet();
-    const photo = (await getPhoto()) as string;
+    const photo = await getPhoto({ fullObject: true });
 
-    await postRepresentativeImage({
+    if (!photo) {
+      Alert.alert('이미지가 선택되지 않았습니다!');
+      return;
+    }
+
+    await requestSettingImage({
       region: regionName,
-      imageUri: photo,
+      image: photo,
     });
   };
 
@@ -64,6 +69,7 @@ export default function Maps({ navigation }: MapsMainProps) {
 
   return (
     <View className="flex-1 bg-[#D2F3F8] relative">
+      <MutationLoadingModal isSubmiting={isSettingImagePending} />
       <Header type="logo" />
       <View className="bg-[#D2F3F8]" ref={ref}>
         <Svg width={width} height={height}>

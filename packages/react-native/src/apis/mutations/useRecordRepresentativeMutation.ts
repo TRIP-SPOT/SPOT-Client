@@ -1,33 +1,43 @@
 import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Asset } from 'react-native-image-picker';
 import { REGION_MAPPER } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 import { AppStorage } from '@/utils/storage';
+import useAuthAxios from '../useAuthAxios';
+import CustomForm from '@/utils/CustomForm';
 
 interface MutationRequestParams {
   region: KoreaLocationName;
-  imageUri: string;
+  image: Asset;
 }
 
 export default function useRecordRepresentativeMutation() {
   const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async ({ region, imageUri }: MutationRequestParams) => {
-      const prevImages = await AppStorage.getData('representImage');
-      await AppStorage.saveData({
-        key: 'representImage',
-        value: {
-          ...prevImages,
-          [region]: imageUri,
-        },
-      });
+  const authAxios = useAuthAxios();
 
-      const enumRegion = REGION_MAPPER[region];
-      return {
-        region: enumRegion,
-        imageUri,
-      };
-    },
+  const requestRepresentativeImage = async ({
+    region,
+    image,
+  }: MutationRequestParams) => {
+    const prevImages = await AppStorage.getData('representImage');
+    const isAlreadyExist = prevImages && prevImages[region];
+
+    const requestFunction = isAlreadyExist ? authAxios.patch : authAxios.post;
+
+    const customForm = new CustomForm();
+    customForm.append('region', REGION_MAPPER[region]);
+    customForm.appendImage('image', image);
+
+    await requestFunction('/api/record/representative', customForm.getForm(), {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  };
+
+  return useMutation({
+    mutationFn: requestRepresentativeImage,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['Representative'] });
     },

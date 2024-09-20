@@ -1,28 +1,29 @@
 import { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Asset } from 'react-native-image-picker';
 import useGallery from './useGallery';
 import SelectProfileIcon from '@/assets/SelectProfileIcon';
 import useProfileQuery from '@/apis/queries/useProfileQuery';
 
-export default function useProfileImage(uri?: string) {
+export default function useProfileImage() {
   const { getPhoto } = useGallery();
   const { profile } = useProfileQuery();
-  const [photoUri, setPhotoUri] = useState(uri || '');
+  const [photoAsset, setPhotoAsset] = useState<Asset>();
 
   const getPhtoFromLibrary = async () => {
-    const photo = (await getPhoto()) as string;
+    const photo = await getPhoto({ fullObject: true });
 
-    if (photoUri && !photo) return;
+    if (photoAsset && !photo) return;
 
-    setPhotoUri(photo || '');
+    setPhotoAsset(photo || undefined);
   };
 
   const renderProfileContent = () => {
-    if (photoUri || profile?.image) {
+    if (photoAsset || profile?.image) {
       return (
         <Image
           className="w-[140px] h-[140px] rounded-full bg-SPOT-white"
-          source={{ uri: photoUri || profile?.image }}
+          source={{ uri: photoAsset?.uri || profile?.image }}
           resizeMode="contain"
         />
       );
@@ -59,5 +60,5 @@ export default function useProfileImage(uri?: string) {
     );
   }
 
-  return { photoUri, ProfileImage };
+  return { photoAsset, ProfileImage };
 }

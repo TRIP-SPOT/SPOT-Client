@@ -1,13 +1,13 @@
 import { useRef } from 'react';
-import { Platform } from 'react-native';
+import { Asset } from 'react-native-image-picker';
 import { useMutation } from '@tanstack/react-query';
 import useAuthAxios from '../useAuthAxios';
-import { getDateString, normalizeDate } from '@/utils/date';
+import CustomForm from '@/utils/CustomForm';
 
 interface UseProfileImageMutationReturn {
-  postMutate: (imageUrl: string) => Promise<void>;
+  postMutate: (image: Asset) => Promise<void>;
   isPostPending: boolean;
-  patchMutate: (imageUrl: string) => Promise<void>;
+  patchMutate: (image: Asset) => Promise<void>;
   isPatchPending: boolean;
 }
 
@@ -15,32 +15,22 @@ export default function useProfileImageMutation() {
   const authAxios = useAuthAxios();
   const ref = useRef({} as UseProfileImageMutationReturn);
 
-  const postImage = async (imageUrl: string) => {
-    const form = new FormData();
+  const postImage = async (image: Asset) => {
+    const customForm = new CustomForm();
+    customForm.appendImage('profileImage', image);
 
-    form.append('profileImage', {
-      name: `${getDateString(normalizeDate())}.jpg`,
-      type: 'image/jpg',
-      uri: Platform.OS === 'ios' ? imageUrl.replace('file://', '') : imageUrl,
-    });
-
-    await authAxios.post('/api/user/profile', form, {
+    await authAxios.post('/api/user/profile', customForm.getForm(), {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
   };
 
-  const patchImage = async (imageUrl: string) => {
-    const form = new FormData();
+  const patchImage = async (image: Asset) => {
+    const customForm = new CustomForm();
+    customForm.appendImage('profileImage', image);
 
-    form.append('profileImage', {
-      name: `${getDateString(normalizeDate())}.jpg`,
-      type: 'image/jpg',
-      uri: Platform.OS === 'ios' ? imageUrl.replace('file://', '') : imageUrl,
-    });
-
-    await authAxios.patch('/api/user/profile', form, {
+    await authAxios.patch('/api/user/profile', customForm.getForm(), {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
