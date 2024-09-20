@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { Region } from '@/constants/CITY';
+import { ServerResponse } from '@/types/response';
 
 interface UseQuizQueryParams {
   id: number;
@@ -22,16 +23,12 @@ export interface QuizResponse extends WithoutChoice {
   choices: string[];
 }
 
-interface ServerQuizResponse {
-  result: ServerRawQuizResponse;
-}
-
 export default function useQuizQuery({ id }: UseQuizQueryParams) {
   const authAxios = useAuthAxios();
   const getQuiz = async () => {
-    const rawResponse = await authAxios.get<ServerQuizResponse>(
-      `/api/quiz/${id}`,
-    );
+    const rawResponse = await authAxios.get<
+      ServerResponse<ServerRawQuizResponse>
+    >(`/api/quiz/${id}`);
     const rawResult = rawResponse.data.result;
 
     const result = {} as QuizResponse;

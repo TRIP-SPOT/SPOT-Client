@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { City, Region } from '@/constants/CITY';
+import { ServerResponse } from '@/types/response';
 
 export interface Location {
   latitude?: number;
@@ -16,10 +17,6 @@ export interface QuizzesResponse {
   image: string;
 }
 
-interface ServerQuizzesResponse {
-  result: QuizzesResponse[];
-}
-
 interface UseQuizzesQueryParams {
   location?: Location;
 }
@@ -28,7 +25,7 @@ export default function useQuizzesQuery({ location }: UseQuizzesQueryParams) {
   const authAxios = useAuthAxios();
 
   const getQuizzes = async (locations: Location) => {
-    const result = await authAxios.get<ServerQuizzesResponse>(
+    const result = await authAxios.get<ServerResponse<QuizzesResponse[]>>(
       `/api/spot?longitude=${locations.longitude}&latitude=${locations.latitude}`,
     );
     return result.data.result;
