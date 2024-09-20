@@ -1,24 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { RegionRepresentImage } from '@/apis/queries/records/useRecordRepresentativeQuery';
-
-// Stoarge에 저장할 value 타입, 인터페이스를 작성해주세요.
-export interface NicknameStorageValue {
-  value: string;
-  colorSet?: {
-    color: string;
-    bgColor: string;
-  };
-}
-
-type RegionRepresentImageStorageValue = RegionRepresentImage;
-
-// Storage에 안전하게 데이터를 저장하기 위한 타입입니다.
-// 위에서 작성한 타입을 key(고유한 key), value를 형태로 작성해주세요.
-type StorageData = {
-  nickname: NicknameStorageValue;
-  representImage: RegionRepresentImageStorageValue;
-  profileImage: string;
-};
+import { StorageData } from '@/types/storage';
 
 interface SaveDataParams {
   key: keyof StorageData;

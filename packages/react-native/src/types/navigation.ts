@@ -4,6 +4,7 @@ import { KoreaLocationName } from './map';
 import { AroundSpot } from '@/apis/queries/detail/useAroundSpotQuery';
 
 export type StackParamList = {
+  Splash: undefined;
   Login: undefined;
   Main: undefined;
   Signup: undefined;
