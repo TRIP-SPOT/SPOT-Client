@@ -44,7 +44,7 @@ export default function useLoginMutation() {
       setRefresh(data.refreshToken);
       setAccess(data.accessToken);
 
-      const nicknameResult = await axios.get<NicknameResponse>(
+      const nicknameResult = await axios.get<ServerResponse<NicknameResponse>>(
         `${BASE_URL}/api/user/nickname`,
         {
           headers: {
