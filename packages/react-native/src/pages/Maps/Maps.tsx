@@ -25,11 +25,10 @@ const { width, height } = Dimensions.get('window');
 
 export default function Maps({ navigation }: MapsMainProps) {
   const [region, setRegion] = useState<KoreaLocationName>();
-  const { getPhoto } = useGallery();
+  const { getPhoto, savePhoto } = useGallery();
   const [isButtonClicked, setButtonClicked] = useState(false);
   const [showBottomSheet, toggleBottomSheet] = useToggle();
   const ref = useRef<View>(null);
-  const { savePhoto } = useGallery();
 
   const { data: regionImage } = useRecordRepresentativeQuery();
   const { mutateAsync: postRepresentativeImage } =
@@ -44,11 +43,16 @@ export default function Maps({ navigation }: MapsMainProps) {
 
   const handleAddRegionImage = async (regionName: KoreaLocationName) => {
     toggleBottomSheet();
-    const photo = (await getPhoto()) as string;
+    const photo = await getPhoto({ fullObject: true });
+
+    if (!photo) {
+      Alert.alert('이미지가 선택되지 않았습니다!');
+      return;
+    }
 
     await postRepresentativeImage({
       region: regionName,
-      imageUri: photo,
+      image: photo,
     });
   };
 
