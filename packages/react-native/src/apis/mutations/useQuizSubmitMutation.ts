@@ -29,11 +29,7 @@ export default function useQuizSubmitMutation() {
 
   const submitAnswer = async ({ answer, id }: QuizSubmitRequestParams) => {
     const result = await authAxios.post<ServerResponse<QuizSubmitResponse>>(
-      '/api/quiz/answer',
-      {
-        id,
-        answer,
-      },
+      `/api/quiz/answer?id=${id}&answer=${answer}`,
     );
     return result.data.result;
   };
