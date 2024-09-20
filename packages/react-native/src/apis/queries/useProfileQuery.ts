@@ -3,6 +3,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import tinycolor from 'tinycolor2';
 import { AppStorage } from '@/utils/storage';
 import useAuthAxios from '../useAuthAxios';
+import { ServerResponse } from '@/types/response';
 
 interface UseProfileQueryReturn {
   profile?: {
@@ -19,17 +20,13 @@ interface UseProfileQueryReturn {
 }
 
 interface ProfileResponse {
-  result: {
-    profileUrl: string;
-    color: string;
-    nickname: string;
-  };
+  profileUrl: string;
+  color: string;
+  nickname: string;
 }
 
 export interface NicknameResponse {
-  result: {
-    nickname: string;
-  };
+  nickname: string;
 }
 
 export default function useProfileQuery() {
@@ -38,9 +35,11 @@ export default function useProfileQuery() {
 
   const getProfile = async () => {
     const profileResut =
-      await authAxios.get<ProfileResponse>('/api/user/profile');
+      await authAxios.get<ServerResponse<ProfileResponse>>('/api/user/profile');
     const nicknameResult =
-      await authAxios.get<NicknameResponse>('/api/user/nickname');
+      await authAxios.get<ServerResponse<NicknameResponse>>(
+        '/api/user/nickname',
+      );
 
     const profile = profileResut.data.result;
     const { nickname } = nicknameResult.data.result;
