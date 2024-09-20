@@ -15,7 +15,7 @@ class CustomForm {
 
   appendImage(key: string, image: Asset) {
     this.#form.append(key, {
-      name: `${getDateString(normalizeDate())}.${image.fileName}`,
+      name: `${getDateString(normalizeDate())}_${image.fileName}`,
       type: image.type,
       uri:
         Platform.OS === 'ios' ? image.uri?.replace('file://', '') : image.uri,

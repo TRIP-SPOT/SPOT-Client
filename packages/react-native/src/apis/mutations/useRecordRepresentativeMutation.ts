@@ -1,11 +1,11 @@
-import { Alert, Platform } from 'react-native';
+import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Asset } from 'react-native-image-picker';
 import { REGION_MAPPER } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 import { AppStorage } from '@/utils/storage';
 import useAuthAxios from '../useAuthAxios';
-import { getDateString, normalizeDate } from '@/utils/date';
+import CustomForm from '@/utils/CustomForm';
 
 interface MutationRequestParams {
   region: KoreaLocationName;
@@ -20,16 +20,11 @@ export default function useRecordRepresentativeMutation() {
     region,
     image,
   }: MutationRequestParams) => {
-    const form = new FormData();
-    form.append('region', REGION_MAPPER[region]);
-    form.append('image', {
-      name: `${getDateString(normalizeDate())}.${image.fileName}`,
-      type: image.type,
-      uri:
-        Platform.OS === 'ios' ? image.uri?.replace('file://', '') : image.uri,
-    });
+    const customForm = new CustomForm();
+    customForm.append('region', REGION_MAPPER[region]);
+    customForm.appendImage('image', image);
 
-    await authAxios.post('/api/record/representative', form, {
+    await authAxios.post('/api/record/representative', customForm.getForm(), {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
