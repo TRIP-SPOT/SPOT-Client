@@ -16,15 +16,20 @@ export default function useRecordRepresentativeMutation() {
   const queryClient = useQueryClient();
   const authAxios = useAuthAxios();
 
-  const postRepresentativeImage = async ({
+  const requestRepresentativeImage = async ({
     region,
     image,
   }: MutationRequestParams) => {
+    const prevImages = await AppStorage.getData('representImage');
+    const isAlreadyExist = prevImages && prevImages[region];
+
+    const requestFunction = isAlreadyExist ? authAxios.patch : authAxios.post;
+
     const customForm = new CustomForm();
     customForm.append('region', REGION_MAPPER[region]);
     customForm.appendImage('image', image);
 
-    await authAxios.post('/api/record/representative', customForm.getForm(), {
+    await requestFunction('/api/record/representative', customForm.getForm(), {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -32,22 +37,7 @@ export default function useRecordRepresentativeMutation() {
   };
 
   return useMutation({
-    mutationFn: async ({ region, image }: MutationRequestParams) => {
-      const prevImages = await AppStorage.getData('representImage');
-      await AppStorage.saveData({
-        key: 'representImage',
-        value: {
-          ...prevImages,
-          [region]: image.uri,
-        },
-      });
-      const enumRegion = REGION_MAPPER[region];
-      await postRepresentativeImage({ region, image });
-      return {
-        region: enumRegion,
-        image,
-      };
-    },
+    mutationFn: requestRepresentativeImage,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['Representative'] });
     },

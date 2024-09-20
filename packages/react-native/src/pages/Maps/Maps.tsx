@@ -16,6 +16,7 @@ import useRecordRepresentativeMutation from '@/apis/mutations/useRecordRepresent
 import useRecordRepresentativeQuery from '@/apis/queries/records/useRecordRepresentativeQuery';
 import useToggle from '@/hooks/useToggle';
 import BottomSheet from '@/components/common/BottomSheet';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 interface MapsMainProps {
   navigation: StackNavigation<'Maps/Main'>;
@@ -31,7 +32,7 @@ export default function Maps({ navigation }: MapsMainProps) {
   const ref = useRef<View>(null);
 
   const { data: regionImage } = useRecordRepresentativeQuery();
-  const { mutateAsync: postRepresentativeImage } =
+  const { mutateAsync: requestSettingImage, isPending: isSettingImagePending } =
     useRecordRepresentativeMutation();
 
   const projection = geoMercator()
@@ -50,7 +51,7 @@ export default function Maps({ navigation }: MapsMainProps) {
       return;
     }
 
-    await postRepresentativeImage({
+    await requestSettingImage({
       region: regionName,
       image: photo,
     });
@@ -68,6 +69,7 @@ export default function Maps({ navigation }: MapsMainProps) {
 
   return (
     <View className="flex-1 bg-[#D2F3F8] relative">
+      <MutationLoadingModal isSubmiting={isSettingImagePending} />
       <Header type="logo" />
       <View className="bg-[#D2F3F8]" ref={ref}>
         <Svg width={width} height={height}>
