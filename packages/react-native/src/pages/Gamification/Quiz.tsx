@@ -12,13 +12,14 @@ import useQuizSubmitMutation, {
   QuizSubmitResponse,
 } from '@/apis/mutations/useQuizSubmitMutation';
 import QuizResultModal from '@/components/gamification/QuizResultModal';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 export default withSuspense(function Quiz() {
   const navigate = useNavigation<StackNavigation<'Gamification/Quiz'>>();
   const route = useRoute<StackRouteProps<'Gamification/Quiz'>>();
-  const [selectedContent, setSelectedContent] = useState('');
+  const [selectedContentIndex, setSelectedContentIndex] = useState<number>();
   const { data } = useQuizQuery({ id: route.params.quizId });
-  const { submitQuiz } = useQuizSubmitMutation();
+  const { submitQuiz, isSubmitQuizPending } = useQuizSubmitMutation();
   const [modalContent, setModalContent] = useState<QuizSubmitResponse>();
 
   const handleCloseModal = () => {
@@ -29,17 +30,21 @@ export default withSuspense(function Quiz() {
   };
 
   const handleSubmit = async () => {
+    if (selectedContentIndex === undefined) {
+      return;
+    }
+
     const result = await submitQuiz({
-      answer: selectedContent,
+      id: route.params.quizId,
+      answer: selectedContentIndex,
     });
 
-    if (result) {
-      setModalContent(result);
-    }
+    setModalContent(result);
   };
 
   return (
     <BackGroundGradient>
+      <MutationLoadingModal isSubmiting={isSubmitQuizPending} />
       <Header title={route.params.quizWorkName} />
       <View className="p-4 gap-9">
         <View className="gap-2.5">
@@ -50,11 +55,11 @@ export default withSuspense(function Quiz() {
           </View>
         </View>
         <View className="flex flex-col justify-start gap-2.5 ">
-          {data.choices.map((content) => (
+          {data.choices.map((content, index) => (
             <View key={content}>
               <QuizSelection
-                onPress={() => setSelectedContent(content)}
-                isSelected={selectedContent === content}
+                onPress={() => setSelectedContentIndex(index + 1)}
+                isSelected={selectedContentIndex === index + 1}
                 content={content}
               />
             </View>
@@ -62,7 +67,7 @@ export default withSuspense(function Quiz() {
         </View>
         <View>
           <Button
-            disabled={selectedContent.length === 0}
+            disabled={typeof selectedContentIndex === 'undefined'}
             onPress={handleSubmit}
           >
             <Font.Bold color="white" type="title1">
