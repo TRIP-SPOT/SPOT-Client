@@ -1,23 +1,25 @@
 import { Font } from 'design-system';
-import { View } from 'react-native';
-import MockUp from '@/components/landing/MockUp';
+import { Image, View } from 'react-native';
+import WordBreak from '@/components/common/WordBreak';
 
 export default function Landing3() {
   return (
     <View className="flex-1 items-center">
       <Font.Bold type="mainTitle" color="red">
-        Spot! (촬영지) 검색
+        Trip Planner
       </Font.Bold>
       <View className="mt-3 items-center">
-        <Font type="body2" color="white">
-          Travel Log를 만들어
-        </Font>
-        <Font type="body2" color="white">
-          함께 여행하는 사람들을 초대해보세요!
-        </Font>
+        <WordBreak
+          width={300}
+          type="body2"
+          color="white"
+          content="담은 Spot(촬영지)와 관련 관광지, 음식점 등으로 나만의 여행 루트를 계획해보세요"
+        />
+        <WordBreak width={300} type="body2" color="white" content="" />
       </View>
-      <View className="mt-7">
-        <MockUp />
+      <View>
+        {/* eslint-disable-next-line global-require */}
+        <Image source={require('../../assets/landing/landing3.png')} />
       </View>
     </View>
   );

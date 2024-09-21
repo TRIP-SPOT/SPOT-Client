@@ -2,29 +2,30 @@ import { Font } from 'design-system';
 import { Image, View } from 'react-native';
 import WordBreak from '@/components/common/WordBreak';
 
-export default function Landing1() {
+export default function Landing6() {
   return (
     <View className="flex-1 items-center">
       <Font.Bold type="mainTitle" color="red">
-        Spot! (촬영지) 검색
+        Travel Log
       </Font.Bold>
       <View className="mt-3 items-center">
         <WordBreak
           width={300}
           type="body2"
           color="white"
-          content="드라마/영화 제목으로 Spot(촬영지)을 검색하고, 촬영지, 주변 관광지, 음식점 정보를 확인하세요."
+          content="여행 기록을 사진과 함께 저장하고,"
         />
         <WordBreak
           width={300}
           type="body2"
           color="white"
-          content="나의 여행에 담아 한 눈에 확인할 수도 있어요!"
+          content="나만의 여행 지도를 완성하세요"
         />
+        <WordBreak width={300} type="body2" color="white" content="" />
       </View>
       <View>
         {/* eslint-disable-next-line global-require */}
-        <Image source={require('../../assets/landing/landing1.png')} />
+        <Image source={require('../../assets/landing/landing6.png')} />
       </View>
     </View>
   );
