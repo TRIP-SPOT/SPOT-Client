@@ -1,12 +1,12 @@
 import { useRef } from 'react';
-import { Platform } from 'react-native';
+import { Asset } from 'react-native-image-picker';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
 import { CitySelectValue } from '@/components/common/CitySelect';
 import useAuthAxios from '../useAuthAxios';
-import { getDateString, normalizeDate } from '@/utils/date';
 import { KoreaLocationName } from '@/types/map';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
+import CustomForm from '@/utils/CustomForm';
 
 interface PostRecordRequest {
   record: {
@@ -17,7 +17,7 @@ interface PostRecordRequest {
     startDate: string;
     endDate: string;
   };
-  images: string[];
+  images: Asset[];
 }
 
 interface PatchRecordRequest {
@@ -60,21 +60,17 @@ export default function useRecordMutation({
 
   const { mutateAsync: postMutate, isPending: isPostPending } = useMutation({
     mutationFn: async (requestParams: PostRecordRequest) => {
-      const form = new FormData();
+      const customForm = new CustomForm();
 
       Object.entries(requestParams.record).forEach(([key, value]) => {
-        form.append(key, value);
+        customForm.append(key, value);
       });
 
       requestParams.images.forEach((image) => {
-        form.append('images', {
-          name: `${getDateString(normalizeDate())}.jpg`,
-          type: 'image/jpg',
-          uri: Platform.OS === 'ios' ? image.replace('file://', '') : image,
-        });
+        customForm.appendImage('image', image);
       });
 
-      await authAxios.post('/api/record', form, {
+      await authAxios.post('/api/record', customForm.getForm(), {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

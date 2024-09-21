@@ -20,7 +20,9 @@ export default function RecordModifyForm() {
   const { patchMutate } = useRecordMutation({ location: params.location });
 
   const handlePressAddPhoto = async () => {
-    const photos = await getPhoto(10);
+    const photos = await getPhoto({
+      selectionLimit: 10,
+    });
     if (photos && Array.isArray(photos)) resetImages(photos);
   };
 

@@ -1,5 +1,7 @@
-import { Button, Font } from 'design-system';
+import { useState } from 'react';
+import { Asset } from 'react-native-image-picker';
 import { View } from 'react-native';
+import { Button, Font } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import RecordFormTitle from './RecordFormTitle';
 import RecordFormDatePicker from './RecordFormDatePickers';
@@ -14,24 +16,32 @@ import RecordFormCitySelect from './RecordFormCitySelect';
 import { REGION_MAPPER } from '@/constants/CITY';
 
 export default function RecordPostForm() {
-  const {
-    description,
-    title,
-    validate,
-    images,
-    resetImages,
-    selectedCity,
-    date,
-  } = useRecordFormState();
+  const { description, title, validate, resetImages, selectedCity, date } =
+    useRecordFormState();
 
   const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
   const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
+  const [imageAssets, setImageAssets] = useState<Asset[]>();
 
   const { getPhoto } = useGallery();
 
   const handlePressAddPhoto = async () => {
-    const photos = await getPhoto(10);
-    if (photos && Array.isArray(photos)) resetImages(photos);
+    const photos = await getPhoto({
+      selectionLimit: 10,
+      fullObject: true,
+    });
+
+    if (photos && Array.isArray(photos)) {
+      const uris = photos
+        .filter((photo) => {
+          if (typeof photo.uri === 'undefined') return false;
+          return true;
+        })
+        .map((photo) => photo.uri) as string[];
+
+      resetImages(uris);
+      setImageAssets(photos);
+    }
   };
 
   const { postMutate } = useRecordMutation({
@@ -39,7 +49,7 @@ export default function RecordPostForm() {
   });
 
   const handlePress = async () => {
-    if (!validate()) {
+    if (!validate() || !imageAssets) {
       return;
     }
 
@@ -52,7 +62,7 @@ export default function RecordPostForm() {
         startDate: date.start.toISOString(),
         endDate: date.end.toISOString(),
       },
-      images,
+      images: imageAssets,
     });
 
     navigate.navigate('Maps/Record', {
