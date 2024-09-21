@@ -54,7 +54,10 @@ export default function useProfileImage() {
 
   function ProfileImage({ disableTouch }: { disableTouch?: boolean }) {
     return (
-      <TouchableOpacity onPress={disableTouch ? undefined : getPhtoFromLibrary}>
+      <TouchableOpacity
+        onPress={disableTouch ? undefined : getPhtoFromLibrary}
+        activeOpacity={disableTouch ? 1 : 0.2}
+      >
         {renderProfileContent()}
       </TouchableOpacity>
     );
