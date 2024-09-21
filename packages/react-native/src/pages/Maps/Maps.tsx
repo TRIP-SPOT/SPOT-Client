@@ -136,6 +136,7 @@ export default function Maps({ navigation }: MapsMainProps) {
         <BottomSheet
           isShow={showBottomSheet}
           handleClose={() => setRegion(undefined)}
+          snapPoints={['25%']}
         >
           <BottomSheetView
             style={{
@@ -143,13 +144,13 @@ export default function Maps({ navigation }: MapsMainProps) {
               justifyContent: 'center',
             }}
           >
-            <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
+            <View className="flex justify-evenly items-center flex-col gap-2">
               <View className="flex">
                 <Font.Bold type="mainTitle" color="black">
                   {region}
                 </Font.Bold>
               </View>
-              <View className="flex items-center w-full ">
+              <View className="flex items-center w-full">
                 <TouchableOpacity
                   className="py-2"
                   onPress={() => handleAddRegionImage(region)}
