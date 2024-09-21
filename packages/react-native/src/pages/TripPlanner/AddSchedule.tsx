@@ -7,6 +7,7 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackRouteProps } from '@/types/navigation';
 import useTripPlanDetailQuery from '@/apis/queries/tripPlan/useTripPlanDetailQuery';
 import Spacing from '@/components/common/Spacing';
+import useAddSchedule from '@/apis/mutations/useAddSchedule';
 
 export default function AddSchedule() {
   const route = useRoute<StackRouteProps<'TripPlanner/AddSchedule'>>();
@@ -19,6 +20,17 @@ export default function AddSchedule() {
     type: 'mySpot' | 'restaurant' | 'hotel';
     id: number;
   }>();
+  const { mutate } = useAddSchedule();
+
+  const addSchedule = () => {
+    if (!locationName || !locationMemo) return;
+
+    mutate({
+      scheduleId: tripId,
+      name: locationName,
+      description: locationMemo,
+    });
+  };
 
   return (
     <>
@@ -88,6 +100,7 @@ export default function AddSchedule() {
                         setSelectedSpot({ type: 'mySpot', id: mySpot.id });
                         setLocationName(mySpot.spotName);
                       }}
+                      key={JSON.stringify(mySpot) + index}
                     >
                       <CheckBox
                         selected={
@@ -138,6 +151,7 @@ export default function AddSchedule() {
                         });
                         setLocationName(restaurant.spotName);
                       }}
+                      key={JSON.stringify(restaurant) + index}
                     >
                       <CheckBox
                         selected={
@@ -187,6 +201,7 @@ export default function AddSchedule() {
                         setSelectedSpot({ type: 'hotel', id: hotel.id });
                         setLocationName(hotel.spotName);
                       }}
+                      key={JSON.stringify(hotel) + index}
                     >
                       <CheckBox
                         selected={
@@ -223,7 +238,7 @@ export default function AddSchedule() {
         </View>
       </BackGroundGradient>
       <View style={{ position: 'absolute', bottom: 14, width: '100%' }}>
-        <Button>
+        <Button onPress={addSchedule}>
           <Font.Bold type="title1" color="white">
             일정 등록하기
           </Font.Bold>

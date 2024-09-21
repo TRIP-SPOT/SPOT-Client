@@ -48,7 +48,7 @@ const EditTripPlan = withSuspense(() => {
             horizontal
             className="mt-8"
             showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.date + item.day}
+            keyExtractor={(item, index) => item.date + item.day + index}
             data={getDateList(data.startDate, data.endDate)}
             renderItem={({ item, index }) => (
               <TouchableOpacity
@@ -108,7 +108,7 @@ const EditTripPlan = withSuspense(() => {
                     onSelect={() => selectSchedule(info.id)}
                     selected={selectedSchedules.includes(info.id)}
                   />
-                  <Spacing height={10} />
+                  <Spacing key={`${JSON.stringify(info)}-sep`} height={10} />
                 </>
               ))}
           </ScrollView>
