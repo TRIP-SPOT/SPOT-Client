@@ -61,17 +61,10 @@ export default function useRecordMutation({
   const { mutateAsync: postMutate, isPending: isPostPending } = useMutation({
     mutationFn: async (requestParams: PostRecordRequest) => {
       const form = new FormData();
-      form.append(
-        'record',
-        JSON.stringify({
-          title: requestParams.record.title,
-          description: requestParams.record.description,
-          region: requestParams.record.region,
-          city: requestParams.record.city,
-          startDate: requestParams.record.startDate,
-          endDate: requestParams.record.endDate,
-        }),
-      );
+
+      Object.entries(requestParams.record).forEach(([key, value]) => {
+        form.append(key, value);
+      });
 
       requestParams.images.forEach((image) => {
         form.append('images', {
