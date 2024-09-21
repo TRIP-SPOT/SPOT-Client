@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { SpotAroundData } from '@/types/spot';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 const mockData: SpotAroundData = {
   id: 1,
@@ -20,7 +21,7 @@ export default function useDetailQuery(id: number) {
   };
 
   return useSuspenseQuery({
-    queryKey: ['detail', id],
+    queryKey: [QUERY_KEYS.DETAIL, id],
     queryFn: getSpotAroundInfo,
   });
 }

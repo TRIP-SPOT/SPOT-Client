@@ -2,6 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { City, Region } from '@/constants/CITY';
 import { ServerResponse } from '@/types/response';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 export interface Location {
   latitude?: number;
@@ -31,7 +32,7 @@ export default function useQuizzesQuery({ location }: UseQuizzesQueryParams) {
     return result.data.result;
   };
   return useSuspenseQuery({
-    queryKey: ['Quizzes', location],
+    queryKey: [QUERY_KEYS.QUIZZES, location],
     queryFn: () => {
       if (!location?.latitude || !location.longitude) {
         return null;
