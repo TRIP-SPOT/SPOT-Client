@@ -28,7 +28,7 @@ export default withSuspense(function TripPlannerDetail() {
         </View>
         <Font type="mainTitle" color="white">
           {getDisplayRegion({
-            locationEnum: data.location,
+            locationEnum: data.region,
             cityEnum: data.city,
           })}
         </Font>

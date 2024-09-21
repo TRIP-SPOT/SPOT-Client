@@ -28,7 +28,13 @@ export default function TripPlanCard({
   isSelectionMode,
   isSelect,
 }: TripPlanCardProps) {
-  const { location, city, backgroundImage, startDate, endDate } = cardData;
+  const {
+    region: location,
+    city,
+    image: backgroundImage,
+    startDate,
+    endDate,
+  } = cardData;
   const locationName = REVERSE_REGION_MAPPER[location];
   const cityName = Object.entries(REGION[locationName]).find((entry) => {
     return entry[1] === city;

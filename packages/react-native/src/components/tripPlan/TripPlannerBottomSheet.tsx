@@ -37,7 +37,7 @@ export default function TripPlannerBottomSheet({
         <View className="flex items-center w-full justify-center flex-col gap-2">
           <Font.Bold type="mainTitle" color="black">
             {getDisplayRegion({
-              locationEnum: selectedPlan.location,
+              locationEnum: selectedPlan.region,
               cityEnum: selectedPlan.city,
             })}
           </Font.Bold>
