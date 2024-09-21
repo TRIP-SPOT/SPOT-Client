@@ -1,14 +1,21 @@
 import { useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { Region } from '@/constants/CITY';
-import { RecordFormSelectValue } from '@/hooks/useRecordFormState';
+import { Platform } from 'react-native';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { City, Region } from '@/constants/CITY';
+import { CitySelectValue } from '@/components/common/CitySelect';
+import useAuthAxios from '../useAuthAxios';
+import { getDateString, normalizeDate } from '@/utils/date';
+import { KoreaLocationName } from '@/types/map';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface PostRecordRequest {
   record: {
-    name: string;
+    title: string;
     description: string;
     region: Region;
-    city?: RecordFormSelectValue;
+    city?: City;
+    startDate: string;
+    endDate: string;
   };
   images: string[];
 }
@@ -17,7 +24,7 @@ interface PatchRecordRequest {
   name?: string;
   description?: string;
   region: Region;
-  city?: RecordFormSelectValue;
+  city?: CitySelectValue;
   image?: string[];
 }
 
@@ -34,26 +41,61 @@ interface UseRecordMutationReturn {
   isDeletePending: boolean;
 }
 
-export default function useRecordMutation() {
+interface UseRecordMutationParams {
+  location: KoreaLocationName;
+}
+
+export default function useRecordMutation({
+  location,
+}: UseRecordMutationParams) {
   const ref = useRef({} as UseRecordMutationReturn);
+  const authAxios = useAuthAxios();
+  const queryClient = useQueryClient();
+
+  const invalidateRecords = () => {
+    queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.RECORDS, location],
+    });
+  };
 
   const { mutateAsync: postMutate, isPending: isPostPending } = useMutation({
     mutationFn: async (requestParams: PostRecordRequest) => {
-      return requestParams;
+      const form = new FormData();
+
+      Object.entries(requestParams.record).forEach(([key, value]) => {
+        form.append(key, value);
+      });
+
+      requestParams.images.forEach((image) => {
+        form.append('images', {
+          name: `${getDateString(normalizeDate())}.jpg`,
+          type: 'image/jpg',
+          uri: Platform.OS === 'ios' ? image.replace('file://', '') : image,
+        });
+      });
+
+      await authAxios.post('/api/record', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
     },
+    onSuccess: invalidateRecords,
   });
 
   const { mutateAsync: patchMutate, isPending: isPatchPending } = useMutation({
     mutationFn: async (requestParams: PatchRecordRequest) => {
       return requestParams;
     },
+    onSuccess: invalidateRecords,
   });
 
   const { mutateAsync: deleteMutate, isPending: isDeletePending } = useMutation(
     {
       mutationFn: async (requestParams: DeleteRecordRequest) => {
-        return requestParams;
+        await authAxios.delete(`api/record/${requestParams.id}`);
       },
+      onSuccess: invalidateRecords,
     },
   );
 

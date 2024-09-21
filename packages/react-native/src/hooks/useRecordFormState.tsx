@@ -28,20 +28,18 @@ export function RecordFormProvider({
   children,
   defaultProps,
 }: RecordFormProviderDefulatProps) {
-  const [title, setTitle] = useState(defaultProps?.name || '');
+  const [title, setTitle] = useState(defaultProps?.title || '');
   const [description, setDescription] = useState(
     defaultProps?.description || '',
   );
   const [selectedCity, setSelectedCity] = useState<CitySelectValue>();
 
-  const [images, setImages] = useState<string[]>(defaultProps?.imageUrls || []);
+  const [images, setImages] = useState<string[]>(defaultProps?.images || []);
 
   const [date, setDate] = useState({
     start: new Date(),
     end: new Date(),
   });
-
-  const [selectionMode, setSelectionMode] = useState<'start' | 'end'>();
 
   const handleTitleChange = (value: string) => {
     if (value.length <= 20) {
@@ -82,7 +80,6 @@ export function RecordFormProvider({
       description,
       images,
       date,
-      selectionMode,
       selectedCity,
       handleTitleChange,
       handleDescriptionChange,
@@ -91,10 +88,9 @@ export function RecordFormProvider({
       resetImages,
       validate,
       setDate,
-      setSelectionMode,
       handleSelectCityChange,
     }),
-    [title, description, images, date, selectionMode],
+    [title, description, images, date],
   );
 
   return (

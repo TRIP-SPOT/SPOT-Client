@@ -3,6 +3,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import tinycolor from 'tinycolor2';
 import { AppStorage } from '@/utils/storage';
 import useAuthAxios from '../useAuthAxios';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import { ServerResponse } from '@/types/response';
 
 interface UseProfileQueryReturn {
@@ -74,7 +75,7 @@ export default function useProfileQuery() {
   };
 
   const { data, refetch, isLoading, isError } = useSuspenseQuery({
-    queryKey: ['profile'],
+    queryKey: [QUERY_KEYS.PROFILE],
     queryFn: getProfile,
   });
 

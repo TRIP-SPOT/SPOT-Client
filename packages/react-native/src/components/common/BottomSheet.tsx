@@ -46,7 +46,7 @@ export default function BottomSheet({
     return () => {
       bottomSheetRef.current?.dismiss();
     };
-  }, [bottomSheetRef.current]);
+  }, [bottomSheetRef, isShow]);
 
   return (
     <BottomSheetModal

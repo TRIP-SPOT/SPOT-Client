@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import { Asset } from 'react-native-image-picker';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuthAxios from '../useAuthAxios';
 import CustomForm from '@/utils/CustomForm';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface UseProfileImageMutationReturn {
   postMutate: (image: Asset) => Promise<void>;
@@ -14,6 +15,7 @@ interface UseProfileImageMutationReturn {
 export default function useProfileImageMutation() {
   const authAxios = useAuthAxios();
   const ref = useRef({} as UseProfileImageMutationReturn);
+  const queryClient = useQueryClient();
 
   const postImage = async (image: Asset) => {
     const customForm = new CustomForm();
@@ -37,12 +39,18 @@ export default function useProfileImageMutation() {
     });
   };
 
+  const invalidateProfile = () => {
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PROFILE] });
+  };
+
   const { mutateAsync: postMutate, isPending: isPostPending } = useMutation({
     mutationFn: postImage,
+    onSuccess: invalidateProfile,
   });
 
   const { mutateAsync: patchMutate, isPending: isPatchPending } = useMutation({
     mutationFn: patchImage,
+    onSuccess: invalidateProfile,
   });
 
   ref.current.postMutate = postMutate;

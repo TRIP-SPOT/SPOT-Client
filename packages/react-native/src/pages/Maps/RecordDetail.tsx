@@ -7,6 +7,7 @@ import Header from '@/components/common/Header';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import withSuspense from '@/components/HOC/withSuspense';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 interface LogDetailProps {
   navigation: StackNavigation<'Maps/RecordDetail'>;
@@ -24,7 +25,7 @@ export default withSuspense(function RecordDetail({
     recordId: route.params.recordId,
   });
 
-  const snapToOffset = recordDetail?.imageUrls.map(
+  const snapToOffset = recordDetail?.images.map(
     (_, index) => index * fullWidth,
   );
 
@@ -47,7 +48,7 @@ export default withSuspense(function RecordDetail({
         <View className="gap-2.5">
           <FlatList
             horizontal
-            data={recordDetail?.imageUrls}
+            data={recordDetail.images}
             renderItem={({ item }) => {
               return (
                 <View className="mt-5">
@@ -70,7 +71,7 @@ export default withSuspense(function RecordDetail({
             }}
           />
           <View className="flex flex-row gap-2 w-full justify-center">
-            {recordDetail?.imageUrls.map((_, index) => (
+            {recordDetail.images.map((_, index) => (
               <View
                 key={index}
                 className={`w-1 h-1 rounded-full ${index === currentIndex ? 'bg-SPOT-red' : 'bg-SPOT-white'}`}
@@ -81,15 +82,18 @@ export default withSuspense(function RecordDetail({
         <View className="px-4 gap-7 mt-2">
           <View>
             <Font type="body1" color="white">
-              {route.params.location}
+              {getDisplayRegion({
+                locationEnum: recordDetail.region,
+                cityEnum: recordDetail.city,
+              })}
             </Font>
             <Font type="mainTitle" color="white">
-              {recordDetail?.name}
+              {recordDetail.title}
             </Font>
           </View>
           <View>
             <Font type="body1" color="white">
-              {recordDetail?.description}
+              {recordDetail.description}
             </Font>
           </View>
         </View>

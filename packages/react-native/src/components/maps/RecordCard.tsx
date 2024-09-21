@@ -11,6 +11,7 @@ import { StackNavigation } from '@/types/navigation';
 import { RecordResponse } from '@/apis/queries/records/useRecordsQuery';
 import { REVERSE_REGION_MAPPER } from '@/constants/CITY';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import { getDateString, normalizeDate } from '@/utils/date';
 
 interface CardProps {
   data: RecordResponse;
@@ -21,10 +22,19 @@ const { width } = Dimensions.get('window');
 export const LOG_PADDING_X = 16;
 export const CARD_GAP = 8;
 
+const getRecordPeriod = (startDateString: string, endDateString: string) => {
+  const start = normalizeDate(startDateString);
+  const end = normalizeDate(endDateString);
+  if (start.getTime() === end.getTime()) {
+    return getDateString(start);
+  }
+  return `${getDateString(startDateString)} ~ ${getDateString(endDateString)}`;
+};
+
 export default function RecordCard({ data, handleClickCard }: CardProps) {
-  const { id, title, location, city, startDate, endDate, imageUrl } = data;
+  const { id, title, region, city, startDate, endDate, image } = data;
   const navigation = useNavigation<StackNavigation<'Maps/Record'>>();
-  const locationName = REVERSE_REGION_MAPPER[location];
+  const locationName = REVERSE_REGION_MAPPER[region];
 
   return (
     <TouchableOpacity
@@ -36,7 +46,7 @@ export default function RecordCard({ data, handleClickCard }: CardProps) {
       }
     >
       <ImageBackground
-        source={{ uri: imageUrl }}
+        source={{ uri: image }}
         className="h-[240px] rounded-lg overflow-hidden"
         style={{
           width: (width - 2 * LOG_PADDING_X - CARD_GAP) / 2,
@@ -56,13 +66,13 @@ export default function RecordCard({ data, handleClickCard }: CardProps) {
             </Font.Bold>
             <Font.Light type="body1" color="white">
               {getDisplayRegion({
-                locationEnum: location,
+                locationEnum: region,
                 cityEnum: city,
                 onlyCity: true,
               })}
             </Font.Light>
             <Font.Light type="body1" color="white">
-              {startDate} ~ {endDate}
+              {getRecordPeriod(startDate, endDate)}
             </Font.Light>
           </View>
         </View>

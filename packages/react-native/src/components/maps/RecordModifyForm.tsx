@@ -15,9 +15,9 @@ export default function RecordModifyForm() {
   const { validate, title, description, images, resetImages, selectedCity } =
     useRecordFormState();
   const { getPhoto } = useGallery();
-  const { patchMutate } = useRecordMutation();
   const { params } = useRoute<StackRouteProps<'Maps/ModifyRecord'>>();
   const navigate = useNavigation<StackNavigation<'Maps/ModifyRecord'>>();
+  const { patchMutate } = useRecordMutation({ location: params.location });
 
   const handlePressAddPhoto = async () => {
     const photos = await getPhoto(10);
