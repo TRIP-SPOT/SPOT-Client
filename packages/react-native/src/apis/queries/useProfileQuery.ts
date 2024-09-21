@@ -7,7 +7,7 @@ import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import { ServerResponse } from '@/types/response';
 
 interface UseProfileQueryReturn {
-  profile?: {
+  profile: {
     nickname: string;
     image?: string;
     colorSet?: {
