@@ -2,6 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { TripPlanResponse } from './useTripPlansQuery';
 import { City, Region } from '@/constants/CITY';
 import { AroundSpot } from '../detail/useAroundSpotQuery';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface UseTripPlanDetailQueryProps {
   id: number;
@@ -56,7 +57,7 @@ export default function useTripPlanDetailQuery({
   id,
 }: UseTripPlanDetailQueryProps) {
   return useSuspenseQuery({
-    queryKey: ['tripQuery', id],
+    queryKey: [QUERY_KEYS.TRIP_PLAN_DETAIL, id],
     queryFn: async () => {
       const result = await getTrip();
       return result;

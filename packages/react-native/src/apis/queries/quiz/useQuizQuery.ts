@@ -2,6 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { Region } from '@/constants/CITY';
 import { ServerResponse } from '@/types/response';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface UseQuizQueryParams {
   id: number;
@@ -47,7 +48,7 @@ export default function useQuizQuery({ id }: UseQuizQueryParams) {
   };
 
   return useSuspenseQuery({
-    queryKey: ['Quiz', id],
+    queryKey: [QUERY_KEYS.QUIZ, id],
     queryFn: getQuiz,
   });
 }

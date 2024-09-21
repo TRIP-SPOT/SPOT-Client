@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface UseSpotDetailQueryParams {
   id?: number;
@@ -31,7 +32,7 @@ const getSpotDetail = async (id?: number) => {
 
 export default function useSpotDetailQuery({ id }: UseSpotDetailQueryParams) {
   return useQuery({
-    queryKey: ['spotDetail', id],
+    queryKey: [QUERY_KEYS.SPOT_DETAIL, id],
     queryFn: () => getSpotDetail(id),
     enabled: Boolean(id),
   });

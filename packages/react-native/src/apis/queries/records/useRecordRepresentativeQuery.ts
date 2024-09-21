@@ -4,6 +4,7 @@ import { KoreaLocationName } from '@/types/map';
 import { AppStorage } from '@/utils/storage';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { ServerResponse } from '@/types/response';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface RepresentativeImage {
   id: number;
@@ -25,7 +26,7 @@ export default function useRecordRepresentativeQuery() {
   };
 
   return useQuery({
-    queryKey: ['Representative'],
+    queryKey: [QUERY_KEYS.REPERSENT_IMAGE],
     queryFn: async () => {
       try {
         const result: RegionRepresentImage = {};
