@@ -78,7 +78,7 @@ export default function DetailSpot() {
             />
             <CardSlider
               title="음식점"
-              data={data.restaurants}
+              data={data.restaurantss}
               renderItem={({ item }) => (
                 <AroundCard
                   data={item}

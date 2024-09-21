@@ -54,7 +54,7 @@ export default withSuspense(function TripPlannerDetail() {
               title="담은 음식점"
               titleColor="black"
               titleGap={4}
-              data={data.resturant}
+              data={data.restaurants}
               renderItem={({ item }) => (
                 <AroundCard
                   data={item}

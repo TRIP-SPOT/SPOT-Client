@@ -47,7 +47,7 @@ const mockData: AroundSpot[] = [
 const getAroundSpot = async () => {
   return {
     attractions: mockData,
-    restaurants: mockData.map((data) => ({ ...data, id: data.id + 4 })),
+    restaurantss: mockData.map((data) => ({ ...data, id: data.id + 4 })),
   };
 };
 
