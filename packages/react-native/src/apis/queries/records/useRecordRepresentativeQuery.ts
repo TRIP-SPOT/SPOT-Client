@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { Region, REVERSE_REGION_MAPPER } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 import { AppStorage } from '@/utils/storage';
@@ -25,7 +25,7 @@ export default function useRecordRepresentativeQuery() {
     return result.data.result;
   };
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QUERY_KEYS.REPERSENT_IMAGE],
     queryFn: async () => {
       try {
