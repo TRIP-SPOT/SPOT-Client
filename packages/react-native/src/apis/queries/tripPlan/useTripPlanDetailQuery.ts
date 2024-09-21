@@ -10,7 +10,9 @@ interface UseTripPlanDetailQueryProps {
 
 interface TripDetailResponse extends TripPlanResponse {
   mySpots: AroundSpot[];
-  resturant: AroundSpot[];
+  restaurants: AroundSpot[];
+  hotels: AroundSpot[];
+  attractions: AroundSpot[];
 }
 
 const getTrip = async () => {
@@ -32,7 +34,7 @@ const getTrip = async () => {
         city: City.BUSAN,
       },
     ],
-    resturant: [
+    restaurants: [
       {
         id: 2,
         spotName: '주문진 레스토랑',
@@ -44,6 +46,26 @@ const getTrip = async () => {
       {
         id: 3,
         spotName: '주문진 레스토랑',
+        image:
+          'https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202406/20/starfashion/20240620094035441whlh.jpg',
+        location: Region.BUSAN,
+        city: City.BUSAN,
+      },
+    ],
+    hotels: [
+      {
+        id: 12,
+        spotName: '주문진 숙소',
+        image:
+          'https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202406/20/starfashion/20240620094035441whlh.jpg',
+        location: Region.BUSAN,
+        city: City.BUSAN,
+      },
+    ],
+    attractions: [
+      {
+        id: 13,
+        spotName: '주문진 명소',
         image:
           'https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202406/20/starfashion/20240620094035441whlh.jpg',
         location: Region.BUSAN,

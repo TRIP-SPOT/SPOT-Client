@@ -8,24 +8,28 @@ const mockData = {
   endDate: '2024-09-11T12:30:00',
   schedules: [
     {
+      id: 1,
       day: 1,
       order: 1,
       name: '주문진 방파제',
       description: '도깨비 촬영지',
     },
     {
+      id: 2,
       day: 1,
       order: 2,
       name: '주문진 스타벅스',
       description: '도깨비 촬영지 도보 10분 카페',
     },
     {
+      id: 3,
       day: 2,
       order: 1,
       name: '주문진 스타벅스',
       description: '도깨비 촬영지 도보 10분 카페',
     },
     {
+      id: 4,
       day: 4,
       order: 1,
       name: '주문진 스타벅스',

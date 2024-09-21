@@ -14,6 +14,9 @@ import Landing1 from './Landing/Landing1';
 import Landing2 from './Landing/Landing2';
 import Landing3 from './Landing/Landing3';
 import Landing4 from './Landing/Landing4';
+import Landing5 from './Landing/Landing5';
+import Landing6 from './Landing/Landing6';
+import Landing7 from './Landing/Landing7';
 import { DEFAULT_COLOR } from '@/constants/DEFAULT_COLOR';
 import { StackNavigation } from '@/types/navigation';
 
@@ -32,6 +35,9 @@ const landingPageList: (() => React.ReactNode)[] = [
   Landing2,
   Landing3,
   Landing4,
+  Landing5,
+  Landing6,
+  Landing7,
 ];
 
 interface LandingScreenProps {
