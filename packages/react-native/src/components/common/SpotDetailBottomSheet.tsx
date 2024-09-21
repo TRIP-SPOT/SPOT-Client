@@ -42,11 +42,15 @@ export default function SpotDetailBottomSheet({
             주소
           </Font>
           <Font.Bold color="white" type="body2">
-            {data?.address}
+            {data?.addr1} {data?.addr2}
           </Font.Bold>
         </View>
         <View>
-          <DetailMap width={fullWidth - BOTTOM_SHEET_PADDING * 2} />
+          <DetailMap
+            width={fullWidth - BOTTOM_SHEET_PADDING * 2}
+            longtitude={data?.longtitude}
+            latitude={data?.latitude}
+          />
         </View>
 
         <View className="bg-[#191919] rounded-lg p-4">
@@ -54,7 +58,7 @@ export default function SpotDetailBottomSheet({
             내용타이틀
           </Font>
           <Font.Bold color="white" type="body2">
-            {data?.content}
+            {data?.overview}
           </Font.Bold>
         </View>
       </BottomSheetView>
