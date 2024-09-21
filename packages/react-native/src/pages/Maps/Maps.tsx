@@ -36,7 +36,7 @@ export default function Maps({ navigation }: MapsMainProps) {
     useRecordRepresentativeMutation();
 
   const projection = geoMercator()
-    .scale(3300)
+    .scale(5000)
     .center([127.766922, 35.907757])
     .translate([width / 2, height / 2]);
 
@@ -83,13 +83,13 @@ export default function Maps({ navigation }: MapsMainProps) {
                     key={regionName}
                     id={`${regionName}Image`}
                     patternUnits="userSpaceOnUse"
-                    width={width / 4}
-                    height={height / 4}
+                    width={width / 10}
+                    height={height / 10}
                   >
                     <Image
                       href={patternImage}
-                      width={width / 4}
-                      height={height / 4}
+                      width={width / 10}
+                      height={height / 10}
                       preserveAspectRatio="xMidYMid slice"
                     />
                   </Pattern>
