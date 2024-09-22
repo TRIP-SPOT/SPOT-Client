@@ -7,7 +7,7 @@ import {
 import { CheckBox, Font } from 'design-system';
 import { TripPlanResponse } from '@/apis/queries/tripPlan/useTripPlansQuery';
 import DotMenuIcon from '@/assets/DotMenuIcon';
-import { REGION, REVERSE_REGION_MAPPER } from '@/constants/CITY';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 const { width } = Dimensions.get('window');
 export const PADDING_X = 16;
@@ -28,17 +28,7 @@ export default function TripPlanCard({
   isSelectionMode,
   isSelect,
 }: TripPlanCardProps) {
-  const {
-    region: location,
-    city,
-    image: backgroundImage,
-    startDate,
-    endDate,
-  } = cardData;
-  const locationName = REVERSE_REGION_MAPPER[location];
-  const cityName = Object.entries(REGION[locationName]).find((entry) => {
-    return entry[1] === city;
-  })?.[0];
+  const { region, city, image: backgroundImage, startDate, endDate } = cardData;
 
   return (
     <TouchableOpacity onPress={onCardClick}>
@@ -50,27 +40,29 @@ export default function TripPlanCard({
           height: 240,
         }}
       >
-        <View className="flex-1 justify-between px-3 py-1.5 bg-black/20">
+        <View className="flex-1 bg-black/20">
           {isSelectionMode ? (
-            <View className="pt-1">
+            <View className="p-3">
               <CheckBox selected={isSelect} />
             </View>
           ) : (
-            <TouchableOpacity
-              className="flex items-end w-full"
-              onPress={() => onOptionClick && onOptionClick(cardData)}
-            >
-              <DotMenuIcon />
-            </TouchableOpacity>
+            <View className="flex-row justify-end">
+              <TouchableOpacity
+                className="p-3"
+                onPress={() => onOptionClick && onOptionClick(cardData)}
+              >
+                <DotMenuIcon />
+              </TouchableOpacity>
+            </View>
           )}
-          <View className="p-2.5 gap-2">
-            <Font.Bold type="body1" color="white">
-              {locationName} {cityName}
-            </Font.Bold>
-            <Font type="ui-text" color="white">
-              {startDate} ~ {endDate}
-            </Font>
-          </View>
+        </View>
+        <View className="p-2.5 gap-2 bg-SPOT-black">
+          <Font.Bold type="body1" color="white">
+            {getDisplayRegion({ locationEnum: region, cityEnum: city })}
+          </Font.Bold>
+          <Font type="ui-text" color="white">
+            {startDate} ~ {endDate}
+          </Font>
         </View>
       </ImageBackground>
     </TouchableOpacity>
