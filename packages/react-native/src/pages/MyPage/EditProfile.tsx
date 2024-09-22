@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
-import { Button, Font, TextField } from 'design-system';
 import { useRoute } from '@react-navigation/native';
+import { Button, Font, TextField } from 'design-system';
 import useProfileImage from '@/hooks/useProfileImage';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
@@ -16,6 +16,7 @@ interface EditProfileProps {
 
 export default function EditProfile({ navigation }: EditProfileProps) {
   const route = useRoute<StackRouteProps<'MyPage/EditProfile'>>();
+
   const { patchMutate, isPatchLoading } = useNicknameMutation();
   const { ProfileImage, photoAsset } = useProfileImage();
   const {

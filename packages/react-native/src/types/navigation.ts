@@ -28,9 +28,7 @@ export type StackParamList = {
   };
 
   'MyPage/Profile': undefined;
-  'MyPage/EditProfile': {
-    nickname: string;
-  };
+  'MyPage/EditProfile': { nickname: string };
   'MyPage/EditProfileWithNickname': { nickname: string };
 
   'Home/Main': undefined;
