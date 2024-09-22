@@ -6,6 +6,9 @@ import { AroundSpot } from '@/apis/queries/detail/useAroundSpotQuery';
 export type StackParamList = {
   Splash: undefined;
   Login: undefined;
+  TOS: {
+    kakaoEmail: string;
+  };
   Main: undefined;
   Signup: undefined;
   Camera: undefined;

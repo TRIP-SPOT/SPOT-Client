@@ -60,7 +60,7 @@ export default function Landing({ navigation }: LandingScreenProps) {
         title="사용 가이드"
         RightActionButton={
           currentPage === landingPageList.length - 1 ? (
-            <FinishButton onPress={() => navigation.navigate('Home/Main')} />
+            <FinishButton onPress={() => navigation.navigate('Login')} />
           ) : undefined
         }
       />
@@ -93,7 +93,10 @@ export default function Landing({ navigation }: LandingScreenProps) {
       >
         <View className="flex-row">
           {landingPageList.map((Page, index) => (
-            <View style={{ width: itemWidth, height: '100%', padding: 20 }}>
+            <View
+              style={{ width: itemWidth, height: '100%', padding: 20 }}
+              key={index}
+            >
               <Page key={index} />
             </View>
           ))}

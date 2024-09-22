@@ -6,9 +6,10 @@ interface CheckBoxProps {
   onPress?: (event: GestureResponderEvent) => void;
   size?: number;
   selected?: boolean;
+  iconSize?: number;
 }
 
-export function CheckBox({ size, onPress, selected }: CheckBoxProps) {
+export function CheckBox({ size, onPress, selected, iconSize }: CheckBoxProps) {
   return (
     <TouchableOpacity
       style={{
@@ -23,7 +24,7 @@ export function CheckBox({ size, onPress, selected }: CheckBoxProps) {
         <CheckSelectedIcon />
       ) : (
         <View className="bg-SPOT-white/50 p-[3.5px] rounded-full">
-          <CheckIcon width={20} height={20} />
+          <CheckIcon width={iconSize || 20} height={iconSize || 20} />
         </View>
       )}
     </TouchableOpacity>

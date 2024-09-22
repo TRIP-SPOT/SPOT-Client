@@ -14,7 +14,7 @@ export default function Splash() {
   useEffect(() => {
     AppStorage.getData('token').then((res) => {
       if (!res) {
-        return navigation.navigate('Login');
+        return navigation.navigate('Landing');
       }
       const { access, refresh } = res;
       setAccess(access);

@@ -19,11 +19,27 @@ interface UseLoginMutationReturn {
   isLoginPending: boolean;
 }
 
+interface KakaoEmailResponse {
+  kakao_account: { email: string };
+}
+
 const sendTokenToServer = async (kakaoToken: string) => {
   const result = await axios.post<ServerResponse<LoginResponse>>(
     `${BASE_URL}/api/login/kakao?accessToken=${kakaoToken}`,
   );
-  return result.data.result;
+  const kakaoEmailResponse = await axios.get<KakaoEmailResponse>(
+    'https://kapi.kakao.com/v2/user/me',
+    {
+      headers: {
+        Authorization: `Bearer ${kakaoToken}`,
+      },
+    },
+  );
+
+  return {
+    ...result.data.result,
+    kakaoEmail: kakaoEmailResponse.data.kakao_account.email,
+  };
 };
 
 export default function useLoginMutation() {
@@ -54,7 +70,9 @@ export default function useLoginMutation() {
       );
 
       if (!nicknameResult.data.result.nickname) {
-        return navigation.navigate('Signup');
+        return navigation.navigate('TOS', {
+          kakaoEmail: data.kakaoEmail,
+        });
       }
 
       return navigation.reset({ routes: [{ name: 'Main' }] });
