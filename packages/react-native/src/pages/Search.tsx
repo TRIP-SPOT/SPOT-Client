@@ -110,7 +110,7 @@ export default function Search() {
           {mockData.map((_, index) => (
             <View
               key={index}
-              className="w-2 h-2 rounded-full"
+              className="w-1 h-1 rounded-full"
               style={{
                 backgroundColor:
                   carouselIndex === index
