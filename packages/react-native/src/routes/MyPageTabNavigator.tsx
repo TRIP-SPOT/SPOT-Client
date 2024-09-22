@@ -39,7 +39,7 @@ export default function MyPageTabNavigator() {
       <Tab.Screen
         name="myBadge"
         component={MyBadge}
-        options={{ tabBarLabel: '활동배지' }}
+        options={{ tabBarLabel: 'Bagde Collection' }}
       />
       {/* <Tab.Screen
         name="myRoute"
