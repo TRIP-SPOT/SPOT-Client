@@ -91,14 +91,14 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
         </View>
         <View>
           <CardSlider
-            title="나를 위한 여행지"
+            title="지금 인기있는 촬영지"
             data={mockData}
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
         <View>
           <CardSlider
-            title="지금 인기있는 여행지"
+            title="이 여행지는 어때요?"
             data={mockData}
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
