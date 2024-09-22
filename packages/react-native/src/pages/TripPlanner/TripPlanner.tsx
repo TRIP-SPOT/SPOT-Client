@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Dimensions } from 'react-native';
 import { Font, FloatingPlusButton } from 'design-system';
 import { useNavigation } from '@react-navigation/native';
@@ -14,21 +14,41 @@ import withSuspense from '@/components/HOC/withSuspense';
 import EmptyPlan from '@/components/tripPlan/EmptyPlan';
 import TripPlannerBottomSheet from '@/components/tripPlan/TripPlannerBottomSheet';
 
+type orderType = 'ascending' | 'descending';
+
 const { height } = Dimensions.get('window');
 
 export default withSuspense(function TripPlanner() {
-  const { data } = useTripPlansQuery();
+  const { data: defaultData } = useTripPlansQuery();
+  const [data, setData] = useState(defaultData);
+  const [order, setOrder] = useState<orderType>('ascending');
   const [selectedPlan, setSelectedPlan] = useState<TripPlanResponse>();
 
   const navigation = useNavigation<StackNavigation<'TripPlanner/Main'>>();
 
-  const sort = () => {};
+  const sort = (type: orderType) => {
+    setData((prev) =>
+      type === 'ascending'
+        ? prev.sort(
+            (a, b) =>
+              new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
+          )
+        : prev.sort(
+            (a, b) =>
+              new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
+          ),
+    );
+  };
 
   const handleClickCardOption = (selectedCardData: TripPlanResponse) => {
     setSelectedPlan(selectedCardData);
   };
 
   const isEmpty = data.length === 0;
+
+  useEffect(() => {
+    sort(order);
+  }, [order]);
 
   return (
     <View>
@@ -46,7 +66,13 @@ export default withSuspense(function TripPlanner() {
             <Font type="title1" color="white">
               My Trip
             </Font>
-            <TouchableOpacity onPress={sort}>
+            <TouchableOpacity
+              onPress={() =>
+                setOrder((prev) =>
+                  prev === 'ascending' ? 'descending' : 'ascending',
+                )
+              }
+            >
               <SortIcon />
             </TouchableOpacity>
           </View>
