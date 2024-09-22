@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import { Button, Font } from 'design-system';
 import SearchBar from '@components/common/SearchBar';
-import { SpotData } from '@/types/spot';
+import { SpotCardData } from '@/types/spot';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import useProfileQuery from '@/apis/queries/useProfileQuery';
 import { StackNavigation } from '@/types/navigation';
@@ -10,51 +10,54 @@ import CardSlider from '@/components/common/CardSlider';
 import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
 
-const mockData: SpotData[] = [
+const mockData: SpotCardData[] = [
   {
-    spotId: 1,
+    contentId: 1,
     name: '주문진 방파제',
-    location: '강원 강릉',
-    tags: [
-      '바다',
-      '도깨비',
-      '바다',
-      '도깨비',
-      '바다',
-      '도깨비',
-      '바다',
-      '도깨비',
-    ],
+    region: 1,
+    city: 20,
     isLiked: false,
     likeCount: 20,
-    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    posterUrl: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    quote: '',
+    workId: 1,
+    workName: '도깨비',
   },
   {
-    spotId: 2,
+    contentId: 2,
     name: '주문진 방파제',
-    location: '강원 강릉',
-    tags: ['바다', '도깨비'],
-    isLiked: false,
+    region: 1,
+    city: 20,
+    isLiked: true,
     likeCount: 20,
-    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    posterUrl: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    quote: '',
+    workId: 2,
+    workName: '도깨비',
   },
   {
-    spotId: 3,
+    contentId: 3,
     name: '주문진 방파제',
-    location: '강원 강릉',
-    tags: ['바다', '도깨비'],
+    region: 1,
+    city: 20,
     isLiked: false,
     likeCount: 20,
-    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    posterUrl: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    quote: '',
+    workId: 1,
+    workName: '도깨비',
   },
   {
-    spotId: 4,
+    contentId: 4,
     name: '주문진 방파제',
-    location: '강원 강릉',
-    tags: ['바다', '도깨비'],
+    region: 1,
+    city: 20,
     isLiked: false,
     likeCount: 20,
-    backgroundImage: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    posterUrl: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
+    quote: '',
+    workId: 1,
+    workName: '도깨비',
   },
 ];
 
@@ -90,14 +93,14 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
           <CardSlider
             title="나를 위한 여행지"
             data={mockData}
-            renderItem={({ item }) => <Card.Small data={item} />}
+            renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
         <View>
           <CardSlider
             title="지금 인기있는 여행지"
             data={mockData}
-            renderItem={({ item }) => <Card.Small data={item} />}
+            renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
       </View>

@@ -1,11 +1,16 @@
-export interface SpotData {
-  spotId: number;
+import { City, Region } from '@/constants/CITY';
+
+export interface SpotCardData {
+  contentId: number;
   name: string;
-  location: string;
-  tags: string[];
+  region: Region;
+  city: City;
+  workId: number;
+  workName: string;
+  posterUrl: string;
+  quote: string | null;
   isLiked: boolean;
   likeCount: number;
-  backgroundImage: string;
 }
 
 export interface LocationList {
@@ -14,7 +19,7 @@ export interface LocationList {
   result: {
     workId: number;
     posterUrl: string;
-    data: SpotData[];
+    data: SpotCardData[];
   };
 }
 
