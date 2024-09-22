@@ -1,3 +1,4 @@
+import { Asset } from 'react-native-image-picker';
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { CitySelectValue } from '@/components/common/CitySelect';
 import { DateSelectProps } from '@/components/common/DateSelect';
@@ -6,8 +7,8 @@ import { RegionSelectType } from '@/components/tripPlan/RegionSelect';
 type TripFormContextState = DateSelectProps & {
   region?: RegionSelectType;
   setRegion: (value: RegionSelectType) => void;
-  image?: string;
-  changeImage: (imgUrl: string) => void;
+  image?: Asset;
+  changeImage: (imgUrl: Asset) => void;
   selectedCity: CitySelectValue | undefined;
   handleSelectCityChange: (item: CitySelectValue) => void;
   validate: () => boolean;
@@ -21,7 +22,7 @@ interface TripPlanFormProviderProps {
 export function TripFormProvider({ children }: TripPlanFormProviderProps) {
   const [region, setRegion] = useState<RegionSelectType>();
   const [selectedCity, setSelectedCity] = useState<CitySelectValue>();
-  const [image, setImage] = useState<string>();
+  const [image, setImage] = useState<Asset>();
   const [date, setDate] = useState({
     start: new Date(),
     end: new Date(),
@@ -32,7 +33,7 @@ export function TripFormProvider({ children }: TripPlanFormProviderProps) {
     return Boolean(image) && Boolean(region);
   };
 
-  const changeImage = (imgUrl: string) => {
+  const changeImage = (imgUrl: Asset) => {
     setImage(imgUrl);
   };
 

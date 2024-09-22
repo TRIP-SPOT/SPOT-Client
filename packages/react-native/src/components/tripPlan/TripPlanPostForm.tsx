@@ -1,5 +1,5 @@
+import { Asset } from 'react-native-image-picker';
 import { View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Button, Font } from 'design-system';
 import RegionSelect from './RegionSelect';
 import useTripPlanFormState from '@/hooks/useTripPlanFormState';
@@ -8,10 +8,9 @@ import DateSelect from '../common/DateSelect';
 import CalendarIcon from '@/assets/CalendarIcon';
 import ImageSelect from '../common/ImageSelect';
 import useGallery from '@/hooks/useGallery';
-import { StackNavigation } from '@/types/navigation';
+import useAddTripPlan from '@/apis/mutations/useAddTripPlan';
 
 export default function TripPlanPostForm() {
-  const navigate = useNavigation<StackNavigation<'TripPlanner/Post'>>();
   const {
     image,
     changeImage,
@@ -22,18 +21,26 @@ export default function TripPlanPostForm() {
     setDate,
     validate,
   } = useTripPlanFormState();
+  const { mutate } = useAddTripPlan();
 
   const { getPhoto } = useGallery();
 
   const handleChangeImage = async () => {
-    const photo = (await getPhoto()) as string;
+    const photo = (await getPhoto({ fullObject: true })) as Asset;
     changeImage(photo);
   };
 
   const navigateTripPlan = () => {
-    if (validate()) {
-      navigate.navigate('TripPlanner/Main');
-    }
+    if (!region || !selectedCity || !date.start || !date.end || !image) return;
+
+    const planInfo = {
+      region: region.value,
+      city: selectedCity.value,
+      startDate: date.start.toISOString(),
+      endDate: date.end.toISOString(),
+    };
+
+    mutate({ planInfo, image });
   };
 
   return (
@@ -63,7 +70,10 @@ export default function TripPlanPostForm() {
           </View>
         </View>
         <View>
-          <ImageSelect image={image} handlePressAddPhoto={handleChangeImage} />
+          <ImageSelect
+            image={image?.uri}
+            handlePressAddPhoto={handleChangeImage}
+          />
         </View>
       </View>
       <View>
