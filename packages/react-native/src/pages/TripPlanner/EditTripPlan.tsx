@@ -94,16 +94,16 @@ const EditTripPlan = withSuspense(() => {
             </TouchableOpacity>
           </View>
           <ScrollView className="h-full mt-6">
-            {data.schedules
-              .filter((schedule) => schedule.day === selectedDate + 1)
-              .sort((a, b) => a.order - b.order)
+            {data.locations
+              .filter((location) => location.day === selectedDate + 1)
+              .sort((a, b) => a.seq - b.seq)
               .map((info) => (
                 <>
                   <ScheduleBlock
                     key={JSON.stringify(info)}
                     title={info.name}
                     description={info.description}
-                    order={info.order}
+                    order={info.seq}
                     editMode={editMode}
                     onSelect={() => selectSchedule(info.id)}
                     selected={selectedSchedules.includes(info.id)}
