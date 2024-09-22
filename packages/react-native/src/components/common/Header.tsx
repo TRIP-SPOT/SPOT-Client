@@ -36,7 +36,7 @@ export default function Header({
           <BackIcon />
         </TouchableOpacity>
       ) : (
-        <View className="px-4 pb-4">
+        <View className="p-4">
           <SPOTLogo height={45} width={110} />
         </View>
       ),
