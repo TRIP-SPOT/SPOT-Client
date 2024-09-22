@@ -17,6 +17,7 @@ import useRecordRepresentativeQuery from '@/apis/queries/records/useRecordRepres
 import useToggle from '@/hooks/useToggle';
 import BottomSheet from '@/components/common/BottomSheet';
 import MutationLoadingModal from '@/components/common/MutationLoadingModal';
+import withSuspense from '@/components/HOC/withSuspense';
 
 interface MapsMainProps {
   navigation: StackNavigation<'Maps/Main'>;
@@ -24,7 +25,30 @@ interface MapsMainProps {
 
 const { width, height } = Dimensions.get('window');
 
-export default function Maps({ navigation }: MapsMainProps) {
+const REGION_PATTERN_SIZE: Record<
+  KoreaLocationName,
+  { size: number; x: number; y: number }
+> = {
+  강원도: { size: 0.47, x: -20, y: 30 },
+  경기도: { size: 0.4, x: -80, y: 60 },
+  경상남도: { size: 0.3, x: 80, y: 120 },
+  경상북도: { size: 0.4, x: 40, y: -140 },
+  광주광역시: { size: 0.08, x: 4, y: 4 },
+  대구광역시: { size: 0.2, x: -10, y: 8 },
+  대전광역시: { size: 0.1, x: -6, y: -8 },
+  부산광역시: { size: 0.15, x: -10, y: 60 },
+  서울특별시: { size: 0.1, x: 0, y: 20 },
+  세종특별자치시: { size: 0.1, x: 15, y: 50 },
+  울산광역시: { size: 0.2, x: -20, y: 40 },
+  인천광역시: { size: 0.2, x: -20, y: -15 },
+  전라남도: { size: 0.35, x: -80, y: 20 },
+  전라북도: { size: 0.25, x: 0, y: 130 },
+  제주특별자치도: { size: 0.3, x: 40, y: 80 },
+  충청남도: { size: 0.3, x: -50, y: -20 },
+  충청북도: { size: 0.27, x: -50, y: 0 },
+};
+
+export default withSuspense(function Maps({ navigation }: MapsMainProps) {
   const [region, setRegion] = useState<KoreaLocationName>();
   const { getPhoto, savePhoto } = useGallery();
   const [isButtonClicked, setButtonClicked] = useState(false);
@@ -36,7 +60,7 @@ export default function Maps({ navigation }: MapsMainProps) {
     useRecordRepresentativeMutation();
 
   const projection = geoMercator()
-    .scale(3300)
+    .scale(5000)
     .center([127.766922, 35.907757])
     .translate([width / 2, height / 2]);
 
@@ -77,20 +101,23 @@ export default function Maps({ navigation }: MapsMainProps) {
             {mapData.features.map((feature) => {
               const regionName = feature.properties.CTP_KOR_NM;
               const patternImage = regionImage?.[regionName];
+              const { size, x, y } = REGION_PATTERN_SIZE[regionName];
               return (
                 patternImage && (
                   <Pattern
                     key={regionName}
                     id={`${regionName}Image`}
                     patternUnits="userSpaceOnUse"
-                    width={width / 4}
-                    height={height / 4}
+                    width={width * size}
+                    height={height * size}
+                    translateX={x}
+                    translateY={y}
                   >
                     <Image
                       href={patternImage}
-                      width={width / 4}
-                      height={height / 4}
-                      preserveAspectRatio="xMidYMid slice"
+                      width={width * size}
+                      height={height * size}
+                      preserveAspectRatio="xMidYMid meet"
                     />
                   </Pattern>
                 )
@@ -136,6 +163,7 @@ export default function Maps({ navigation }: MapsMainProps) {
         <BottomSheet
           isShow={showBottomSheet}
           handleClose={() => setRegion(undefined)}
+          snapPoints={['25%']}
         >
           <BottomSheetView
             style={{
@@ -143,13 +171,13 @@ export default function Maps({ navigation }: MapsMainProps) {
               justifyContent: 'center',
             }}
           >
-            <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
+            <View className="flex justify-evenly items-center flex-col gap-2">
               <View className="flex">
                 <Font.Bold type="mainTitle" color="black">
                   {region}
                 </Font.Bold>
               </View>
-              <View className="flex items-center w-full ">
+              <View className="flex items-center w-full">
                 <TouchableOpacity
                   className="py-2"
                   onPress={() => handleAddRegionImage(region)}
@@ -216,4 +244,4 @@ export default function Maps({ navigation }: MapsMainProps) {
       )}
     </View>
   );
-}
+});

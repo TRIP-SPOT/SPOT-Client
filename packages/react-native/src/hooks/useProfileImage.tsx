@@ -24,7 +24,7 @@ export default function useProfileImage() {
         <Image
           className="w-[140px] h-[140px] rounded-full bg-SPOT-white"
           source={{ uri: photoAsset?.uri || profile?.image }}
-          resizeMode="contain"
+          resizeMode="cover"
         />
       );
     }
@@ -54,7 +54,10 @@ export default function useProfileImage() {
 
   function ProfileImage({ disableTouch }: { disableTouch?: boolean }) {
     return (
-      <TouchableOpacity onPress={disableTouch ? undefined : getPhtoFromLibrary}>
+      <TouchableOpacity
+        onPress={disableTouch ? undefined : getPhtoFromLibrary}
+        activeOpacity={disableTouch ? 1 : 0.2}
+      >
         {renderProfileContent()}
       </TouchableOpacity>
     );

@@ -8,12 +8,13 @@ import useProfileQuery from '@/apis/queries/useProfileQuery';
 import { StackNavigation } from '@/types/navigation';
 import CogWheelIcon from '@/assets/CogWheelIcon';
 import useProfileImage from '@/hooks/useProfileImage';
+import withSuspense from '@/components/HOC/withSuspense';
 
 interface MyPageProps {
   navigation: StackNavigation<'MyPage/Profile'>;
 }
 
-export default function MyPage({ navigation }: MyPageProps) {
+export default withSuspense(function MyPage({ navigation }: MyPageProps) {
   const { profile } = useProfileQuery();
   const { ProfileImage } = useProfileImage();
 
@@ -25,7 +26,11 @@ export default function MyPage({ navigation }: MyPageProps) {
             <ProfileImage disableTouch />
             <View className="absolute right-0 bottom-0">
               <EditButton
-                onPress={() => navigation.navigate('MyPage/EditProfile')}
+                onPress={() =>
+                  navigation.navigate('MyPage/EditProfile', {
+                    nickname: profile.nickname,
+                  })
+                }
               />
             </View>
           </View>
@@ -35,7 +40,7 @@ export default function MyPage({ navigation }: MyPageProps) {
             </View>
             <View className="mt-2">
               <Font type="mainTitle" color="white">
-                {profile?.nickname}
+                {profile.nickname}
               </Font>
             </View>
           </View>
@@ -53,4 +58,4 @@ export default function MyPage({ navigation }: MyPageProps) {
       </View>
     </BackGroundGradient>
   );
-}
+});

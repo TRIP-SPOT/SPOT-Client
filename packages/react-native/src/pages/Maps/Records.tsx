@@ -93,6 +93,7 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
         <BottomSheet
           isShow={showBottomSheet}
           handleClose={() => toggleBottomSheet(false)}
+          snapPoints={['25%']}
         >
           <BottomSheetView
             style={{
@@ -100,13 +101,13 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
               justifyContent: 'center',
             }}
           >
-            <View className="flex justify-evenly items-center mt-2 flex-col gap-4">
+            <View className="flex justify-evenly items-center flex-col gap-2">
               <View className="flex">
                 <Font.Bold type="mainTitle" color="black">
                   {selectedRecord.title}
                 </Font.Bold>
               </View>
-              <View className="flex items-center w-full ">
+              <View className="flex items-center w-full">
                 <TouchableOpacity
                   className="py-2"
                   onPress={() => {

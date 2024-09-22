@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
 import { Button, Font, TextField } from 'design-system';
+import { useRoute } from '@react-navigation/native';
 import useProfileImage from '@/hooks/useProfileImage';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
-import { StackNavigation } from '@/types/navigation';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import useNicknameMutation from '@/apis/mutations/useNicknameMutation';
 import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 import useProfileImageMutation from '@/apis/mutations/useProfileImageMutation';
@@ -14,6 +15,7 @@ interface EditProfileProps {
 }
 
 export default function EditProfile({ navigation }: EditProfileProps) {
+  const route = useRoute<StackRouteProps<'MyPage/EditProfile'>>();
   const { patchMutate, isPatchLoading } = useNicknameMutation();
   const { ProfileImage, photoAsset } = useProfileImage();
   const {
@@ -21,7 +23,7 @@ export default function EditProfile({ navigation }: EditProfileProps) {
     isPatchPending: isProfileImagePatchLoading,
   } = useProfileImageMutation();
 
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState(route.params.nickname);
 
   const handleChangeProfile = async () => {
     if (nickname) {
