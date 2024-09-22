@@ -52,24 +52,24 @@ export default function TripPlannerBottomSheet({
               handleClose();
             }}
           >
-            <Font.Light type="title1" color="black">
+            <Font type="title1" color="black">
               여행기간 변경
-            </Font.Light>
+            </Font>
           </TouchableOpacity>
           <View className="w-[90%] h-[0.5px] bg-[#333333]" />
           <TouchableOpacity className="py-2">
-            <Font.Light type="title1" color="black">
+            <Font type="title1" color="black">
               배너 사진 변경
-            </Font.Light>
+            </Font>
           </TouchableOpacity>
           <View className="w-[90%] h-[0.5px] bg-[#333333]" />
           <TouchableOpacity
             className="py-2"
             onPress={() => deleteTripPlan(selectedPlan.id)}
           >
-            <Font.Light type="title1" color="black">
+            <Font type="title1" color="black">
               삭제
-            </Font.Light>
+            </Font>
           </TouchableOpacity>
         </View>
       </BottomSheetView>
