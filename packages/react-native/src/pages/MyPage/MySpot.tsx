@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
 import { useState } from 'react';
 import MySpotBlock from '@/components/mypage/MySpotBlock';
 import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
@@ -48,8 +48,9 @@ const mockData = [
   },
 ];
 
+const { width } = Dimensions.get('window');
+
 export default function MySpot() {
-  const [containerWidth, setContainerWidth] = useState(0);
   const [selectedDetailSpotId, setSelectedDetailSpotId] = useState<number>();
   const numColumns = 2;
   const paddingHorizontal = 8;
@@ -59,7 +60,6 @@ export default function MySpot() {
     <>
       <FlatList
         data={mockData}
-        onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
         style={{ flex: 1, backgroundColor: 'black', paddingHorizontal }}
         renderItem={({ item }) => (
           <MySpotBlock
@@ -68,9 +68,7 @@ export default function MySpot() {
             backgroundImage={item.backgroundImage}
             location={item.location}
             date={item.date}
-            width={
-              (containerWidth - gap * 2 - paddingHorizontal * 2) / numColumns
-            }
+            width={(width - gap * 2 - paddingHorizontal * 2) / numColumns}
             gap={gap}
             handleClickBlock={() => setSelectedDetailSpotId(item.id)}
           />
