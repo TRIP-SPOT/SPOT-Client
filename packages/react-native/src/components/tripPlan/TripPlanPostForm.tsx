@@ -1,4 +1,3 @@
-import { Asset } from 'react-native-image-picker';
 import { View } from 'react-native';
 import { Button, Font } from 'design-system';
 import RegionSelect from './RegionSelect';
@@ -26,7 +25,9 @@ export default function TripPlanPostForm() {
   const { getPhoto } = useGallery();
 
   const handleChangeImage = async () => {
-    const photo = (await getPhoto({ fullObject: true })) as Asset;
+    const photo = await getPhoto({ fullObject: true });
+    if (!photo) return;
+
     changeImage(photo);
   };
 
