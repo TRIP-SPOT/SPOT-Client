@@ -6,6 +6,7 @@ import { TripPlanResponse } from '@/apis/queries/tripPlan/useTripPlansQuery';
 import BottomSheet from '../common/BottomSheet';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import { StackNavigation } from '@/types/navigation';
+import useDeleteTripPlan from '@/apis/mutations/useDeleteTripPlan';
 
 interface TripPlannerBottomSheetProps {
   selectedPlan?: TripPlanResponse;
@@ -17,6 +18,7 @@ export default function TripPlannerBottomSheet({
   handleClose,
 }: TripPlannerBottomSheetProps) {
   const navigation = useNavigation<StackNavigation<'TripPlanner/Main'>>();
+  const { mutate: deleteTripPlan } = useDeleteTripPlan();
 
   if (!selectedPlan) {
     return null;
@@ -61,7 +63,10 @@ export default function TripPlannerBottomSheet({
             </Font.Light>
           </TouchableOpacity>
           <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-          <TouchableOpacity className="py-2" onPress={() => {}}>
+          <TouchableOpacity
+            className="py-2"
+            onPress={() => deleteTripPlan(selectedPlan.id)}
+          >
             <Font.Light type="title1" color="black">
               삭제
             </Font.Light>
