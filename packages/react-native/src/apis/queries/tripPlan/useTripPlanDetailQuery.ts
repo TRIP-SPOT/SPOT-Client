@@ -18,11 +18,11 @@ interface TripDetailResponse extends TripPlanResponse {
 const getTrip = async () => {
   return {
     id: 3,
-    location: Region.BUSAN,
+    region: Region.BUSAN,
     city: City.BUSAN,
     startDate: '2024-09-12',
     endDate: '2024-09-13',
-    backgroundImage:
+    image:
       'https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202406/20/starfashion/20240620094035441whlh.jpg',
     mySpots: [
       {

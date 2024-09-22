@@ -1,50 +1,36 @@
-import {
-  Alert,
-  FlatList,
-  ImageBackground,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, ImageBackground, TouchableOpacity, View } from 'react-native';
 import HeartIcon from '@assets/HeartIcon';
 import { useNavigation } from '@react-navigation/native';
 import { Font } from 'design-system';
-import { SpotData } from '@/types/spot';
-import Tag from './Tag';
+import { SpotCardData } from '@/types/spot';
 import { StackNavigation } from '@/types/navigation';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
-function TagSeperation() {
-  return <View style={{ width: 5 }} />;
+interface CardProps {
+  data: SpotCardData;
+  size?: number;
 }
 
-function Default({ data }: { data: SpotData }) {
-  const { location, name, tags, backgroundImage, likeCount, spotId, isLiked } =
-    data;
+function Default({ data, size = 260 }: CardProps) {
+  const { isLiked, name, region, city, posterUrl, likeCount, contentId } = data;
   const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   return (
     <ImageBackground
-      source={{ uri: backgroundImage }}
-      className="w-[262px] h-[350px] rounded-2xl overflow-hidden"
+      source={{ uri: posterUrl }}
+      className="rounded-2xl overflow-hidden bg-SPOT-black"
+      style={{ width: size, aspectRatio: 3 / 4 }}
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => navigation.navigate('Home/Detail', { id: spotId })}
+        onPress={() => navigation.navigate('Home/Detail', { id: contentId })}
         activeOpacity={1}
       >
-        <View className="flex-row justify-between items-center">
-          <FlatList
-            data={tags}
-            keyExtractor={(_, index) => index.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={TagSeperation}
-            renderItem={({ item }) => <Tag tag={item} />}
-            className="flex flex-row p-3"
-          />
+        <View className="flex-row justify-end items-center">
           <TouchableOpacity
-            className="flex-row items-center p-3"
+            className="flex-row items-center p-2"
             // FIXME: 실제 좋아요 기능 추가
-            onPress={() => Alert.alert('좋아요', `${spotId}`)}
+            onPress={() => Alert.alert('좋아요', `${contentId}`)}
           >
             <HeartIcon
               width={15}
@@ -64,7 +50,7 @@ function Default({ data }: { data: SpotData }) {
           </Font.Bold>
           <View className="mt-1">
             <Font type="body3" color="white">
-              {location}
+              {getDisplayRegion({ locationEnum: region, cityEnum: city })}
             </Font>
           </View>
         </View>
@@ -73,18 +59,19 @@ function Default({ data }: { data: SpotData }) {
   );
 }
 
-function Small({ data }: { data: SpotData }) {
-  const { spotId, location, name, tags, backgroundImage, isLiked } = data;
+function Small({ data, size = 180 }: CardProps) {
+  const { name, region, city, posterUrl, contentId } = data;
   const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   return (
     <ImageBackground
-      source={{ uri: backgroundImage }}
-      className="w-[180px] h-[240px] rounded-lg overflow-hidden"
+      source={{ uri: posterUrl }}
+      className="rounded-lg overflow-hidden bg-SPOT-black"
+      style={{ width: size, aspectRatio: 3 / 4 }}
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => navigation.navigate('Home/Detail', { id: spotId })}
+        onPress={() => navigation.navigate('Home/Detail', { id: contentId })}
       >
         <View className="p-2.5 gap-2">
           <View>
@@ -92,28 +79,10 @@ function Small({ data }: { data: SpotData }) {
               <Font.Bold type="body1" color="white">
                 {name}
               </Font.Bold>
-              <View className="ml-2">
-                <HeartIcon
-                  width={12}
-                  height={12}
-                  color={isLiked ? 'red' : 'white'}
-                />
-              </View>
             </View>
             <Font type="body3" color="white">
-              {location}
+              {getDisplayRegion({ locationEnum: region, cityEnum: city })}
             </Font>
-          </View>
-          <View>
-            <FlatList
-              data={tags}
-              keyExtractor={(_, index) => index.toString()}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              ItemSeparatorComponent={TagSeperation}
-              renderItem={({ item }) => <Tag tag={item} />}
-              className="flex flex-row"
-            />
           </View>
         </View>
       </TouchableOpacity>

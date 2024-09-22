@@ -67,6 +67,7 @@ export default function Landing({ navigation }: LandingScreenProps) {
       <View className="flex-row gap-2 items-center justify-center mt-0.5">
         {landingPageList.map((_, index) => (
           <View
+            key={index}
             className="w-2 h-2 rounded-full"
             style={{
               backgroundColor:

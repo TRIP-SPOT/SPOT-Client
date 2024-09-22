@@ -6,6 +6,7 @@ import { TripPlanResponse } from '@/apis/queries/tripPlan/useTripPlansQuery';
 import BottomSheet from '../common/BottomSheet';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import { StackNavigation } from '@/types/navigation';
+import useDeleteTripPlan from '@/apis/mutations/useDeleteTripPlan';
 
 interface TripPlannerBottomSheetProps {
   selectedPlan?: TripPlanResponse;
@@ -17,6 +18,7 @@ export default function TripPlannerBottomSheet({
   handleClose,
 }: TripPlannerBottomSheetProps) {
   const navigation = useNavigation<StackNavigation<'TripPlanner/Main'>>();
+  const { mutate: deleteTripPlan } = useDeleteTripPlan();
 
   if (!selectedPlan) {
     return null;
@@ -37,7 +39,7 @@ export default function TripPlannerBottomSheet({
         <View className="flex items-center w-full justify-center flex-col gap-2">
           <Font.Bold type="mainTitle" color="black">
             {getDisplayRegion({
-              locationEnum: selectedPlan.location,
+              locationEnum: selectedPlan.region,
               cityEnum: selectedPlan.city,
             })}
           </Font.Bold>
@@ -50,21 +52,24 @@ export default function TripPlannerBottomSheet({
               handleClose();
             }}
           >
-            <Font.Light type="title1" color="black">
+            <Font type="title1" color="black">
               여행기간 변경
-            </Font.Light>
+            </Font>
           </TouchableOpacity>
           <View className="w-[90%] h-[0.5px] bg-[#333333]" />
           <TouchableOpacity className="py-2">
-            <Font.Light type="title1" color="black">
+            <Font type="title1" color="black">
               배너 사진 변경
-            </Font.Light>
+            </Font>
           </TouchableOpacity>
           <View className="w-[90%] h-[0.5px] bg-[#333333]" />
-          <TouchableOpacity className="py-2" onPress={() => {}}>
-            <Font.Light type="title1" color="black">
+          <TouchableOpacity
+            className="py-2"
+            onPress={() => deleteTripPlan(selectedPlan.id)}
+          >
+            <Font type="title1" color="black">
               삭제
-            </Font.Light>
+            </Font>
           </TouchableOpacity>
         </View>
       </BottomSheetView>

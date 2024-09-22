@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { Font } from 'design-system';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import { SpotData } from '@/types/spot';
+import { SpotCardData } from '@/types/spot';
 import Card from '@/components/common/Card';
 import WordBreak from '@/components/common/WordBreak';
 import Header from '@/components/common/Header';
@@ -12,36 +12,48 @@ import { StackRouteProps } from '@/types/navigation';
 import { DEFAULT_COLOR } from '@/constants/DEFAULT_COLOR';
 
 // FIXME: 추후 제거
-const mockData: SpotData[] = [
+const mockData: SpotCardData[] = [
   {
-    spotId: 10,
+    contentId: 10,
     name: '주문진 방파제',
-    location: '강원 강릉',
-    tags: ['바다', '도깨비'],
-    backgroundImage:
+    region: 1,
+    city: 20,
+
+    posterUrl:
       'https://i.namu.wiki/i/oIbSW8G0ldkxIJGYLf9e9OzO1n2PkDJMu78IBDV1wh7v06rSdSvlzGUc4znFOc7EH0xi1OLJx3HqzfJgkb514Oj0BPqXU2m0dWl0wwY8coA1A7rQiOcKlLpUfEZ45Ee7bKskmI3RSb760_xrYzysTw.webp',
     isLiked: true,
     likeCount: 21,
+    quote: '',
+    workName: '도깨비',
+    workId: 1,
   },
   {
-    spotId: 20,
+    contentId: 20,
     name: '룰루랄라',
-    location: '강원 강릉',
-    tags: ['바다', '도깨비'],
-    backgroundImage:
+    region: 1,
+    city: 20,
+
+    posterUrl:
       'https://i.namu.wiki/i/5YW8uWfQIeY4JG56CkWX8tL8hzeQxsQ9o8aXoLkHiMxHkTJLyRzC0RHdd6zJHctNQYXfhHqddAg48LhqHIgdyTRRH-awxeCSoCSIT04XlPAx_ciulV9hfEPPdir_zbiT0mtWDNtr9a1hewqNhwpAbg.webp',
     isLiked: false,
     likeCount: 12,
+    quote: '',
+    workName: '도깨비',
+    workId: 1,
   },
   {
-    spotId: 30,
+    contentId: 30,
     name: '룰루랄라2',
-    location: '강원 강릉',
-    tags: ['바다', '도깨비'],
-    backgroundImage:
+    region: 1,
+    city: 20,
+
+    posterUrl:
       'https://i.namu.wiki/i/x9m5nUyjJvqSTSPX5EczIy02UrLrzZ7ndKHhsh2yl7SXKRQMGwHCtGM-vvfWI6ySufjf_2YXXoZezjSNgDSFRyvilXPootx2PKAitdNBvEizIkMBYCCnZxu98NMSudE83LkWHXhWIVNsCXBblDzctQ.webp',
     isLiked: false,
     likeCount: 12,
+    quote: '',
+    workName: '도깨비',
+    workId: 1,
   },
 ];
 
@@ -98,7 +110,7 @@ export default function Search() {
           {mockData.map((_, index) => (
             <View
               key={index}
-              className="w-2 h-2 rounded-full"
+              className="w-1 h-1 rounded-full"
               style={{
                 backgroundColor:
                   carouselIndex === index
