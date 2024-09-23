@@ -18,7 +18,6 @@ export default function SpotDetailBottomSheet({
   onClose,
 }: MySpotBottomSheetProps) {
   const { data } = useSpotDetailQuery({ id: selectedDetailSpotId });
-
   return (
     <BottomSheet
       snapPoints={['90%']}
@@ -48,7 +47,7 @@ export default function SpotDetailBottomSheet({
         <View>
           <DetailMap
             width={fullWidth - BOTTOM_SHEET_PADDING * 2}
-            longtitude={data?.longtitude}
+            longitude={data?.longitude}
             latitude={data?.latitude}
           />
         </View>

@@ -14,7 +14,7 @@ export interface SpotResponse {
   addr1: string;
   addr2: string;
   latitude: number;
-  longtitude: number;
+  longitude: number;
   overview: string;
 }
 
