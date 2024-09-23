@@ -5,7 +5,7 @@ import DeleteIcon from '@/assets/DeleteIcon';
 
 interface ImageSelectProps {
   image?: string | string[];
-  onDelete: (image: string) => void;
+  onDelete?: (image: string) => void;
   handlePressAddPhoto: () => Promise<unknown>;
 }
 
@@ -45,7 +45,7 @@ export default function ImageSelect({
                   <View className="absolute flex justify-center items-center w-full h-full">
                     <TouchableOpacity
                       className="bg-white/30  justify-center items-center flex rounded-full p-2"
-                      onPress={() => onDelete(item)}
+                      onPress={() => onDelete && onDelete(item)}
                     >
                       <DeleteIcon />
                     </TouchableOpacity>
