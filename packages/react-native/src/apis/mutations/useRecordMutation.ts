@@ -67,7 +67,7 @@ export default function useRecordMutation({
       });
 
       requestParams.images.forEach((image) => {
-        customForm.appendImage('image', image);
+        customForm.appendImage('images', image);
       });
 
       await authAxios.post('/api/record', customForm.getForm(), {
