@@ -5,14 +5,14 @@ import { useRoute } from '@react-navigation/native';
 import Header from '@/components/common/Header';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackRouteProps } from '@/types/navigation';
-import useTripPlanDetailQuery from '@/apis/queries/tripPlan/useTripPlanDetailQuery';
 import Spacing from '@/components/common/Spacing';
 import useAddSchedule from '@/apis/mutations/useAddSchedule';
+import useTripPlanMySpotQuery from '@/apis/queries/tripPlan/useTripPlanMySpotQuery';
 
 export default function AddSchedule() {
   const route = useRoute<StackRouteProps<'TripPlanner/AddSchedule'>>();
   const { tripId } = route.params;
-  const { data: spotList } = useTripPlanDetailQuery({ id: tripId });
+  const { data: spotList } = useTripPlanMySpotQuery({ id: tripId });
   const [addType, setAddTYpe] = useState<'new' | 'prev'>();
   const [locationName, setLocationName] = useState('');
   const [locationMemo, setLocationMemo] = useState('');
