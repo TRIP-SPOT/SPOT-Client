@@ -2,6 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { KoreaLocationName } from './map';
 import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
+import { City, Region } from '@/constants/CITY';
 
 export type StackParamList = {
   Splash: undefined;
@@ -22,6 +23,10 @@ export type StackParamList = {
   'TripPlanner/Post': undefined;
   'TripPlanner/Detail': {
     tripId: number;
+    region: Region;
+    city: City;
+    startDate: string;
+    endDate: string;
   };
   'TripPlanner/EditPlan': {
     tripId: number;

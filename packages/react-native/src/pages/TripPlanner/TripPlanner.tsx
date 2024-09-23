@@ -93,6 +93,10 @@ export default withSuspense(function TripPlanner() {
                     onCardClick={() =>
                       navigation.navigate('TripPlanner/Detail', {
                         tripId: plan.id,
+                        region: plan.region,
+                        city: plan.city,
+                        startDate: plan.startDate,
+                        endDate: plan.endDate,
                       })
                     }
                   />
