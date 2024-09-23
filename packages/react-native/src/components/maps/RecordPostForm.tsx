@@ -59,8 +59,8 @@ export default function RecordPostForm() {
         description,
         region: REGION_MAPPER[params.location],
         city: selectedCity?.value,
-        startDate: date.start.toISOString(),
-        endDate: date.end.toISOString(),
+        startDate: date.start.toISOString().replace('.000Z', ''),
+        endDate: date.end.toISOString().replace('.000Z', ''),
       },
       images: imageAssets,
     });
