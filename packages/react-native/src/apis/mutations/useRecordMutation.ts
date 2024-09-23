@@ -21,11 +21,14 @@ interface PostRecordRequest {
 }
 
 interface PatchRecordRequest {
-  name?: string;
-  description?: string;
-  region: Region;
-  city?: CitySelectValue;
-  image?: string[];
+  record: {
+    name?: string;
+    description?: string;
+    region: Region;
+    city?: CitySelectValue;
+  };
+  images: string[];
+  deleteImages?: string[];
 }
 
 interface DeleteRecordRequest {
@@ -81,7 +84,24 @@ export default function useRecordMutation({
 
   const { mutateAsync: patchMutate, isPending: isPatchPending } = useMutation({
     mutationFn: async (requestParams: PatchRecordRequest) => {
-      return requestParams;
+      const customForm = new CustomForm();
+      Object.entries(requestParams.record).forEach(([key, value]) => {
+        customForm.append(key, value);
+      });
+
+      requestParams.images.forEach((image) => {
+        customForm.append('images', image);
+      });
+
+      requestParams.deleteImages?.forEach((image) => {
+        customForm.append('deleteImages', image);
+      });
+
+      await authAxios.patch('/api/record', customForm.getForm(), {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
     },
     onSuccess: invalidateRecords,
   });

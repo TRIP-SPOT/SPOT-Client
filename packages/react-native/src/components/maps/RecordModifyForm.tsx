@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View } from 'react-native';
 import { Button, Font } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -6,18 +7,26 @@ import RecordFormTitle from '@/components/maps/RecordFormTitle';
 import useRecordFormState from '@/hooks/useRecordFormState';
 import useRecordMutation from '@/apis/mutations/useRecordMutation';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
-import RecordFormImages from './RecordFormImages';
 import useGallery from '@/hooks/useGallery';
 import RecordFormCitySelect from './RecordFormCitySelect';
 import { REGION_MAPPER } from '@/constants/CITY';
+import ImageSelect from '../common/ImageSelect';
 
 export default function RecordModifyForm() {
-  const { validate, title, description, images, resetImages, selectedCity } =
-    useRecordFormState();
+  const {
+    validate,
+    title,
+    description,
+    images,
+    resetImages,
+    selectedCity,
+    removeImages,
+  } = useRecordFormState();
   const { getPhoto } = useGallery();
   const { params } = useRoute<StackRouteProps<'Maps/ModifyRecord'>>();
   const navigate = useNavigation<StackNavigation<'Maps/ModifyRecord'>>();
   const { patchMutate } = useRecordMutation({ location: params.location });
+  const [deleteImages, setDeleteImage] = useState<string[]>([]);
 
   const handlePressAddPhoto = async () => {
     const photos = await getPhoto({
@@ -32,11 +41,14 @@ export default function RecordModifyForm() {
     }
 
     await patchMutate({
-      name: title,
-      description,
-      image: images,
-      city: selectedCity,
-      region: REGION_MAPPER[params.location],
+      record: {
+        name: title,
+        description,
+        city: selectedCity,
+        region: REGION_MAPPER[params.location],
+      },
+      images,
+      deleteImages,
     });
 
     navigate.navigate('Maps/Record', {
@@ -56,7 +68,14 @@ export default function RecordModifyForm() {
         </View>
 
         <View>
-          <RecordFormImages handlePressAddPhoto={handlePressAddPhoto} />
+          <ImageSelect
+            image={images}
+            handlePressAddPhoto={handlePressAddPhoto}
+            onDelete={(image: string) => {
+              removeImages(image);
+              setDeleteImage((prev) => [...prev, image]);
+            }}
+          />
         </View>
 
         <View>
