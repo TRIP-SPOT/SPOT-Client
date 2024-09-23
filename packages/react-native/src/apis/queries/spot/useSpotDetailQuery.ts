@@ -27,7 +27,7 @@ export default function useSpotDetailQuery({ id }: UseSpotDetailQueryParams) {
     }
 
     const result = await authAxios.get<ServerResponse<SpotResponse>>(
-      `/api/spot/${spotId}`,
+      `/api/around/${spotId}`,
     );
 
     return result.data.result;
