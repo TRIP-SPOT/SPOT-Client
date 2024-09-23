@@ -1,4 +1,5 @@
 const QUERY_KEYS = {
+  HOME: 'homeSpots',
   RECORDS: 'records',
   RECORD: 'record',
   PROFILE: 'profile',

@@ -9,57 +9,7 @@ import Card from '@/components/common/Card';
 import CardSlider from '@/components/common/CardSlider';
 import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
-
-const mockData: SpotCardData[] = [
-  {
-    contentId: 1,
-    name: '주문진 방파제',
-    region: 1,
-    city: 20,
-    isLiked: false,
-    likeCount: 20,
-    posterUrl: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
-    quote: '',
-    workId: 1,
-    workName: '도깨비',
-  },
-  {
-    contentId: 2,
-    name: '주문진 방파제',
-    region: 1,
-    city: 20,
-    isLiked: true,
-    likeCount: 20,
-    posterUrl: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
-    quote: '',
-    workId: 2,
-    workName: '도깨비',
-  },
-  {
-    contentId: 3,
-    name: '주문진 방파제',
-    region: 1,
-    city: 20,
-    isLiked: false,
-    likeCount: 20,
-    posterUrl: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
-    quote: '',
-    workId: 1,
-    workName: '도깨비',
-  },
-  {
-    contentId: 4,
-    name: '주문진 방파제',
-    region: 1,
-    city: 20,
-    isLiked: false,
-    likeCount: 20,
-    posterUrl: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
-    quote: '',
-    workId: 1,
-    workName: '도깨비',
-  },
-];
+import useHomeSpotQuery from '@/apis/queries/useHomeSpotQuery';
 
 interface HomeScreenProps {
   navigation: StackNavigation<'Home/Main'>;
@@ -67,6 +17,7 @@ interface HomeScreenProps {
 
 export default withSuspense(function Home({ navigation }: HomeScreenProps) {
   const { profile } = useProfileQuery();
+  const { data: homeSpots } = useHomeSpotQuery();
 
   return (
     <BackGroundGradient>
@@ -92,14 +43,14 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
         <View>
           <CardSlider
             title="지금 인기있는 촬영지"
-            data={mockData}
+            data={homeSpots}
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
         <View>
           <CardSlider
             title="이 여행지는 어때요?"
-            data={mockData}
+            data={homeSpots}
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
