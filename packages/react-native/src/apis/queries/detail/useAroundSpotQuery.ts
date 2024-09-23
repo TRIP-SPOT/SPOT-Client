@@ -1,5 +1,4 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { City, Region } from '@/constants/CITY';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { ServerResponse } from '@/types/response';
 import { SpotResponse } from '../spot/useSpotDetailQuery';
