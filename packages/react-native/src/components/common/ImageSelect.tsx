@@ -1,15 +1,18 @@
 import { FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import PlusIcon from '@/assets/PlusIcon';
+import DeleteIcon from '@/assets/DeleteIcon';
 
 interface ImageSelectProps {
   image?: string | string[];
+  onDelete?: (image: string) => void;
   handlePressAddPhoto: () => Promise<unknown>;
 }
 
 export default function ImageSelect({
   image,
   handlePressAddPhoto,
+  onDelete,
 }: ImageSelectProps) {
   return (
     <>
@@ -25,19 +28,29 @@ export default function ImageSelect({
         </TouchableOpacity>
         {Array.isArray(image) ? (
           <FlatList
-            className="ml-2"
             horizontal
             data={image}
             renderItem={({ item }) => {
               return (
-                <Image
-                  source={{ uri: item }}
-                  style={{
-                    width: 64,
-                    height: 64,
-                    borderRadius: 6,
-                  }}
-                />
+                <View className="ml-2 relative">
+                  <Image
+                    source={{ uri: item }}
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: 6,
+                      opacity: 0.8,
+                    }}
+                  />
+                  <View className="absolute flex justify-center items-center w-full h-full">
+                    <TouchableOpacity
+                      className="bg-white/30  justify-center items-center flex rounded-full p-2"
+                      onPress={() => onDelete && onDelete(item)}
+                    >
+                      <DeleteIcon />
+                    </TouchableOpacity>
+                  </View>
+                </View>
               );
             }}
           />
