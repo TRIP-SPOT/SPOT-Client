@@ -7,13 +7,19 @@ import DetailTabNavigator from '@/routes/DetailTabNavigator';
 import Spacing from '@/components/common/Spacing';
 import HeartIcon from '@/assets/HeartIcon';
 import useDetailQuery from '@/apis/queries/detail/useDetailQuery';
+import useSpotLikeMutation from '@/apis/mutations/useSpotLikeMutation';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 const Detail = withSuspense(() => {
   const route = useRoute<StackRouteProps<'Home/Detail'>>();
   const navigation = useNavigation<StackNavigation<'Home/Detail'>>();
-  const { id: spotId } = route.params;
+  const { id, contentId: paramsContentId } = route.params;
 
-  const { data } = useDetailQuery(spotId);
+  const { data } = useDetailQuery(paramsContentId);
+  const { like, cancelLike, isLikePending, isCancelLikePending } =
+    useSpotLikeMutation();
+
   const {
     image,
     title,
@@ -26,6 +32,8 @@ const Detail = withSuspense(() => {
     posterUrl,
     likeCount,
     isLiked,
+    city,
+    region,
   } = data;
 
   const handleAddPlan = () => {
@@ -49,6 +57,9 @@ const Detail = withSuspense(() => {
 
   return (
     <>
+      <MutationLoadingModal
+        isSubmiting={isCancelLikePending || isLikePending}
+      />
       <ImageBackground
         className="h-[200px]"
         source={{ uri: image ?? posterUrl }}
@@ -62,11 +73,16 @@ const Detail = withSuspense(() => {
           </Font>
           <Spacing height={10} />
           <View className="justify-between flex flex-row items-center">
-            {/* TODO: city, region으로 변경해야하는지 확인 필요 */}
             <Font type="body1" color="white" opacity={0.5}>
-              {addr1} {addr2}
+              {getDisplayRegion({
+                locationEnum: region,
+                cityEnum: city,
+              })}
             </Font>
-            <View className="flex-row justify-center items-center gap-1 flex">
+            <TouchableOpacity
+              className="flex-row justify-center items-center gap-1 flex"
+              onPress={() => (isLiked ? cancelLike({ id }) : like({ id }))}
+            >
               <View>
                 <HeartIcon color={isLiked ? 'red' : 'white'} />
               </View>
@@ -75,7 +91,7 @@ const Detail = withSuspense(() => {
                   {likeCount}
                 </Font>
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
           <Spacing height={10} />
           <TouchableOpacity

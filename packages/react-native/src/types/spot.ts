@@ -1,6 +1,7 @@
 import { City, Region } from '@/constants/CITY';
 
 export interface SpotCardData {
+  id: number;
   contentId: number;
   name: string;
   region: Region;

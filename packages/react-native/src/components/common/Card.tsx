@@ -12,7 +12,8 @@ interface CardProps {
 }
 
 function Default({ data, size = 260 }: CardProps) {
-  const { isLiked, name, region, city, posterUrl, likeCount, contentId } = data;
+  const { isLiked, name, region, city, posterUrl, likeCount, contentId, id } =
+    data;
   const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   return (
@@ -23,14 +24,14 @@ function Default({ data, size = 260 }: CardProps) {
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => navigation.navigate('Home/Detail', { id: contentId })}
+        onPress={() => navigation.navigate('Home/Detail', { contentId, id })}
         activeOpacity={1}
       >
         <View className="flex-row justify-end items-center">
           <TouchableOpacity
             className="flex-row items-center p-2"
             // FIXME: 실제 좋아요 기능 추가
-            onPress={() => Alert.alert('좋아요', `${contentId}`)}
+            onPress={() => Alert.alert('좋아요', `${id}`)}
           >
             <HeartIcon
               width={15}
@@ -60,7 +61,7 @@ function Default({ data, size = 260 }: CardProps) {
 }
 
 function Small({ data, size = 180 }: CardProps) {
-  const { name, region, city, posterUrl, contentId } = data;
+  const { name, region, city, posterUrl, contentId, id } = data;
   const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   return (
@@ -71,7 +72,7 @@ function Small({ data, size = 180 }: CardProps) {
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => navigation.navigate('Home/Detail', { id: contentId })}
+        onPress={() => navigation.navigate('Home/Detail', { contentId, id })}
       >
         <View className="p-2.5 gap-2">
           <View>

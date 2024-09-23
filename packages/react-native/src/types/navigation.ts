@@ -36,7 +36,7 @@ export type StackParamList = {
 
   'Home/Main': undefined;
   'Home/Search': { title: string };
-  'Home/Detail': { id: number };
+  'Home/Detail': { contentId: number; id: number };
   'Home/AddSpot': {
     spots: SpotResponse[];
   };

@@ -1,7 +1,6 @@
-import { View, Text } from 'react-native';
-import { Button, Font } from 'design-system';
+import { View } from 'react-native';
+import { Font } from 'design-system';
 import SearchBar from '@components/common/SearchBar';
-import { SpotCardData } from '@/types/spot';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import useProfileQuery from '@/apis/queries/useProfileQuery';
 import { StackNavigation } from '@/types/navigation';
@@ -27,10 +26,6 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
           <Font type="title1" color="white">
             안녕하세요, {profile?.nickname}님{'\n'}오늘은 어디로 가 볼까요?
           </Font>
-          {/* FIXME: 추후 삭제 */}
-          <Button onPress={() => navigation.navigate('Landing')}>
-            <Text className="text-SPOT-white">랜딩</Text>
-          </Button>
         </View>
         <View>
           <SearchBar
