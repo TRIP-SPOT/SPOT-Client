@@ -8,8 +8,12 @@ interface RecordFormImagesProps {
 export default function RecordFormImages({
   handlePressAddPhoto,
 }: RecordFormImagesProps) {
-  const { images } = useRecordFormState();
+  const { images, removeImages } = useRecordFormState();
   return (
-    <ImageSelect image={images} handlePressAddPhoto={handlePressAddPhoto} />
+    <ImageSelect
+      image={images}
+      handlePressAddPhoto={handlePressAddPhoto}
+      onDelete={removeImages}
+    />
   );
 }
