@@ -20,13 +20,12 @@ export default function AddSchedule() {
     type: 'mySpot' | 'restaurant' | 'hotel';
     id: number;
   }>();
-  const { mutate } = useAddSchedule();
+  const { mutate } = useAddSchedule(tripId);
 
   const addSchedule = () => {
     if (!locationName || !locationMemo) return;
 
     mutate({
-      scheduleId: tripId,
       name: locationName,
       description: locationMemo,
     });
