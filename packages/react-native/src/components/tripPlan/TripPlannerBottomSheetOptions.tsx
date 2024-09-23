@@ -45,7 +45,7 @@ export default function TripPlannerBottomSheetOptions({
   return (
     <>
       <MutationLoadingModal isSubmiting={isUpdating || isDeleting} />
-      <View className="flex items-center w-full justify-center flex-col gap-2">
+      <View className="flex items-center w-full justify-center flex-col gap-1">
         <Font.Bold type="mainTitle" color="black">
           {getDisplayRegion({
             locationEnum: selectedPlan.region,

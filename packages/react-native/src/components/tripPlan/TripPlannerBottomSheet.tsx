@@ -45,6 +45,7 @@ export default function TripPlannerBottomSheet({
           />
         ) : (
           <TripPlannerBottomSheetCalendar
+            selectedPlan={selectedPlan}
             handleClose={closeAndResetBottomSheet}
           />
         )}
