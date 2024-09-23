@@ -2,12 +2,11 @@ import { Font } from 'design-system';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
-import useDetailQuery from '@/apis/queries/useDetailQuery';
 import withSuspense from '@/components/HOC/withSuspense';
 import DetailTabNavigator from '@/routes/DetailTabNavigator';
 import Spacing from '@/components/common/Spacing';
 import HeartIcon from '@/assets/HeartIcon';
-import { City, Region } from '@/constants/CITY';
+import useDetailQuery from '@/apis/queries/detail/useDetailQuery';
 
 const Detail = withSuspense(() => {
   const route = useRoute<StackRouteProps<'Home/Detail'>>();
@@ -15,7 +14,19 @@ const Detail = withSuspense(() => {
   const { id: spotId } = route.params;
 
   const { data } = useDetailQuery(spotId);
-  const { backgroundImage, location, title } = data;
+  const {
+    image,
+    title,
+    longitude,
+    latitude,
+    contentId,
+    addr1,
+    addr2,
+    overview,
+    posterUrl,
+    likeCount,
+    isLiked,
+  } = data;
 
   const handleAddPlan = () => {
     navigation.navigate('Home/AddSpot', {
@@ -23,11 +34,14 @@ const Detail = withSuspense(() => {
         // TODO: useDetailQuery 반환타입과 호환되지 않음
         // 추후 api응답 변경시 재변경 빌표
         {
-          id: spotId,
-          spotName: data.name,
-          location: Region.BUSAN,
-          image: data.backgroundImage,
-          city: City.BUSAN,
+          contentId: Number(contentId),
+          title,
+          image: image ?? posterUrl,
+          addr1,
+          addr2,
+          longitude,
+          latitude,
+          overview,
         },
       ],
     });
@@ -35,7 +49,10 @@ const Detail = withSuspense(() => {
 
   return (
     <>
-      <ImageBackground className="h-[200px]" source={{ uri: backgroundImage }}>
+      <ImageBackground
+        className="h-[200px]"
+        source={{ uri: image ?? posterUrl }}
+      >
         <View className="flex-1 justify-end bg-black/20" />
       </ImageBackground>
       <View className="flex-1 bg-[#100F0F] p-4 pb-0">
@@ -45,17 +62,17 @@ const Detail = withSuspense(() => {
           </Font>
           <Spacing height={10} />
           <View className="justify-between flex flex-row items-center">
+            {/* TODO: city, region으로 변경해야하는지 확인 필요 */}
             <Font type="body1" color="white" opacity={0.5}>
-              {location}
+              {addr1} {addr2}
             </Font>
-            {/* TODO: 좋아요 데이터 추가 필요(추후 api응답 타입 변경시 재변경 필요) */}
             <View className="flex-row justify-center items-center gap-1 flex">
               <View>
-                <HeartIcon color="white" />
+                <HeartIcon color={isLiked ? 'red' : 'white'} />
               </View>
               <View>
                 <Font type="body3" color="white">
-                  50
+                  {likeCount}
                 </Font>
               </View>
             </View>
