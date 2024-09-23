@@ -9,19 +9,17 @@ interface UseAroundSpotQueryParams {
   id: number;
 }
 
-export interface AroundSpot {
-  id: number;
-  spotName: string;
-  location: Region;
-  image: string;
-  city: City;
+interface AroundSpotResponse {
+  attraction: SpotResponse[];
+  restaurant: SpotResponse[];
+  accomodation: SpotResponse[];
 }
 
 export default function useAroundSpotQuery({ id }: UseAroundSpotQueryParams) {
   const authAxios = useAuthAxios();
 
   const getAroundSpot = async () => {
-    const result = await authAxios.get<ServerResponse<SpotResponse>>(
+    const result = await authAxios.get<ServerResponse<AroundSpotResponse>>(
       `/api/spot/${id}/arounds`,
     );
     return result.data.result;

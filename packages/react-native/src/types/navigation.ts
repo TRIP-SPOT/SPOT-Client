@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { KoreaLocationName } from './map';
-import { AroundSpot } from '@/apis/queries/detail/useAroundSpotQuery';
+import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
 
 export type StackParamList = {
   Splash: undefined;
@@ -38,7 +38,7 @@ export type StackParamList = {
   'Home/Search': { title: string };
   'Home/Detail': { id: number };
   'Home/AddSpot': {
-    spots: AroundSpot[];
+    spots: SpotResponse[];
   };
 
   'Gamification/Main': undefined;

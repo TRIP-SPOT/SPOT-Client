@@ -1,9 +1,16 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { TripPlanResponse } from './useTripPlansQuery';
 import { City, Region } from '@/constants/CITY';
-import { AroundSpot } from '../detail/useAroundSpotQuery';
+
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
+export interface AroundSpot {
+  id: number;
+  spotName: string;
+  location: Region;
+  image: string;
+  city: City;
+}
 interface UseTripPlanDetailQueryProps {
   id: number;
 }

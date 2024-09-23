@@ -1,5 +1,6 @@
 const QUERY_KEYS = {
   HOME: 'homeSpots',
+  AROUND_SPOT: 'aroundSpot',
   RECORDS: 'records',
   RECORD: 'record',
   PROFILE: 'profile',

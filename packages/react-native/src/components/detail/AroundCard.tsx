@@ -1,14 +1,13 @@
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Font, CheckBox } from 'design-system';
-import { AroundSpot } from '@/apis/queries/detail/useAroundSpotQuery';
-import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
 
 interface AroundCardProps {
-  data: AroundSpot;
-  onCardClick: (spot: AroundSpot) => void;
-  selectedSpots?: AroundSpot[];
+  data: SpotResponse;
+  onCardClick: (spot: SpotResponse) => void;
+  selectedSpots?: SpotResponse[];
   isLongPressMode?: boolean;
-  startLongPress?: (spot: AroundSpot) => void;
+  startLongPress?: (spot: SpotResponse) => void;
 }
 
 export default function AroundCard({
@@ -18,7 +17,7 @@ export default function AroundCard({
   onCardClick,
   startLongPress,
 }: AroundCardProps) {
-  const { image, id, spotName, location, city } = data;
+  const { image, title } = data;
 
   return (
     <ImageBackground
@@ -37,21 +36,15 @@ export default function AroundCard({
               onPress={() => onCardClick(data)}
               selected={
                 selectedSpots &&
-                selectedSpots.some((spot) => spot.id === data.id)
+                selectedSpots.some((spot) => spot.contentId === data.contentId)
               }
             />
           </View>
         )}
         <View className="p-2 bg-[#191919]">
           <Font.Bold type="body1" color="white">
-            {spotName}
+            {title}
           </Font.Bold>
-          <Font type="body3" color="white">
-            {getDisplayRegion({
-              locationEnum: location,
-              cityEnum: city,
-            })}
-          </Font>
         </View>
       </TouchableOpacity>
     </ImageBackground>
