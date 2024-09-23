@@ -21,13 +21,20 @@ export default function TripPlannerBottomSheet({
   handleClose,
 }: TripPlannerBottomSheetProps) {
   const navigation = useNavigation<StackNavigation<'TripPlanner/Main'>>();
-  const { mutate: deleteTripPlan } = useDeleteTripPlan();
   const { getPhoto } = useGallery();
-  const { mutate, isPending } = useUpdateTripPlanImage(selectedPlan?.id, {
+  const { mutate: deleteTripPlan, isPending: isDeleting } = useDeleteTripPlan({
     onSuccess: () => {
       handleClose();
     },
   });
+  const { mutate, isPending: isUpdating } = useUpdateTripPlanImage(
+    selectedPlan?.id,
+    {
+      onSuccess: () => {
+        handleClose();
+      },
+    },
+  );
 
   const getPhtoFromLibrary = async () => {
     const photo = await getPhoto({ fullObject: true });
@@ -43,7 +50,7 @@ export default function TripPlannerBottomSheet({
 
   return (
     <>
-      <MutationLoadingModal isSubmiting={isPending} />
+      <MutationLoadingModal isSubmiting={isUpdating || isDeleting} />
       <BottomSheet
         isShow={Boolean(selectedPlan)}
         snapPoints={['30%']}
