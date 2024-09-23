@@ -4,13 +4,13 @@ import { KAKAO_APP_KEY } from '@env';
 
 interface DetailMapProps {
   latitude?: number;
-  longtitude?: number;
+  longitude?: number;
   width?: number;
 }
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const createHTML = ({ latitude, longtitude }: DetailMapProps) => `<html>
+const createHTML = ({ latitude, longitude }: DetailMapProps) => `<html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script
@@ -27,12 +27,12 @@ const createHTML = ({ latitude, longtitude }: DetailMapProps) => `<html>
           const container = document.getElementById('map'); 
 
           const options = {
-            center: new kakao.maps.LatLng(${latitude || 33.450701}, ${longtitude || 126.570667}), 
+            center: new kakao.maps.LatLng(${latitude || 33.450701}, ${longitude || 126.570667}), 
             level: 3, 
           };
 
           const map = new kakao.maps.Map(container, options); 
-          const markerPosition = new kakao.maps.LatLng(${latitude || 33.450701}, ${longtitude || 126.570667});
+          const markerPosition = new kakao.maps.LatLng(${latitude || 33.450701}, ${longitude || 126.570667});
           const marker = new kakao.maps.Marker({
             position: markerPosition,
           });
@@ -46,7 +46,7 @@ const createHTML = ({ latitude, longtitude }: DetailMapProps) => `<html>
 
 export default function DetailMap({
   latitude,
-  longtitude,
+  longitude,
   width,
 }: DetailMapProps) {
   return (
@@ -56,7 +56,7 @@ export default function DetailMap({
       <WebView
         javaScriptEnabled
         style={{}}
-        source={{ html: createHTML({ latitude, longtitude }) }}
+        source={{ html: createHTML({ latitude, longitude }) }}
       />
     </SafeAreaView>
   );

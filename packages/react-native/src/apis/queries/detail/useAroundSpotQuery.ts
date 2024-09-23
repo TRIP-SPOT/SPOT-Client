@@ -1,59 +1,31 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { City, Region } from '@/constants/CITY';
+import useAuthAxios from '@/apis/useAuthAxios';
+import { ServerResponse } from '@/types/response';
+import { SpotResponse } from '../spot/useSpotDetailQuery';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface UseAroundSpotQueryParams {
   id: number;
 }
 
-export interface AroundSpot {
-  id: number;
-  spotName: string;
-  location: Region;
-  image: string;
-  city: City;
+interface AroundSpotResponse {
+  attraction: SpotResponse[];
+  restaurant: SpotResponse[];
+  accomodation: SpotResponse[];
 }
 
-const mockData: AroundSpot[] = [
-  {
-    id: 1,
-    spotName: '어쩌고',
-    location: Region.BUSAN,
-    city: City.BUSAN,
-    image: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
-  },
-  {
-    id: 2,
-    spotName: '어쩌고',
-    location: Region.BUSAN,
-    city: City.BUSAN,
-    image: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
-  },
-  {
-    id: 3,
-    spotName: '어쩌고',
-    location: Region.BUSAN,
-    city: City.BUSAN,
-    image: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
-  },
-  {
-    id: 4,
-    spotName: '어쩌고',
-    location: Region.BUSAN,
-    city: City.BUSAN,
-    image: 'https://cdn.hankyung.com/photo/202208/03.30909476.1.jpg',
-  },
-];
-
-const getAroundSpot = async () => {
-  return {
-    attractions: mockData,
-    restaurants: mockData.map((data) => ({ ...data, id: data.id + 4 })),
-  };
-};
-
 export default function useAroundSpotQuery({ id }: UseAroundSpotQueryParams) {
+  const authAxios = useAuthAxios();
+
+  const getAroundSpot = async () => {
+    const result = await authAxios.get<ServerResponse<AroundSpotResponse>>(
+      `/api/spot/${id}/arounds`,
+    );
+    return result.data.result;
+  };
+
   return useSuspenseQuery({
-    queryKey: ['aroundSpot', id],
+    queryKey: [QUERY_KEYS, id],
     queryFn: getAroundSpot,
   });
 }

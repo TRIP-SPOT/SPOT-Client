@@ -14,7 +14,7 @@ export interface SpotResponse {
   addr1: string;
   addr2: string;
   latitude: number;
-  longtitude: number;
+  longitude: number;
   overview: string;
 }
 
@@ -27,7 +27,7 @@ export default function useSpotDetailQuery({ id }: UseSpotDetailQueryParams) {
     }
 
     const result = await authAxios.get<ServerResponse<SpotResponse>>(
-      `/api/spot/${spotId}`,
+      `/api/around/${spotId}`,
     );
 
     return result.data.result;

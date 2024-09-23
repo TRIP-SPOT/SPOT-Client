@@ -4,36 +4,36 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { FloatingPlusButton } from 'design-system';
 import AroundCard from '@/components/detail/AroundCard';
 import CardSlider from '@/components/common/CardSlider';
-import useAroundSpotQuery, {
-  AroundSpot,
-} from '@/apis/queries/detail/useAroundSpotQuery';
+import useAroundSpotQuery from '@/apis/queries/detail/useAroundSpotQuery';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
 import useArrayToggle from '@/hooks/useArrayToggle';
+import withSuspense from '@/components/HOC/withSuspense';
+import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
 
-export default function DetailSpot() {
+export default withSuspense(function DetailSpot() {
   const route = useRoute<StackRouteProps<'Home/Detail'>>();
   const [longPressMode, setLongPressMode] = useState(false);
   const [selectedSpot, setSelectedSpot] = useState<number>();
-  const { list, toggleItem } = useArrayToggle<AroundSpot>();
+  const { list, toggleItem } = useArrayToggle<SpotResponse>();
   const navigation = useNavigation<StackNavigation<'Home/Detail'>>();
 
-  const { id } = route.params;
+  const { contentId } = route.params;
 
-  const { data } = useAroundSpotQuery({ id });
+  const { data } = useAroundSpotQuery({ id: contentId });
 
-  const startLongPress = (spot: AroundSpot) => {
+  const startLongPress = (spot: SpotResponse) => {
     if (!longPressMode) {
       setLongPressMode(true);
-      toggleItem(spot, 'id');
+      toggleItem(spot, 'contentId');
     }
   };
 
-  const handleCardClick = (spot: AroundSpot) => {
+  const handleCardClick = (spot: SpotResponse) => {
     if (longPressMode) {
-      return toggleItem(spot, 'id');
+      return toggleItem(spot, 'contentId');
     }
-    return setSelectedSpot(spot.id);
+    return setSelectedSpot(spot.contentId);
   };
 
   if (!data) {
@@ -65,7 +65,7 @@ export default function DetailSpot() {
           >
             <CardSlider
               title="주변 관광지"
-              data={data.attractions}
+              data={data.attraction}
               renderItem={({ item }) => (
                 <AroundCard
                   data={item}
@@ -78,7 +78,20 @@ export default function DetailSpot() {
             />
             <CardSlider
               title="음식점"
-              data={data.restaurants}
+              data={data.restaurant}
+              renderItem={({ item }) => (
+                <AroundCard
+                  data={item}
+                  isLongPressMode={longPressMode}
+                  selectedSpots={list}
+                  startLongPress={startLongPress}
+                  onCardClick={handleCardClick}
+                />
+              )}
+            />
+            <CardSlider
+              title="숙소"
+              data={data.accomodation}
               renderItem={({ item }) => (
                 <AroundCard
                   data={item}
@@ -109,4 +122,4 @@ export default function DetailSpot() {
       )}
     </>
   );
-}
+});

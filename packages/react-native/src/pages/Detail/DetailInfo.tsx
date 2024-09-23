@@ -1,8 +1,15 @@
 import { ScrollView, View } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import Block from '@/components/detail/Block';
 import DetailMap from './DetailMap';
+import useDetailQuery from '@/apis/queries/detail/useDetailQuery';
+import { StackRouteProps } from '@/types/navigation';
 
 export default function DetailInfo() {
+  const route = useRoute<StackRouteProps<'Home/Detail'>>();
+  const { contentId } = route.params;
+  const { data } = useDetailQuery(contentId);
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -17,18 +24,11 @@ export default function DetailInfo() {
           paddingBottom: 20,
         }}
       >
-        <Block title="주소" content="강원 강릉시 주문진읍 해안로 1609" />
+        <Block title="주소" content={data.addr1 + data.addr2} />
         <View className="rounded-lg overflow-hidden items-center justify-center">
-          <DetailMap />
+          <DetailMap longitude={data.longitude} latitude={data.latitude} />
         </View>
-        <Block
-          title="내용 타이틀"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        />
-        <Block
-          title="내용 타이틀"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        />
+        <Block title="내용 타이틀" content={data.overview} />
       </View>
     </ScrollView>
   );
