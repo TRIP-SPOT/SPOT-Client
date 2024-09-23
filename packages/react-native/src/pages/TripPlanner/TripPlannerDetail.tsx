@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import CardSlider from '@/components/common/CardSlider';
 import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import { StackRouteProps } from '@/types/navigation';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import AroundCard from '@/components/detail/AroundCard';
 import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
@@ -17,6 +17,7 @@ export default withSuspense(function TripPlannerDetail() {
   const { tripId, region, city, startDate, endDate } = route.params;
   const { data } = useTripPlanMySpotQuery({ id: tripId });
   const [selectedSpot, setSelectedSpot] = useState<number>();
+  const navigation = useNavigation<StackNavigation<'TripPlanner/Detail'>>();
 
   return (
     <BackGroundGradient withoutScroll>
@@ -36,6 +37,14 @@ export default withSuspense(function TripPlannerDetail() {
       </View>
       <View className="rounded-2xl bg-SPOT-white h-full mt-5 ">
         <ScrollView className="px-5 py-6">
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('TripPlanner/EditPlan', { tripId })
+            }
+          >
+            {/* eslint-disable-next-line global-require */}
+            <Image source={require('../../assets/plan.png')} />
+          </TouchableOpacity>
           <View>
             {data.restaurant.length > 0 && (
               <CardSlider
