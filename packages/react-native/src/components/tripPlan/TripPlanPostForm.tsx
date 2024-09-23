@@ -8,6 +8,7 @@ import CalendarIcon from '@/assets/CalendarIcon';
 import ImageSelect from '../common/ImageSelect';
 import useGallery from '@/hooks/useGallery';
 import useAddTripPlan from '@/apis/mutations/useAddTripPlan';
+import { getDateString } from '@/utils/date';
 
 export default function TripPlanPostForm() {
   const {
@@ -37,8 +38,8 @@ export default function TripPlanPostForm() {
     const planInfo = {
       region: region.value,
       city: selectedCity.value,
-      startDate: date.start.toISOString(),
-      endDate: date.end.toISOString(),
+      startDate: getDateString(date.start),
+      endDate: getDateString(date.end),
     };
 
     mutate({ planInfo, image });
