@@ -18,7 +18,7 @@ const Detail = withSuspense(() => {
 
   const { data } = useDetailQuery(paramsContentId);
   const { like, cancelLike, isLikePending, isCancelLikePending } =
-    useSpotLikeMutation();
+    useSpotLikeMutation({ contentId: paramsContentId });
 
   const {
     image,

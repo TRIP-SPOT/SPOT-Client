@@ -8,30 +8,34 @@ interface LikeParams {
 }
 
 interface UseSpotLikeMutationReturn {
-  like: ({ id }: LikeParams) => Promise<LikeParams>;
+  like: ({ id }: LikeParams) => Promise<void>;
   isLikePending: boolean;
-  cancelLike: ({ id }: LikeParams) => Promise<LikeParams>;
+  cancelLike: ({ id }: LikeParams) => Promise<void>;
   isCancelLikePending: boolean;
 }
 
-export default function useSpotLikeMutation() {
+interface UseSpotLikeMutationParams {
+  contentId: number;
+}
+
+export default function useSpotLikeMutation({
+  contentId,
+}: UseSpotLikeMutationParams) {
   const authAxios = useAuthAxios();
   const queryClient = useQueryClient();
   const ref = useRef({} as UseSpotLikeMutationReturn);
 
   const likePost = async ({ id }: LikeParams) => {
     await authAxios.post(`/api/spot/${id}/likes`);
-    return { id };
   };
 
   const likeDelete = async ({ id }: LikeParams) => {
     await authAxios.delete(`/api/spot/${id}/likes`);
-    return { id };
   };
 
-  const invalidation = ({ id }: LikeParams) => {
+  const invalidation = () => {
     queryClient.invalidateQueries({
-      queryKey: [QUERY_KEYS.DETAIL, id],
+      queryKey: [QUERY_KEYS.DETAIL, contentId],
     });
   };
 
