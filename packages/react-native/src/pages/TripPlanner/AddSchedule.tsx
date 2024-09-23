@@ -20,13 +20,12 @@ export default function AddSchedule() {
     type: 'mySpot' | 'restaurant' | 'hotel';
     id: number;
   }>();
-  const { mutate } = useAddSchedule();
+  const { mutate } = useAddSchedule(tripId);
 
   const addSchedule = () => {
     if (!locationName || !locationMemo) return;
 
     mutate({
-      scheduleId: tripId,
       name: locationName,
       description: locationMemo,
     });
@@ -83,7 +82,7 @@ export default function AddSchedule() {
             </TouchableOpacity>
             {addType === 'prev' && (
               <View className="p-4 rounded-3xl bg-SPOT-white/5">
-                {spotList.mySpots.length > 0 && (
+                {spotList.attraction.length > 0 && (
                   <>
                     <Font.Bold type="body1" color="white">
                       나의 SPOT!
@@ -91,80 +90,32 @@ export default function AddSchedule() {
                     <Spacing height={15} />
                   </>
                 )}
-                {spotList.mySpots.map((mySpot, index) => (
-                  <>
-                    <TouchableOpacity
-                      className="flex-row items-center justify-start"
-                      style={{ gap: 20 }}
-                      onPress={() => {
-                        setSelectedSpot({ type: 'mySpot', id: mySpot.id });
-                        setLocationName(mySpot.spotName);
-                      }}
-                      key={JSON.stringify(mySpot) + index}
-                    >
-                      <CheckBox
-                        selected={
-                          selectedSpot?.type === 'mySpot' &&
-                          selectedSpot.id === mySpot.id
-                        }
-                      />
-                      <Font type="title1" color="white">
-                        {mySpot.spotName}
-                      </Font>
-                    </TouchableOpacity>
-                    {selectedSpot?.type === 'mySpot' &&
-                      selectedSpot.id === mySpot.id && (
-                        <>
-                          <Spacing height={10} />
-                          <TextField
-                            value={locationMemo}
-                            placeholder="메모"
-                            onChange={(e) => setLocationMemo(e)}
-                            multiline
-                            withoutBorder
-                            style={{ paddingTop: 10 }}
-                          />
-                        </>
-                      )}
-                    <Spacing
-                      height={index === spotList.mySpots.length - 1 ? 30 : 10}
-                    />
-                  </>
-                ))}
-                {spotList.restaurants.length > 0 && (
-                  <>
-                    <Font.Bold type="body1" color="white">
-                      담은 음식점
-                    </Font.Bold>
-                    <Spacing height={15} />
-                  </>
-                )}
-                {spotList.restaurants.map((restaurant, index) => (
+                {spotList.attraction.map((mySpot, index) => (
                   <>
                     <TouchableOpacity
                       className="flex-row items-center justify-start"
                       style={{ gap: 20 }}
                       onPress={() => {
                         setSelectedSpot({
-                          type: 'restaurant',
-                          id: restaurant.id,
+                          type: 'mySpot',
+                          id: mySpot.contentId,
                         });
-                        setLocationName(restaurant.spotName);
+                        setLocationName(mySpot.title);
                       }}
-                      key={JSON.stringify(restaurant) + index}
+                      key={JSON.stringify(mySpot) + index}
                     >
                       <CheckBox
                         selected={
-                          selectedSpot?.type === 'restaurant' &&
-                          selectedSpot.id === restaurant.id
+                          selectedSpot?.type === 'mySpot' &&
+                          selectedSpot.id === mySpot.contentId
                         }
                       />
                       <Font type="title1" color="white">
-                        {restaurant.spotName}
+                        {mySpot.title}
                       </Font>
                     </TouchableOpacity>
-                    {selectedSpot?.type === 'restaurant' &&
-                      selectedSpot.id === restaurant.id && (
+                    {selectedSpot?.type === 'mySpot' &&
+                      selectedSpot.id === mySpot.contentId && (
                         <>
                           <Spacing height={10} />
                           <TextField
@@ -179,42 +130,45 @@ export default function AddSchedule() {
                       )}
                     <Spacing
                       height={
-                        index === spotList.restaurants.length - 1 ? 30 : 10
+                        index === spotList.attraction.length - 1 ? 30 : 10
                       }
                     />
                   </>
                 ))}
-                {spotList.hotels.length > 0 && (
+                {spotList.restaurant.length > 0 && (
                   <>
                     <Font.Bold type="body1" color="white">
-                      담은 숙소
+                      담은 음식점
                     </Font.Bold>
                     <Spacing height={15} />
                   </>
                 )}
-                {spotList.hotels.map((hotel, index) => (
+                {spotList.restaurant.map((restaurantItem, index) => (
                   <>
                     <TouchableOpacity
                       className="flex-row items-center justify-start"
                       style={{ gap: 20 }}
                       onPress={() => {
-                        setSelectedSpot({ type: 'hotel', id: hotel.id });
-                        setLocationName(hotel.spotName);
+                        setSelectedSpot({
+                          type: 'restaurant',
+                          id: restaurantItem.contentId,
+                        });
+                        setLocationName(restaurantItem.title);
                       }}
-                      key={JSON.stringify(hotel) + index}
+                      key={JSON.stringify(restaurantItem) + index}
                     >
                       <CheckBox
                         selected={
-                          selectedSpot?.type === 'hotel' &&
-                          selectedSpot.id === hotel.id
+                          selectedSpot?.type === 'restaurant' &&
+                          selectedSpot.id === restaurantItem.contentId
                         }
                       />
                       <Font type="title1" color="white">
-                        {hotel.spotName}
+                        {restaurantItem.title}
                       </Font>
                     </TouchableOpacity>
-                    {selectedSpot?.type === 'hotel' &&
-                      selectedSpot.id === hotel.id && (
+                    {selectedSpot?.type === 'restaurant' &&
+                      selectedSpot.id === restaurantItem.contentId && (
                         <>
                           <Spacing height={10} />
                           <TextField
@@ -228,10 +182,69 @@ export default function AddSchedule() {
                         </>
                       )}
                     <Spacing
-                      height={index === spotList.hotels.length - 1 ? 30 : 10}
+                      height={
+                        index === spotList.restaurant.length - 1 ? 30 : 10
+                      }
                     />
                   </>
                 ))}
+                {spotList.accommodation.length > 0 && (
+                  <>
+                    <Font.Bold type="body1" color="white">
+                      담은 숙소
+                    </Font.Bold>
+                    <Spacing height={15} />
+                  </>
+                )}
+                {spotList.accommodation.map((hotel, index) => (
+                  <>
+                    <TouchableOpacity
+                      className="flex-row items-center justify-start"
+                      style={{ gap: 20 }}
+                      onPress={() => {
+                        setSelectedSpot({ type: 'hotel', id: hotel.contentId });
+                        setLocationName(hotel.title);
+                      }}
+                      key={JSON.stringify(hotel) + index}
+                    >
+                      <CheckBox
+                        selected={
+                          selectedSpot?.type === 'hotel' &&
+                          selectedSpot.id === hotel.contentId
+                        }
+                      />
+                      <Font type="title1" color="white">
+                        {hotel.title}
+                      </Font>
+                    </TouchableOpacity>
+                    {selectedSpot?.type === 'hotel' &&
+                      selectedSpot.id === hotel.contentId && (
+                        <>
+                          <Spacing height={10} />
+                          <TextField
+                            value={locationMemo}
+                            placeholder="메모"
+                            onChange={(e) => setLocationMemo(e)}
+                            multiline
+                            withoutBorder
+                            style={{ paddingTop: 10 }}
+                          />
+                        </>
+                      )}
+                    <Spacing
+                      height={
+                        index === spotList.accommodation.length - 1 ? 30 : 10
+                      }
+                    />
+                  </>
+                ))}
+                {spotList.accommodation.length === 0 &&
+                  spotList.attraction.length === 0 &&
+                  spotList.restaurant.length === 0 && (
+                    <Font type="body1" color="white">
+                      담은 SPOT이 없습니다.
+                    </Font>
+                  )}
               </View>
             )}
           </View>

@@ -1,47 +1,33 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
+import useAuthAxios from '@/apis/useAuthAxios';
+import { ServerResponse } from '@/types/response';
 
-const mockData = {
-  region: Region.GANGWON,
-  city: City.GANGNEUNG,
-  startDate: '2024-09-08T12:30:00',
-  endDate: '2024-09-11T12:30:00',
-  schedules: [
-    {
-      id: 1,
-      day: 1,
-      order: 1,
-      name: '주문진 방파제',
-      description: '도깨비 촬영지',
-    },
-    {
-      id: 2,
-      day: 1,
-      order: 2,
-      name: '주문진 스타벅스',
-      description: '도깨비 촬영지 도보 10분 카페',
-    },
-    {
-      id: 3,
-      day: 2,
-      order: 1,
-      name: '주문진 스타벅스',
-      description: '도깨비 촬영지 도보 10분 카페',
-    },
-    {
-      id: 4,
-      day: 4,
-      order: 1,
-      name: '주문진 스타벅스',
-      description: '도깨비 촬영지 도보 10분 카페',
-    },
-  ],
-};
+interface Schedule {
+  id: number;
+  day: number;
+  seq: number;
+  name: string;
+  description: string;
+}
+
+interface ScheduleDetail {
+  region: Region;
+  city: City;
+  startDate: string;
+  endDate: string;
+  locations: Schedule[];
+}
 
 export default function useTripPlanEditDetailQuery(id: number) {
-  const getPlanInfo = () => {
-    // TODO: 실제 API 연결
-    return mockData;
+  const authAxios = useAuthAxios();
+
+  const getPlanInfo = async () => {
+    const response = await authAxios.get<ServerResponse<ScheduleDetail>>(
+      `/api/schedule/${id}`,
+    );
+
+    return response.data.result;
   };
 
   return useSuspenseQuery({

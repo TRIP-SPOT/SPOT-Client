@@ -42,15 +42,17 @@ export default function ImageSelect({
             }}
           />
         ) : (
-          <Image
-            source={{ uri: image }}
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 6,
-              marginLeft: 8,
-            }}
-          />
+          image && (
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: 6,
+                marginLeft: 8,
+              }}
+            />
+          )
         )}
       </View>
     </>
