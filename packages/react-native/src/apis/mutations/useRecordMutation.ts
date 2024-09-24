@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { Asset } from 'react-native-image-picker';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
-import { CitySelectValue } from '@/components/common/CitySelect';
 import useAuthAxios from '../useAuthAxios';
 import { KoreaLocationName } from '@/types/map';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
@@ -21,13 +20,14 @@ interface PostRecordRequest {
 }
 
 interface PatchRecordRequest {
+  id: number;
   record: {
     name?: string;
     description?: string;
     region: Region;
     city?: City;
   };
-  images: string[];
+  addImages?: Asset[];
   deleteImages?: string[];
 }
 
@@ -85,23 +85,28 @@ export default function useRecordMutation({
   const { mutateAsync: patchMutate, isPending: isPatchPending } = useMutation({
     mutationFn: async (requestParams: PatchRecordRequest) => {
       const customForm = new CustomForm();
-      Object.entries(requestParams.record).forEach(([key, value]) => {
-        customForm.append(key, value);
+      customForm.append(
+        'recordUpdate',
+        JSON.stringify({
+          title: requestParams.record.name,
+          description: requestParams.record.description,
+          deleteImages: requestParams.deleteImages,
+        }),
+      );
+
+      requestParams.addImages?.forEach((image) => {
+        customForm.appendImage('addImage', image);
       });
 
-      requestParams.images.forEach((image) => {
-        customForm.append('images', image);
-      });
-
-      requestParams.deleteImages?.forEach((image) => {
-        customForm.append('deleteImages', image);
-      });
-
-      await authAxios.patch('/api/record', customForm.getForm(), {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      await authAxios.patch(
+        `/api/record/${requestParams.id}`,
+        customForm.getForm(),
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      });
+      );
     },
     onSuccess: invalidateRecords,
   });

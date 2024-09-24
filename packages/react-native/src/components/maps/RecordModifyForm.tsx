@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 import { Button, Font } from 'design-system';
+import { Asset } from 'react-native-image-picker';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import RecordFormDescription from '@/components/maps/RecordFormDescription';
 import RecordFormTitle from '@/components/maps/RecordFormTitle';
@@ -12,7 +13,11 @@ import RecordFormCitySelect from './RecordFormCitySelect';
 import { REGION_MAPPER } from '@/constants/CITY';
 import ImageSelect from '../common/ImageSelect';
 
-export default function RecordModifyForm() {
+interface RecordModifyFormProps {
+  id: number;
+}
+
+export default function RecordModifyForm({ id }: RecordModifyFormProps) {
   const {
     validate,
     title,
@@ -27,12 +32,19 @@ export default function RecordModifyForm() {
   const navigate = useNavigation<StackNavigation<'Maps/ModifyRecord'>>();
   const { patchMutate } = useRecordMutation({ location: params.location });
   const [deleteImages, setDeleteImage] = useState<string[]>([]);
+  const [addImages, setAddImages] = useState<Asset[]>();
 
   const handlePressAddPhoto = async () => {
     const photos = await getPhoto({
       selectionLimit: 10,
+      fullObject: true,
     });
-    if (photos && Array.isArray(photos)) resetImages(photos);
+
+    if (photos && Array.isArray(photos)) {
+      const photoUris = photos.map((photo) => photo.uri) as string[];
+      resetImages([...images, ...photoUris]);
+      setAddImages([...photos]);
+    }
   };
 
   const handlePress = async () => {
@@ -41,13 +53,14 @@ export default function RecordModifyForm() {
     }
 
     await patchMutate({
+      id,
       record: {
         name: title,
         description,
         city: selectedCity?.value,
         region: REGION_MAPPER[params.location],
       },
-      images,
+      addImages,
       deleteImages,
     });
 
