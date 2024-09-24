@@ -23,7 +23,7 @@ export default function useAroundSpotQuery({
 
   const getAroundSpot = async () => {
     const result = await authAxios.get<ServerResponse<AroundSpotResponse>>(
-      `/api/spot/${id}/arounds?workdId=${workId}`,
+      `/api/spot/${id}/arounds?workId=${workId}`,
     );
     return result.data.result;
   };
