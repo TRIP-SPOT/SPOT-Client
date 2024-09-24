@@ -1,6 +1,8 @@
 import { Font } from 'design-system';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useHeaderHeight } from '@react-navigation/elements';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import withSuspense from '@/components/HOC/withSuspense';
 import DetailTabNavigator from '@/routes/DetailTabNavigator';
@@ -10,6 +12,7 @@ import useDetailQuery from '@/apis/queries/detail/useDetailQuery';
 import useSpotLikeMutation from '@/apis/mutations/useSpotLikeMutation';
 import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import Header from '@/components/common/Header';
 
 const Detail = withSuspense(() => {
   const route = useRoute<StackRouteProps<'Home/Detail'>>();
@@ -21,7 +24,6 @@ const Detail = withSuspense(() => {
     useSpotLikeMutation({ contentId: paramsContentId });
 
   const {
-    image,
     title,
     longitude,
     latitude,
@@ -29,20 +31,25 @@ const Detail = withSuspense(() => {
     addr1,
     addr2,
     overview,
-    posterUrl,
     likeCount,
     isLiked,
     city,
     region,
     dist,
     contentTypeId,
+    image,
+    posterUrl,
   } = data;
+
+  const headerHeight = useHeaderHeight();
+  const insets = useSafeAreaInsets();
+
+  const defaultPaddingTop =
+    headerHeight - insets.top > 0 ? headerHeight - insets.top : 0;
 
   const handleAddPlan = () => {
     navigation.navigate('Home/AddSpot', {
       spots: [
-        // TODO: useDetailQuery 반환타입과 호환되지 않음
-        // 추후 api응답 변경시 재변경 빌표
         {
           contentId: Number(contentId),
           title,
@@ -64,13 +71,22 @@ const Detail = withSuspense(() => {
       <MutationLoadingModal
         isSubmiting={isCancelLikePending || isLikePending}
       />
-      <ImageBackground
-        className="h-[200px]"
-        source={{ uri: image ?? posterUrl }}
+      <Header />
+      {(image || posterUrl) && (
+        <ImageBackground
+          className="h-[200px]"
+          source={{ uri: image || posterUrl }}
+        >
+          <View className="flex-1 justify-end bg-black/20" />
+        </ImageBackground>
+      )}
+
+      <View
+        className="flex-1 bg-[#100F0F] p-4 pb-0"
+        style={{
+          paddingTop: !image && !posterUrl ? defaultPaddingTop : 16,
+        }}
       >
-        <View className="flex-1 justify-end bg-black/20" />
-      </ImageBackground>
-      <View className="flex-1 bg-[#100F0F] p-4 pb-0">
         <View>
           <Font type="mainTitle" color="white">
             {title}
