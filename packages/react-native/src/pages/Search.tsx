@@ -32,17 +32,17 @@ export default withSuspense(function Search() {
       <BackGroundGradient withoutScroll>
         <Header />
         <View className="flex-1 justify-center items-center">
-          <Font type="mainTitle" color="white">
+          <Font type="body1" color="white">
             검색결과가 없어요.
           </Font>
-          <Font type="mainTitle" color="white">
+          <Font type="body1" color="white">
             다른 작품을 검색해볼까요?
           </Font>
           <TouchableOpacity
             className="bg-Button-red rounded-xl px-4 py-2 mt-4"
             onPress={() => navigation.navigate('Home/Main')}
           >
-            <Font type="mainTitle" color="white">
+            <Font type="body2" color="white">
               돌아가기
             </Font>
           </TouchableOpacity>
