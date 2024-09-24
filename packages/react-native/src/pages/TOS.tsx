@@ -20,8 +20,15 @@ export default function TOS() {
   const [selectedAgree, setSelectedAgree] = useState<keyof Agree>();
   const navigation = useNavigation<StackNavigation<'TOS'>>();
 
+  const selectedAll = agree.TOS && agree.marketing && agree.privacyCollection;
+
   const toggleAgree = (agreeType: keyof Agree) => {
     setAgree((prev) => ({ ...prev, [agreeType]: !prev[agreeType] }));
+  };
+
+  const toggleAll = () => {
+    if (selectedAll) setAgree({});
+    else setAgree({ TOS: true, marketing: true, privacyCollection: true });
   };
 
   const isInValid = !agree.TOS || !agree.privacyCollection;
@@ -92,11 +99,9 @@ export default function TOS() {
           <View className="mt-6 flex flex-row gap-2.5 items-center justify-start">
             <View>
               <CheckBox
-                selected={
-                  agree.TOS && agree.marketing && agree.privacyCollection
-                }
+                selected={selectedAll}
                 iconSize={20}
-                onPress={() => setAgree({})}
+                onPress={toggleAll}
               />
             </View>
             <View>
