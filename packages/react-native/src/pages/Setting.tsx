@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { Font } from 'design-system';
 import { TouchableOpacity, View } from 'react-native';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
+import { Agree } from './TOS';
+import TOSBottomSheet from '@/components/toc/TOSBottomSheet';
 
-// FIXME: 실제 네비게이션 연결
 export default function Setting() {
+  const [TOSType, setTOSType] = useState<keyof Agree>();
+
   return (
     <BackGroundGradient>
       <Header title="설정" />
@@ -37,12 +41,18 @@ export default function Setting() {
                 1.0.0
               </Font>
             </View>
-            <TouchableOpacity className="py-2">
+            <TouchableOpacity
+              className="py-2"
+              onPress={() => setTOSType('TOS')}
+            >
               <Font type="body2" color="white">
                 서비스 이용약관
               </Font>
             </TouchableOpacity>
-            <TouchableOpacity className="py-2">
+            <TouchableOpacity
+              className="py-2"
+              onPress={() => setTOSType('privacyCollection')}
+            >
               <Font type="body2" color="white">
                 개인정보 취급 방침
               </Font>
@@ -92,6 +102,10 @@ export default function Setting() {
           </View>
         </View>
       </View>
+      <TOSBottomSheet
+        selectedAgree={TOSType}
+        handleClose={() => setTOSType(undefined)}
+      />
     </BackGroundGradient>
   );
 }
