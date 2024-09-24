@@ -16,6 +16,8 @@ export interface SpotResponse {
   latitude: number;
   longitude: number;
   overview: string;
+  contentTypeId: string;
+  dist: string;
 }
 
 export default function useSpotDetailQuery({ id }: UseSpotDetailQueryParams) {

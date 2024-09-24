@@ -18,6 +18,8 @@ interface DetailResponse {
   isLiked: boolean;
   likeCount: number;
   posterUrl: string;
+  contentTypeId: string;
+  dist: string;
 }
 
 export default function useDetailQuery({

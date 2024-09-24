@@ -34,6 +34,8 @@ const Detail = withSuspense(() => {
     isLiked,
     city,
     region,
+    dist,
+    contentTypeId,
   } = data;
 
   const handleAddPlan = () => {
@@ -50,6 +52,8 @@ const Detail = withSuspense(() => {
           longitude,
           latitude,
           overview,
+          dist,
+          contentTypeId,
         },
       ],
     });
