@@ -91,7 +91,7 @@ export default withSuspense(function DetailSpot() {
             />
             <CardSlider
               title="숙소"
-              data={data.accomodation}
+              data={data.accommodation}
               renderItem={({ item }) => (
                 <AroundCard
                   data={item}
