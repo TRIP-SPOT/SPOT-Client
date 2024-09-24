@@ -1,14 +1,22 @@
-import { Alert, ImageBackground, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import HeartIcon from '@assets/HeartIcon';
 import { useNavigation } from '@react-navigation/native';
 import { Font } from 'design-system';
 import { SpotCardData } from '@/types/spot';
 import { StackNavigation } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import useSpotLikeMutation from '@/apis/mutations/useSpotLikeMutation';
+import MutationLoadingModal from './MutationLoadingModal';
 
 interface CardProps {
   data: SpotCardData;
   size?: number;
+}
+
+interface CardLike {
+  likeCount: number;
+  isLiked: boolean;
 }
 
 function Default({ data, size = 260 }: CardProps) {
@@ -23,7 +31,31 @@ function Default({ data, size = 260 }: CardProps) {
     id,
     workId,
   } = data;
+
+  const [cardLike, setCardLike] = useState<CardLike>({
+    isLiked,
+    likeCount,
+  });
   const navigation = useNavigation<StackNavigation<'Home/Search'>>();
+  const { like, isLikePending, isCancelLikePending, cancelLike } =
+    useSpotLikeMutation({ contentId });
+
+  const handleClickLike = () => {
+    if (cardLike.isLiked) {
+      setCardLike((prev) => ({
+        isLiked: !prev.isLiked,
+        likeCount: prev.likeCount - 1,
+      }));
+      cancelLike({ id });
+      return;
+    }
+
+    setCardLike((prev) => ({
+      isLiked: !prev.isLiked,
+      likeCount: prev.likeCount + 1,
+    }));
+    like({ id });
+  };
 
   return (
     <ImageBackground
@@ -31,6 +63,9 @@ function Default({ data, size = 260 }: CardProps) {
       className="rounded-2xl overflow-hidden bg-SPOT-black"
       style={{ width: size, aspectRatio: 3 / 4 }}
     >
+      <MutationLoadingModal
+        isSubmiting={isLikePending || isCancelLikePending}
+      />
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
         onPress={() =>
@@ -41,17 +76,16 @@ function Default({ data, size = 260 }: CardProps) {
         <View className="flex-row justify-end items-center">
           <TouchableOpacity
             className="flex-row items-center p-2"
-            // FIXME: 실제 좋아요 기능 추가
-            onPress={() => Alert.alert('좋아요', `${id}`)}
+            onPress={handleClickLike}
           >
             <HeartIcon
               width={15}
               height={15}
-              color={isLiked ? 'red' : 'white'}
+              color={cardLike.isLiked ? 'red' : 'white'}
             />
             <View className="ml-1">
               <Font type="body3" color="white">
-                {likeCount}
+                {cardLike.likeCount}
               </Font>
             </View>
           </TouchableOpacity>
