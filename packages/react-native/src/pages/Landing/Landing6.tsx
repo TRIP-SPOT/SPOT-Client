@@ -1,6 +1,8 @@
 import { Font } from 'design-system';
-import { Image, View } from 'react-native';
+import { Dimensions, Image, View } from 'react-native';
 import WordBreak from '@/components/common/WordBreak';
+
+const { width } = Dimensions.get('window');
 
 export default function Landing6() {
   return (
@@ -24,8 +26,12 @@ export default function Landing6() {
         <WordBreak width={300} type="body2" color="white" content="" />
       </View>
       <View>
-        {/* eslint-disable-next-line global-require */}
-        <Image source={require('../../assets/landing/landing6.png')} />
+        <Image
+          // eslint-disable-next-line global-require
+          source={require('../../assets/landing/landing6.png')}
+          style={{ width, height: undefined, aspectRatio: 2.9 / 5 }}
+          resizeMode="contain"
+        />
       </View>
     </View>
   );
