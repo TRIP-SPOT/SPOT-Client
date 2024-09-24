@@ -1,13 +1,13 @@
 import { useRef, useState } from 'react';
-import { useRoute } from '@react-navigation/native';
-import { View } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Card from '@/components/common/Card';
 import WordBreak from '@/components/common/WordBreak';
 import Header from '@/components/common/Header';
-import { StackRouteProps } from '@/types/navigation';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import { DEFAULT_COLOR } from '@/constants/DEFAULT_COLOR';
 import useSearchQuery from '@/apis/queries/useSearchQuery';
 
@@ -15,6 +15,7 @@ export default function Search() {
   const route = useRoute<StackRouteProps<'Home/Search'>>();
   const { title } = route.params;
   const { data } = useSearchQuery({ keyword: title });
+  const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselRef = useRef<ICarouselInstance>(null);
@@ -24,6 +25,30 @@ export default function Search() {
     const index = carouselRef.current.getCurrentIndex();
     setCarouselIndex(index);
   };
+
+  if (data.length === 0) {
+    return (
+      <BackGroundGradient withoutScroll>
+        <Header />
+        <View className="flex-1 justify-center items-center">
+          <Font type="mainTitle" color="white">
+            검색결과가 없어요.
+          </Font>
+          <Font type="mainTitle" color="white">
+            다른 작품을 검색해볼까요?
+          </Font>
+          <TouchableOpacity
+            className="bg-Button-red rounded-xl px-4 py-2 mt-4"
+            onPress={() => navigation.navigate('Home/Main')}
+          >
+            <Font type="mainTitle" color="white">
+              돌아가기
+            </Font>
+          </TouchableOpacity>
+        </View>
+      </BackGroundGradient>
+    );
+  }
 
   return (
     <BackGroundGradient>
