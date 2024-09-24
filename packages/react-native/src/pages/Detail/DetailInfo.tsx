@@ -7,8 +7,8 @@ import { StackRouteProps } from '@/types/navigation';
 
 export default function DetailInfo() {
   const route = useRoute<StackRouteProps<'Home/Detail'>>();
-  const { contentId } = route.params;
-  const { data } = useDetailQuery(contentId);
+  const { contentId, workId } = route.params;
+  const { data } = useDetailQuery({ id: contentId, workId });
 
   return (
     <ScrollView

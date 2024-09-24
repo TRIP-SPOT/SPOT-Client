@@ -12,8 +12,17 @@ interface CardProps {
 }
 
 function Default({ data, size = 260 }: CardProps) {
-  const { isLiked, name, region, city, posterUrl, likeCount, contentId, id } =
-    data;
+  const {
+    isLiked,
+    name,
+    region,
+    city,
+    posterUrl,
+    likeCount,
+    contentId,
+    id,
+    workId,
+  } = data;
   const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   return (
@@ -24,7 +33,9 @@ function Default({ data, size = 260 }: CardProps) {
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => navigation.navigate('Home/Detail', { contentId, id })}
+        onPress={() =>
+          navigation.navigate('Home/Detail', { contentId, id, workId })
+        }
         activeOpacity={1}
       >
         <View className="flex-row justify-end items-center">
@@ -61,7 +72,7 @@ function Default({ data, size = 260 }: CardProps) {
 }
 
 function Small({ data, size = 180 }: CardProps) {
-  const { name, region, city, posterUrl, contentId, id } = data;
+  const { name, region, city, posterUrl, contentId, id, workId } = data;
   const navigation = useNavigation<StackNavigation<'Home/Search'>>();
 
   return (
@@ -72,7 +83,9 @@ function Small({ data, size = 180 }: CardProps) {
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/40"
-        onPress={() => navigation.navigate('Home/Detail', { contentId, id })}
+        onPress={() =>
+          navigation.navigate('Home/Detail', { contentId, id, workId })
+        }
       >
         <View className="p-2.5 gap-2">
           <View>
