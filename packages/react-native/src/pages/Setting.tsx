@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Font } from 'design-system';
 import { TouchableOpacity, View } from 'react-native';
+import Mailer from 'react-native-mail';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
 import { Agree } from './TOS';
 import TOSBottomSheet from '@/components/toc/TOSBottomSheet';
+import EMAIL_CONTENTS from '@/constants/EMAIL_CONTENTS';
 
 export default function Setting() {
   const [TOSType, setTOSType] = useState<keyof Agree>();
+  const [mailType, setMailType] = useState<keyof typeof EMAIL_CONTENTS>();
+
+  useEffect(() => {
+    if (!mailType) return;
+
+    Mailer.mail(
+      {
+        subject: EMAIL_CONTENTS[mailType].title,
+        recipients: ['alicee0047@gmail.com'],
+        body: EMAIL_CONTENTS[mailType].body,
+      },
+      () => {},
+    );
+  }, [mailType]);
 
   return (
     <BackGroundGradient>
@@ -79,17 +95,23 @@ export default function Setting() {
               gap: 4,
             }}
           >
-            <TouchableOpacity className="py-2">
+            {/* <TouchableOpacity className="py-2">
               <Font type="body2" color="white">
                 공지사항
               </Font>
-            </TouchableOpacity>
-            <TouchableOpacity className="py-2">
+            </TouchableOpacity> */}
+            <TouchableOpacity
+              className="py-2"
+              onPress={() => setMailType('NORMAL')}
+            >
               <Font type="body2" color="white">
                 문의하기
               </Font>
             </TouchableOpacity>
-            <TouchableOpacity className="py-2">
+            <TouchableOpacity
+              className="py-2"
+              onPress={() => setMailType('BUG')}
+            >
               <Font type="body2" color="white">
                 신고하기
               </Font>
