@@ -29,11 +29,14 @@ export default function Setting() {
               gap: 4,
             }}
           >
-            <TouchableOpacity className="py-2">
+            <View className="py-2 flex-row justify-between items-center">
               <Font type="body2" color="white">
                 앱 버전 정보
               </Font>
-            </TouchableOpacity>
+              <Font type="body2" color="white">
+                1.0.0
+              </Font>
+            </View>
             <TouchableOpacity className="py-2">
               <Font type="body2" color="white">
                 서비스 이용약관
