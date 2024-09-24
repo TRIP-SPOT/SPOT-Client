@@ -25,7 +25,7 @@ interface PatchRecordRequest {
     name?: string;
     description?: string;
     region: Region;
-    city?: CitySelectValue;
+    city?: City;
   };
   images: string[];
   deleteImages?: string[];

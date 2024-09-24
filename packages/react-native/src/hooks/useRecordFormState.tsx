@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { RecordGetResponse } from '@/apis/queries/records/useRecordDetailQuery';
 import { CitySelectValue } from '@/components/common/CitySelect';
 import { DateSelectProps } from '@/components/common/DateSelect';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 type RecordFormContextState = DateSelectProps & {
   title: string;
@@ -32,7 +33,19 @@ export function RecordFormProvider({
   const [description, setDescription] = useState(
     defaultProps?.description || '',
   );
-  const [selectedCity, setSelectedCity] = useState<CitySelectValue>();
+  const [selectedCity, setSelectedCity] = useState<CitySelectValue | undefined>(
+    defaultProps
+      ? {
+          value: defaultProps?.city,
+          label:
+            getDisplayRegion({
+              locationEnum: defaultProps.region,
+              cityEnum: defaultProps.city,
+              onlyCity: true,
+            }) || '',
+        }
+      : undefined,
+  );
 
   const [images, setImages] = useState<string[]>(defaultProps?.images || []);
 

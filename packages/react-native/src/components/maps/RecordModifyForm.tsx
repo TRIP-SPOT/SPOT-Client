@@ -44,7 +44,7 @@ export default function RecordModifyForm() {
       record: {
         name: title,
         description,
-        city: selectedCity,
+        city: selectedCity?.value,
         region: REGION_MAPPER[params.location],
       },
       images,
