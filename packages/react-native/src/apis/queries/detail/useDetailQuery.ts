@@ -20,11 +20,17 @@ interface DetailResponse {
   posterUrl: string;
 }
 
-export default function useDetailQuery(id: number) {
+export default function useDetailQuery({
+  id,
+  workId,
+}: {
+  id: number;
+  workId: number;
+}) {
   const authAxios = useAuthAxios();
   const getSpotAroundInfo = async () => {
     const result = await authAxios.get<ServerResponse<DetailResponse>>(
-      `/api/spot/${id}`,
+      `/api/spot/${id}?workId=${workId}`,
     );
     return result.data.result;
   };

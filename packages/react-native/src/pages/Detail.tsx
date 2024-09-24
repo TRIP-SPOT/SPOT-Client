@@ -14,9 +14,9 @@ import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 const Detail = withSuspense(() => {
   const route = useRoute<StackRouteProps<'Home/Detail'>>();
   const navigation = useNavigation<StackNavigation<'Home/Detail'>>();
-  const { id, contentId: paramsContentId } = route.params;
+  const { id, contentId: paramsContentId, workId } = route.params;
 
-  const { data } = useDetailQuery(paramsContentId);
+  const { data } = useDetailQuery({ id: paramsContentId, workId });
   const { like, cancelLike, isLikePending, isCancelLikePending } =
     useSpotLikeMutation({ contentId: paramsContentId });
 

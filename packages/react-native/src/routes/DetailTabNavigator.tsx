@@ -8,7 +8,7 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function DetailTabNavigator() {
   const route = useRoute<StackRouteProps<'Home/Detail'>>();
-  const { id, contentId } = route.params;
+  const { id, contentId, workId } = route.params;
 
   return (
     <Tab.Navigator
@@ -42,13 +42,14 @@ export default function DetailTabNavigator() {
         initialParams={{
           id,
           contentId,
+          workId,
         }}
       />
       <Tab.Screen
         name="Detail/Spot"
         component={DetailSpot}
         options={{ tabBarLabel: 'SPOT!' }}
-        initialParams={{ id, contentId }}
+        initialParams={{ id, contentId, workId }}
       />
     </Tab.Navigator>
   );

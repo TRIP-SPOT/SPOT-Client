@@ -18,9 +18,9 @@ export default withSuspense(function DetailSpot() {
   const { list, toggleItem } = useArrayToggle<SpotResponse>();
   const navigation = useNavigation<StackNavigation<'Home/Detail'>>();
 
-  const { contentId } = route.params;
+  const { contentId, workId } = route.params;
 
-  const { data } = useAroundSpotQuery({ id: contentId });
+  const { data } = useAroundSpotQuery({ id: contentId, workId });
 
   const startLongPress = (spot: SpotResponse) => {
     if (!longPressMode) {

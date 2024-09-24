@@ -6,6 +6,7 @@ import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface UseAroundSpotQueryParams {
   id: number;
+  workId: number;
 }
 
 interface AroundSpotResponse {
@@ -14,12 +15,15 @@ interface AroundSpotResponse {
   accomodation: SpotResponse[];
 }
 
-export default function useAroundSpotQuery({ id }: UseAroundSpotQueryParams) {
+export default function useAroundSpotQuery({
+  id,
+  workId,
+}: UseAroundSpotQueryParams) {
   const authAxios = useAuthAxios();
 
   const getAroundSpot = async () => {
     const result = await authAxios.get<ServerResponse<AroundSpotResponse>>(
-      `/api/spot/${id}/arounds`,
+      `/api/spot/${id}/arounds?workId=${workId}`,
     );
     return result.data.result;
   };
