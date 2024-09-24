@@ -10,8 +10,9 @@ import Header from '@/components/common/Header';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import { DEFAULT_COLOR } from '@/constants/DEFAULT_COLOR';
 import useSearchQuery from '@/apis/queries/useSearchQuery';
+import withSuspense from '@/components/HOC/withSuspense';
 
-export default function Search() {
+export default withSuspense(function Search() {
   const route = useRoute<StackRouteProps<'Home/Search'>>();
   const { title } = route.params;
   const { data } = useSearchQuery({ keyword: title });
@@ -101,4 +102,4 @@ export default function Search() {
       </View>
     </BackGroundGradient>
   );
-}
+});
