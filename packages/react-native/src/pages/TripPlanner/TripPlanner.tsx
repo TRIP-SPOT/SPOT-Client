@@ -26,6 +26,10 @@ export default withSuspense(function TripPlanner() {
 
   const navigation = useNavigation<StackNavigation<'TripPlanner/Main'>>();
 
+  useEffect(() => {
+    setData(defaultData);
+  }, [defaultData]);
+
   const sort = (type: orderType) => {
     setData((prev) =>
       type === 'ascending'
