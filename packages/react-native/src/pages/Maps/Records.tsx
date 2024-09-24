@@ -16,27 +16,27 @@ import useRecordsQuery, {
 } from '@/apis/queries/records/useRecordsQuery';
 import withSuspense from '@/components/HOC/withSuspense';
 import useRecordMutation from '@/apis/mutations/useRecordMutation';
+import useSortByStartDate from '@/hooks/useSortByStartDate';
 
 interface RecordsProps {
   navigation: StackNavigation<'Maps/Record'>;
 }
 
 export default withSuspense(function Records({ navigation }: RecordsProps) {
-  const [showBottomSheet, toggleBottomSheet] = useToggle();
-  const [selectedRecord, setSelectedRecord] = useState<RecordResponse>();
-  const sort = () => {
-    // TODO: 실제 구현 필요(현재 UI없음)
-  };
-
   const route = useRoute<StackRouteProps<'Maps/Record'>>();
-
   const { data: recordsData } = useRecordsQuery({
     location: route.params.location,
+  });
+  const { data, toggleSortOrder } = useSortByStartDate({
+    defaultData: recordsData,
   });
 
   const { deleteMutate } = useRecordMutation({
     location: route.params.location,
   });
+
+  const [showBottomSheet, toggleBottomSheet] = useToggle();
+  const [selectedRecord, setSelectedRecord] = useState<RecordResponse>();
 
   const handleOpenOption = (selectedCardData: RecordResponse) => {
     setSelectedRecord(selectedCardData);
@@ -50,7 +50,10 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
       <BackGroundGradient withoutScroll={isEmpty}>
         <Header
           RightActionButton={
-            <TouchableOpacity onPress={sort} className="px-4">
+            <TouchableOpacity
+              onPress={() => toggleSortOrder()}
+              className="px-4"
+            >
               <SortIcon />
             </TouchableOpacity>
           }
@@ -73,10 +76,7 @@ export default withSuspense(function Records({ navigation }: RecordsProps) {
               paddingRight: LOG_PADDING_X,
             }}
           >
-            <RecordCardList
-              cards={recordsData}
-              handleOpenOptions={handleOpenOption}
-            />
+            <RecordCardList cards={data} handleOpenOptions={handleOpenOption} />
           </View>
         )}
       </BackGroundGradient>
