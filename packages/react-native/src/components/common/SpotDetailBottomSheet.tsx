@@ -20,7 +20,7 @@ export default function SpotDetailBottomSheet({
   const { data } = useSpotDetailQuery({ id: selectedDetailSpotId });
   return (
     <BottomSheet
-      snapPoints={['90%']}
+      snapPoints={['100%']}
       handleClose={onClose}
       isShow={Boolean(selectedDetailSpotId)}
     >
