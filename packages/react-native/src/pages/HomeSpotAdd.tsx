@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Dimensions, View } from 'react-native';
 import { Button, FloatingPlusButton, Font } from 'design-system';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import useTripPlansQuery from '@/apis/queries/tripPlan/useTripPlansQuery';
 import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
 import EmptyPlan from '@/components/tripPlan/EmptyPlan';
 import TripPlanCard, { CARD_GAP } from '@/components/tripPlan/TripPlanCard';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import { StackRouteProps } from '@/types/navigation';
+import { StackNavigation, StackRouteProps } from '@/types/navigation';
+import useSelectedSpotAddMutation from '@/apis/mutations/useSelectedSpotAddMutation';
 
 const { height } = Dimensions.get('window');
 
@@ -17,6 +18,15 @@ export default withSuspense(function HomeSpotAdd() {
   const { data } = useTripPlansQuery();
   const [tripId, setTripId] = useState<number>();
   const isEmpty = data.length === 0;
+  const { mutateAsync } = useSelectedSpotAddMutation();
+  const navigation = useNavigation<StackNavigation<'Home/AddSpot'>>();
+
+  const add = () => {
+    if (!tripId) return;
+
+    mutateAsync({ planId: tripId, spotList: route.params.spots });
+    navigation.goBack();
+  };
 
   return (
     <>
@@ -58,13 +68,17 @@ export default withSuspense(function HomeSpotAdd() {
         </View>
       </BackGroundGradient>
       <View className="absolute bottom-4 w-full px-4">
-        <Button disabled={!tripId}>
+        <Button disabled={!tripId} onPress={add}>
           <Font type="title1" color="white">
             이 여행에 담기
           </Font>
         </Button>
       </View>
-      <FloatingPlusButton bottom={16} right={16} onPress={() => {}} />
+      <FloatingPlusButton
+        bottom={16}
+        right={16}
+        onPress={() => navigation.navigate('TripPlanner/Post')}
+      />
     </>
   );
 });
