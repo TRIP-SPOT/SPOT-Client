@@ -56,7 +56,7 @@ export default withSuspense(function Search() {
       <Header />
       <View className="items-center">
         <Font.Bold type="mainTitle" color="white">
-          {title}
+          {data[carouselIndex].workName}
         </Font.Bold>
       </View>
       <View className="mt-4 justify-center items-center">
