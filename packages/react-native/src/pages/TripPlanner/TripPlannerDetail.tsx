@@ -44,12 +44,16 @@ export default withSuspense(function TripPlannerDetail() {
           </Font.Bold>
           <Spacing height={10} />
           <TouchableOpacity
+            className="rounded-md overflow-hidden"
             onPress={() =>
               navigation.navigate('TripPlanner/EditPlan', { tripId })
             }
           >
-            {/* eslint-disable-next-line global-require */}
-            <Image source={require('../../assets/plan.png')} />
+            <Image
+              // eslint-disable-next-line global-require
+              source={require('../../assets/plan.png')}
+              style={{ width: 'auto', height: undefined, aspectRatio: 5 / 2 }}
+            />
           </TouchableOpacity>
           <Spacing height={10} />
           <View>
