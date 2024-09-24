@@ -42,13 +42,14 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
+        {/* FIXME: 추후 주석 제거
         <View>
           <CardSlider
             title="이 여행지는 어때요?"
             data={homeSpots}
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
-        </View>
+        </View> */}
       </View>
     </BackGroundGradient>
   );
