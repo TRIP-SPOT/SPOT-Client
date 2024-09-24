@@ -14749,6 +14749,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-mail@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "react-native-mail@npm:6.1.1"
+  checksum: 6d00aa02b5eb0d4826fb3bf0f6ca42969395fa1feb8c59631d3fbb2b0c3200a02b860745ce863ca9da4eb141026c824499b4eda4b7b48460a97ba5b72bc4cdb3
+  languageName: node
+  linkType: hard
+
 "react-native-pager-view@npm:^6.3.3":
   version: 6.3.3
   resolution: "react-native-pager-view@npm:6.3.3"
@@ -14984,6 +14991,7 @@ __metadata:
     react-native-gesture-handler: ^2.17.1
     react-native-image-picker: ^7.1.2
     react-native-linear-gradient: ^2.8.3
+    react-native-mail: ^6.1.1
     react-native-pager-view: ^6.3.3
     react-native-permissions: ^4.1.5
     react-native-reanimated: ^3.14.0
