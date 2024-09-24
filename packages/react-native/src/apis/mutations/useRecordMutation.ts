@@ -91,7 +91,7 @@ export default function useRecordMutation({
       customForm.append('deleteImages', requestParams.deleteImages);
 
       requestParams.addImages?.forEach((image) => {
-        customForm.appendImage('addImage', image);
+        customForm.appendImage('addImages', image);
       });
 
       await authAxios.patch(
