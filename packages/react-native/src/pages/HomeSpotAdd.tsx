@@ -22,9 +22,9 @@ export default withSuspense(function HomeSpotAdd() {
   const navigation = useNavigation<StackNavigation<'Home/AddSpot'>>();
 
   const add = () => {
-    if (tripId) {
-      mutateAsync({ planId: tripId, spotList: route.params.spots });
-    }
+    if (!tripId) return;
+
+    mutateAsync({ planId: tripId, spotList: route.params.spots });
     navigation.goBack();
   };
 
