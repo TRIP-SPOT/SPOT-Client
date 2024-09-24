@@ -85,14 +85,10 @@ export default function useRecordMutation({
   const { mutateAsync: patchMutate, isPending: isPatchPending } = useMutation({
     mutationFn: async (requestParams: PatchRecordRequest) => {
       const customForm = new CustomForm();
-      customForm.append(
-        'recordUpdate',
-        JSON.stringify({
-          title: requestParams.record.name,
-          description: requestParams.record.description,
-          deleteImages: requestParams.deleteImages,
-        }),
-      );
+
+      customForm.append('title', requestParams.record.name);
+      customForm.append('description', requestParams.record.description);
+      customForm.append('deleteImages', requestParams.deleteImages);
 
       requestParams.addImages?.forEach((image) => {
         customForm.appendImage('addImage', image);
