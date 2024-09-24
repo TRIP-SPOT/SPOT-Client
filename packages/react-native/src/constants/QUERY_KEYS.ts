@@ -12,6 +12,7 @@ const QUERY_KEYS = {
   TRIP_PLAN_DETAIL: 'tripPlanDetail',
   EDIT_PLAN: 'editPlan',
   SPOT_DETAIL: 'spotDetail',
+  SEARCH: 'search',
 };
 
 export default QUERY_KEYS;
