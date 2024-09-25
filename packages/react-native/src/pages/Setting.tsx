@@ -1,10 +1,30 @@
+import { useEffect, useState } from 'react';
 import { Font } from 'design-system';
 import { TouchableOpacity, View } from 'react-native';
+import Mailer from 'react-native-mail';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
+import { Agree } from './TOS';
+import TOSBottomSheet from '@/components/toc/TOSBottomSheet';
+import EMAIL_CONTENTS from '@/constants/EMAIL_CONTENTS';
 
-// FIXME: 실제 네비게이션 연결
 export default function Setting() {
+  const [TOSType, setTOSType] = useState<keyof Agree>();
+  const [mailType, setMailType] = useState<keyof typeof EMAIL_CONTENTS>();
+
+  useEffect(() => {
+    if (!mailType) return;
+
+    Mailer.mail(
+      {
+        subject: EMAIL_CONTENTS[mailType].title,
+        recipients: ['alicee0047@gmail.com'],
+        body: EMAIL_CONTENTS[mailType].body,
+      },
+      () => {},
+    );
+  }, [mailType]);
+
   return (
     <BackGroundGradient>
       <Header title="설정" />
@@ -29,17 +49,26 @@ export default function Setting() {
               gap: 4,
             }}
           >
-            <TouchableOpacity className="py-2">
+            <View className="py-2 flex-row justify-between items-center">
               <Font type="body2" color="white">
                 앱 버전 정보
               </Font>
-            </TouchableOpacity>
-            <TouchableOpacity className="py-2">
+              <Font type="body2" color="white">
+                1.0.0
+              </Font>
+            </View>
+            <TouchableOpacity
+              className="py-2"
+              onPress={() => setTOSType('TOS')}
+            >
               <Font type="body2" color="white">
                 서비스 이용약관
               </Font>
             </TouchableOpacity>
-            <TouchableOpacity className="py-2">
+            <TouchableOpacity
+              className="py-2"
+              onPress={() => setTOSType('privacyCollection')}
+            >
               <Font type="body2" color="white">
                 개인정보 취급 방침
               </Font>
@@ -66,17 +95,23 @@ export default function Setting() {
               gap: 4,
             }}
           >
-            <TouchableOpacity className="py-2">
+            {/* <TouchableOpacity className="py-2">
               <Font type="body2" color="white">
                 공지사항
               </Font>
-            </TouchableOpacity>
-            <TouchableOpacity className="py-2">
+            </TouchableOpacity> */}
+            <TouchableOpacity
+              className="py-2"
+              onPress={() => setMailType('NORMAL')}
+            >
               <Font type="body2" color="white">
                 문의하기
               </Font>
             </TouchableOpacity>
-            <TouchableOpacity className="py-2">
+            <TouchableOpacity
+              className="py-2"
+              onPress={() => setMailType('BUG')}
+            >
               <Font type="body2" color="white">
                 신고하기
               </Font>
@@ -89,6 +124,10 @@ export default function Setting() {
           </View>
         </View>
       </View>
+      <TOSBottomSheet
+        selectedAgree={TOSType}
+        handleClose={() => setTOSType(undefined)}
+      />
     </BackGroundGradient>
   );
 }

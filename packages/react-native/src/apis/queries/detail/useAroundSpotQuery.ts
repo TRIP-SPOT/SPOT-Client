@@ -12,7 +12,7 @@ interface UseAroundSpotQueryParams {
 interface AroundSpotResponse {
   attraction: SpotResponse[];
   restaurant: SpotResponse[];
-  accomodation: SpotResponse[];
+  accommodation: SpotResponse[];
 }
 
 export default function useAroundSpotQuery({

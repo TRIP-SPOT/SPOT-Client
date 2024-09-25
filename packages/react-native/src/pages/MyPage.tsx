@@ -52,9 +52,9 @@ export default withSuspense(function MyPage({ navigation }: MyPageProps) {
         >
           <CogWheelIcon />
         </TouchableOpacity>
-        <View className="flex-1">
+        {/* <View className="flex-1">
           <MyPageTabNavigator />
-        </View>
+        </View> */}
       </View>
     </BackGroundGradient>
   );
