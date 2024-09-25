@@ -43,7 +43,7 @@ export default function TripPlanCard({
         <View className="flex-1 bg-black/20">
           {isSelectionMode ? (
             <View className="p-3">
-              <CheckBox selected={isSelect} />
+              <CheckBox selected={isSelect} onPress={onCardClick} />
             </View>
           ) : (
             <View className="flex-row justify-end">
