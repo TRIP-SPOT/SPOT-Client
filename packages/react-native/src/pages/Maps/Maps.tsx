@@ -1,5 +1,12 @@
 import { useRef, useState } from 'react';
-import { Dimensions, View, TouchableOpacity, Alert } from 'react-native';
+import {
+  Dimensions,
+  View,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+  Image as RNImage,
+} from 'react-native';
 import { Font } from 'design-system';
 import { geoPath, geoMercator } from 'd3-geo';
 import { Svg, G, Path, Image, Defs, Pattern } from 'react-native-svg';
@@ -13,7 +20,9 @@ import Header from '@/components/common/Header';
 import MapSaveButtonIcon from '@/assets/MapSaveButtonIcon';
 import MapDownloadIcon from '@/assets/MapDownloadIcon';
 import useRecordRepresentativeMutation from '@/apis/mutations/useRecordRepresentativeMutation';
-import useRecordRepresentativeQuery from '@/apis/queries/records/useRecordRepresentativeQuery';
+import useRecordRepresentativeQuery, {
+  RegionRepresentImage,
+} from '@/apis/queries/records/useRecordRepresentativeQuery';
 import useToggle from '@/hooks/useToggle';
 import BottomSheet from '@/components/common/BottomSheet';
 import MutationLoadingModal from '@/components/common/MutationLoadingModal';
@@ -93,6 +102,20 @@ export default withSuspense(function Maps({ navigation }: MapsMainProps) {
 
   return (
     <View className="flex-1 bg-[#D2F3F8] relative">
+      <View className="hidden">
+        {regionImage &&
+          Object.values(regionImage).map(
+            (value, index) =>
+              value && (
+                <RNImage
+                  key={value + index}
+                  source={{ uri: value }}
+                  width={100}
+                  height={100}
+                />
+              ),
+          )}
+      </View>
       <MutationLoadingModal isSubmiting={isSettingImagePending} />
       <Header type="logo" />
       <View className="bg-[#D2F3F8]" ref={ref}>
