@@ -39,6 +39,7 @@ export type StackParamList = {
   'MyPage/Profile': undefined;
   'MyPage/EditProfile': { nickname: string };
   'MyPage/EditProfileWithNickname': { nickname: string };
+  'MyPage/Detail': { contentId: number; id: number; workId: number };
 
   'Home/Main': undefined;
   'Home/Search': { title: string };
