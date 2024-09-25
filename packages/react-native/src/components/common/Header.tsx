@@ -11,6 +11,8 @@ interface HeaderProps {
   RightActionButton?: ReactElement;
   onBack?: () => void;
   type?: 'logo' | 'default';
+  TitleComponent?: ReactElement;
+  hideLeft?: boolean;
 }
 
 export default function Header({
@@ -18,8 +20,21 @@ export default function Header({
   RightActionButton,
   onBack,
   type = 'default',
+  TitleComponent,
+  hideLeft,
 }: HeaderProps) {
   const navigation = useNavigation();
+
+  const getHeight = () => {
+    if (type === 'logo') {
+      return 80;
+    }
+    if (TitleComponent) {
+      return 100;
+    }
+
+    return undefined;
+  };
 
   const Right = useMemo(
     () => <View className="px-4">{RightActionButton}</View>,
@@ -52,11 +67,11 @@ export default function Header({
       ...HEADER_STYLE,
       headerShown: true,
       headerRight: () => Right,
-      headerLeft: () => Left,
-      title,
+      headerLeft: hideLeft ? null : () => Left,
       headerStyle: {
-        height: type === 'logo' ? 80 : undefined,
+        height: getHeight(),
       },
+      title: TitleComponent || title,
     });
   }, [title, RightActionButton, onBack]);
 

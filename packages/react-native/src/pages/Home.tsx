@@ -9,6 +9,7 @@ import CardSlider from '@/components/common/CardSlider';
 import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
 import useHomeSpotQuery from '@/apis/queries/useHomeSpotQuery';
+import SPOTLogo from '@/assets/SPOTLogo';
 
 interface HomeScreenProps {
   navigation: StackNavigation<'Home/Main'>;
@@ -20,8 +21,15 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
 
   return (
     <BackGroundGradient>
-      <Header type="logo" />
-      <View className="flex flex-col gap-10 p-4">
+      <Header
+        hideLeft
+        TitleComponent={
+          <View className="justify-center items-center">
+            <SPOTLogo height={45} width={110} />
+          </View>
+        }
+      />
+      <View className="flex flex-col gap-10 px-4">
         <View>
           <Font type="title1" color="white">
             안녕하세요, {profile?.nickname}님{'\n'}오늘은 어디로 가 볼까요?
