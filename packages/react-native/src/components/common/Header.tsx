@@ -54,6 +54,9 @@ export default function Header({
       headerRight: () => Right,
       headerLeft: () => Left,
       title,
+      headerStyle: {
+        height: type === 'logo' ? 80 : undefined,
+      },
     });
   }, [title, RightActionButton, onBack]);
 
