@@ -70,7 +70,6 @@ export default withSuspense(function TripPlannerDetail() {
                 />
               )}
             />
-            {data.restaurant.length === 0 && <Spacing height={160} />}
             <Spacing height={10} />
             <CardSlider
               gap={8}
@@ -85,7 +84,6 @@ export default withSuspense(function TripPlannerDetail() {
                 />
               )}
             />
-            {data.attraction.length === 0 && <Spacing height={160} />}
             <Spacing height={10} />
             <CardSlider
               gap={8}
@@ -100,7 +98,6 @@ export default withSuspense(function TripPlannerDetail() {
                 />
               )}
             />
-            {data.accommodation.length === 0 && <Spacing height={160} />}
             <Spacing height={10} />
           </View>
         </ScrollView>
