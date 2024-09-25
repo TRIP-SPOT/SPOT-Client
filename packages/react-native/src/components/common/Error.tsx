@@ -1,8 +1,12 @@
-import { Font } from 'design-system';
 import { SafeAreaView, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Font } from 'design-system';
 import LinearGradient from 'react-native-linear-gradient';
+import { StackNavigation } from '@/types/navigation';
 
 export default function Error() {
+  const navigation = useNavigation<StackNavigation<'Home/Main'>>();
+
   return (
     <LinearGradient
       colors={['#FF1919', '#000000']}
@@ -22,7 +26,15 @@ export default function Error() {
               <Font.Bold type="body2" color="white">
                 오류가 발생했습니다!
               </Font.Bold>
-              <TouchableOpacity className="bg-Button-red rounded-xl px-4 py-2 mt-4">
+              <TouchableOpacity
+                className="bg-Button-red rounded-xl px-4 py-2 mt-4"
+                onPress={() =>
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Splash' }],
+                  })
+                }
+              >
                 <Font type="body2" color="white">
                   새로고침
                 </Font>
