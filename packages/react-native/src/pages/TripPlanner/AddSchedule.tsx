@@ -42,7 +42,10 @@ export default function AddSchedule() {
               style={{ gap: 15 }}
               onPress={() => setAddTYpe('new')}
             >
-              <CheckBox selected={addType === 'new'} />
+              <CheckBox
+                selected={addType === 'new'}
+                onPress={() => setAddTYpe('new')}
+              />
               <Font.Bold type="title1" color="white">
                 새 장소 추가하기
               </Font.Bold>
@@ -75,7 +78,10 @@ export default function AddSchedule() {
               style={{ gap: 15 }}
               onPress={() => setAddTYpe('prev')}
             >
-              <CheckBox selected={addType === 'prev'} />
+              <CheckBox
+                selected={addType === 'prev'}
+                onPress={() => setAddTYpe('prev')}
+              />
               <Font.Bold type="title1" color="white">
                 담은 SPOT!에서 선택하기
               </Font.Bold>
@@ -109,6 +115,13 @@ export default function AddSchedule() {
                           selectedSpot?.type === 'mySpot' &&
                           selectedSpot.id === mySpot.contentId
                         }
+                        onPress={() => {
+                          setSelectedSpot({
+                            type: 'mySpot',
+                            id: mySpot.contentId,
+                          });
+                          setLocationName(mySpot.title);
+                        }}
                       />
                       <Font type="title1" color="white">
                         {mySpot.title}

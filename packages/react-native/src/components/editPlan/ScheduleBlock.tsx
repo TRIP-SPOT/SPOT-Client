@@ -27,7 +27,7 @@ export default function ScheduleBlock({
       ) : (
         <View className="rounded-sm w-6 h-6 items-center justify-center bg-[#4c4c4c] mr-4">
           <Font.Bold type="body2" color="white">
-            {order}
+            {order + 1}
           </Font.Bold>
         </View>
       )}
