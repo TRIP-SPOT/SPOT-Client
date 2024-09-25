@@ -15,7 +15,7 @@ export interface QuizzesResponse {
   spotName: string;
   region: Region;
   city: City;
-  image: string;
+  imageUrl: string;
 }
 
 interface UseQuizzesQueryParams {

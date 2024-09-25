@@ -1,5 +1,6 @@
 import { View, FlatList, ListRenderItem } from 'react-native';
 import { Color, Font } from 'design-system';
+import jugeokJosa from '@/utils/jugeokJosa';
 
 interface CardSliderProps<T> {
   title: string;
@@ -33,14 +34,22 @@ export default function CardSlider<T>({
           {title}
         </Font.Bold>
       </View>
-      <FlatList
-        data={data}
-        keyExtractor={(_, index) => index.toString()}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={() => CardSeperation({ gap })}
-        renderItem={renderItem}
-      />
+      {data?.length === 0 ? (
+        <View className="justify-center items-center min-h-[80px]">
+          <Font color={titleColor || 'white'} type="body2">
+            조회된 {jugeokJosa(title)} 없어요.
+          </Font>
+        </View>
+      ) : (
+        <FlatList
+          data={data}
+          keyExtractor={(_, index) => index.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          ItemSeparatorComponent={() => CardSeperation({ gap })}
+          renderItem={renderItem}
+        />
+      )}
     </View>
   );
 }

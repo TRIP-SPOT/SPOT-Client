@@ -15,7 +15,6 @@ export const QUIZ_CARD_SIZE = (fullWidth * 80) / 100;
 
 export default function QuizCard({ quizData }: QuizCardProps) {
   const navigate = useNavigation<StackNavigation<'Gamification/Main'>>();
-
   const handleClickQuizStart = () => {
     navigate.navigate('Gamification/Quiz', {
       quizId: quizData.quizId,
@@ -32,7 +31,7 @@ export default function QuizCard({ quizData }: QuizCardProps) {
     >
       <Image
         source={{
-          uri: quizData.image,
+          uri: quizData.imageUrl,
         }}
         style={{
           width: QUIZ_CARD_SIZE,
