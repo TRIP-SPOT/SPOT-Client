@@ -1,5 +1,6 @@
-import { Dimensions, FlatList } from 'react-native';
+import { Dimensions, FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Font } from 'design-system';
 import MySpotBlock from '@/components/mypage/MySpotBlock';
 import withSuspense from '@/components/HOC/withSuspense';
 import useMySpotsQuery from '@/apis/queries/mypage/useMySpotsQuery';
@@ -14,6 +15,16 @@ export default withSuspense(function MySpot() {
   const numColumns = 2;
   const paddingHorizontal = 8;
   const gap = 16;
+
+  if (mySpots.length === 0) {
+    return (
+      <View className="bg-black flex-1 p-4 justify-center items-center">
+        <Font type="body2" color="white">
+          좋아요한 SPOT이 없어요
+        </Font>
+      </View>
+    );
+  }
 
   return (
     <FlatList
