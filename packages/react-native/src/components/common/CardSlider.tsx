@@ -35,8 +35,8 @@ export default function CardSlider<T>({
         </Font.Bold>
       </View>
       {data?.length === 0 ? (
-        <View className="justify-center items-center">
-          <Font color="white" type="body2">
+        <View className="justify-center items-center min-h-[80px]">
+          <Font color={titleColor || 'white'} type="body2">
             조회된 {jugeokJosa(title)} 없어요.
           </Font>
         </View>
