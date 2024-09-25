@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">SPOTClient</string>
+    <string name="app_name">SPOT!</string>
     <string name="kakao_app_key">@string/KAKAO_APP_KEY</string>
 </resources>
