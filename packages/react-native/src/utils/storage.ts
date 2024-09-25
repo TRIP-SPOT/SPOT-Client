@@ -21,7 +21,12 @@ const saveData = async ({ key, value }: SaveDataParams) => {
   await AsyncStorage.setItem(key, stringifiedObject);
 };
 
+const deleteData = async <K extends keyof StorageData>(key: K) => {
+  AsyncStorage.setItem(key, '');
+};
+
 export const AppStorage = {
   getData,
   saveData,
+  deleteData,
 };
