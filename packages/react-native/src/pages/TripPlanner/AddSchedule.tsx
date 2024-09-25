@@ -11,7 +11,7 @@ import useTripPlanMySpotQuery from '@/apis/queries/tripPlan/useTripPlanMySpotQue
 
 export default function AddSchedule() {
   const route = useRoute<StackRouteProps<'TripPlanner/AddSchedule'>>();
-  const { tripId } = route.params;
+  const { tripId, day } = route.params;
   const { data: spotList } = useTripPlanMySpotQuery({ id: tripId });
   const [addType, setAddTYpe] = useState<'new' | 'prev'>();
   const [locationName, setLocationName] = useState('');
@@ -26,6 +26,7 @@ export default function AddSchedule() {
     if (!locationName || !locationMemo) return;
 
     mutate({
+      day,
       name: locationName,
       description: locationMemo,
     });

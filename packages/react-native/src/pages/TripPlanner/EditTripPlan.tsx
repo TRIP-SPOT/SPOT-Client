@@ -108,7 +108,7 @@ const EditTripPlan = withSuspense(() => {
             </View>
             <ScrollView className="h-full mt-6">
               {data.locations
-                .filter((location) => location.day === selectedDate + 1)
+                .filter((location) => location.day === selectedDate)
                 .sort((a, b) => a.seq - b.seq)
                 .map((info) => (
                   <>
@@ -130,7 +130,10 @@ const EditTripPlan = withSuspense(() => {
         {!editMode && (
           <FloatingPlusButton
             onPress={() =>
-              navigation.navigate('TripPlanner/AddSchedule', { tripId })
+              navigation.navigate('TripPlanner/AddSchedule', {
+                tripId,
+                day: selectedDate,
+              })
             }
             bottom={14}
             right={12}
