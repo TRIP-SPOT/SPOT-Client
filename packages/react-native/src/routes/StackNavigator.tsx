@@ -1,17 +1,15 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { ErrorBoundary } from 'react-error-boundary';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
-import { useNavigation } from '@react-navigation/native';
 import Login from '@pages/Login/Login';
 import TabScreens from '@pages/TabScreens';
 import CameraPage from '@/pages/CameraPage';
 import SignupStackNavigator from './SignupStackNavigator';
-import { StackNavigation, StackParamList } from '@/types/navigation';
+import { StackParamList } from '@/types/navigation';
 import SettingStackNavigator from './SettingStackNavigator';
 import Landing from '@/pages/Landing';
 import Splash from '@/pages/Splash';
 import TOS from '@/pages/TOS';
-import Error from '@/components/common/Error';
+import withSpotErrorBoundary from '@/components/HOC/withSpotErrorBoundary';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -21,28 +19,37 @@ const Stack = createStackNavigator<StackParamList>();
  * 해당 StackNavigator 컴포넌트를 이곳에 추가합니다.
  */
 export default function StackNavigator() {
-  const navigation = useNavigation<StackNavigation<'Home/Main'>>();
   return (
     <QueryErrorResetBoundary>
-      <ErrorBoundary
-        fallback={<Error />}
-        onReset={() => navigation.navigate('Splash')}
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
       >
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Splash" component={Splash} />
-          <Stack.Screen name="TOS" component={TOS} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={SignupStackNavigator} />
-          <Stack.Screen name="Main" component={TabScreens} />
-          <Stack.Screen name="Camera" component={CameraPage} />
-          <Stack.Screen name="Setting/Main" component={SettingStackNavigator} />
-          <Stack.Screen name="Landing" component={Landing} />
-        </Stack.Navigator>
-      </ErrorBoundary>
+        <Stack.Screen name="Splash" component={withSpotErrorBoundary(Splash)} />
+        <Stack.Screen name="TOS" component={withSpotErrorBoundary(TOS)} />
+        <Stack.Screen name="Login" component={withSpotErrorBoundary(Login)} />
+        <Stack.Screen
+          name="Signup"
+          component={withSpotErrorBoundary(SignupStackNavigator)}
+        />
+        <Stack.Screen
+          name="Main"
+          component={withSpotErrorBoundary(TabScreens)}
+        />
+        <Stack.Screen
+          name="Camera"
+          component={withSpotErrorBoundary(CameraPage)}
+        />
+        <Stack.Screen
+          name="Setting/Main"
+          component={withSpotErrorBoundary(SettingStackNavigator)}
+        />
+        <Stack.Screen
+          name="Landing"
+          component={withSpotErrorBoundary(Landing)}
+        />
+      </Stack.Navigator>
     </QueryErrorResetBoundary>
   );
 }
