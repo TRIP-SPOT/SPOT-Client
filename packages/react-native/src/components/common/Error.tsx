@@ -24,7 +24,10 @@ export default function Error() {
           <View className="flex-1" style={{}}>
             <View className="flex-1 justify-center items-center">
               <Font.Bold type="body2" color="white">
-                오류가 발생했습니다!
+                오류가 발생했어요.
+              </Font.Bold>
+              <Font.Bold type="body2" color="white">
+                잠시 뒤에 시도해볼까요?
               </Font.Bold>
               <TouchableOpacity
                 className="bg-Button-red rounded-xl px-4 py-2 mt-4"
