@@ -14,14 +14,20 @@ export default function Splash() {
   useEffect(() => {
     AppStorage.getData('token').then((res) => {
       if (!res) {
-        return navigation.navigate('Landing');
+        return navigation.reset({
+          index: 0,
+          routes: [{ name: 'Landing' }],
+        });
       }
       const { access, refresh } = res;
       setAccess(access);
       setRefresh(refresh);
-      return navigation.navigate('Main');
+      return navigation.reset({
+        index: 0,
+        routes: [{ name: 'Main' }],
+      });
     });
-  });
+  }, []);
 
   return (
     <BackGroundGradient withoutScroll>
