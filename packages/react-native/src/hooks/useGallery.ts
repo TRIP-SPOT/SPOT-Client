@@ -130,14 +130,17 @@ export default function useGallery() {
   const getCropPhoto = async () => {
     const hasPermission = await hasGalleryPermission('read');
     if (!hasPermission) return Promise.reject();
-
-    const result = await ImageCropPicker.openPicker({
-      width: 300,
-      height: 300,
-      cropping: true,
-      mediaType: 'photo',
-    });
-    return result;
+    try {
+      const result = await ImageCropPicker.openPicker({
+        width: 300,
+        height: 300,
+        cropping: true,
+        mediaType: 'photo',
+      });
+      return result;
+    } catch (err) {
+      return null;
+    }
   };
 
   return { savePhoto, getPhoto, getCropPhoto };

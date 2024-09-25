@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Asset } from 'react-native-image-picker';
+import { Image } from 'react-native-image-crop-picker';
 import { REGION_MAPPER } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 import { AppStorage } from '@/utils/storage';
@@ -10,7 +10,7 @@ import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface MutationRequestParams {
   region: KoreaLocationName;
-  image: Asset;
+  image: Image;
 }
 
 export default function useRecordRepresentativeMutation() {

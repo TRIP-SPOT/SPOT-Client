@@ -59,7 +59,7 @@ const REGION_PATTERN_SIZE: Record<
 
 export default withSuspense(function Maps({ navigation }: MapsMainProps) {
   const [region, setRegion] = useState<KoreaLocationName>();
-  const { getPhoto, savePhoto } = useGallery();
+  const { savePhoto, getCropPhoto } = useGallery();
   const [isButtonClicked, setButtonClicked] = useState(false);
   const [showBottomSheet, toggleBottomSheet] = useToggle();
   const ref = useRef<View>(null);
@@ -77,7 +77,7 @@ export default withSuspense(function Maps({ navigation }: MapsMainProps) {
 
   const handleAddRegionImage = async (regionName: KoreaLocationName) => {
     toggleBottomSheet();
-    const photo = await getPhoto({ fullObject: true });
+    const photo = await getCropPhoto();
 
     if (!photo) {
       Alert.alert('이미지가 선택되지 않았습니다!');
