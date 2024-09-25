@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Dimensions, View } from 'react-native';
-import { Button, FloatingPlusButton, Font } from 'design-system';
+import { Button, Font } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import useTripPlansQuery from '@/apis/queries/tripPlan/useTripPlansQuery';
 import Header from '@/components/common/Header';
@@ -74,11 +74,6 @@ export default withSuspense(function HomeSpotAdd() {
           </Font>
         </Button>
       </View>
-      <FloatingPlusButton
-        bottom={16}
-        right={16}
-        onPress={() => navigation.navigate('TripPlanner/Post')}
-      />
     </>
   );
 });
