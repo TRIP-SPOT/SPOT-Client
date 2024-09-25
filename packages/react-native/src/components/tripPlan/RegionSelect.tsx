@@ -35,6 +35,9 @@ export default function RegionSelect() {
         selectedTextStyle={{
           color: 'white',
         }}
+        itemTextStyle={{
+          color: 'black',
+        }}
         data={Object.entries(REGION_MAPPER).map(([label, value]) => ({
           label: label as KoreaLocationName,
           value,
