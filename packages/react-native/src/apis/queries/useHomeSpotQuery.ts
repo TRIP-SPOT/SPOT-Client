@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { ServerResponse } from '@/types/response';
 import useAuthAxios from '../useAuthAxios';
 import { SpotCardData } from '@/types/spot';
@@ -14,7 +14,7 @@ export default function useHomeSpotQuery() {
     return result.data.result;
   };
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QUERY_KEYS.HOME],
     queryFn: getHomeSpot,
   });

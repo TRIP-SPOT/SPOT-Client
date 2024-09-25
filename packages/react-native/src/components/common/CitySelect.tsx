@@ -45,6 +45,9 @@ export default function CitySelect({
         selectedTextStyle={{
           color: 'white',
         }}
+        itemTextStyle={{
+          color: 'black',
+        }}
         data={Object.entries(cities).map(([label, value]) => ({
           label,
           value,
