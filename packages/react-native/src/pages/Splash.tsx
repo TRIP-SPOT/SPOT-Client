@@ -21,7 +21,7 @@ export default function Splash() {
       setRefresh(refresh);
       return navigation.navigate('Main');
     });
-  }, []);
+  });
 
   return (
     <BackGroundGradient withoutScroll>

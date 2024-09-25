@@ -54,7 +54,7 @@ export default function useGeolocation() {
       return null;
     }
 
-    const result = new Promise<GeolocationResponse>((resolve) => {
+    const result = await new Promise<GeolocationResponse>((resolve) => {
       Geolocation.getCurrentPosition((pos) => resolve(pos));
     });
     return result;
