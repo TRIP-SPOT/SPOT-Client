@@ -4,6 +4,7 @@ import useAuthAxios from '../useAuthAxios';
 import { StackNavigation } from '@/types/navigation';
 
 interface AddScheduleProps {
+  day: number;
   name: string;
   description: string;
 }
@@ -14,9 +15,10 @@ export default function useAddSchedule(id: number) {
   const navigation =
     useNavigation<StackNavigation<'TripPlanner/AddSchedule'>>();
 
-  const addSchedule = async ({ name, description }: AddScheduleProps) => {
+  const addSchedule = async ({ day, name, description }: AddScheduleProps) => {
     const response = await authAxios.post('/api/schedule/location', {
       scheduleId: id,
+      day,
       name,
       description,
     });

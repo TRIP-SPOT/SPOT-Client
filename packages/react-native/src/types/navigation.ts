@@ -33,6 +33,7 @@ export type StackParamList = {
   };
   'TripPlanner/AddSchedule': {
     tripId: number;
+    day: number;
   };
 
   'MyPage/Profile': undefined;
