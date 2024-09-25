@@ -20,9 +20,7 @@ import Header from '@/components/common/Header';
 import MapSaveButtonIcon from '@/assets/MapSaveButtonIcon';
 import MapDownloadIcon from '@/assets/MapDownloadIcon';
 import useRecordRepresentativeMutation from '@/apis/mutations/useRecordRepresentativeMutation';
-import useRecordRepresentativeQuery, {
-  RegionRepresentImage,
-} from '@/apis/queries/records/useRecordRepresentativeQuery';
+import useRecordRepresentativeQuery from '@/apis/queries/records/useRecordRepresentativeQuery';
 import useToggle from '@/hooks/useToggle';
 import BottomSheet from '@/components/common/BottomSheet';
 import MutationLoadingModal from '@/components/common/MutationLoadingModal';
@@ -38,23 +36,23 @@ const REGION_PATTERN_SIZE: Record<
   KoreaLocationName,
   { size: number; x: number; y: number }
 > = {
-  강원도: { size: 0.47, x: -20, y: 30 },
+  강원도: { size: 0.5, x: -60, y: 0 },
   경기도: { size: 0.4, x: -80, y: 60 },
-  경상남도: { size: 0.3, x: 80, y: 120 },
-  경상북도: { size: 0.4, x: 40, y: -140 },
+  경상남도: { size: 0.3, x: 80, y: 100 },
+  경상북도: { size: 0.45, x: 20, y: -180 },
   광주광역시: { size: 0.08, x: 4, y: 4 },
   대구광역시: { size: 0.2, x: -10, y: 8 },
   대전광역시: { size: 0.1, x: -6, y: -8 },
   부산광역시: { size: 0.15, x: -10, y: 60 },
-  서울특별시: { size: 0.1, x: 0, y: 20 },
+  서울특별시: { size: 0.15, x: -10, y: 30 },
   세종특별자치시: { size: 0.1, x: 15, y: 50 },
   울산광역시: { size: 0.2, x: -20, y: 40 },
   인천광역시: { size: 0.2, x: -20, y: -15 },
-  전라남도: { size: 0.35, x: -80, y: 20 },
-  전라북도: { size: 0.25, x: 0, y: 130 },
+  전라남도: { size: 0.35, x: -80, y: 85 },
+  전라북도: { size: 0.25, x: 0, y: 120 },
   제주특별자치도: { size: 0.3, x: 40, y: 80 },
-  충청남도: { size: 0.3, x: -50, y: -20 },
-  충청북도: { size: 0.27, x: -50, y: 0 },
+  충청남도: { size: 0.3, x: -50, y: -30 },
+  충청북도: { size: 0.4, x: -40, y: 160 },
 };
 
 export default withSuspense(function Maps({ navigation }: MapsMainProps) {
