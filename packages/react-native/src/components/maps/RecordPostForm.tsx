@@ -11,13 +11,21 @@ import useRecordFormState from '@/hooks/useRecordFormState';
 import useGallery from '@/hooks/useGallery';
 import useRecordMutation from '@/apis/mutations/useRecordMutation';
 import RecordFormDescription from './RecordFormDescription';
-import RecordFormImages from './RecordFormImages';
 import RecordFormCitySelect from './RecordFormCitySelect';
 import { REGION_MAPPER } from '@/constants/CITY';
+import ImageSelect from '../common/ImageSelect';
 
 export default function RecordPostForm() {
-  const { description, title, validate, resetImages, selectedCity, date } =
-    useRecordFormState();
+  const {
+    description,
+    title,
+    validate,
+    resetImages,
+    selectedCity,
+    date,
+    images,
+    removeImages,
+  } = useRecordFormState();
 
   const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
   const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
@@ -93,7 +101,16 @@ export default function RecordPostForm() {
         </View>
 
         <View>
-          <RecordFormImages handlePressAddPhoto={handlePressAddPhoto} />
+          <ImageSelect
+            image={images}
+            handlePressAddPhoto={handlePressAddPhoto}
+            onDelete={(image: string) => {
+              removeImages(image);
+              setImageAssets((prev) =>
+                prev?.filter((asset) => asset.uri !== image),
+              );
+            }}
+          />
         </View>
         <View>
           <RecordFormDescription />

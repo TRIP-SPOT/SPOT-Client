@@ -17,7 +17,7 @@ export default withSuspense(function ModifyLog() {
     <BackGroundGradient>
       <Header title="로그 수정" />
       <RecordFormProvider defaultProps={recordDetail}>
-        <RecordModifyForm />
+        <RecordModifyForm id={route.params.recordId} />
       </RecordFormProvider>
     </BackGroundGradient>
   );

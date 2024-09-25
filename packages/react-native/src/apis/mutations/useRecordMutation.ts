@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { Asset } from 'react-native-image-picker';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
-import { CitySelectValue } from '@/components/common/CitySelect';
 import useAuthAxios from '../useAuthAxios';
 import { KoreaLocationName } from '@/types/map';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
@@ -21,11 +20,15 @@ interface PostRecordRequest {
 }
 
 interface PatchRecordRequest {
-  name?: string;
-  description?: string;
-  region: Region;
-  city?: CitySelectValue;
-  image?: string[];
+  id: number;
+  record: {
+    name?: string;
+    description?: string;
+    region: Region;
+    city?: City;
+  };
+  addImages?: Asset[];
+  deleteImages?: string[];
 }
 
 interface DeleteRecordRequest {
@@ -81,7 +84,25 @@ export default function useRecordMutation({
 
   const { mutateAsync: patchMutate, isPending: isPatchPending } = useMutation({
     mutationFn: async (requestParams: PatchRecordRequest) => {
-      return requestParams;
+      const customForm = new CustomForm();
+
+      customForm.append('title', requestParams.record.name);
+      customForm.append('description', requestParams.record.description);
+      customForm.append('deleteImages', requestParams.deleteImages);
+
+      requestParams.addImages?.forEach((image) => {
+        customForm.appendImage('addImages', image);
+      });
+
+      await authAxios.patch(
+        `/api/record/${requestParams.id}`,
+        customForm.getForm(),
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
     },
     onSuccess: invalidateRecords,
   });
