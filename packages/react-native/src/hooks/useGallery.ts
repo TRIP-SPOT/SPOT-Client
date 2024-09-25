@@ -1,5 +1,6 @@
 import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import { Alert, Linking, Platform } from 'react-native';
+import ImageCropPicker from 'react-native-image-crop-picker';
 import { Asset, launchImageLibrary } from 'react-native-image-picker';
 import {
   check,
@@ -126,5 +127,18 @@ export default function useGallery() {
     return response.assets[0].uri as GetPhotoReturnType<T>;
   };
 
-  return { savePhoto, getPhoto };
+  const getCropPhoto = async () => {
+    const hasPermission = await hasGalleryPermission('read');
+    if (!hasPermission) return Promise.reject();
+
+    const result = await ImageCropPicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      mediaType: 'photo',
+    });
+    return result;
+  };
+
+  return { savePhoto, getPhoto, getCropPhoto };
 }
