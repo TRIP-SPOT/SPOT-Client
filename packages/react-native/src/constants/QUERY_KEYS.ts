@@ -13,6 +13,7 @@ const QUERY_KEYS = {
   EDIT_PLAN: 'editPlan',
   SPOT_DETAIL: 'spotDetail',
   SEARCH: 'search',
+  MY_SPOTS: 'mySpots',
 };
 
 export default QUERY_KEYS;
