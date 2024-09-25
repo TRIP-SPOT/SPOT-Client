@@ -4,12 +4,13 @@ import { TouchableOpacity, View } from 'react-native';
 import Mailer from 'react-native-mail';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
-import { Agree } from './TOS';
-import TOSBottomSheet from '@/components/toc/TOSBottomSheet';
+import TOSBottomSheet, {
+  TOSBottomSheetType,
+} from '@/components/toc/TOSBottomSheet';
 import EMAIL_CONTENTS from '@/constants/EMAIL_CONTENTS';
 
 export default function Setting() {
-  const [TOSType, setTOSType] = useState<keyof Agree>();
+  const [TOSType, setTOSType] = useState<TOSBottomSheetType>();
   const [mailType, setMailType] = useState<keyof typeof EMAIL_CONTENTS>();
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export default function Setting() {
             </TouchableOpacity>
             <TouchableOpacity
               className="py-2"
-              onPress={() => setTOSType('privacyCollection')}
+              onPress={() => setTOSType('privacyPolicy')}
             >
               <Font type="body2" color="white">
                 개인정보 취급 방침
