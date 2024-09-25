@@ -25,9 +25,10 @@ export default function EditProfile({ navigation }: EditProfileProps) {
   } = useProfileImageMutation();
 
   const [nickname, setNickname] = useState(route.params.nickname);
+  const isCorrect = nickname.length > 0 && nickname.length < 8;
 
   const handleChangeProfile = async () => {
-    if (nickname) {
+    if (isCorrect) {
       await patchMutate(nickname);
     }
     if (photoAsset?.uri) {
@@ -59,6 +60,7 @@ export default function EditProfile({ navigation }: EditProfileProps) {
                   placeholder="닉네임을 입력하세요."
                   value={nickname}
                   onChange={(newNickName) => setNickname(newNickName)}
+                  isCorrect={isCorrect}
                 />
               </View>
             </View>

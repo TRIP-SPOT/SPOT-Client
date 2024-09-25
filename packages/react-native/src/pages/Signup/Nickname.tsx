@@ -15,7 +15,7 @@ export default function NickName({ navigation }: NicknameProps) {
   const [nickname, setNickname] = useState('');
   const { postMutate, isPostLoading } = useNicknameMutation();
 
-  const isCorrect = nickname.length > 0 && nickname.length < 7;
+  const isCorrect = nickname.length > 0 && nickname.length < 8;
 
   const handleSubmit = async () => {
     if (isCorrect) {
