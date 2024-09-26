@@ -1,13 +1,14 @@
 {
   "name": "react-native",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "prettier --cache --write src & eslint --cache --cache-location ./.cache/.eslintcache src",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "codepush:android": "sh codePush.sh"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
