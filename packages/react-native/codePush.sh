@@ -14,7 +14,7 @@ appcenter codepush release \
 -a rlfehd2013/SPOT \
 -c ./CodePush \
 -d Production \
--t 1.0.0 \ 
+-t 1.0.0 \
 ``
 
 rm -rf CodePush
