@@ -24,7 +24,7 @@ export default withSuspense(function Quiz() {
 
   const handleCloseModal = () => {
     setModalContent(undefined);
-    if (modalContent?.isCorrect) {
+    if (modalContent?.correct) {
       navigate.navigate('Gamification/Main');
     }
   };
