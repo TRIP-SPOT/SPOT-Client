@@ -37,6 +37,9 @@ export default function useSpotLikeMutation({
     queryClient.invalidateQueries({
       queryKey: [QUERY_KEYS.DETAIL, contentId],
     });
+    queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.MY_SPOTS],
+    });
   };
 
   const { mutateAsync: like, isPending: isLikePending } = useMutation({

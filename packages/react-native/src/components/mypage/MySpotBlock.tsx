@@ -1,24 +1,19 @@
 import { Font } from 'design-system';
-import { Alert, ImageBackground, TouchableOpacity, View } from 'react-native';
-import DotMenuIcon from '@/assets/DotMenuIcon';
+import { ImageBackground, TouchableOpacity, View } from 'react-native';
 
 interface MySpotBlockProps {
-  id: number;
   title: string;
-  location: string;
+  location?: string;
   backgroundImage: string;
-  date: string;
   width: number;
   gap: number;
   handleClickBlock: () => void;
 }
 
 export default function MySpotBlock({
-  id,
   title,
   location,
   backgroundImage,
-  date,
   width,
   gap,
   handleClickBlock,
@@ -33,23 +28,14 @@ export default function MySpotBlock({
         className="flex-1 justify-end bg-black/40"
         onPress={handleClickBlock}
       >
-        <View className="p-2">
-          <Font.Bold type="title1" color="white">
+        <View className="p-2 bg-SPOT-black">
+          <Font.Bold type="body1" color="white">
             {title}
           </Font.Bold>
-          <Font type="body2" color="white" opacity={0.7}>
+          <Font type="body3" color="white" opacity={0.7}>
             {location}
           </Font>
-          <Font type="body2" color="white" opacity={0.7}>
-            {date}
-          </Font>
         </View>
-        <TouchableOpacity
-          className="absolute top-2 right-2"
-          onPress={() => Alert.alert('메뉴 클릭')}
-        >
-          <DotMenuIcon />
-        </TouchableOpacity>
       </TouchableOpacity>
     </ImageBackground>
   );
