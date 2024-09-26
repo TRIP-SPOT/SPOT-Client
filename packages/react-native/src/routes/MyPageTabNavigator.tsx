@@ -41,11 +41,6 @@ export default function MyPageTabNavigator() {
         component={MyBadge}
         options={{ tabBarLabel: 'Bagde Collection' }}
       />
-      {/* <Tab.Screen
-        name="myRoute"
-        component={MyRoute}
-        options={{ tabBarLabel: 'My Route' }}
-      /> */}
     </Tab.Navigator>
   );
 }

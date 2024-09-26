@@ -9,6 +9,7 @@ import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import useNicknameMutation from '@/apis/mutations/useNicknameMutation';
 import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 import useProfileImageMutation from '@/apis/mutations/useProfileImageMutation';
+import { AppStorage } from '@/utils/storage';
 
 interface EditProfileProps {
   navigation: StackNavigation<'MyPage/EditProfile'>;
@@ -76,9 +77,11 @@ export default function EditProfile({ navigation }: EditProfileProps) {
                   닉네임으로 프로필 사진 설정하기
                 </Font.Bold>
               </TouchableOpacity>
-              {/* FIXME: 로그아웃 기능 추가 */}
               <TouchableOpacity
-                onPress={() => Alert.alert('로그아웃')}
+                onPress={async () => {
+                  await AppStorage.deleteData('token');
+                  navigation.navigate('Login');
+                }}
                 className="opacity-50"
               >
                 <Font.Bold type="body3" color="white" underline>

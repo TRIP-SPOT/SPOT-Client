@@ -1,5 +1,12 @@
 import { useRef, useState } from 'react';
-import { Dimensions, View, TouchableOpacity, Alert } from 'react-native';
+import {
+  Dimensions,
+  View,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+  Image as RNImage,
+} from 'react-native';
 import { Font } from 'design-system';
 import { geoPath, geoMercator } from 'd3-geo';
 import { Svg, G, Path, Image, Defs, Pattern } from 'react-native-svg';
@@ -29,28 +36,28 @@ const REGION_PATTERN_SIZE: Record<
   KoreaLocationName,
   { size: number; x: number; y: number }
 > = {
-  강원도: { size: 0.47, x: -20, y: 30 },
+  강원도: { size: 0.5, x: -60, y: 0 },
   경기도: { size: 0.4, x: -80, y: 60 },
-  경상남도: { size: 0.3, x: 80, y: 120 },
-  경상북도: { size: 0.4, x: 40, y: -140 },
+  경상남도: { size: 0.3, x: 80, y: 100 },
+  경상북도: { size: 0.45, x: 20, y: -180 },
   광주광역시: { size: 0.08, x: 4, y: 4 },
   대구광역시: { size: 0.2, x: -10, y: 8 },
   대전광역시: { size: 0.1, x: -6, y: -8 },
   부산광역시: { size: 0.15, x: -10, y: 60 },
-  서울특별시: { size: 0.1, x: 0, y: 20 },
+  서울특별시: { size: 0.15, x: -10, y: 30 },
   세종특별자치시: { size: 0.1, x: 15, y: 50 },
   울산광역시: { size: 0.2, x: -20, y: 40 },
   인천광역시: { size: 0.2, x: -20, y: -15 },
-  전라남도: { size: 0.35, x: -80, y: 20 },
-  전라북도: { size: 0.25, x: 0, y: 130 },
+  전라남도: { size: 0.35, x: -80, y: 85 },
+  전라북도: { size: 0.25, x: 0, y: 120 },
   제주특별자치도: { size: 0.3, x: 40, y: 80 },
-  충청남도: { size: 0.3, x: -50, y: -20 },
-  충청북도: { size: 0.27, x: -50, y: 0 },
+  충청남도: { size: 0.3, x: -50, y: -30 },
+  충청북도: { size: 0.4, x: -40, y: 160 },
 };
 
 export default withSuspense(function Maps({ navigation }: MapsMainProps) {
   const [region, setRegion] = useState<KoreaLocationName>();
-  const { getPhoto, savePhoto } = useGallery();
+  const { savePhoto, getCropPhoto } = useGallery();
   const [isButtonClicked, setButtonClicked] = useState(false);
   const [showBottomSheet, toggleBottomSheet] = useToggle();
   const ref = useRef<View>(null);
@@ -68,7 +75,7 @@ export default withSuspense(function Maps({ navigation }: MapsMainProps) {
 
   const handleAddRegionImage = async (regionName: KoreaLocationName) => {
     toggleBottomSheet();
-    const photo = await getPhoto({ fullObject: true });
+    const photo = await getCropPhoto();
 
     if (!photo) {
       Alert.alert('이미지가 선택되지 않았습니다!');
@@ -93,6 +100,20 @@ export default withSuspense(function Maps({ navigation }: MapsMainProps) {
 
   return (
     <View className="flex-1 bg-[#D2F3F8] relative">
+      <View className="hidden">
+        {regionImage &&
+          Object.values(regionImage).map(
+            (value, index) =>
+              value && (
+                <RNImage
+                  key={value + index}
+                  source={{ uri: value }}
+                  width={100}
+                  height={100}
+                />
+              ),
+          )}
+      </View>
       <MutationLoadingModal isSubmiting={isSettingImagePending} />
       <Header type="logo" />
       <View className="bg-[#D2F3F8]" ref={ref}>
