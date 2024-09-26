@@ -1,5 +1,5 @@
 import { Dimensions, View } from 'react-native';
-import { BottomSheetView } from '@gorhom/bottom-sheet';
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Font } from 'design-system';
 import useSpotDetailQuery from '@/apis/queries/spot/useSpotDetailQuery';
 import DetailMap from '@/pages/Detail/DetailMap';
@@ -24,7 +24,7 @@ export default function SpotDetailBottomSheet({
       handleClose={onClose}
       isShow={Boolean(selectedDetailSpotId)}
     >
-      <BottomSheetView
+      <BottomSheetScrollView
         style={{
           flex: 1,
           padding: BOTTOM_SHEET_PADDING,
@@ -60,7 +60,7 @@ export default function SpotDetailBottomSheet({
             {data?.overview}
           </Font.Bold>
         </View>
-      </BottomSheetView>
+      </BottomSheetScrollView>
     </BottomSheet>
   );
 }
