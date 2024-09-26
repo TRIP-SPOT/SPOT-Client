@@ -1019,6 +1019,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-mail (6.1.1):
+    - React-Core
   - react-native-pager-view (6.3.3):
     - DoubleConversion
     - glog
@@ -1317,6 +1319,15 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNImageCropPicker (0.41.2):
+    - React-Core
+    - React-RCTImage
+    - RNImageCropPicker/QBImagePickerController (= 0.41.2)
+    - TOCropViewController (~> 2.7.4)
+  - RNImageCropPicker/QBImagePickerController (0.41.2):
+    - React-Core
+    - React-RCTImage
+    - TOCropViewController (~> 2.7.4)
   - RNPermissions (4.1.5):
     - React-Core
   - RNReanimated (3.14.0):
@@ -1362,9 +1373,34 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNSentry (5.33.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Sentry/HybridSDK (= 8.36.0)
+    - Yoga
   - RNSVG (15.4.0):
     - React-Core
+  - Sentry/HybridSDK (8.36.0)
   - SocketRocket (0.7.0)
+  - TOCropViewController (2.7.4)
   - VisionCamera (4.5.0):
     - VisionCamera/Core (= 4.5.0)
     - VisionCamera/React (= 4.5.0)
@@ -1412,6 +1448,7 @@ DEPENDENCIES:
   - react-native-date-picker (from `../../../node_modules/react-native-date-picker`)
   - "react-native-geolocation (from `../../../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../../../node_modules/react-native-image-picker`)
+  - react-native-mail (from `../../../node_modules/react-native-mail`)
   - react-native-pager-view (from `../../../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
   - react-native-view-shot (from `../../../node_modules/react-native-view-shot`)
@@ -1441,9 +1478,11 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../../../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-async-storage/async-storage`)"
   - RNGestureHandler (from `../../../node_modules/react-native-gesture-handler`)
+  - RNImageCropPicker (from `../../../node_modules/react-native-image-crop-picker`)
   - RNPermissions (from `../../../node_modules/react-native-permissions`)
   - RNReanimated (from `../../../node_modules/react-native-reanimated`)
   - RNScreens (from `../../../node_modules/react-native-screens`)
+  - "RNSentry (from `../../../node_modules/@sentry/react-native`)"
   - RNSVG (from `../../../node_modules/react-native-svg`)
   - VisionCamera (from `../../../node_modules/react-native-vision-camera`)
   - Yoga (from `../../../node_modules/react-native/ReactCommon/yoga`)
@@ -1454,7 +1493,9 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - Sentry
     - SocketRocket
+    - TOCropViewController
 
 EXTERNAL SOURCES:
   boost:
@@ -1530,6 +1571,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/@react-native-community/geolocation"
   react-native-image-picker:
     :path: "../../../node_modules/react-native-image-picker"
+  react-native-mail:
+    :path: "../../../node_modules/react-native-mail"
   react-native-pager-view:
     :path: "../../../node_modules/react-native-pager-view"
   react-native-safe-area-context:
@@ -1588,12 +1631,16 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/@react-native-async-storage/async-storage"
   RNGestureHandler:
     :path: "../../../node_modules/react-native-gesture-handler"
+  RNImageCropPicker:
+    :path: "../../../node_modules/react-native-image-crop-picker"
   RNPermissions:
     :path: "../../../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../../../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../../../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../../../node_modules/@sentry/react-native"
   RNSVG:
     :path: "../../../node_modules/react-native-svg"
   VisionCamera:
@@ -1642,6 +1689,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 6891317e850deae5b53d51355226e07a495aba61
   react-native-geolocation: 67d909c955daedea3f8c30d912f004f806edff64
   react-native-image-picker: c3afe5472ef870d98a4b28415fc0b928161ee5f7
+  react-native-mail: 8fdcd3aef007c33a6877a18eb4cf7447a1d4ce4a
   react-native-pager-view: f848f89049a8e888d38f10ff31588eb63292a95f
   react-native-safe-area-context: b7daa1a8df36095a032dff095a1ea8963cb48371
   react-native-view-shot: 6b7ed61d77d88580fed10954d45fad0eb2d47688
@@ -1671,11 +1719,15 @@ SPEC CHECKSUMS:
   ReactCommon: f00e436b3925a7ae44dfa294b43ef360fbd8ccc4
   RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
   RNGestureHandler: 8dbcccada4a7e702e7dec9338c251b1cf393c960
+  RNImageCropPicker: 771e2ca319d2cf92e04ebf334ece892ee9a6728f
   RNPermissions: 4eb47e412214ddbc0fc5cc76fd441f456da95df7
   RNReanimated: 7e6fc1e80f412285a16ac3879b9e4672ffa91cef
   RNScreens: 5aeecbb09aa7285379b6e9f3c8a3c859bb16401c
+  RNSentry: c74f756c88aa2a90070f555609d2a31ab2a7f461
   RNSVG: cb24fb322de8c1ebf59904e7aca0447bb8dbed5a
+  Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
+  TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   VisionCamera: 412fec057156eb5fe84a44351e8ed71a072c1228
   Yoga: 04f1db30bb810187397fa4c37dd1868a27af229c
 
