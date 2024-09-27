@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Font } from 'design-system';
@@ -37,6 +37,7 @@ export default function MySpotBlock({ mySpot, width, gap }: MySpotBlockProps) {
     isLiked,
     likeCount,
   });
+
   const { like, isLikePending, isCancelLikePending, cancelLike } =
     useSpotLikeMutation({ contentId });
 
@@ -64,6 +65,13 @@ export default function MySpotBlock({ mySpot, width, gap }: MySpotBlockProps) {
       workId,
     });
   };
+
+  useEffect(() => {
+    setCardLike({
+      isLiked: mySpot.isLiked,
+      likeCount: mySpot.likeCount,
+    });
+  }, [mySpot]);
 
   return (
     <ImageBackground
