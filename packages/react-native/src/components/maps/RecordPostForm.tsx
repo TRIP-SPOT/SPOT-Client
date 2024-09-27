@@ -116,7 +116,7 @@ export default function RecordPostForm() {
           <RecordFormDescription />
         </View>
       </View>
-      <View className="mt-6">
+      <View className="mt-6 px-4">
         <Button disabled={!validate()} onPress={handlePress}>
           <Font type="body2" color="white">
             완료
