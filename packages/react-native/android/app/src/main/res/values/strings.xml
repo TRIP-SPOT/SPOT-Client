@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SPOT!</string>
     <string name="kakao_app_key">@string/KAKAO_APP_KEY</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">@string/CODEPUSH_DEPLOYMENT_KEY</string>
 </resources>

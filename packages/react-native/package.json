@@ -1,13 +1,14 @@
 {
   "name": "react-native",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "prettier --cache --write src & eslint --cache --cache-location ./.cache/.eslintcache src",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "codepush:android": "sh codePush.sh"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -36,6 +37,7 @@
     "react-error-boundary": "^4.0.13",
     "react-native": "0.74.3",
     "react-native-calendars": "^1.1306.0",
+    "react-native-code-push": "^9.0.0",
     "react-native-date-picker": "^5.0.4",
     "react-native-dotenv": "^3.4.11",
     "react-native-element-dropdown": "^2.12.1",

@@ -8,7 +8,8 @@
     "storybook": "yarn workspace design-system run storybook",
     "prepare": "husky",
     "postinstall": "husky install",
-    "pod": "cd packages/react-native/ios && pod install"
+    "pod": "cd packages/react-native/ios && pod install",
+    "codepush:android": "yarn workspace react-native codepush:android"
   },
   "packageManager": "yarn@3.6.4",
   "dependencies": {

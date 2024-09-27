@@ -4,6 +4,7 @@ import StackNavigator from '@routes/StackNavigator';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Alert } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import CodePush from 'react-native-code-push';
 import * as Sentry from '@sentry/react-native';
 import { SENTRY_DSN } from '@env';
 
@@ -25,6 +26,7 @@ const queryClient = new QueryClient({
     },
   },
 });
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -38,5 +40,4 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-export default Sentry.wrap(App);
+export default CodePush(Sentry.wrap(App));
