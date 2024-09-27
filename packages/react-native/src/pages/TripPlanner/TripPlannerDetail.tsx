@@ -59,9 +59,9 @@ export default withSuspense(function TripPlannerDetail() {
           <View>
             <CardSlider
               gap={8}
-              title="담은 음식점"
+              title="담은 관광지"
               titleColor="black"
-              data={data.restaurant}
+              data={data.attraction}
               titleGap={4}
               renderItem={({ item }) => (
                 <AroundCard
@@ -73,9 +73,9 @@ export default withSuspense(function TripPlannerDetail() {
             <Spacing height={10} />
             <CardSlider
               gap={8}
-              title="담은 관광지"
+              title="담은 음식점"
               titleColor="black"
-              data={data.attraction}
+              data={data.restaurant}
               titleGap={4}
               renderItem={({ item }) => (
                 <AroundCard
