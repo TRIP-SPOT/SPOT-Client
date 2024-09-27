@@ -42,7 +42,7 @@ export default function AroundCard({
           </View>
         )}
         <View className="p-2 bg-[#191919]">
-          <Font.Bold type="body1" color="white">
+          <Font.Bold type="body1" color="white" ellipsis>
             {title}
           </Font.Bold>
         </View>
