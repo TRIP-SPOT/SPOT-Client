@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import { Font } from 'design-system';
 import Header from '@/components/common/Header';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
+import AnimationCircle from '../common/AnimationCircle';
 
 export default function QuizLoading() {
   return (
@@ -18,6 +19,9 @@ export default function QuizLoading() {
           <Font.Bold color="white" type="title1">
             검색하고 있습니다...
           </Font.Bold>
+        </View>
+        <View>
+          <AnimationCircle />
         </View>
         <View className="p-3 flex justify-center items-center gap-4">
           <Font.Bold type="body2" color="white">
