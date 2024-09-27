@@ -33,6 +33,7 @@ export default function useRecordRepresentativeMutation() {
     await requestFunction('/api/record/representative', customForm.getForm(), {
       headers: {
         'Content-Type': 'multipart/form-data',
+        boundary: 'boundary',
       },
     });
   };
