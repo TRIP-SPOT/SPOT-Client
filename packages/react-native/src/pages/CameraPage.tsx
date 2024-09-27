@@ -1,5 +1,12 @@
 import { useRef, useState } from 'react';
-import { Alert, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Font } from 'design-system';
 import ViewShot from 'react-native-view-shot';
 import { Camera, PhotoFile } from 'react-native-vision-camera';
@@ -7,6 +14,8 @@ import useCamera from '@/hooks/useCamera';
 import DownloadIcon from '@/assets/DownloadIcon';
 import useGallery from '@/hooks/useGallery';
 import ChangeIcon from '@/assets/ChangeIcon';
+
+const { width } = Dimensions.get('window');
 
 export default function CameraPage() {
   const camera = useRef<Camera>(null);
@@ -40,9 +49,9 @@ export default function CameraPage() {
   if (!device || !hasPermission) return null;
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View className="flex-1 items-center justify-center bg-black">
       {photo && (
-        <>
+        <View style={{ width, height: (4 * width) / 3, position: 'relative' }}>
           <ViewShot
             ref={captureRef}
             style={{
@@ -83,20 +92,30 @@ export default function CameraPage() {
               </TouchableOpacity>
             </View>
           </View>
-        </>
+        </View>
       )}
       {!photo && (
         <>
-          <Camera
-            ref={camera}
-            style={StyleSheet.absoluteFill}
-            device={device}
-            isActive
-            photo
-            enableZoomGesture
-            audio={false}
-          />
-          {Filter}
+          <View
+            style={{
+              width,
+              height: (4 * width) / 3,
+              position: 'relative',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Camera
+              ref={camera}
+              style={StyleSheet.absoluteFill}
+              device={device}
+              isActive
+              photo
+              enableZoomGesture
+              audio={false}
+            />
+            {Filter}
+          </View>
           <View className="absolute items-center justify-between flex-row bottom-0 pb-16 w-full px-10 pt-10">
             <TouchableOpacity
               onPress={changeCameraPosition}
