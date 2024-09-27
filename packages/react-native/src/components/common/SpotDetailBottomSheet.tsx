@@ -30,7 +30,7 @@ export default function SpotDetailBottomSheet({
           padding: BOTTOM_SHEET_PADDING,
         }}
       >
-        <View className="flex justify-start gap-3">
+        <View className="flex justify-start gap-3 pb-4">
           <View className="flex justify-start items-center">
             <Font type="mainTitle" color="black">
               {data?.title}
