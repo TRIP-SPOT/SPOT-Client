@@ -54,7 +54,7 @@ export default function SpotDetailBottomSheet({
 
         <View className="bg-[#191919] rounded-lg p-4">
           <Font color="white" type="body2">
-            내용타이틀
+            상세 정보
           </Font>
           <Font.Bold color="white" type="body2">
             {data?.overview}
