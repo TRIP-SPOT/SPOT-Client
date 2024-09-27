@@ -43,7 +43,7 @@ export default function useProfileImage() {
               color: profile.colorSet.color,
             }}
           >
-            {profile.nickname}
+            {profile.nickname.slice(0, 3)}
           </Text>
         </View>
       );
