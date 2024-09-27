@@ -31,7 +31,7 @@ export default withSuspense(
           <View className="rounded-lg overflow-hidden items-center justify-center">
             <DetailMap longitude={data.longitude} latitude={data.latitude} />
           </View>
-          <Block title="내용 타이틀" content={data.overview} />
+          <Block title="상세 정보" content={data.overview} />
         </View>
       </ScrollView>
     );
