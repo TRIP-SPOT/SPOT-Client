@@ -90,7 +90,7 @@ export default function CameraPage() {
                 onPress={resetPhoto}
                 className="bg-SPOT-white p-3 rounded-lg items-center justify-center"
               >
-                <Font.Bold type="body1" color="black">
+                <Font.Bold type="body2" color="black">
                   다시찍기
                 </Font.Bold>
               </TouchableOpacity>
