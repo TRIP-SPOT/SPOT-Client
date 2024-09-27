@@ -51,26 +51,30 @@ export default function CameraPage() {
   return (
     <View className="flex-1 items-center justify-center bg-black">
       {photo && (
-        <View style={{ width, height: (4 * width) / 3, position: 'relative' }}>
-          <ViewShot
-            ref={captureRef}
-            style={{
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+        <>
+          <View
+            style={{ width, height: (4 * width) / 3, position: 'relative' }}
           >
-            <Image
-              source={{ uri: `file://${photo.path}` }}
-              style={StyleSheet.absoluteFill}
-            />
-            {Filter}
-          </ViewShot>
+            <ViewShot
+              ref={captureRef}
+              style={{
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Image
+                source={{ uri: `file://${photo.path}` }}
+                style={StyleSheet.absoluteFill}
+              />
+              {Filter}
+            </ViewShot>
+          </View>
           <View className="absolute bottom-14 flex-row items-center justify-between w-full px-8">
             <View className="w-20" />
             <View className="w-20">
@@ -92,7 +96,7 @@ export default function CameraPage() {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </>
       )}
       {!photo && (
         <>
