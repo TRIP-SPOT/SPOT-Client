@@ -17,7 +17,7 @@ export default function QuizResultModal({
   closeModal,
 }: QuizResultModalProps) {
   const navigate = useNavigation<StackNavigation<'Gamification/Quiz'>>();
-  const region = modalContent && REVERSE_REGION_MAPPER[modalContent.location];
+  const region = modalContent && REVERSE_REGION_MAPPER[modalContent.region];
   const city =
     region &&
     Object.entries(REGION[region]).find((entry) => {
@@ -32,7 +32,7 @@ export default function QuizResultModal({
     return (
       <View className="justify-center flex-row">
         <Font type="body1" color="white">
-          {modalContent.isCorrect ? '정답' : '오답'}
+          {modalContent.correct ? '정답' : '오답'}
         </Font>
         <TouchableOpacity onPress={closeModal} className="absolute right-0">
           <CancelIcon />
@@ -45,7 +45,7 @@ export default function QuizResultModal({
     if (!modalContent) {
       return null;
     }
-    if (!modalContent.isCorrect) {
+    if (!modalContent.correct) {
       return (
         <>
           <View className="justify-center gap-2 flex-row items-center flex mt-6 mb-6">
@@ -97,7 +97,7 @@ export default function QuizResultModal({
             배지를 1개 획득했습니다.
           </Font>
           <View className="p-4">
-            <Badge preventFade location={BADGE_MAPPER[modalContent.location]} />
+            <Badge preventFade location={BADGE_MAPPER[modalContent.region]} />
           </View>
         </View>
       </>

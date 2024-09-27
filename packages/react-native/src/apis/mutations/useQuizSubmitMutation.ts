@@ -10,8 +10,8 @@ interface QuizSubmitRequestParams {
 }
 
 export interface QuizSubmitResponse {
-  isCorrect: boolean;
-  location: Region;
+  correct: boolean;
+  region: Region;
   city: City;
 }
 
