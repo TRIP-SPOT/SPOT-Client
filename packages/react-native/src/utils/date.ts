@@ -1,6 +1,10 @@
 /**
  * Date 객체의 모든 시간을 통일
  * @description 정확한 시간을 비교할 경우 `new Date` 대신 사용
+ *
+ * 인자가 있다면 해당 Date의 UTC 0시 0분 0초 반환
+ *
+ * 인자가 없다면 new Date() 반환
  */
 export const normalizeDate = (date?: Date | string) => {
   const normalizedDate = date ? new Date(date) : new Date();
