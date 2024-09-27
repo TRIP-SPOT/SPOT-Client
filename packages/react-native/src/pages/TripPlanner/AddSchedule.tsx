@@ -176,6 +176,13 @@ export default function AddSchedule() {
                           selectedSpot?.type === 'restaurant' &&
                           selectedSpot.id === restaurantItem.contentId
                         }
+                        onPress={() => {
+                          setSelectedSpot({
+                            type: 'restaurant',
+                            id: restaurantItem.contentId,
+                          });
+                          setLocationName(restaurantItem.title);
+                        }}
                       />
                       <Font type="title1" color="white">
                         {restaurantItem.title}
@@ -226,6 +233,13 @@ export default function AddSchedule() {
                           selectedSpot?.type === 'hotel' &&
                           selectedSpot.id === hotel.contentId
                         }
+                        onPress={() => {
+                          setSelectedSpot({
+                            type: 'hotel',
+                            id: hotel.contentId,
+                          });
+                          setLocationName(hotel.title);
+                        }}
                       />
                       <Font type="title1" color="white">
                         {hotel.title}
