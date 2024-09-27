@@ -1,5 +1,12 @@
 import { useRef, useState } from 'react';
-import { Alert, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Font } from 'design-system';
 import ViewShot from 'react-native-view-shot';
 import { Camera, PhotoFile } from 'react-native-vision-camera';
@@ -7,6 +14,8 @@ import useCamera from '@/hooks/useCamera';
 import DownloadIcon from '@/assets/DownloadIcon';
 import useGallery from '@/hooks/useGallery';
 import ChangeIcon from '@/assets/ChangeIcon';
+
+const { width } = Dimensions.get('window');
 
 export default function CameraPage() {
   const camera = useRef<Camera>(null);
@@ -40,28 +49,32 @@ export default function CameraPage() {
   if (!device || !hasPermission) return null;
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View className="flex-1 items-center justify-center bg-black">
       {photo && (
         <>
-          <ViewShot
-            ref={captureRef}
-            style={{
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+          <View
+            style={{ width, height: (4 * width) / 3, position: 'relative' }}
           >
-            <Image
-              source={{ uri: `file://${photo.path}` }}
-              style={StyleSheet.absoluteFill}
-            />
-            {Filter}
-          </ViewShot>
+            <ViewShot
+              ref={captureRef}
+              style={{
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Image
+                source={{ uri: `file://${photo.path}` }}
+                style={StyleSheet.absoluteFill}
+              />
+              {Filter}
+            </ViewShot>
+          </View>
           <View className="absolute bottom-14 flex-row items-center justify-between w-full px-8">
             <View className="w-20" />
             <View className="w-20">
@@ -77,7 +90,7 @@ export default function CameraPage() {
                 onPress={resetPhoto}
                 className="bg-SPOT-white p-3 rounded-lg items-center justify-center"
               >
-                <Font.Bold type="body1" color="black">
+                <Font.Bold type="body2" color="black">
                   다시찍기
                 </Font.Bold>
               </TouchableOpacity>
@@ -87,16 +100,26 @@ export default function CameraPage() {
       )}
       {!photo && (
         <>
-          <Camera
-            ref={camera}
-            style={StyleSheet.absoluteFill}
-            device={device}
-            isActive
-            photo
-            enableZoomGesture
-            audio={false}
-          />
-          {Filter}
+          <View
+            style={{
+              width,
+              height: (4 * width) / 3,
+              position: 'relative',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Camera
+              ref={camera}
+              style={StyleSheet.absoluteFill}
+              device={device}
+              isActive
+              photo
+              enableZoomGesture
+              audio={false}
+            />
+            {Filter}
+          </View>
           <View className="absolute items-center justify-between flex-row bottom-0 pb-16 w-full px-10 pt-10">
             <TouchableOpacity
               onPress={changeCameraPosition}

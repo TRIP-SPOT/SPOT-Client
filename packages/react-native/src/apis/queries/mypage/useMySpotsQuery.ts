@@ -4,7 +4,7 @@ import { City, Region } from '@/constants/CITY';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import { ServerResponse } from '@/types/response';
 
-interface MySpotResponse {
+export interface MySpotResponse {
   id: number;
   contentId: number;
   name: string;
@@ -12,6 +12,8 @@ interface MySpotResponse {
   city: City;
   workId: number;
   posterUrl: string;
+  isLiked: boolean;
+  likeCount: number;
 }
 
 export default function useMySpotsQuery() {

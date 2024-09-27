@@ -28,37 +28,38 @@ export default function SpotDetailBottomSheet({
         style={{
           flex: 1,
           padding: BOTTOM_SHEET_PADDING,
-          gap: 12,
         }}
       >
-        <View className="flex justify-start items-center">
-          <Font type="mainTitle" color="black">
-            {data?.title}
-          </Font>
-        </View>
-        <View className="bg-[#191919] rounded-lg p-4">
-          <Font color="white" type="body2">
-            주소
-          </Font>
-          <Font.Bold color="white" type="body2">
-            {data?.addr1} {data?.addr2}
-          </Font.Bold>
-        </View>
-        <View>
-          <DetailMap
-            width={fullWidth - BOTTOM_SHEET_PADDING * 2}
-            longitude={data?.longitude}
-            latitude={data?.latitude}
-          />
-        </View>
+        <View className="flex justify-start gap-3 pb-4">
+          <View className="flex justify-start items-center">
+            <Font type="mainTitle" color="black">
+              {data?.title}
+            </Font>
+          </View>
+          <View className="bg-[#191919] rounded-lg p-4">
+            <Font color="white" type="body2">
+              주소
+            </Font>
+            <Font.Bold color="white" type="body2">
+              {data?.addr1} {data?.addr2}
+            </Font.Bold>
+          </View>
+          <View>
+            <DetailMap
+              width={fullWidth - BOTTOM_SHEET_PADDING * 2}
+              longitude={data?.longitude}
+              latitude={data?.latitude}
+            />
+          </View>
 
-        <View className="bg-[#191919] rounded-lg p-4">
-          <Font color="white" type="body2">
-            내용타이틀
-          </Font>
-          <Font.Bold color="white" type="body2">
-            {data?.overview}
-          </Font.Bold>
+          <View className="bg-[#191919] rounded-lg p-4">
+            <Font color="white" type="body2">
+              상세 정보
+            </Font>
+            <Font.Bold color="white" type="body2">
+              {data?.overview}
+            </Font.Bold>
+          </View>
         </View>
       </BottomSheetScrollView>
     </BottomSheet>

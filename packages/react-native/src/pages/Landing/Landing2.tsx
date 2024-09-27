@@ -26,7 +26,11 @@ export default function Landing2() {
           content="나의 여행에 담아 한 눈에 확인할 수도 있어요!"
         />
       </View>
-      <View>
+      <View
+        style={{
+          marginTop: -30,
+        }}
+      >
         <Image
           // eslint-disable-next-line global-require
           source={require('../../assets/landing/landing2.png')}

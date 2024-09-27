@@ -31,40 +31,74 @@ interface FontProps {
   color: Color;
   underline?: boolean;
   opacity?: number;
+  ellipsis?: boolean;
 }
 
-const FontRegular = ({ type, color, children, underline, opacity = 1 }: FontProps) => {
+const FontRegular = ({
+  type,
+  color,
+  children,
+  underline,
+  opacity = 1,
+  ellipsis,
+}: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.MEDIUM;
   return (
-    <Text className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`} style={{ opacity }}>
+    <Text
+      className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`}
+      style={{ opacity }}
+      numberOfLines={ellipsis ? 1 : undefined}
+    >
       {children}
     </Text>
   );
 };
 
-const FontBold = ({ type, color, children, underline, opacity = 1 }: FontProps) => {
+const FontBold = ({
+  type,
+  color,
+  children,
+  underline,
+  opacity = 1,
+  ellipsis,
+}: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.BOLD;
   return (
-    <Text className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle}`} style={{ opacity }}>
+    <Text
+      className={`${fontStyle} ${fontType} ${colorStyle} ${underLineStyle} truncate `}
+      style={{ opacity }}
+      numberOfLines={ellipsis ? 1 : undefined}
+    >
       {children}
     </Text>
   );
 };
 
-const FontLight = ({ type, color, children, underline, opacity = 10 }: FontProps) => {
+const FontLight = ({
+  type,
+  color,
+  children,
+  underline,
+  opacity = 10,
+  ellipsis,
+}: FontProps) => {
   const fontType = FONT_TYPE_PREFIX[type];
   const colorStyle = COLOR_PREFIX[color];
   const underLineStyle = underline ? 'underline underline-offset-1' : '';
   const fontStyle = FONT_PREFIX.LIGHT;
 
   return (
-    <Text className={`${fontType} ${fontStyle} ${colorStyle} ${underLineStyle}`} style={{ opacity }}>
+    <Text
+      className={`${fontType} ${fontStyle} ${colorStyle} ${underLineStyle}`}
+      style={{ opacity }}
+      numberOfLines={ellipsis ? 1 : undefined}
+    >
       {children}
     </Text>
   );

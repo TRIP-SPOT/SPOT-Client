@@ -24,7 +24,11 @@ export default function Landing7() {
           content="뱃지를 많이 모을수록 여행자 레벨이 올라가요!"
         />
       </View>
-      <View>
+      <View
+        style={{
+          marginTop: -30,
+        }}
+      >
         <Image
           // eslint-disable-next-line global-require
           source={require('../../assets/landing/landing7.png')}

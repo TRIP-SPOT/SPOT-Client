@@ -9,6 +9,10 @@ import Spacing from '@/components/common/Spacing';
 import useAddSchedule from '@/apis/mutations/useAddSchedule';
 import useTripPlanMySpotQuery from '@/apis/queries/tripPlan/useTripPlanMySpotQuery';
 
+const getUniqueIndex = (id: number, index: number) => {
+  return `${id}&index=${index}`;
+};
+
 export default function AddSchedule() {
   const route = useRoute<StackRouteProps<'TripPlanner/AddSchedule'>>();
   const { tripId, day } = route.params;
@@ -18,7 +22,7 @@ export default function AddSchedule() {
   const [locationMemo, setLocationMemo] = useState('');
   const [selectedSpot, setSelectedSpot] = useState<{
     type: 'mySpot' | 'restaurant' | 'hotel';
-    id: number;
+    id: string;
   }>();
   const { mutate } = useAddSchedule(tripId);
 
@@ -105,7 +109,7 @@ export default function AddSchedule() {
                       onPress={() => {
                         setSelectedSpot({
                           type: 'mySpot',
-                          id: mySpot.contentId,
+                          id: getUniqueIndex(mySpot.contentId, index),
                         });
                         setLocationName(mySpot.title);
                       }}
@@ -114,12 +118,13 @@ export default function AddSchedule() {
                       <CheckBox
                         selected={
                           selectedSpot?.type === 'mySpot' &&
-                          selectedSpot.id === mySpot.contentId
+                          selectedSpot.id ===
+                            getUniqueIndex(mySpot.contentId, index)
                         }
                         onPress={() => {
                           setSelectedSpot({
                             type: 'mySpot',
-                            id: mySpot.contentId,
+                            id: getUniqueIndex(mySpot.contentId, index),
                           });
                           setLocationName(mySpot.title);
                         }}
@@ -129,7 +134,8 @@ export default function AddSchedule() {
                       </Font>
                     </TouchableOpacity>
                     {selectedSpot?.type === 'mySpot' &&
-                      selectedSpot.id === mySpot.contentId && (
+                      selectedSpot.id ===
+                        getUniqueIndex(mySpot.contentId, index) && (
                         <>
                           <Spacing height={10} />
                           <TextField
@@ -165,7 +171,7 @@ export default function AddSchedule() {
                       onPress={() => {
                         setSelectedSpot({
                           type: 'restaurant',
-                          id: restaurantItem.contentId,
+                          id: getUniqueIndex(restaurantItem.contentId, index),
                         });
                         setLocationName(restaurantItem.title);
                       }}
@@ -174,15 +180,24 @@ export default function AddSchedule() {
                       <CheckBox
                         selected={
                           selectedSpot?.type === 'restaurant' &&
-                          selectedSpot.id === restaurantItem.contentId
+                          selectedSpot.id ===
+                            getUniqueIndex(restaurantItem.contentId, index)
                         }
+                        onPress={() => {
+                          setSelectedSpot({
+                            type: 'restaurant',
+                            id: getUniqueIndex(restaurantItem.contentId, index),
+                          });
+                          setLocationName(restaurantItem.title);
+                        }}
                       />
                       <Font type="title1" color="white">
                         {restaurantItem.title}
                       </Font>
                     </TouchableOpacity>
                     {selectedSpot?.type === 'restaurant' &&
-                      selectedSpot.id === restaurantItem.contentId && (
+                      selectedSpot.id ===
+                        getUniqueIndex(restaurantItem.contentId, index) && (
                         <>
                           <Spacing height={10} />
                           <TextField
@@ -216,7 +231,10 @@ export default function AddSchedule() {
                       className="flex-row items-center justify-start"
                       style={{ gap: 20 }}
                       onPress={() => {
-                        setSelectedSpot({ type: 'hotel', id: hotel.contentId });
+                        setSelectedSpot({
+                          type: 'hotel',
+                          id: getUniqueIndex(hotel.contentId, index),
+                        });
                         setLocationName(hotel.title);
                       }}
                       key={JSON.stringify(hotel) + index}
@@ -224,15 +242,24 @@ export default function AddSchedule() {
                       <CheckBox
                         selected={
                           selectedSpot?.type === 'hotel' &&
-                          selectedSpot.id === hotel.contentId
+                          selectedSpot.id ===
+                            getUniqueIndex(hotel.contentId, index)
                         }
+                        onPress={() => {
+                          setSelectedSpot({
+                            type: 'hotel',
+                            id: getUniqueIndex(hotel.contentId, index),
+                          });
+                          setLocationName(hotel.title);
+                        }}
                       />
                       <Font type="title1" color="white">
                         {hotel.title}
                       </Font>
                     </TouchableOpacity>
                     {selectedSpot?.type === 'hotel' &&
-                      selectedSpot.id === hotel.contentId && (
+                      selectedSpot.id ===
+                        getUniqueIndex(hotel.contentId, index) && (
                         <>
                           <Spacing height={10} />
                           <TextField

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import HeartIcon from '@assets/HeartIcon';
 import { useNavigation } from '@react-navigation/native';
@@ -36,6 +36,18 @@ function Default({ data, size = 260 }: CardProps) {
     isLiked,
     likeCount,
   });
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    setCardLike({
+      isLiked: data.isLiked,
+      likeCount: data.likeCount,
+    });
+  }, [data]);
+
   const navigation = useNavigation<StackNavigation<'Home/Search'>>();
   const { like, isLikePending, isCancelLikePending, cancelLike } =
     useSpotLikeMutation({ contentId });

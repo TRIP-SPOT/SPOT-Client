@@ -25,7 +25,11 @@ export default function Landing6() {
         />
         <WordBreak width={300} type="body2" color="white" content="" />
       </View>
-      <View>
+      <View
+        style={{
+          marginTop: -30,
+        }}
+      >
         <Image
           // eslint-disable-next-line global-require
           source={require('../../assets/landing/landing6.png')}
