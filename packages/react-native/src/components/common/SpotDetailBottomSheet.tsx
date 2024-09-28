@@ -4,7 +4,6 @@ import { Font } from 'design-system';
 import useSpotDetailQuery from '@/apis/queries/spot/useSpotDetailQuery';
 import DetailMap from '@/pages/Detail/DetailMap';
 import BottomSheet from './BottomSheet';
-import useAOSPreventBack from '@/hooks/useAOSPreventBack';
 
 const { width: fullWidth } = Dimensions.get('window');
 const BOTTOM_SHEET_PADDING = 10;
@@ -20,10 +19,6 @@ export default function SpotDetailBottomSheet({
 }: MySpotBottomSheetProps) {
   const { data } = useSpotDetailQuery({ id: selectedDetailSpotId });
 
-  useAOSPreventBack({
-    isPrevent: Boolean(selectedDetailSpotId),
-    preventCallback: onClose,
-  });
   return (
     <BottomSheet
       snapPoints={['99%']}
