@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { View, FlatList, ListRenderItem } from 'react-native';
 import { Color, Font } from 'design-system';
 import jugeokJosa from '@/utils/jugeokJosa';
@@ -9,6 +10,7 @@ interface CardSliderProps<T> {
   titleColor?: Color;
   titleGap?: number;
   gap?: number;
+  RightActionButton?: ReactNode;
 }
 
 function CardSeperation({ gap }: { gap: number }) {
@@ -22,17 +24,22 @@ export default function CardSlider<T>({
   gap = 16,
   titleColor,
   titleGap,
+  RightActionButton,
 }: CardSliderProps<T>) {
   return (
     <View>
       <View
+        className="justify-between flex-row items-center"
         style={{
           marginBottom: titleGap || 16,
         }}
       >
-        <Font.Bold type="body1" color={titleColor || 'white'}>
-          {title}
-        </Font.Bold>
+        <View>
+          <Font.Bold type="body1" color={titleColor || 'white'}>
+            {title}
+          </Font.Bold>
+        </View>
+        <View>{RightActionButton}</View>
       </View>
       {data?.length === 0 ? (
         <View className="justify-center items-center min-h-[80px]">
