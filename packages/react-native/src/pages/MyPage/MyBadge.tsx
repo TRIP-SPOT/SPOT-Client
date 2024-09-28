@@ -21,7 +21,7 @@ export default withSuspense(
           data={badges}
           onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
           style={{ flex: 1, backgroundColor: 'black', paddingHorizontal }}
-          renderItem={({ item, index }) => (
+          renderItem={({ item }) => (
             <View>
               <Badge
                 location={item.badgeRegion}
