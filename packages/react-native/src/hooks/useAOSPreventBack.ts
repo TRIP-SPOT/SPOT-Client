@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { BackHandler } from 'react-native';
 
@@ -14,13 +13,12 @@ export default function useAOSPreventBack({
   isPrevent,
   preventCallback,
 }: UseAOSPreventBackParams) {
-  const navigation = useNavigation();
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       () => {
-        if (!isPrevent && navigation.canGoBack()) {
-          navigation.goBack();
+        if (!isPrevent) {
+          return false;
         }
         if (isPrevent) {
           preventCallback();
