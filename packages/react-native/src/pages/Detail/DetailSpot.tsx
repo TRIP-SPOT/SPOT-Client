@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FloatingPlusButton, Font } from 'design-system';
 import AroundCard from '@/components/detail/AroundCard';
@@ -10,32 +10,38 @@ import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
 import useArrayToggle from '@/hooks/useArrayToggle';
 import withSuspense from '@/components/HOC/withSuspense';
 import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
+import usePreventBack from '@/hooks/usePreventBack';
 
 export default withSuspense(
   function DetailSpot() {
     const route = useRoute<StackRouteProps<'Home/Detail'>>();
-    const [longPressMode, setLongPressMode] = useState(false);
+    const [selectionMode, setSelectionMode] = useState(false);
     const [selectedSpot, setSelectedSpot] = useState<number>();
-    const { list, toggleItem } = useArrayToggle<SpotResponse>();
+    const { list, toggleItem, reset } = useArrayToggle<SpotResponse>();
     const navigation = useNavigation<StackNavigation<'Home/Detail'>>();
 
     const { contentId, workId } = route.params;
 
     const { data } = useAroundSpotQuery({ id: contentId, workId });
 
-    const startLongPress = (spot: SpotResponse) => {
-      if (!longPressMode) {
-        setLongPressMode(true);
-        toggleItem(spot, 'contentId');
-      }
+    const selectModeToggle = () => {
+      setSelectionMode((prev) => !prev);
     };
 
     const handleCardClick = (spot: SpotResponse) => {
-      if (longPressMode) {
+      if (selectionMode) {
         return toggleItem(spot, 'contentId');
       }
       return setSelectedSpot(spot.contentId);
     };
+
+    usePreventBack({
+      isPrevent: selectionMode,
+      preventCallback: () => {
+        setSelectionMode(false);
+        reset();
+      },
+    });
 
     if (!data) {
       return null;
@@ -70,12 +76,21 @@ export default withSuspense(
                 renderItem={({ item }) => (
                   <AroundCard
                     data={item}
-                    isLongPressMode={longPressMode}
+                    selectionMode={selectionMode}
                     selectedSpots={list}
                     onCardClick={handleCardClick}
-                    startLongPress={startLongPress}
                   />
                 )}
+                RightActionButton={
+                  <TouchableOpacity
+                    className="bg-SPOT-red py-2 px-3 justify-center items-center rounded-lg"
+                    onPress={selectModeToggle}
+                  >
+                    <Font type="body3" color="white">
+                      {selectionMode ? '선택 취소' : '선택'}
+                    </Font>
+                  </TouchableOpacity>
+                }
               />
               <CardSlider
                 title="음식점"
@@ -83,9 +98,8 @@ export default withSuspense(
                 renderItem={({ item }) => (
                   <AroundCard
                     data={item}
-                    isLongPressMode={longPressMode}
+                    selectionMode={selectionMode}
                     selectedSpots={list}
-                    startLongPress={startLongPress}
                     onCardClick={handleCardClick}
                   />
                 )}
@@ -96,9 +110,8 @@ export default withSuspense(
                 renderItem={({ item }) => (
                   <AroundCard
                     data={item}
-                    isLongPressMode={longPressMode}
+                    selectionMode={selectionMode}
                     selectedSpots={list}
-                    startLongPress={startLongPress}
                     onCardClick={handleCardClick}
                   />
                 )}
@@ -110,7 +123,7 @@ export default withSuspense(
             onClose={() => setSelectedSpot(undefined)}
           />
         </ScrollView>
-        {longPressMode && (
+        {selectionMode && (
           <FloatingPlusButton
             bottom={16}
             right={16}
