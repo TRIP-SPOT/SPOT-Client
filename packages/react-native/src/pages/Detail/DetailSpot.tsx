@@ -128,6 +128,8 @@ export default withSuspense(
             bottom={16}
             right={16}
             onPress={() => {
+              reset();
+              setSelectionMode(false);
               navigation.navigate('Home/AddSpot', {
                 spots: list,
               });
