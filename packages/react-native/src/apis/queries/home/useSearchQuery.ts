@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
-import useAuthAxios from '../useAuthAxios';
+import useAuthAxios from '../../useAuthAxios';
 import { ServerResponse } from '@/types/response';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 

@@ -6,7 +6,7 @@ import { BASE_URL } from '@env';
 import { useToken } from '@/hooks/useToken';
 import { ServerResponse } from '@/types/response';
 import { AppStorage } from '@/utils/storage';
-import { NicknameResponse } from '../queries/useProfileQuery';
+import { NicknameResponse } from '../queries/common/useProfileQuery';
 import { StackNavigation } from '@/types/navigation';
 
 interface LoginResponse {
