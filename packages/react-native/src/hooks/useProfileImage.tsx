@@ -3,7 +3,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Asset } from 'react-native-image-picker';
 import useGallery from './useGallery';
 import SelectProfileIcon from '@/assets/SelectProfileIcon';
-import useProfileQuery from '@/apis/queries/useProfileQuery';
+import useProfileQuery from '@/apis/queries/common/useProfileQuery';
 
 export default function useProfileImage() {
   const { getPhoto } = useGallery();

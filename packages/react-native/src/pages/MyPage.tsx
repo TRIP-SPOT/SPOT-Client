@@ -4,7 +4,7 @@ import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Rank from '@/components/mypage/Rank';
 import EditButton from '@/components/common/EditButton';
 import MyPageTabNavigator from '@/routes/MyPageTabNavigator';
-import useProfileQuery from '@/apis/queries/useProfileQuery';
+import useProfileQuery from '@/apis/queries/common/useProfileQuery';
 import { StackNavigation } from '@/types/navigation';
 import CogWheelIcon from '@/assets/CogWheelIcon';
 import useProfileImage from '@/hooks/useProfileImage';
