@@ -4,9 +4,10 @@ import StackNavigator from '@routes/StackNavigator';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Alert } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import CodePush from 'react-native-code-push';
 import * as Sentry from '@sentry/react-native';
 import { SENTRY_DSN } from '@env';
+import useCodePush from './hooks/useCodePush';
+import UpdateLoading from './components/common/UpdateLoading';
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -28,6 +29,13 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  const { isRecent, downloadProgress } = useCodePush();
+
+  if (!isRecent)
+    return (
+      <UpdateLoading isRecent={isRecent} downloadProgress={downloadProgress} />
+    );
+
   return (
     <QueryClientProvider client={queryClient}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -40,4 +48,4 @@ function App() {
     </QueryClientProvider>
   );
 }
-export default CodePush(Sentry.wrap(App));
+export default Sentry.wrap(App);
