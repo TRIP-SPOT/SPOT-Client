@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FloatingPlusButton, Font } from 'design-system';
@@ -41,6 +41,13 @@ export default withSuspense(
         setSelectionMode(false);
         reset();
       },
+    });
+
+    useEffect(() => {
+      navigation.addListener('blur', () => {
+        setSelectionMode(false);
+        reset();
+      });
     });
 
     if (!data) {
@@ -128,12 +135,26 @@ export default withSuspense(
             bottom={16}
             right={16}
             onPress={() => {
-              reset();
-              setSelectionMode(false);
               navigation.navigate('Home/AddSpot', {
                 spots: list,
               });
             }}
+            CustomButton={
+              <View className="bg-[#171212] rounded-full w-14 h-14  flex-col items-center justify-center">
+                <View className="flex justify-center items-center flex-col">
+                  <View>
+                    <Font.Bold type="ui-text" color="white">
+                      내 여행에
+                    </Font.Bold>
+                  </View>
+                  <View>
+                    <Font.Bold type="ui-text" color="white">
+                      담기
+                    </Font.Bold>
+                  </View>
+                </View>
+              </View>
+            }
           />
         )}
       </>
