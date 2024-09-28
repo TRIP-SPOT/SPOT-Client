@@ -39,7 +39,7 @@ export default function UpdateLoading({
                 </Font.Bold>
               </View>
               <View>
-                <Bar progress={downloadProgress} width={200} color="#751010" />
+                <Bar progress={downloadProgress} width={200} color="#FF1919" />
               </View>
             </View>
           )}
