@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Button, Font, TextField } from 'design-system';
 import useProfileImage from '@/hooks/useProfileImage';

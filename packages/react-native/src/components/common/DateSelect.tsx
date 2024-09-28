@@ -3,24 +3,17 @@ import { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import BottomSheet from './BottomSheet';
-import useCalendar from '@/hooks/useCalendar';
+import useCalendar, { DateRange } from '@/hooks/useCalendar';
 import { CALENDAR_THEME } from '@/constants/CALENDAR_THEME';
 import BackIcon from '@/assets/BackIcon';
 
 export interface DateSelectProps {
-  date: {
-    start: Date;
-    end: Date;
-  };
-  setDate: React.Dispatch<
-    React.SetStateAction<{
-      start: Date;
-      end: Date;
-    }>
-  >;
+  date: DateRange;
+  setDate: React.Dispatch<React.SetStateAction<DateRange>>;
 }
 
-const getDisplayDate = (displayDate: Date) => {
+const getDisplayDate = (displayDate?: Date) => {
+  if (!displayDate) return '선택해주세요';
   return displayDate.toISOString().split('T')[0];
 };
 

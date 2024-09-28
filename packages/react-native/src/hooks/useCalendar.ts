@@ -9,18 +9,31 @@ interface DateSelectionInfo {
   customContainerStyle?: { borderRadius: number };
 }
 
-interface DateRange {
-  start: Date;
-  end: Date;
+export interface DateRange {
+  start: Date | undefined;
+  end: Date | undefined;
 }
 
-const generateDateRange = (startDate: Date, endDate: Date) => {
+const generateDateRange = (startDate?: Date, endDate?: Date) => {
   const normalizedStartDate = normalizeDate(startDate);
   const normalizedEndDate = normalizeDate(endDate);
 
   const result: Record<string, DateSelectionInfo> = {};
-
   const day = normalizeDate(normalizedStartDate);
+
+  if (!endDate) {
+    const dateString = day.toISOString().split('T')[0];
+    result[dateString] = {
+      startingDay: true,
+      endingDay: true,
+      color: '#FF1919',
+      textColor: 'white',
+      customContainerStyle: { borderRadius: 8 },
+    };
+
+    return result;
+  }
+
   for (; day <= normalizedEndDate; day.setDate(day.getDate() + 1)) {
     const dateString = day.toISOString().split('T')[0]; // YYYY-MM-DD
 
@@ -54,46 +67,36 @@ export default function useCalendar(
   initialEndDate?: Date,
 ) {
   const [date, setDate] = useState<DateRange>({
-    start: normalizeDate(initialStartDate),
-    end: normalizeDate(initialEndDate),
+    start: initialStartDate,
+    end: initialEndDate,
   });
 
   const updateDate = (selectedDate: Date | string) => {
     const normalizedDate = normalizeDate(selectedDate);
-    if (!date.start && !date.end) {
-      setDate({ start: normalizedDate, end: normalizedDate }); // 선택된 범위가 없을 때
-      return;
-    }
-
     const currentStart = date.start;
     const currentEnd = date.end;
 
-    // 현재 범위 이전 날짜를 선택
-    if (normalizedDate.getTime() < currentStart.getTime()) {
-      setDate({ start: normalizedDate, end: currentEnd });
+    // 선택된 날짜가 없을 때
+    if (!currentStart && !currentEnd) {
+      setDate({ start: normalizedDate, end: undefined });
       return;
     }
 
-    // 현재 범위 이후 날짜를 선택
-    if (normalizedDate.getTime() > currentEnd.getTime()) {
+    // 시작 날짜가 선택되어 있을 때
+    if (currentStart && !currentEnd) {
+      // 시작 날짜보다 이전 날짜를 선택하는 경우
+      if (normalizedDate.getTime() < currentStart.getTime()) {
+        setDate({ start: normalizedDate, end: currentStart });
+        return;
+      }
+
+      // 시작 날짜보다 이전 날짜를 선택하는 경우
       setDate({ start: currentStart, end: normalizedDate });
       return;
     }
 
-    const timeGap = currentEnd.getTime() - currentStart.getTime();
-    const dateGap = timeGap / (1000 * 60 * 60 * 24);
-    const midPointOffset = Math.floor(dateGap / 2); // 중간점까지의 오프셋
-
-    const midPoint = normalizeDate(currentStart);
-    midPoint.setDate(midPoint.getDate() + midPointOffset); // 중간점 날짜 계산
-
-    if (normalizedDate <= midPoint) {
-      // 선택한 날짜가 중간점보다 이전일 경우
-      setDate({ start: normalizedDate, end: currentEnd });
-    } else {
-      // 선택한 날짜가 중간점보다 이후일 경우
-      setDate({ start: currentStart, end: normalizedDate });
-    }
+    // 시작 날짜와 끝 날짜가 모두 선택되어 있을 때
+    setDate({ start: normalizedDate, end: undefined });
   };
 
   return {

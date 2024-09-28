@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Asset } from 'react-native-image-picker';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { Button, Font } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import RecordFormTitle from './RecordFormTitle';
@@ -58,6 +58,16 @@ export default function RecordPostForm() {
 
   const handlePress = async () => {
     if (!validate() || !imageAssets) {
+      return;
+    }
+
+    if (!date.start) {
+      Alert.alert('시작 날짜를 선택해주세요.');
+      return;
+    }
+
+    if (!date.end) {
+      Alert.alert('끝 날짜를 선택해주세요.');
       return;
     }
 

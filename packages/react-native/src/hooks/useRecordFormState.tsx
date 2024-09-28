@@ -3,6 +3,7 @@ import { RecordGetResponse } from '@/apis/queries/records/useRecordDetailQuery';
 import { CitySelectValue } from '@/components/common/CitySelect';
 import { DateSelectProps } from '@/components/common/DateSelect';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import { DateRange } from './useCalendar';
 
 type RecordFormContextState = DateSelectProps & {
   title: string;
@@ -49,9 +50,9 @@ export function RecordFormProvider({
 
   const [images, setImages] = useState<string[]>(defaultProps?.images || []);
 
-  const [date, setDate] = useState({
-    start: new Date(),
-    end: new Date(),
+  const [date, setDate] = useState<DateRange>({
+    start: undefined,
+    end: undefined,
   });
 
   const handleTitleChange = (value: string) => {

@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { Button, Font } from 'design-system';
 import { Calendar } from 'react-native-calendars';
 import BackIcon from '@/assets/BackIcon';
@@ -25,6 +25,16 @@ export default function TripPlannerBottomSheetCalendar({
   const { mutateAsync, isPending } = useSchedulePeriodMutation();
 
   const changePeriod = async () => {
+    if (!date.start) {
+      Alert.alert('시작 날짜를 선택해주세요.');
+      return;
+    }
+
+    if (!date.end) {
+      Alert.alert('종료 날짜를 선택해주세요.');
+      return;
+    }
+
     await mutateAsync({
       id: selectedPlan.id,
       startDate: date.start.toISOString().replace('.000Z', ''),

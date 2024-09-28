@@ -3,6 +3,7 @@ import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { CitySelectValue } from '@/components/common/CitySelect';
 import { DateSelectProps } from '@/components/common/DateSelect';
 import { RegionSelectType } from '@/components/tripPlan/RegionSelect';
+import { DateRange } from './useCalendar';
 
 type TripFormContextState = DateSelectProps & {
   region?: RegionSelectType;
@@ -23,14 +24,19 @@ export function TripFormProvider({ children }: TripPlanFormProviderProps) {
   const [region, setRegion] = useState<RegionSelectType>();
   const [selectedCity, setSelectedCity] = useState<CitySelectValue>();
   const [image, setImage] = useState<Asset>();
-  const [date, setDate] = useState({
-    start: new Date(),
-    end: new Date(),
+  const [date, setDate] = useState<DateRange>({
+    start: undefined,
+    end: undefined,
   });
   const [selectionMode, setSelectionMode] = useState<'start' | 'end'>();
 
   const validate = () => {
-    return Boolean(image) && Boolean(region);
+    return (
+      Boolean(image) &&
+      Boolean(region) &&
+      Boolean(date.start) &&
+      Boolean(date.end)
+    );
   };
 
   const changeImage = (imgUrl: Asset) => {
