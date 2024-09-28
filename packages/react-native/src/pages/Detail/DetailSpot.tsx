@@ -10,7 +10,7 @@ import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
 import useArrayToggle from '@/hooks/useArrayToggle';
 import withSuspense from '@/components/HOC/withSuspense';
 import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
-import usePreventBack from '@/hooks/usePreventBack';
+import useAOSPreventBack from '@/hooks/useAOSPreventBack';
 
 export default withSuspense(
   function DetailSpot() {
@@ -35,7 +35,7 @@ export default withSuspense(
       return setSelectedSpot(spot.contentId);
     };
 
-    usePreventBack({
+    useAOSPreventBack({
       isPrevent: selectionMode,
       preventCallback: () => {
         setSelectionMode(false);

@@ -2,15 +2,18 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { BackHandler } from 'react-native';
 
-interface UsePreventBackParams {
+interface UseAOSPreventBackParams {
   isPrevent: boolean;
   preventCallback: () => void;
 }
-
-export default function usePreventBack({
+/**
+ *
+ * @description 안드로이드에서만 작동합니다.
+ */
+export default function useAOSPreventBack({
   isPrevent,
   preventCallback,
-}: UsePreventBackParams) {
+}: UseAOSPreventBackParams) {
   const navigation = useNavigation();
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
