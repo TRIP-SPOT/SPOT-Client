@@ -71,7 +71,7 @@ export default function RecordCard({ data, handleClickCard }: CardProps) {
                 onlyCity: true,
               })}
             </Font.Light>
-            <Font.Light type="body1" color="white">
+            <Font.Light type="ui-text" color="white">
               {getRecordPeriod(startDate, endDate)}
             </Font.Light>
           </View>
