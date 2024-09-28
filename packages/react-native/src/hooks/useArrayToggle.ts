@@ -31,7 +31,11 @@ function useArrayToggle<T>() {
     });
   }) as ToggleItem<T>;
 
-  return { list, toggleItem };
+  const reset = () => {
+    setList([]);
+  };
+
+  return { list, toggleItem, reset };
 }
 
 export default useArrayToggle;

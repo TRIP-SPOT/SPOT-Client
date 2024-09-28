@@ -4,11 +4,12 @@ import {
   BottomSheetBackdropProps,
   BottomSheetModal,
 } from '@gorhom/bottom-sheet';
+import useAOSPreventBack from '@/hooks/useAOSPreventBack';
 
 interface BottomSheetProps {
   isShow: boolean;
   children: ReactNode;
-  handleClose?: () => void;
+  handleClose: () => void;
   snapPoints?: string[];
 }
 
@@ -33,6 +34,11 @@ export default function BottomSheet({
   snapPoints,
 }: BottomSheetProps) {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
+
+  useAOSPreventBack({
+    isPrevent: isShow,
+    preventCallback: handleClose,
+  });
 
   useEffect(() => {
     if (isShow) {

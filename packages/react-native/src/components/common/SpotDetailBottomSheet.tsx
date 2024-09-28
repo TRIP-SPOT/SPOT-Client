@@ -18,6 +18,7 @@ export default function SpotDetailBottomSheet({
   onClose,
 }: MySpotBottomSheetProps) {
   const { data } = useSpotDetailQuery({ id: selectedDetailSpotId });
+
   return (
     <BottomSheet
       snapPoints={['99%']}

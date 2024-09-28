@@ -38,7 +38,7 @@ export default function DetailTabNavigator() {
       <Tab.Screen
         name="Detail/Info"
         component={DetailInfo}
-        options={{ tabBarLabel: '상세정보' }}
+        options={{ tabBarLabel: '상세정보', swipeEnabled: false }}
         initialParams={{
           id,
           contentId,
@@ -48,7 +48,7 @@ export default function DetailTabNavigator() {
       <Tab.Screen
         name="Detail/Spot"
         component={DetailSpot}
-        options={{ tabBarLabel: 'SPOT!' }}
+        options={{ tabBarLabel: 'SPOT!', swipeEnabled: false }}
         initialParams={{ id, contentId, workId }}
       />
     </Tab.Navigator>

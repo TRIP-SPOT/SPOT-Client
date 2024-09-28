@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { ServerResponse } from '@/types/response';
-import useAuthAxios from '../useAuthAxios';
+import useAuthAxios from '../../useAuthAxios';
 import { SpotCardData } from '@/types/spot';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 

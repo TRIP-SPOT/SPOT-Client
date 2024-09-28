@@ -9,7 +9,7 @@ import WordBreak from '@/components/common/WordBreak';
 import Header from '@/components/common/Header';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import { DEFAULT_COLOR } from '@/constants/DEFAULT_COLOR';
-import useSearchQuery from '@/apis/queries/useSearchQuery';
+import useSearchQuery from '@/apis/queries/home/useSearchQuery';
 import withSuspense from '@/components/HOC/withSuspense';
 
 export default withSuspense(function Search() {

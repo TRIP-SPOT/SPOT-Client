@@ -2,13 +2,13 @@ import { View } from 'react-native';
 import { Font } from 'design-system';
 import SearchBar from '@components/common/SearchBar';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
-import useProfileQuery from '@/apis/queries/useProfileQuery';
+import useProfileQuery from '@/apis/queries/common/useProfileQuery';
 import { StackNavigation } from '@/types/navigation';
 import Card from '@/components/common/Card';
 import CardSlider from '@/components/common/CardSlider';
 import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
-import useHomeSpotQuery from '@/apis/queries/useHomeSpotQuery';
+import useHomeSpotQuery from '@/apis/queries/home/useHomeSpotQuery';
 import SPOTLogo from '@/assets/SPOTLogo';
 
 interface HomeScreenProps {
