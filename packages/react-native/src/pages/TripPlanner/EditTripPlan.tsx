@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, TouchableOpacity, View } from 'react-native';
+import DraggableFlatList from 'react-native-draggable-flatlist';
 import { Button, FloatingPlusButton, Font } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
@@ -33,8 +34,21 @@ const EditTripPlan = withSuspense(() => {
       },
     },
   );
+
   const selectedDateObj = normalizeDate(data.startDate);
   selectedDateObj.setDate(selectedDateObj.getDate() + selectedDate);
+
+  const selectedDateSchedules = data.locations
+    .filter((location) => location.day === selectedDate)
+    .sort((a, b) => a.seq - b.seq);
+
+  const onDragEnd = (to: number) => {
+    const scheduleLength = selectedDateSchedules.length;
+    const beforeSeq = selectedDateSchedules[to]?.seq || 0;
+    const afterSeq = selectedDateSchedules[to + 1]?.seq || scheduleLength;
+
+    Alert.alert(`${beforeSeq}-${afterSeq}`);
+  };
 
   const selectSchedule = (id: number) => {
     if (selectedSchedules.includes(id)) {
@@ -106,25 +120,26 @@ const EditTripPlan = withSuspense(() => {
                 <EditIcon />
               </TouchableOpacity>
             </View>
-            <ScrollView className="h-full mt-6">
-              {data.locations
-                .filter((location) => location.day === selectedDate)
-                .sort((a, b) => a.seq - b.seq)
-                .map((info) => (
-                  <>
-                    <ScheduleBlock
-                      key={JSON.stringify(info)}
-                      title={info.name}
-                      description={info.description}
-                      order={info.seq}
-                      editMode={editMode}
-                      onSelect={() => selectSchedule(info.id)}
-                      selected={selectedSchedules.includes(info.id)}
-                    />
-                    <Spacing key={`${JSON.stringify(info)}-sep`} height={10} />
-                  </>
-                ))}
-            </ScrollView>
+            <DraggableFlatList
+              className="h-full mt-6"
+              data={selectedDateSchedules}
+              onDragEnd={({ to }) => onDragEnd(to)}
+              keyExtractor={(item, idx) => `${JSON.stringify(item)}-${idx}`}
+              renderItem={({ item: info, drag }) => (
+                <>
+                  <ScheduleBlock
+                    title={info.name}
+                    description={info.description}
+                    order={info.seq}
+                    editMode={editMode}
+                    onSelect={() => selectSchedule(info.id)}
+                    selected={selectedSchedules.includes(info.id)}
+                    drag={drag}
+                  />
+                  <Spacing key={`${JSON.stringify(info)}-sep`} height={10} />
+                </>
+              )}
+            />
           </View>
         </View>
         {!editMode && (

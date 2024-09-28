@@ -1,5 +1,6 @@
 import { CheckBox, Font } from 'design-system';
 import { View } from 'react-native';
+import MenuIcon from '@/assets/MenuIcon';
 
 interface ScheduleBlockProps {
   title: string;
@@ -8,6 +9,7 @@ interface ScheduleBlockProps {
   editMode?: boolean;
   selected?: boolean;
   onSelect?: () => void;
+  drag: () => void;
 }
 
 export default function ScheduleBlock({
@@ -17,6 +19,7 @@ export default function ScheduleBlock({
   editMode,
   selected,
   onSelect,
+  drag,
 }: ScheduleBlockProps) {
   return (
     <View className="flex-row justify-between items-center">
@@ -31,13 +34,20 @@ export default function ScheduleBlock({
           </Font.Bold>
         </View>
       )}
-      <View className="bg-SPOT-white/40 p-2.5 px-3 rounded-md flex-1">
-        <Font.Bold type="title1" color="white">
-          {title}
-        </Font.Bold>
-        <Font type="body1" color="white">
-          {description}
-        </Font>
+      <View className="bg-SPOT-white/40 p-2.5 px-3 rounded-md flex-1 flex-row justify-between items-center">
+        <View>
+          <Font.Bold type="title1" color="white">
+            {title}
+          </Font.Bold>
+          <Font type="body1" color="white">
+            {description}
+          </Font>
+        </View>
+        {editMode && (
+          <View className="p-4" onTouchMove={editMode ? drag : undefined}>
+            <MenuIcon />
+          </View>
+        )}
       </View>
     </View>
   );
