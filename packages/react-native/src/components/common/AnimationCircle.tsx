@@ -2,7 +2,15 @@ import { useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
 import LoadingIcon from '@/assets/LoadingIcon';
 
-export default function AnimationCircle() {
+interface AnimationCircleProps {
+  width?: number;
+  height?: number;
+}
+
+export default function AnimationCircle({
+  width,
+  height,
+}: AnimationCircleProps) {
   const rotateAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     const startRotation = () => {
@@ -26,7 +34,7 @@ export default function AnimationCircle() {
 
   return (
     <Animated.View style={{ transform: [{ rotate: rotation }] }}>
-      <LoadingIcon />
+      <LoadingIcon width={width} height={height} />
     </Animated.View>
   );
 }
