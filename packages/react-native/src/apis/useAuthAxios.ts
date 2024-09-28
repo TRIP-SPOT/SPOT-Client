@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { BASE_URL } from '@env';
 import { useToken } from '@/hooks/useToken';
 import { ServerResponse } from '@/types/response';
+import { AppStorage } from '@/utils/storage';
 
 interface RefreshTokenResponse {
   accessToken: string;
@@ -42,11 +43,15 @@ const useAuthAxios = () => {
           const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
             await getNewToken(BASE_URL, refresh);
           config.headers.Authorization = `Bearer ${newAccessToken}`;
-          const response = await axios.get(config.url, config);
+          const response = await axios(config);
           setAccess(newAccessToken);
           setRefresh(newRefreshToken);
           return await Promise.resolve(response);
         } catch (err) {
+          if (isAxiosError(err) && err.response?.status === 401) {
+            await AppStorage.deleteData('token');
+          }
+
           return Promise.reject(err);
         }
       }

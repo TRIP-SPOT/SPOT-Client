@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { City, Region, REGION_MAPPER } from '@/constants/CITY';
 import { KoreaLocationName } from '@/types/map';
 import useAuthAxios from '@/apis/useAuthAxios';

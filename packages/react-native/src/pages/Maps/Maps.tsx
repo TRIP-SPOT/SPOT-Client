@@ -4,7 +4,6 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  ScrollView,
   Image as RNImage,
 } from 'react-native';
 import { Font } from 'design-system';

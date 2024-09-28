@@ -55,7 +55,7 @@ export default function Setting() {
                 앱 버전 정보
               </Font>
               <Font type="body2" color="white">
-                1.0.0
+                1.0.1
               </Font>
             </View>
             <TouchableOpacity
