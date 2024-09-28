@@ -28,7 +28,7 @@ export default function TripPlannerBottomSheet({
   return (
     <BottomSheet
       isShow={Boolean(selectedPlan)}
-      snapPoints={viewMode === 'options' ? ['30%'] : ['70%']}
+      snapPoints={viewMode === 'options' ? ['30%'] : ['65%']}
       handleClose={closeAndResetBottomSheet}
     >
       <BottomSheetView
