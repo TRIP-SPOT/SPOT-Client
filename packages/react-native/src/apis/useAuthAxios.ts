@@ -48,6 +48,10 @@ const useAuthAxios = () => {
           setRefresh(newRefreshToken);
           return await Promise.resolve(response);
         } catch (err) {
+          if (isAxiosError(err) && err.response?.status === 401) {
+            await AppStorage.deleteData('token');
+          }
+
           return Promise.reject(err);
         }
       }
