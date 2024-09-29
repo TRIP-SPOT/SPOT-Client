@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Dimensions, View } from 'react-native';
-import { Button, Font } from 'design-system';
+import { Button, FloatingPlusButton, Font } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import useTripPlansQuery from '@/apis/queries/tripPlan/useTripPlansQuery';
 import Header from '@/components/common/Header';
@@ -67,6 +67,7 @@ export default withSuspense(function HomeSpotAdd() {
           </View>
         </View>
       </BackGroundGradient>
+
       <View className="absolute bottom-4 w-full px-4">
         <Button disabled={!tripId} onPress={add}>
           <Font type="title1" color="white">
@@ -74,6 +75,11 @@ export default withSuspense(function HomeSpotAdd() {
           </Font>
         </Button>
       </View>
+      <FloatingPlusButton
+        bottom={80}
+        right={16}
+        onPress={() => navigation.navigate('Home/PlanPost')}
+      />
     </>
   );
 });

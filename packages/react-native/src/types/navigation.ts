@@ -47,6 +47,7 @@ export type StackParamList = {
   'Home/AddSpot': {
     spots: SpotResponse[];
   };
+  'Home/PlanPost': undefined;
 
   'Gamification/Main': undefined;
   'Gamification/Quiz': {
