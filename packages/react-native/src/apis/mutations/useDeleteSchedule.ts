@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuthAxios from '../useAuthAxios';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface UseDeleteScheduleOptions {
   onSuccess?: () => void;
@@ -19,7 +20,9 @@ export default function useDeleteSchedule(
   return useMutation({
     mutationFn: deleteSchedule,
     onSuccess: async () => {
-      await queryClient.refetchQueries({ queryKey: ['editPlan', id] });
+      await queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.SCHEDULES, id],
+      });
       if (options?.onSuccess) options.onSuccess();
     },
   });

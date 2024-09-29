@@ -12,7 +12,7 @@ export interface Schedule {
   description: string;
 }
 
-interface ScheduleDetail {
+export interface ScheduleDetail {
   region: Region;
   city: City;
   startDate: string;

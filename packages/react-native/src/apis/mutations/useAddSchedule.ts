@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
 import useAuthAxios from '../useAuthAxios';
 import { StackNavigation } from '@/types/navigation';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface AddScheduleProps {
   day: number;
@@ -29,7 +30,9 @@ export default function useAddSchedule(id: number) {
   return useMutation({
     mutationFn: addSchedule,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['editPlan', id] });
+      await queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.SCHEDULES, id],
+      });
       navigation.goBack();
     },
   });
