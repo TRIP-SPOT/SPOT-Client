@@ -30,7 +30,7 @@ export default withSuspense(function HomeSpotAdd() {
 
   return (
     <>
-      <BackGroundGradient>
+      <BackGroundGradient withoutScroll={isEmpty}>
         <Header title="나의 여행 목록" />
         <View
           className="relative flex-1 justify-between"
@@ -40,7 +40,7 @@ export default withSuspense(function HomeSpotAdd() {
             minHeight: isEmpty ? undefined : height,
           }}
         >
-          <View>
+          <View className="flex-1">
             {isEmpty ? (
               <EmptyPlan />
             ) : (
