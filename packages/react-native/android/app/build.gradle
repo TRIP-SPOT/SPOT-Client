@@ -85,8 +85,8 @@ android {
         applicationId "com.spotclient"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.1.0"
         manifestPlaceholders=[KAKAO_APP_KEY:KAKAO_APP_KEY]
         resValue "string", "KAKAO_APP_KEY", KAKAO_APP_KEY
         resValue "string", "CODEPUSH_DEPLOYMENT_KEY",CODEPUSH_DEPLOYMENT_KEY
