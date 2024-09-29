@@ -15,6 +15,7 @@ const QUERY_KEYS = {
   SEARCH: 'search',
   MY_SPOTS: 'mySpots',
   MY_BADGES: 'myBadges',
+  SCHEDULES: 'schedules',
 };
 
 export default QUERY_KEYS;

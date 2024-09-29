@@ -10,7 +10,7 @@ export default function withSpotErrorBoundary<T extends object>(
     return (
       <ErrorBoundary
         fallback={<Error />}
-        onError={(err) => Sentry.captureException(err)}
+        onError={(err) => !__DEV__ && Sentry.captureException(err)}
       >
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Component {...props} />

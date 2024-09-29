@@ -12,14 +12,7 @@ interface FloatingPlusButtonProps {
   CustomButton?: ReactNode;
 }
 
-export function FloatingPlusButton({
-  onPress,
-  top,
-  bottom,
-  right,
-  left,
-  CustomButton,
-}: FloatingPlusButtonProps) {
+export function FloatingPlusButton({ onPress, top, bottom, right, left, CustomButton }: FloatingPlusButtonProps) {
   return (
     <View
       style={{
@@ -30,9 +23,7 @@ export function FloatingPlusButton({
         left,
       }}
     >
-      <TouchableOpacity onPress={onPress}>
-        {CustomButton ? CustomButton : <PlusButtonIcon />}
-      </TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>{CustomButton ? CustomButton : <PlusButtonIcon />}</TouchableOpacity>
     </View>
   );
 }

@@ -73,7 +73,7 @@ export default function NicknameProfile({ navigation }: NicknameProfileProps) {
                   color: textColor,
                 }}
               >
-                {nickname}
+                {nickname.slice(0, 3)}
               </Text>
             </View>
           </View>

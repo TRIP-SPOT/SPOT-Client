@@ -52,7 +52,7 @@ export default function EditProfileWithNickname({
                   color: textColor,
                 }}
               >
-                {nickname}
+                {nickname.slice(0, 3)}
               </Text>
             </View>
           </View>
