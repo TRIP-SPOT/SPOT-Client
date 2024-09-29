@@ -30,6 +30,7 @@ function Default({ data, size = 260 }: CardProps) {
     contentId,
     id,
     workId,
+    workName,
   } = data;
 
   const [cardLike, setCardLike] = useState<CardLike>({
@@ -107,8 +108,8 @@ function Default({ data, size = 260 }: CardProps) {
             {name}
           </Font.Bold>
           <View className="mt-1">
-            <Font type="body3" color="white">
-              {getDisplayRegion({ locationEnum: region, cityEnum: city })}
+            <Font type="body3" color="white" ellipsis>
+              {`${getDisplayRegion({ locationEnum: region, cityEnum: city })} • ${workName}`}
             </Font>
           </View>
         </View>
