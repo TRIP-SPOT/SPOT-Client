@@ -19,7 +19,7 @@ export default function QuizSelection({
     >
       <View className="gap-2.5 flex flex-row items-center ">
         <View>
-          <CheckBox selected={isSelected} size={20} />
+          <CheckBox selected={isSelected} size={20} onPress={onPress} />
         </View>
         <View>
           {isSelected ? (
