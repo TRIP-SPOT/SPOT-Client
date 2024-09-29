@@ -100,7 +100,7 @@ export default withSuspense(
                 }
               />
               <CardSlider
-                title="음식점"
+                title="주변 음식점"
                 data={data.restaurant}
                 renderItem={({ item }) => (
                   <AroundCard
@@ -112,7 +112,7 @@ export default withSuspense(
                 )}
               />
               <CardSlider
-                title="숙소"
+                title="주변 숙소"
                 data={data.accommodation}
                 renderItem={({ item }) => (
                   <AroundCard

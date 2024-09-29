@@ -4,6 +4,7 @@ import { StackParamList } from '@/types/navigation';
 import Search from '@/pages/Search';
 import Detail from '@/pages/Detail';
 import HomeSpotAdd from '@/pages/HomeSpotAdd';
+import TripPlannerPost from '@/pages/TripPlanner/TripPlannerPost';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -17,6 +18,7 @@ export default function HomeStackNavigator() {
       <Stack.Screen name="Home/Search" component={Search} />
       <Stack.Screen name="Home/Detail" component={Detail} />
       <Stack.Screen name="Home/AddSpot" component={HomeSpotAdd} />
+      <Stack.Screen name="Home/PlanPost" component={TripPlannerPost} />
     </Stack.Navigator>
   );
 }
