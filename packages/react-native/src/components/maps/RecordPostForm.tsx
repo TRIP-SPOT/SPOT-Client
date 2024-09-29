@@ -14,6 +14,7 @@ import RecordFormDescription from './RecordFormDescription';
 import RecordFormCitySelect from './RecordFormCitySelect';
 import { REGION_MAPPER } from '@/constants/CITY';
 import ImageSelect from '../common/ImageSelect';
+import MutationLoadingModal from '../common/MutationLoadingModal';
 
 export default function RecordPostForm() {
   const {
@@ -52,7 +53,7 @@ export default function RecordPostForm() {
     }
   };
 
-  const { postMutate } = useRecordMutation({
+  const { postMutate, isPostPending } = useRecordMutation({
     location: params.location,
   });
 
@@ -90,6 +91,7 @@ export default function RecordPostForm() {
   return (
     <>
       <View className="gap-4 flex flex-col flex-1 px-4">
+        <MutationLoadingModal isSubmiting={isPostPending} />
         <View>
           <RecordFormCitySelect />
         </View>

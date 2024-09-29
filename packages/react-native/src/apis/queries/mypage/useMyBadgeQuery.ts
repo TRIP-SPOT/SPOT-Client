@@ -32,12 +32,19 @@ const badgeMapper = (badge: BadgeResponse): keyof typeof badgePath => {
       return '울산';
     case Region.BUSAN:
       return '부산';
-    case Region.CHUNGBUK || Region.CHUNGNAM:
+
+    case Region.CHUNGBUK:
+    case Region.CHUNGNAM:
       return '충청';
-    case Region.GYEONGBUK || Region.GYEONGNAM:
+
+    case Region.GYEONGBUK:
+    case Region.GYEONGNAM:
       return '경상';
-    case Region.JEONBUK || Region.JEONNAM:
+
+    case Region.JEONBUK:
+    case Region.JEONNAM:
       return '전라';
+
     case Region.JEJU:
     default:
       return '제주';
@@ -49,7 +56,6 @@ export default function useMyBadgeQuery() {
   const getBadges = async () => {
     const result =
       await authAxios.get<ServerResponse<BadgeResponse[]>>('/api/user/badge');
-
     const badges = result.data.result.map((badge) => ({
       count: badge.count,
       badgeRegion: badgeMapper(badge),

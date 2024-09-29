@@ -140,7 +140,7 @@ export default withSuspense(
               });
             }}
             CustomButton={
-              <View className="bg-[#171212] rounded-full w-14 h-14  flex-col items-center justify-center">
+              <View className="bg-[#3F1111] rounded-full w-14 h-14  flex-col items-center justify-center">
                 <View className="flex justify-center items-center flex-col">
                   <View>
                     <Font.Bold type="ui-text" color="white">

@@ -55,7 +55,7 @@ export default function DateSelect({ date, setDate }: DateSelectProps) {
 
       <BottomSheet
         isShow={openCalendar}
-        snapPoints={['90%']}
+        snapPoints={['65%']}
         handleClose={() => setOpenCalendar(false)}
       >
         <View className="items-center my-3">
@@ -72,7 +72,6 @@ export default function DateSelect({ date, setDate }: DateSelectProps) {
             markingType="period"
             markedDates={dateRange}
             disableMonthChange
-            showSixWeeks
             renderArrow={(direction) =>
               direction === 'left' ? (
                 <BackIcon color="black" />
