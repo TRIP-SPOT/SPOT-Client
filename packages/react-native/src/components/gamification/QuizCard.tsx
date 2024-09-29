@@ -27,7 +27,9 @@ export default function QuizCard({ quizData }: QuizCardProps) {
 
   const handleClickFilter = () => {
     if (quizData.filterImage) {
-      navigate.navigate('Camera');
+      navigate.navigate('Camera', {
+        filterUrl: quizData.filterImage,
+      });
       return;
     }
     setExperienceModalShow(true);
@@ -43,7 +45,7 @@ export default function QuizCard({ quizData }: QuizCardProps) {
       <FilterExperienceModal
         visible={experiencezModalShow}
         closeModal={() => setExperienceModalShow(false)}
-        modalAction={() => navigate.navigate('Camera')}
+        modalAction={() => navigate.navigate('Camera', {})}
       />
       <Image
         source={{
