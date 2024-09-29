@@ -44,7 +44,15 @@ export default forwardRef<ViewShot, CheckPhotoProps>(function CheckPhoto(
             source={{ uri: `file://${photo.path}` }}
             style={StyleSheet.absoluteFill}
           />
-          <Image source={{ uri: filterUrl }} />
+          <Image
+            source={
+              typeof filterUrl === 'string' ? { uri: filterUrl } : filterUrl
+            }
+            style={{
+              width,
+              height: (4 * width) / 3,
+            }}
+          />
         </ViewShot>
       </View>
       <View className="absolute bottom-14 flex-row items-center justify-between w-full px-8">

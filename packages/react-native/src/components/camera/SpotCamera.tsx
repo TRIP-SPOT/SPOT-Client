@@ -14,16 +14,16 @@ const { width } = Dimensions.get('window');
 interface SpotCameraProps {
   filterUrl: string;
   takePhoto: () => Promise<void>;
+  hideButton?: boolean;
 }
 
 export default forwardRef<Camera, SpotCameraProps>(function SpotCamera(
-  { filterUrl, takePhoto },
+  { filterUrl, takePhoto, hideButton },
   cameraRef,
 ) {
   const { device, hasPermission, changeCameraPosition } = useCamera();
 
   if (!device || !hasPermission) return null;
-
   return (
     <>
       <View
@@ -44,24 +44,34 @@ export default forwardRef<Camera, SpotCameraProps>(function SpotCamera(
           enableZoomGesture
           audio={false}
         />
-        <Image source={{ uri: filterUrl }} />
+        <Image
+          source={
+            typeof filterUrl === 'string' ? { uri: filterUrl } : filterUrl
+          }
+          style={{
+            width,
+            height: (4 * width) / 3,
+          }}
+        />
       </View>
-      <View className="absolute items-center justify-between flex-row bottom-0 pb-16 w-full px-10 pt-10">
-        <TouchableOpacity
-          onPress={changeCameraPosition}
-          className="items-center justify-center w-[52px] h-[52px] rounded-full bg-SPOT-black/50"
-        >
-          <ChangeIcon />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={takePhoto}
-          className="items-center justify-center"
-        >
-          <View className="absolute bg-white w-[80px] h-[80px] rounded-full" />
-          <View className="absolute bg-white w-[72px] h-[72px] rounded-full border-[3px] border-SPOT-black" />
-        </TouchableOpacity>
-        <View className="w-[52px] h-[52px]" />
-      </View>
+      {!hideButton && (
+        <View className="absolute items-center justify-between flex-row bottom-0 pb-16 w-full px-10 pt-10">
+          <TouchableOpacity
+            onPress={changeCameraPosition}
+            className="items-center justify-center w-[52px] h-[52px] rounded-full bg-SPOT-black/50"
+          >
+            <ChangeIcon />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={takePhoto}
+            className="items-center justify-center"
+          >
+            <View className="absolute bg-white w-[80px] h-[80px] rounded-full" />
+            <View className="absolute bg-white w-[72px] h-[72px] rounded-full border-[3px] border-SPOT-black" />
+          </TouchableOpacity>
+          <View className="w-[52px] h-[52px]" />
+        </View>
+      )}
     </>
   );
 });
