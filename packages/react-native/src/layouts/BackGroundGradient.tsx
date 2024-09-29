@@ -1,7 +1,8 @@
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NestableScrollContainer } from 'react-native-draggable-flatlist';
 
 export default function BackGroundGradient({
   children,
@@ -44,7 +45,7 @@ export default function BackGroundGradient({
               {children}
             </View>
           ) : (
-            <ScrollView
+            <NestableScrollContainer
               showsVerticalScrollIndicator={false}
               className="flex-1"
               style={{
@@ -52,7 +53,7 @@ export default function BackGroundGradient({
               }}
             >
               {children}
-            </ScrollView>
+            </NestableScrollContainer>
           )}
         </SafeAreaView>
       </LinearGradient>

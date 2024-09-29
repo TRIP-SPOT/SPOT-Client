@@ -2,8 +2,9 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { ServerResponse } from '@/types/response';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
-interface Schedule {
+export interface Schedule {
   id: number;
   day: number;
   seq: number;
@@ -31,7 +32,7 @@ export default function useTripPlanEditDetailQuery(id: number) {
   };
 
   return useSuspenseQuery({
-    queryKey: ['editPlan', id],
+    queryKey: [QUERY_KEYS.SCHEDULES, id],
     queryFn: getPlanInfo,
   });
 }

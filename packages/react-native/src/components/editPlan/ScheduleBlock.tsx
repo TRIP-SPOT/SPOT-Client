@@ -1,5 +1,5 @@
 import { CheckBox, Font } from 'design-system';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import MenuIcon from '@/assets/MenuIcon';
 
 interface ScheduleBlockProps {
@@ -44,9 +44,13 @@ export default function ScheduleBlock({
           </Font>
         </View>
         {editMode && (
-          <View className="p-4" onTouchMove={editMode ? drag : undefined}>
+          <TouchableOpacity
+            className="p-4"
+            onLongPress={editMode ? drag : undefined}
+            delayLongPress={200}
+          >
             <MenuIcon />
-          </View>
+          </TouchableOpacity>
         )}
       </View>
     </View>

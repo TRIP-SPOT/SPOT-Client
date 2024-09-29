@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { Alert, FlatList, TouchableOpacity, View } from 'react-native';
-import DraggableFlatList from 'react-native-draggable-flatlist';
+import { FlatList, TouchableOpacity, View } from 'react-native';
+import { NestableDraggableFlatList } from 'react-native-draggable-flatlist';
 import { Button, FloatingPlusButton, Font } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
-import useTripPlanEditDetailQuery from '@/apis/queries/tripPlan/useTripPlanEditDetailQuery';
+import useTripPlanEditDetailQuery, {
+  Schedule,
+} from '@/apis/queries/tripPlan/useTripPlanEditDetailQuery';
 import { getDateList, getMinimalDateString, normalizeDate } from '@/utils/date';
 import Spacing from '@/components/common/Spacing';
 import EditIcon from '@/assets/EditIcon';
@@ -15,6 +17,7 @@ import EditPlanTitle from '@/components/editPlan/EditPlanTitle';
 import ScheduleBlock from '@/components/editPlan/ScheduleBlock';
 import useDeleteSchedule from '@/apis/mutations/useDeleteSchedule';
 import MutationLoadingModal from '@/components/common/MutationLoadingModal';
+import useChangeScheduleOrder from '@/apis/mutations/useChangeScheduleOrder';
 
 const EditTripPlan = withSuspense(() => {
   const route = useRoute<StackRouteProps<'TripPlanner/EditPlan'>>();
@@ -34,6 +37,8 @@ const EditTripPlan = withSuspense(() => {
       },
     },
   );
+  const { mutate: changeOrder, isPending: isChangingOrder } =
+    useChangeScheduleOrder(tripId);
 
   const selectedDateObj = normalizeDate(data.startDate);
   selectedDateObj.setDate(selectedDateObj.getDate() + selectedDate);
@@ -42,12 +47,17 @@ const EditTripPlan = withSuspense(() => {
     .filter((location) => location.day === selectedDate)
     .sort((a, b) => a.seq - b.seq);
 
-  const onDragEnd = (to: number) => {
+  const onDragEnd = (schedules: Schedule[], to: number) => {
     const scheduleLength = selectedDateSchedules.length;
-    const beforeSeq = selectedDateSchedules[to]?.seq || 0;
-    const afterSeq = selectedDateSchedules[to + 1]?.seq || scheduleLength;
+    const beforeSeq = schedules[to - 1]?.seq || 0;
+    const afterSeq = schedules[to + 1]?.seq || scheduleLength;
 
-    Alert.alert(`${beforeSeq}-${afterSeq}`);
+    changeOrder({
+      scheduleId: schedules[to].id,
+      day: selectedDate,
+      before: beforeSeq,
+      after: afterSeq,
+    });
   };
 
   const selectSchedule = (id: number) => {
@@ -60,10 +70,10 @@ const EditTripPlan = withSuspense(() => {
 
   return (
     <>
-      <MutationLoadingModal isSubmiting={isDeleting} />
-      <BackGroundGradient withoutScroll>
+      <MutationLoadingModal isSubmiting={isDeleting || isChangingOrder} />
+      <BackGroundGradient>
         <Header title="일정" />
-        <View className="p-4">
+        <View className="flex-1 p-4">
           <EditPlanTitle
             startDate={data.startDate}
             endDate={data.endDate}
@@ -120,53 +130,56 @@ const EditTripPlan = withSuspense(() => {
                 <EditIcon />
               </TouchableOpacity>
             </View>
-            <DraggableFlatList
-              className="h-full mt-6"
+            <NestableDraggableFlatList
+              className="h-full mt-6 mb-20"
               data={selectedDateSchedules}
-              onDragEnd={({ to }) => onDragEnd(to)}
+              onDragEnd={({ data: schedules, to }) => onDragEnd(schedules, to)}
               keyExtractor={(item, idx) => `${JSON.stringify(item)}-${idx}`}
-              renderItem={({ item: info, drag }) => (
-                <>
-                  <ScheduleBlock
-                    title={info.name}
-                    description={info.description}
-                    order={info.seq}
-                    editMode={editMode}
-                    onSelect={() => selectSchedule(info.id)}
-                    selected={selectedSchedules.includes(info.id)}
-                    drag={drag}
-                  />
-                  <Spacing key={`${JSON.stringify(info)}-sep`} height={10} />
-                </>
-              )}
+              renderItem={({ item: info, drag, getIndex }) => {
+                const index = getIndex() || 0;
+                return (
+                  <>
+                    <ScheduleBlock
+                      title={info.name}
+                      description={info.description}
+                      order={index}
+                      editMode={editMode}
+                      onSelect={() => selectSchedule(info.id)}
+                      selected={selectedSchedules.includes(info.id)}
+                      drag={drag}
+                    />
+                    <Spacing key={`${JSON.stringify(info)}-sep`} height={10} />
+                  </>
+                );
+              }}
             />
           </View>
         </View>
-        {!editMode && (
-          <FloatingPlusButton
-            onPress={() =>
-              navigation.navigate('TripPlanner/AddSchedule', {
-                tripId,
-                day: selectedDate,
-              })
-            }
-            bottom={14}
-            right={12}
-          />
-        )}
-        {editMode && (
-          <View style={{ position: 'absolute', bottom: 14, width: '100%' }}>
-            <Button
-              disabled={selectedSchedules.length === 0}
-              onPress={() => deleteSchedules(selectedSchedules)}
-            >
-              <Font.Bold type="title1" color="white">
-                삭제하기
-              </Font.Bold>
-            </Button>
-          </View>
-        )}
       </BackGroundGradient>
+      {!editMode && (
+        <FloatingPlusButton
+          onPress={() =>
+            navigation.navigate('TripPlanner/AddSchedule', {
+              tripId,
+              day: selectedDate,
+            })
+          }
+          bottom={14}
+          right={12}
+        />
+      )}
+      {editMode && (
+        <View style={{ position: 'absolute', bottom: 14, width: '100%' }}>
+          <Button
+            disabled={selectedSchedules.length === 0}
+            onPress={() => deleteSchedules(selectedSchedules)}
+          >
+            <Font.Bold type="title1" color="white">
+              삭제하기
+            </Font.Bold>
+          </Button>
+        </View>
+      )}
     </>
   );
 });
