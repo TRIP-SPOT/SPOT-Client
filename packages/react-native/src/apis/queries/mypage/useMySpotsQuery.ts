@@ -11,6 +11,7 @@ export interface MySpotResponse {
   region: Region;
   city: City;
   workId: number;
+  workName: string;
   posterUrl: string;
   isLiked: boolean;
   likeCount: number;

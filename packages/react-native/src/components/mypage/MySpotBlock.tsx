@@ -31,6 +31,7 @@ export default function MySpotBlock({ mySpot, width, gap }: MySpotBlockProps) {
     id,
     contentId,
     workId,
+    workName,
   } = mySpot;
 
   const [cardLike, setCardLike] = useState<CardLike>({
@@ -108,10 +109,10 @@ export default function MySpotBlock({ mySpot, width, gap }: MySpotBlockProps) {
             {name}
           </Font.Bold>
           <Font type="body3" color="white" opacity={0.7}>
-            {getDisplayRegion({
+            {`${getDisplayRegion({
               locationEnum: region,
               cityEnum: city,
-            })}
+            })} • ${workName}`}
           </Font>
         </View>
       </TouchableOpacity>
