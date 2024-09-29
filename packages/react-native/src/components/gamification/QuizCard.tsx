@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { QuizzesResponse } from '@/apis/queries/quiz/useQuizzesQuery';
 import { StackNavigation } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
+import useToggle from '@/hooks/useToggle';
+import FilterExperienceModal from './FilterExperienceModal';
 
 interface QuizCardProps {
   quizData: QuizzesResponse;
@@ -15,11 +17,20 @@ export const QUIZ_CARD_SIZE = (fullWidth * 80) / 100;
 
 export default function QuizCard({ quizData }: QuizCardProps) {
   const navigate = useNavigation<StackNavigation<'Gamification/Main'>>();
+  const [experiencezModalShow, setExperienceModalShow] = useToggle(false);
   const handleClickQuizStart = () => {
     navigate.navigate('Gamification/Quiz', {
       quizId: quizData.quizId,
       quizWorkName: quizData.workName,
     });
+  };
+
+  const handleClickFilter = () => {
+    if (quizData.filterImage) {
+      navigate.navigate('Camera');
+      return;
+    }
+    setExperienceModalShow(true);
   };
 
   return (
@@ -29,6 +40,11 @@ export default function QuizCard({ quizData }: QuizCardProps) {
         width: QUIZ_CARD_SIZE,
       }}
     >
+      <FilterExperienceModal
+        visible={experiencezModalShow}
+        closeModal={() => setExperienceModalShow(false)}
+        modalAction={() => navigate.navigate('Camera')}
+      />
       <Image
         source={{
           uri: quizData.imageUrl,
@@ -71,9 +87,7 @@ export default function QuizCard({ quizData }: QuizCardProps) {
             </TouchableOpacity>
             <TouchableOpacity
               className="bg-Button-gray justify-center items-center px-6 py-1.5 rounded-lg"
-              onPress={() => {
-                navigate.navigate('Camera');
-              }}
+              onPress={handleClickFilter}
             >
               <Font.Bold type="body3" color="white">
                 Spot! 필터
