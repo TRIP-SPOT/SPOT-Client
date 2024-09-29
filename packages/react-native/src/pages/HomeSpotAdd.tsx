@@ -10,6 +10,7 @@ import TripPlanCard, { CARD_GAP } from '@/components/tripPlan/TripPlanCard';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
 import { StackNavigation, StackRouteProps } from '@/types/navigation';
 import useSelectedSpotAddMutation from '@/apis/mutations/useSelectedSpotAddMutation';
+import MutationLoadingModal from '@/components/common/MutationLoadingModal';
 
 const { height } = Dimensions.get('window');
 
@@ -18,7 +19,7 @@ export default withSuspense(function HomeSpotAdd() {
   const { data } = useTripPlansQuery();
   const [tripId, setTripId] = useState<number>();
   const isEmpty = data.length === 0;
-  const { mutateAsync } = useSelectedSpotAddMutation();
+  const { mutateAsync, isPending } = useSelectedSpotAddMutation();
   const navigation = useNavigation<StackNavigation<'Home/AddSpot'>>();
 
   const add = () => {
@@ -31,6 +32,7 @@ export default withSuspense(function HomeSpotAdd() {
   return (
     <>
       <BackGroundGradient withoutScroll={isEmpty}>
+        <MutationLoadingModal isSubmiting={isPending} />
         <Header title="나의 여행 목록" />
         <View
           className="relative flex-1 justify-between"
