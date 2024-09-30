@@ -9,6 +9,7 @@ import { StackNavigation } from '@/types/navigation';
 import CogWheelIcon from '@/assets/CogWheelIcon';
 import useProfileImage from '@/hooks/useProfileImage';
 import withSuspense from '@/components/HOC/withSuspense';
+import useMyLevelQuery from '@/apis/queries/mypage/useMyLevelQuery';
 
 interface MyPageProps {
   navigation: StackNavigation<'MyPage/Profile'>;
@@ -17,6 +18,7 @@ interface MyPageProps {
 export default withSuspense(function MyPage({ navigation }: MyPageProps) {
   const { profile } = useProfileQuery();
   const { ProfileImage } = useProfileImage();
+  const { data: myLevel } = useMyLevelQuery();
 
   return (
     <BackGroundGradient paddingTop={40} withoutScroll>
@@ -36,7 +38,7 @@ export default withSuspense(function MyPage({ navigation }: MyPageProps) {
           </View>
           <View className="flex flex-col items-center">
             <View>
-              <Rank content="Beginner" />
+              <Rank content={myLevel.profileLevel} />
             </View>
             <View className="mt-2">
               <Font type="mainTitle" color="white">
