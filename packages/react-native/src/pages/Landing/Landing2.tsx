@@ -8,7 +8,7 @@ export default function Landing2() {
   return (
     <View className="flex-1 items-center">
       <Font.Bold type="mainTitle" color="red">
-        Spot! (촬영지) 검색
+        주변 여행지 담기
       </Font.Bold>
       <View className="mt-3 items-center">
         <WordBreak
@@ -16,8 +16,7 @@ export default function Landing2() {
           type="body2"
           color="white"
           content="
-            드라마/영화 제목으로 Spot(촬영지)을 검색하고, 촬영지, 주변 관광지,
-            음식점 정보를 확인하세요."
+            촬영지 주변 관광지, 음식점, 숙소 정보를 확인하세요."
         />
         <WordBreak
           width={300}
