@@ -12,7 +12,9 @@ export type StackParamList = {
   };
   Main: undefined;
   Signup: undefined;
-  Camera: undefined;
+  Camera: {
+    filterUrl?: string;
+  };
   Landing: undefined;
 
   'Signup/Nickname': undefined;

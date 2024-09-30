@@ -34,6 +34,9 @@ export default function useDetailQuery({
     const result = await authAxios.get<ServerResponse<DetailResponse>>(
       `/api/spot/${id}?workId=${workId}`,
     );
+    const originOverview = result.data.result.overview;
+    result.data.result.overview = originOverview.replace('<br>', '');
+    result.data.result.overview = originOverview.replace('</br>', '');
     return result.data.result;
   };
 

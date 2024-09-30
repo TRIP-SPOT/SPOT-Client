@@ -16,6 +16,7 @@ export interface QuizzesResponse {
   region: Region;
   city: City;
   imageUrl: string;
+  filterImage: string;
 }
 
 interface UseQuizzesQueryParams {

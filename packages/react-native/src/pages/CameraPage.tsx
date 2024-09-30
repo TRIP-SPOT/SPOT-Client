@@ -1,29 +1,25 @@
 import { useRef, useState } from 'react';
-import {
-  Alert,
-  Dimensions,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { Font } from 'design-system';
+import { Alert, View } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import { Camera, PhotoFile } from 'react-native-vision-camera';
-import useCamera from '@/hooks/useCamera';
-import DownloadIcon from '@/assets/DownloadIcon';
+import { useRoute } from '@react-navigation/native';
 import useGallery from '@/hooks/useGallery';
-import ChangeIcon from '@/assets/ChangeIcon';
-
-const { width } = Dimensions.get('window');
+import CheckPhoto from '@/components/camera/CheckPhoto';
+import SpotCamera from '@/components/camera/SpotCamera';
+import { StackRouteProps } from '@/types/navigation';
+import FILTER_PATHS from '@/constants/FILTER_PATHS';
+import FilterCarousel from '@/components/camera/FilterCarousel';
 
 export default function CameraPage() {
   const camera = useRef<Camera>(null);
   const captureRef = useRef<ViewShot>(null);
-  const { device, hasPermission, changeCameraPosition } = useCamera();
-  const [Filter] = useState(<View className="w-20 h-20 absolue bg-blue-300" />);
   const [photo, setPhoto] = useState<PhotoFile | null>(null);
   const { savePhoto: savePicture } = useGallery();
+  const [experienceFilterIndex, setExperienceFilterIndex] = useState<number>(0);
+
+  const route = useRoute<StackRouteProps<'Camera'>>();
+  const paramsFilterUrl = route.params?.filterUrl;
+  const isExperience = !paramsFilterUrl;
 
   const takePhoto = async () => {
     if (!camera.current) return;
@@ -46,97 +42,32 @@ export default function CameraPage() {
     setPhoto(null);
   };
 
-  if (!device || !hasPermission) return null;
-
   return (
-    <View className="flex-1 items-center justify-center bg-black">
-      {photo && (
-        <>
-          <View
-            style={{ width, height: (4 * width) / 3, position: 'relative' }}
-          >
-            <ViewShot
-              ref={captureRef}
-              style={{
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Image
-                source={{ uri: `file://${photo.path}` }}
-                style={StyleSheet.absoluteFill}
-              />
-              {Filter}
-            </ViewShot>
-          </View>
-          <View className="absolute bottom-14 flex-row items-center justify-between w-full px-8">
-            <View className="w-20" />
-            <View className="w-20">
-              <TouchableOpacity
-                onPress={savePhoto}
-                className="items-center justify-center rounded-full bg-SPOT-white w-20 h-20"
-              >
-                <DownloadIcon width={60} height={60} />
-              </TouchableOpacity>
-            </View>
-            <View className="w-20">
-              <TouchableOpacity
-                onPress={resetPhoto}
-                className="bg-SPOT-white p-3 rounded-lg items-center justify-center"
-              >
-                <Font.Bold type="body2" color="black">
-                  다시찍기
-                </Font.Bold>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </>
-      )}
-      {!photo && (
-        <>
-          <View
-            style={{
-              width,
-              height: (4 * width) / 3,
-              position: 'relative',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Camera
-              ref={camera}
-              style={StyleSheet.absoluteFill}
-              device={device}
-              isActive
-              photo
-              enableZoomGesture
-              audio={false}
+    <View className="flex-1 items-center justify-center bg-black flex-col">
+      {photo ? (
+        <CheckPhoto
+          ref={captureRef}
+          filterUrl={paramsFilterUrl ?? FILTER_PATHS[experienceFilterIndex]}
+          savePhoto={savePhoto}
+          resetPhoto={resetPhoto}
+          photo={photo}
+        />
+      ) : (
+        <View className="flex-1 justify-center items-center flex-col">
+          <SpotCamera
+            ref={camera}
+            hideButton={isExperience}
+            filterUrl={paramsFilterUrl ?? FILTER_PATHS[experienceFilterIndex]}
+            takePhoto={takePhoto}
+          />
+          <View className="absolute bottom-0">
+            <FilterCarousel
+              filterIndex={experienceFilterIndex}
+              takePhoto={takePhoto}
+              handleSnap={(index) => setExperienceFilterIndex(index)}
             />
-            {Filter}
           </View>
-          <View className="absolute items-center justify-between flex-row bottom-0 pb-16 w-full px-10 pt-10">
-            <TouchableOpacity
-              onPress={changeCameraPosition}
-              className="items-center justify-center w-[52px] h-[52px] rounded-full bg-SPOT-black/50"
-            >
-              <ChangeIcon />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={takePhoto}
-              className="items-center justify-center"
-            >
-              <View className="absolute bg-white w-[80px] h-[80px] rounded-full" />
-              <View className="absolute bg-white w-[72px] h-[72px] rounded-full border-[3px] border-SPOT-black" />
-            </TouchableOpacity>
-            <View className="w-[52px] h-[52px]" />
-          </View>
-        </>
+        </View>
       )}
     </View>
   );
