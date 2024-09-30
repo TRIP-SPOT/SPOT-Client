@@ -12,16 +12,16 @@ export default function Landing1() {
       </Font.Bold>
       <View className="mt-3 items-center">
         <WordBreak
-          width={300}
+          width={200}
           type="body2"
           color="white"
-          content="드라마/영화 제목으로 Spot(촬영지)을 검색하고, 촬영지, 주변 관광지, 음식점 정보를 확인하세요."
+          content="드라마/영화 제목으로"
         />
         <WordBreak
           width={300}
           type="body2"
           color="white"
-          content="나의 여행에 담아 한 눈에 확인할 수도 있어요!"
+          content="Spot(촬영지)을 검색하고, 상세정보를 확인하세요."
         />
       </View>
       <View
