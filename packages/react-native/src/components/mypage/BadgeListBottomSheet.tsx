@@ -17,9 +17,37 @@ export default function BadgeListBottomSheet({
   selectedBadge,
   onClose,
 }: BadgeListBottomSheetProps) {
-  const { data: badgeHistory } = useBadgeHistoryQuery({
+  const { data: badgeHistory, isLoading } = useBadgeHistoryQuery({
     region: selectedBadge,
   });
+
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <View>
+          <Font type="body1" color="black">
+            잠시만
+          </Font>
+          <Font type="body1" color="black">
+            기다려주세요
+          </Font>
+        </View>
+      );
+    }
+
+    return (
+      selectedBadge &&
+      badgeHistory?.map((badgeInfo, index) => (
+        <BadgeListItem
+          key={`data-${index}`}
+          location={selectedBadge}
+          title={REVERSE_REGION_MAPPER[badgeInfo.region]}
+          date={badgeInfo.createdAt}
+          content={ACQUISITION_MAPPER[badgeInfo.acquisitionType]}
+        />
+      ))
+    );
+  };
 
   return (
     <BottomSheet
@@ -36,16 +64,7 @@ export default function BadgeListBottomSheet({
         showsVerticalScrollIndicator={false}
         style={{ paddingHorizontal: 16 }}
       >
-        {selectedBadge &&
-          badgeHistory?.map((badgeInfo, index) => (
-            <BadgeListItem
-              key={`data-${index}`}
-              location={selectedBadge}
-              title={REVERSE_REGION_MAPPER[badgeInfo.region]}
-              date={badgeInfo.createdAt}
-              content={ACQUISITION_MAPPER[badgeInfo.acquisitionType]}
-            />
-          ))}
+        {renderContent()}
       </BottomSheetScrollView>
     </BottomSheet>
   );
