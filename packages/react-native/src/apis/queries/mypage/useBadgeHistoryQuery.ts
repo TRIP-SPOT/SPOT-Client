@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { badgePath } from '@/components/common/Badge';
 import { BadgeAcquisition } from '@/constants/BADGE_ACQUISITION';
@@ -31,7 +31,7 @@ export default function useBadgeHistoryQuery({
     return result.data.result;
   };
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QUERY_KEYS.BADGE_HISTORY, region],
     queryFn: getBadgeHistory,
   });
