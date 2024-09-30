@@ -16,6 +16,7 @@ const QUERY_KEYS = {
   MY_SPOTS: 'mySpots',
   MY_BADGES: 'myBadges',
   MY_LEVEL: 'myLevel',
+  BADGE_HISTORY: 'badgeHistory',
   SCHEDULES: 'schedules',
 };
 
