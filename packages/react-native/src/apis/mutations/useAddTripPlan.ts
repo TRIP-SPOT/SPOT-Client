@@ -49,7 +49,7 @@ export default function useAddTripPlan() {
       await queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.TRIP_PLANS],
       });
-      navigate.navigate('TripPlanner/Main');
+      navigate.goBack();
     },
   });
 }

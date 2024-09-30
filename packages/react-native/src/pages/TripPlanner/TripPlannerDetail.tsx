@@ -40,7 +40,7 @@ export default withSuspense(function TripPlannerDetail() {
         <Spacing height={10} />
         <ScrollView className="px-5 flex-1 ">
           <Font.Bold type="body1" color="black">
-            일정
+            나의 일정
           </Font.Bold>
           <Spacing height={10} />
           <TouchableOpacity

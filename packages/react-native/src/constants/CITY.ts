@@ -461,3 +461,23 @@ export const BADGE_MAPPER: Record<Region, keyof typeof badgePath> = {
   [Region.BUSAN]: '부산',
   [Region.JEJU]: '제주',
 };
+
+export const REVERSE_BADGE_MAPPER: Record<
+  keyof typeof badgePath,
+  Region | Region[]
+> = {
+  서울: Region.SEOUL,
+  경기: Region.GYEONGGI,
+  인천: Region.INCHEON,
+  강원: Region.GANGWON,
+  충청: [Region.CHUNGNAM, Region.CHUNGBUK],
+  세종: Region.SEJONG,
+  대전: Region.DAEJEON,
+  전라: [Region.JEONNAM, Region.JEONBUK],
+  광주: Region.GWANGJU,
+  경상: [Region.GYEONGBUK, Region.GYEONGNAM],
+  대구: Region.DAEGU,
+  울산: Region.ULSAN,
+  부산: Region.BUSAN,
+  제주: Region.JEJU,
+};
