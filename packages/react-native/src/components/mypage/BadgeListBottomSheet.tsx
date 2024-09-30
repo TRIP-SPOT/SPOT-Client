@@ -7,6 +7,7 @@ import BottomSheet from '../common/BottomSheet';
 import useBadgeHistoryQuery from '@/apis/queries/mypage/useBadgeHistoryQuery';
 import { REVERSE_REGION_MAPPER } from '@/constants/CITY';
 import { ACQUISITION_MAPPER } from '@/constants/BADGE_ACQUISITION';
+import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 
 interface BadgeListBottomSheetProps {
   selectedBadge: keyof typeof badgePath;
@@ -41,7 +42,13 @@ export default function BadgeListBottomSheet({
         <BadgeListItem
           key={`data-${index}`}
           location={selectedBadge}
-          title={REVERSE_REGION_MAPPER[badgeInfo.region]}
+          title={
+            getDisplayRegion({
+              locationEnum: badgeInfo.region,
+              cityEnum: badgeInfo.city,
+              onlyCity: true,
+            }) || ''
+          }
           date={badgeInfo.createdAt}
           content={ACQUISITION_MAPPER[badgeInfo.acquisitionType]}
         />
