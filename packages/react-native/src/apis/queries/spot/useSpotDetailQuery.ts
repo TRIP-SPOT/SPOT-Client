@@ -9,7 +9,7 @@ interface UseSpotDetailQueryParams {
 }
 
 export interface SpotResponse {
-  id: number;
+  id?: number;
   contentId: number;
   title: string;
   image: string;

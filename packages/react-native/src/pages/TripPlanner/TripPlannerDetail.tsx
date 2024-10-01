@@ -29,7 +29,7 @@ export default withSuspense(function TripPlannerDetail() {
   );
 
   const deleteSpot = () => {
-    if (!targetSpot) return;
+    if (!targetSpot || !targetSpot.id) return;
     deleteSelectedSpots(targetSpot.id);
   };
 

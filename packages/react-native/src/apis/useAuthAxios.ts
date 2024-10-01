@@ -24,9 +24,9 @@ const getNewToken = async (baseURL: string, refresh: string) => {
 };
 
 const requestDebounceKeyValue: Record<string, number> = {};
-const controller = new AbortController();
 
 const useAuthAxios = () => {
+  const controller = new AbortController();
   const { access, refresh, setAccess, setRefresh } = useToken();
 
   const instance = axios.create({
@@ -53,7 +53,6 @@ const useAuthAxios = () => {
       const requestKey = config.url;
       const isExistRequest =
         requestDebounceKeyValue[requestKey] === currentTime.getTime();
-
       if (isExistRequest) {
         controller.abort();
         return config;
