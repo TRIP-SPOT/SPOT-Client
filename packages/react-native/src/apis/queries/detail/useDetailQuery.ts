@@ -3,6 +3,7 @@ import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { City, Region } from '@/constants/CITY';
 import { ServerResponse } from '@/types/response';
+import removeHTMLTag from '@/utils/removeHTMLTag';
 
 interface DetailResponse {
   contentId: string;
@@ -35,8 +36,8 @@ export default function useDetailQuery({
       `/api/spot/${id}?workId=${workId}`,
     );
     const originOverview = result.data.result.overview;
-    result.data.result.overview = originOverview.replace('<br>', '');
-    result.data.result.overview = originOverview.replace('</br>', '');
+    result.data.result.overview = removeHTMLTag(originOverview);
+
     return result.data.result;
   };
 
