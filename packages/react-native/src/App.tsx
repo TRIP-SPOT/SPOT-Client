@@ -21,7 +21,9 @@ const queryClient = new QueryClient({
     },
     mutations: {
       onError: (err) => {
-        Sentry.captureException(err);
+        if (!__DEV__) {
+          Sentry.captureException(err);
+        }
         Alert.alert('오류가 발생했어요', '잠시뒤에 시도해보세요.');
       },
     },
