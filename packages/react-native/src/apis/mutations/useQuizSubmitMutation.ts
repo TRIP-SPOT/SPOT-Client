@@ -1,8 +1,9 @@
 import { useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { City, Region } from '@/constants/CITY';
 import useAuthAxios from '../useAuthAxios';
 import { ServerResponse } from '@/types/response';
+import QUERY_KEYS from '@/constants/QUERY_KEYS';
 
 interface QuizSubmitRequestParams {
   id: number;
@@ -26,6 +27,7 @@ interface UseQuizSubmitMutationReturns {
 export default function useQuizSubmitMutation() {
   const ref = useRef({} as UseQuizSubmitMutationReturns);
   const authAxios = useAuthAxios();
+  const queryClient = useQueryClient();
 
   const submitAnswer = async ({ answer, id }: QuizSubmitRequestParams) => {
     const result = await authAxios.post<ServerResponse<QuizSubmitResponse>>(
@@ -36,6 +38,9 @@ export default function useQuizSubmitMutation() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: submitAnswer,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.MY_BADGES] });
+    },
   });
 
   ref.current.submitQuiz = mutateAsync;
