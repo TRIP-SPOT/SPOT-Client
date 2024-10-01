@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import useAuthAxios from '@/apis/useAuthAxios';
 import { ServerResponse } from '@/types/response';
+import removeHTMLTag from '@/utils/removeHTMLTag';
 
 interface UseSpotDetailQueryParams {
   id?: number;
@@ -31,6 +32,8 @@ export default function useSpotDetailQuery({ id }: UseSpotDetailQueryParams) {
     const result = await authAxios.get<ServerResponse<SpotResponse>>(
       `/api/around/${spotId}`,
     );
+    const originOverview = result.data.result.overview;
+    result.data.result.overview = removeHTMLTag(originOverview);
 
     return result.data.result;
   };

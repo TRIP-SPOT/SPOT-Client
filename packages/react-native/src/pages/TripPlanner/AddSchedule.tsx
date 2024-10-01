@@ -96,7 +96,7 @@ export default function AddSchedule() {
                 {spotList.attraction.length > 0 && (
                   <>
                     <Font.Bold type="body1" color="white">
-                      나의 SPOT!
+                      담은 관광지
                     </Font.Bold>
                     <Spacing height={15} />
                   </>

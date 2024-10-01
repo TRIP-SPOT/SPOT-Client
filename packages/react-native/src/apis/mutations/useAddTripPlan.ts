@@ -32,15 +32,9 @@ export default function useAddTripPlan() {
 
     customForm.appendImage('image', image);
 
-    const response = await authAxios.post(
-      '/api/schedule',
-      customForm.getForm(),
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      },
-    );
-
-    return response.data;
+    await authAxios.post('/api/schedule', customForm.getForm(), {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   };
 
   return useMutation({
