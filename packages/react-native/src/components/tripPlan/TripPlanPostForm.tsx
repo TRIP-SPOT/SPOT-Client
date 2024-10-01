@@ -9,6 +9,7 @@ import ImageSelect from '../common/ImageSelect';
 import useGallery from '@/hooks/useGallery';
 import useAddTripPlan from '@/apis/mutations/useAddTripPlan';
 import { getDateString } from '@/utils/date';
+import MutationLoadingModal from '../common/MutationLoadingModal';
 
 export default function TripPlanPostForm() {
   const {
@@ -21,7 +22,7 @@ export default function TripPlanPostForm() {
     setDate,
     validate,
   } = useTripPlanFormState();
-  const { mutate } = useAddTripPlan();
+  const { mutate, isPending } = useAddTripPlan();
 
   const { getPhoto } = useGallery();
 
@@ -47,6 +48,7 @@ export default function TripPlanPostForm() {
 
   return (
     <View className="flex flex-col flex-1 p-4 justify-between">
+      <MutationLoadingModal isSubmiting={isPending} />
       <View className="flex flex-col gap-4">
         <View>
           <RegionSelect />
