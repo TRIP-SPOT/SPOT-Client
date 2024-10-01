@@ -12,13 +12,26 @@ import AroundCard from '@/components/detail/AroundCard';
 import SpotDetailBottomSheet from '@/components/common/SpotDetailBottomSheet';
 import useTripPlanMySpotQuery from '@/apis/queries/tripPlan/useTripPlanMySpotQuery';
 import Spacing from '@/components/common/Spacing';
+import useDeleteSelectedSpotMutation from '@/apis/mutations/useDeleteSelectedSpotMutation';
+import BottomSheet from '@/components/common/BottomSheet';
+import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
 
 export default withSuspense(function TripPlannerDetail() {
   const route = useRoute<StackRouteProps<'TripPlanner/Detail'>>();
   const { tripId, region, city, startDate, endDate } = route.params;
   const { data } = useTripPlanMySpotQuery({ id: tripId });
   const [selectedSpot, setSelectedSpot] = useState<number>();
+  const [targetSpot, setTargetSpot] = useState<SpotResponse>();
   const navigation = useNavigation<StackNavigation<'TripPlanner/Detail'>>();
+  const { mutate: deleteSelectedSpots } = useDeleteSelectedSpotMutation(
+    tripId,
+    { onSuccess: () => setTargetSpot(undefined) },
+  );
+
+  const deleteSpot = () => {
+    if (!targetSpot) return;
+    deleteSelectedSpots(targetSpot.id);
+  };
 
   return (
     <BackGroundGradient withoutScroll>
@@ -66,6 +79,8 @@ export default withSuspense(function TripPlannerDetail() {
               renderItem={({ item }) => (
                 <AroundCard
                   data={item}
+                  withMenuIcon
+                  onMenuClick={() => setTargetSpot(item)}
                   onCardClick={() => setSelectedSpot(item.contentId)}
                 />
               )}
@@ -80,6 +95,8 @@ export default withSuspense(function TripPlannerDetail() {
               renderItem={({ item }) => (
                 <AroundCard
                   data={item}
+                  withMenuIcon
+                  onMenuClick={() => setTargetSpot(item)}
                   onCardClick={() => setSelectedSpot(item.contentId)}
                 />
               )}
@@ -94,6 +111,8 @@ export default withSuspense(function TripPlannerDetail() {
               renderItem={({ item }) => (
                 <AroundCard
                   data={item}
+                  withMenuIcon
+                  onMenuClick={() => setTargetSpot(item)}
                   onCardClick={() => setSelectedSpot(item.contentId)}
                 />
               )}
@@ -106,6 +125,26 @@ export default withSuspense(function TripPlannerDetail() {
         selectedDetailSpotId={selectedSpot}
         onClose={() => setSelectedSpot(undefined)}
       />
+      <BottomSheet
+        snapPoints={['20%']}
+        isShow={Boolean(targetSpot)}
+        handleClose={() => setTargetSpot(undefined)}
+      >
+        <View className="items-center p-4">
+          <Font.Bold type="mainTitle" color="black" ellipsis>
+            {targetSpot?.title}
+          </Font.Bold>
+          <Spacing height={20} />
+          <TouchableOpacity
+            className="w-full items-center"
+            onPress={deleteSpot}
+          >
+            <Font type="title1" color="black">
+              삭제
+            </Font>
+          </TouchableOpacity>
+        </View>
+      </BottomSheet>
     </BackGroundGradient>
   );
 });
