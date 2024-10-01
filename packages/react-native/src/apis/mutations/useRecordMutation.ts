@@ -59,6 +59,9 @@ export default function useRecordMutation({
     queryClient.invalidateQueries({
       queryKey: [QUERY_KEYS.RECORDS, location],
     });
+    queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.MY_BADGES],
+    });
   };
 
   const { mutateAsync: postMutate, isPending: isPostPending } = useMutation({
