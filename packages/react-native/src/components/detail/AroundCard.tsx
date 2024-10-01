@@ -1,19 +1,24 @@
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Font, CheckBox } from 'design-system';
 import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
+import DotMenuIcon from '@/assets/DotMenuIcon';
 
 interface AroundCardProps {
   data: SpotResponse;
+  withMenuIcon?: boolean;
   onCardClick: (spot: SpotResponse) => void;
+  onMenuClick?: () => void;
   selectedSpots?: SpotResponse[];
   selectionMode?: boolean;
 }
 
 export default function AroundCard({
   data,
+  withMenuIcon,
   selectedSpots,
   selectionMode,
   onCardClick,
+  onMenuClick,
 }: AroundCardProps) {
   const { image, title } = data;
 
@@ -43,6 +48,14 @@ export default function AroundCard({
             {title}
           </Font.Bold>
         </View>
+        {withMenuIcon && (
+          <TouchableOpacity
+            className="absolute top-0 right-0 p-2"
+            onPress={onMenuClick}
+          >
+            <DotMenuIcon />
+          </TouchableOpacity>
+        )}
       </TouchableOpacity>
     </ImageBackground>
   );
