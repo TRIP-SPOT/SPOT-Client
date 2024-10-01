@@ -1,3 +1,4 @@
+import { CanceledError } from 'axios';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigator from '@routes/StackNavigator';
@@ -21,6 +22,9 @@ const queryClient = new QueryClient({
     },
     mutations: {
       onError: (err) => {
+        if (err instanceof CanceledError) {
+          return;
+        }
         if (!__DEV__) {
           Sentry.captureException(err);
         }

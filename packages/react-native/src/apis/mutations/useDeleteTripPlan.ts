@@ -11,9 +11,7 @@ export default function useDeleteTripPlan(options?: UseDeleteTripPlanOptions) {
   const authAxios = useAuthAxios();
 
   const deleteTripPlan = async (id: number) => {
-    const response = await authAxios.delete(`/api/schedule/${id}`);
-
-    return response.data;
+    await authAxios.delete(`/api/schedule/${id}`);
   };
 
   return useMutation({

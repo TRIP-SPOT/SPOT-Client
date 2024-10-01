@@ -17,14 +17,12 @@ export default function useAddSchedule(id: number) {
     useNavigation<StackNavigation<'TripPlanner/AddSchedule'>>();
 
   const addSchedule = async ({ day, name, description }: AddScheduleProps) => {
-    const response = await authAxios.post('/api/schedule/location', {
+    await authAxios.post('/api/schedule/location', {
       scheduleId: id,
       day,
       name,
       description,
     });
-
-    return response.data;
   };
 
   return useMutation({
