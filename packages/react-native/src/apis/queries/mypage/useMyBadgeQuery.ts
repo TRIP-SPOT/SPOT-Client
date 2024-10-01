@@ -4,10 +4,16 @@ import { BADGE_MAPPER, Region } from '@/constants/CITY';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import { ServerResponse } from '@/types/response';
 import unique from '@/utils/unique';
+import { badgePath } from '@/components/common/Badge';
 
 interface BadgeResponse {
   region: Region;
   count: number;
+}
+
+interface Badge {
+  count: number;
+  badgeRegion: keyof typeof badgePath;
 }
 
 export default function useMyBadgeQuery() {
@@ -21,7 +27,16 @@ export default function useMyBadgeQuery() {
       badgeRegion: BADGE_MAPPER[badge.region],
     }));
 
-    return unique(badges, 'badgeRegion');
+    return badges.reduce((merge, item) => {
+      const findedItem = merge.find(
+        (element) => element.badgeRegion === item.badgeRegion,
+      );
+      if (findedItem) {
+        findedItem.count += item.count;
+        return merge;
+      }
+      return [...merge, item];
+    }, [] as Badge[]);
   };
 
   return useSuspenseQuery({
