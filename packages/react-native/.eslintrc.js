@@ -24,6 +24,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     'global-require': 'off',
+    'react/no-unescaped-entities': 'off',
   },
   ignorePatterns: [
     'index.js',
