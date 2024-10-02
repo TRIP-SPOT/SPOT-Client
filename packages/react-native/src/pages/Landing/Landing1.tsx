@@ -30,7 +30,6 @@ export default function Landing1() {
         }}
       >
         <Image
-          // eslint-disable-next-line global-require
           source={require('../../assets/landing/landing1.png')}
           style={{
             width,

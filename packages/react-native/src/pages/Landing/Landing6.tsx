@@ -31,7 +31,6 @@ export default function Landing6() {
         }}
       >
         <Image
-          // eslint-disable-next-line global-require
           source={require('../../assets/landing/landing6.png')}
           style={{ width, height: undefined, aspectRatio: 2.9 / 5 }}
           resizeMode="contain"

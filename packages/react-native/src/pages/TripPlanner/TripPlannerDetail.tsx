@@ -63,7 +63,6 @@ export default withSuspense(function TripPlannerDetail() {
             }
           >
             <Image
-              // eslint-disable-next-line global-require
               source={require('../../assets/plan.png')}
               style={{ width: 'auto', height: undefined, aspectRatio: 5 / 2 }}
             />
