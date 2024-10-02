@@ -3,7 +3,6 @@ import useAuthAxios from '@/apis/useAuthAxios';
 import { BADGE_MAPPER, Region } from '@/constants/CITY';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import { ServerResponse } from '@/types/response';
-import unique from '@/utils/unique';
 import { badgePath } from '@/components/common/Badge';
 
 interface BadgeResponse {

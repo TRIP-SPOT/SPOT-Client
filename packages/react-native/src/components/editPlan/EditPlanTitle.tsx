@@ -1,6 +1,5 @@
 import { Font } from 'design-system';
-import { View, TouchableOpacity } from 'react-native';
-import BackIcon from '@/assets/BackIcon';
+import { View } from 'react-native';
 import { City, Region } from '@/constants/CITY';
 import { getDateString } from '@/utils/date';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';

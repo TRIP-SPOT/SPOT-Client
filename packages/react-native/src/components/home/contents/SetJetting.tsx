@@ -1,6 +1,5 @@
 import { Font } from 'design-system';
 import { Image, ImageSourcePropType, View } from 'react-native';
-import ContentImage from '../ContentImage';
 import SetJettingContent from '../SetJettingContent';
 
 interface SetJettingContent {
