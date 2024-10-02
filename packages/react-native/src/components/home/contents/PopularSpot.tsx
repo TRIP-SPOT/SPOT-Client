@@ -1,7 +1,7 @@
 import { Font } from 'design-system';
 import { Image, ImageSourcePropType, View } from 'react-native';
-import ContentTitle from './ContentTitle';
-import ContentImage from './ContentImage';
+import ContentTitle from '../ContentTitle';
+import ContentImage from '../ContentImage';
 
 interface PopularSpotContent {
   title: string;
@@ -16,19 +16,19 @@ const CONTENTS: PopularSpotContent[] = [
     subtitle: '주문진 방파제',
     content:
       "'도깨비' 하면 떠오르는 가장 기억에 남는 장면 중 하나가 바로 주문진 방파제를 배경으로 한 이 장면입니다. 이곳은 도깨비 김신과 지은탁이 처음 만난 장소로, 지은탁이 붉은 목도리를 두르고 김신과의 운명적인 만남을 가졌던 그 순간이 많은 팬들에게 깊은 인상을 남겼습니다. 푸른 바다와 파도가 어우러진 방파제는 그 자체로도 낭만적이지만, 드라마 속 장면 덕분에 더 특별한 분위기를 자아냅니다. SPOT! 필터를 이용해 도깨비와 함께하는 그 순간을 재현해보세요. 드라마의 감동을 직접 느끼며 잊지 못할 추억을 남길 수 있습니다.",
-    image: require('../../assets/home/dokaebi.png'),
+    image: require('../../../assets/home/dokaebi.png'),
   },
   {
     title: '미스터 선샤인',
     subtitle: '만휴정',
     content: `'미스터 션샤인' 속 웅장한 자연과 고즈넉한 한옥이 조화를 이루는 만휴정 은 주인공들의 깊은 감정이 오고 갔던 중요한 장면이 촬영된 곳입니다. 으 히 "합시다. 러브. 나랑 같이."라는 명대사가 담긴 장면으로, 드라마 팬들에 게 더욱 특별한 의미를 갖는 명소입니다. 고요하고 아름다운 자연을 느낄 수 있는 만휴정은 사계절 내내 매력적인 경치로 많은 여행객들의 사랑을인 받고 있습니다. 이곳에서 SPOT! 필터를 사용해 주인공처럼 드라마 속 장 면을 재현해보고, 드라마의 감동을 직접 느껴보세요.`,
-    image: require('../../assets/home/mrsunshine.png'),
+    image: require('../../../assets/home/mrsunshine.png'),
   },
   {
     title: '사랑의 불시착',
     subtitle: '포천 한탄강 하늘다리',
     content: `한탄강 하늘다리는 ‘사랑의 불시착’ 속 윤세리와 리정혁이 자신들이 이전 에 스위스에서 만났다는 운명적인 첫 인연을 서로에게 이야기하는 중요한 장면이 촬영된 곳입니다. 이 다리는 두 주인공의 이야기가 깊어지는 낭만 적인 순간을 담아내며, 많은 팬들이 그 감동을 되새기기 위해 이곳을 찾습 니다. 한탄강 협곡 위에 놓여진 하늘다리는 웅장한 자연경관을 자랑하며, 방문객들에게도 사랑받는 명소입니다. 탁 트인 한탄강의 경치와 어우러진 이 다리를 건너며, 드라마의 감동을 생생하게 체험하고 특별한 순간을 기록해보세요.`,
-    image: require('../../assets/home/sarang.png'),
+    image: require('../../../assets/home/sarang.png'),
   },
 ];
 
@@ -51,7 +51,7 @@ export default function PopularSpot() {
       <View className="mt-4">
         <Image
           style={{ aspectRatio: 3 / 4, height: 500 }}
-          source={require('../../assets/home/popular-spot.png')}
+          source={require('../../../assets/home/popular-spot.png')}
         />
       </View>
       <View className="mt-4">
@@ -72,7 +72,7 @@ export default function PopularSpot() {
       />
       <ContentImage
         type="poster"
-        asset={require('../../assets/home/dongbaek.png')}
+        asset={require('../../../assets/home/dongbaek.png')}
       />
 
       <View className="mt-4">
