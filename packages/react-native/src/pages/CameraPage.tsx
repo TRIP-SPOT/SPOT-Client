@@ -7,7 +7,7 @@ import useGallery from '@/hooks/useGallery';
 import CheckPhoto from '@/components/camera/CheckPhoto';
 import SpotCamera from '@/components/camera/SpotCamera';
 import { StackRouteProps } from '@/types/navigation';
-import FILTER_PATHS from '@/constants/FILTER_PATHS';
+import { FILTER_PATHS } from '@/constants/FILTER_PATHS';
 import FilterCarousel from '@/components/camera/FilterCarousel';
 
 export default function CameraPage() {
