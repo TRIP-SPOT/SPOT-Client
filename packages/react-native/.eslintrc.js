@@ -26,6 +26,7 @@ module.exports = {
     'global-require': 'off',
     'react/no-array-index-key': 'off',
     'react/no-unescaped-entities': 'off',
+    'react/jsx-key': 'error',
   },
   ignorePatterns: [
     'index.js',
