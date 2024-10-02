@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Font } from 'design-system';
 import SearchBar from '@components/common/SearchBar';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
@@ -10,6 +10,7 @@ import Header from '@/components/common/Header';
 import withSuspense from '@/components/HOC/withSuspense';
 import useHomeSpotQuery from '@/apis/queries/home/useHomeSpotQuery';
 import SPOTLogo from '@/assets/SPOTLogo';
+import HOME_CONTENTS from '@/constants/HOME_CONTENTS';
 
 interface HomeScreenProps {
   navigation: StackNavigation<'Home/Main'>;
@@ -29,7 +30,7 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
           </View>
         }
       />
-      <View className="flex flex-col gap-10 px-4">
+      <View className="flex flex-col gap-10 px-4 pb-4">
         <View>
           <Font type="title1" color="white">
             안녕하세요, {profile?.nickname}님{'\n'}오늘은 어디로 가 볼까요?
@@ -50,14 +51,27 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
-        {/* FIXME: 추후 주석 제거
         <View>
           <CardSlider
             title="이 여행지는 어때요?"
-            data={homeSpots}
-            renderItem={({ item }) => <Card data={item} size={180} />}
+            data={HOME_CONTENTS}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Home/Content', {
+                    title: item.title,
+                  })
+                }
+              >
+                <ImageBackground
+                  source={item.image}
+                  className="rounded-2xl overflow-hidden bg-SPOT-black"
+                  style={{ width: 180, aspectRatio: 3 / 4 }}
+                />
+              </TouchableOpacity>
+            )}
           />
-        </View> */}
+        </View>
       </View>
     </BackGroundGradient>
   );

@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MyPage from '@/pages/MyPage';
 import EditProfile from '@/pages/MyPage/EditProfile';
 import EditProfileWithNickname from '@/pages/MyPage/EditProfileWithNickname';
-import Detail from '@/pages/Detail';
+import Detail from '@/pages/Home/Detail';
 
 const Stack = createStackNavigator();
 

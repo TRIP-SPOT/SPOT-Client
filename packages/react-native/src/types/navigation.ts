@@ -3,6 +3,7 @@ import { RouteProp } from '@react-navigation/native';
 import { KoreaLocationName } from './map';
 import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
 import { City, Region } from '@/constants/CITY';
+import { ContentTitle } from '@/constants/HOME_CONTENTS';
 
 export type StackParamList = {
   Splash: undefined;
@@ -50,6 +51,9 @@ export type StackParamList = {
     spots: SpotResponse[];
   };
   'Home/PlanPost': undefined;
+  'Home/Content': {
+    title: ContentTitle;
+  };
 
   'Gamification/Main': undefined;
   'Gamification/Quiz': {
