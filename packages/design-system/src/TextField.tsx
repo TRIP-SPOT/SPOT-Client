@@ -12,6 +12,7 @@ interface TextField {
   withoutBorder?: boolean;
   isTitle?: boolean;
   style?: StyleProp<TextStyle>;
+  maxLength?: number;
 }
 
 export function TextField({
@@ -26,6 +27,7 @@ export function TextField({
   withoutBorder = false,
   isTitle = false,
   style,
+  maxLength,
 }: TextField) {
   const defaultClassName = 'text-SPOT-white text-body2 rounded-md p-4';
   const incorrectClassName = 'border-SPOT-red border-[2px]';
@@ -46,13 +48,17 @@ export function TextField({
       value={value}
       onChangeText={onChange}
       placeholder={placeholder}
-      placeholderTextColor='#ffffff'
+      placeholderTextColor="#ffffff"
       className={`${defaultClassName} ${border} ${getBorderClassName()}`}
       onSubmitEditing={onSubmit}
+      maxLength={maxLength}
       numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
       style={[
         {
-          minHeight: Platform.OS === 'ios' && numberOfLines && numberOfLines ? 30 * numberOfLines : undefined,
+          minHeight:
+            Platform.OS === 'ios' && numberOfLines && numberOfLines
+              ? 30 * numberOfLines
+              : undefined,
           backgroundColor: bgColor,
           fontSize: isTitle ? 22 : undefined,
           lineHeight: isTitle ? 30 : undefined,

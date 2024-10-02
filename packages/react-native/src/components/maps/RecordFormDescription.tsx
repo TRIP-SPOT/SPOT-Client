@@ -17,6 +17,7 @@ export default function RecordFormDescription() {
           value={description}
           onChange={handleDescriptionChange}
           placeholder="내용을 작성해주세요."
+          maxLength={255}
         />
       </View>
     </View>
