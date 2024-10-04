@@ -3,11 +3,7 @@ import useAuthAxios from '@/apis/useAuthAxios';
 import { City, Region } from '@/constants/CITY';
 import { ServerResponse } from '@/types/response';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
-
-export interface Location {
-  latitude?: number;
-  longitude?: number;
-}
+import { Location } from '@/hooks/useLocation';
 
 export interface QuizzesResponse {
   quizId: number;
