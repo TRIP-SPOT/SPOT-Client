@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
-import { Font } from 'design-system';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { Button, Font } from 'design-system';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import CardSlider from '@/components/common/CardSlider';
 import Header from '@/components/common/Header';
@@ -52,22 +52,6 @@ export default withSuspense(function TripPlannerDetail() {
       <View className="rounded-t-2xl bg-SPOT-white flex-1 mt-5 ">
         <Spacing height={10} />
         <ScrollView className="px-5 flex-1 ">
-          <Font.Bold type="body1" color="black">
-            나의 일정
-          </Font.Bold>
-          <Spacing height={10} />
-          <TouchableOpacity
-            className="rounded-md overflow-hidden"
-            onPress={() =>
-              navigation.navigate('TripPlanner/EditPlan', { tripId })
-            }
-          >
-            <Image
-              // eslint-disable-next-line global-require
-              source={require('../../assets/plan.png')}
-              style={{ width: 'auto', height: undefined, aspectRatio: 5 / 2 }}
-            />
-          </TouchableOpacity>
           <Spacing height={10} />
           <View>
             <CardSlider
@@ -120,6 +104,17 @@ export default withSuspense(function TripPlannerDetail() {
             <Spacing height={10} />
           </View>
         </ScrollView>
+        <View className="bg-SPOT-white py-4 px-4">
+          <Button
+            onPress={() =>
+              navigation.navigate('TripPlanner/EditPlan', { tripId })
+            }
+          >
+            <Font.Bold type="title1" color="white">
+              일정 보기
+            </Font.Bold>
+          </Button>
+        </View>
       </View>
       <SpotDetailBottomSheet
         selectedDetailSpotId={selectedSpot}

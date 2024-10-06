@@ -16,6 +16,7 @@ export default function RecordFormTitle() {
           value={title}
           onChange={handleTitleChange}
           placeholder="제목"
+          maxLength={255}
         />
         <View className="w-full justify-center items-end mt-2.5">
           <Font

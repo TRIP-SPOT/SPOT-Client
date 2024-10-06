@@ -5,7 +5,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import FILTER_PATHS from '@/constants/FILTER_PATHS';
+import { THUMBNAIL_PATHS } from '@/constants/FILTER_PATHS';
 
 const { width } = Dimensions.get('window');
 
@@ -18,7 +18,7 @@ interface FilterCarouselProps {
 }
 
 interface FilterItemProps {
-  item: (typeof FILTER_PATHS)[number];
+  item: (typeof THUMBNAIL_PATHS)[number];
   animationValue: Animated.SharedValue<number>;
   onPress: () => void;
 }
@@ -76,7 +76,7 @@ function FilterCarousel({
   handleSnap,
 }: FilterCarouselProps) {
   const carouselRef = useRef<ICarouselInstance>(null);
-  const experienceFilterLength = FILTER_PATHS.length;
+  const experienceFilterLength = THUMBNAIL_PATHS.length;
 
   const snapToIndex = (index: number) => {
     const moveMent = Math.abs(filterIndex - index);
@@ -119,7 +119,7 @@ function FilterCarousel({
           : experienceFilterLength - 2 + filterIndex
       }
       scrollAnimationDuration={500}
-      data={FILTER_PATHS}
+      data={THUMBNAIL_PATHS}
       onSnapToItem={(index) => {
         handleSnap((index + 2) % experienceFilterLength);
       }}

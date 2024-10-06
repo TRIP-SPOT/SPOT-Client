@@ -1,6 +1,5 @@
 import { Font } from 'design-system';
-import { View, TouchableOpacity } from 'react-native';
-import BackIcon from '@/assets/BackIcon';
+import { View } from 'react-native';
 import { City, Region } from '@/constants/CITY';
 import { getDateString } from '@/utils/date';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
@@ -24,9 +23,6 @@ export default function EditPlanTitle({
         className="items-center justify-center flex-row"
         style={{ gap: 30 }}
       >
-        <TouchableOpacity className="p-2">
-          <BackIcon />
-        </TouchableOpacity>
         <View className="items-center">
           <Font.Bold type="title1" color="white">
             {getDisplayRegion({
@@ -40,9 +36,6 @@ export default function EditPlanTitle({
             {getDateString(endDate, '.')}
           </Font.Light>
         </View>
-        <TouchableOpacity className="rotate-180 p-2">
-          <BackIcon />
-        </TouchableOpacity>
       </View>
     </View>
   );
