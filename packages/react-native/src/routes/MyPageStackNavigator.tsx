@@ -3,6 +3,7 @@ import MyPage from '@/pages/MyPage';
 import EditProfile from '@/pages/MyPage/EditProfile';
 import EditProfileWithNickname from '@/pages/MyPage/EditProfileWithNickname';
 import Detail from '@/pages/Home/Detail';
+import HomeSpotAdd from '@/pages/Home/HomeSpotAdd';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default function MyPageStackNavigator() {
         component={EditProfileWithNickname}
       />
       <Stack.Screen name="MyPage/Detail" component={Detail} />
+      <Stack.Screen name="MyPage/AddSpot" component={HomeSpotAdd} />
     </Stack.Navigator>
   );
 }

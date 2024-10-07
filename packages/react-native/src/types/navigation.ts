@@ -43,6 +43,9 @@ export type StackParamList = {
   'MyPage/EditProfile': { nickname: string };
   'MyPage/EditProfileWithNickname': { nickname: string };
   'MyPage/Detail': { contentId: number; id: number; workId: number };
+  'Mypage/AddSpot': {
+    spots: SpotResponse[];
+  };
 
   'Home/Main': undefined;
   'Home/Search': { title: string };

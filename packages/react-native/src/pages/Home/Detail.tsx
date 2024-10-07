@@ -48,7 +48,12 @@ const Detail = withSuspense(() => {
     headerHeight - insets.top > 0 ? headerHeight - insets.top : 0;
 
   const handleAddPlan = () => {
-    navigation.navigate('Home/AddSpot', {
+    const currentRoute = route.name.split('/')[0];
+    const nextRoute = `${currentRoute}/AddSpot` as
+      | 'Home/AddSpot'
+      | 'Mypage/AddSpot';
+
+    navigation.navigate(nextRoute, {
       spots: [
         {
           contentId: Number(contentId),

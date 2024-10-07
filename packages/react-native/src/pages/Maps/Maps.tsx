@@ -217,7 +217,7 @@ export default withSuspense(function Maps({ navigation }: MapsMainProps) {
                   }}
                 >
                   <Font type="title1" color="black">
-                    여행기록보기
+                    여행기록 보기
                   </Font>
                 </TouchableOpacity>
               </View>

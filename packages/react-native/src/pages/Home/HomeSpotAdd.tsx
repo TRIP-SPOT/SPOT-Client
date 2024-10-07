@@ -46,24 +46,31 @@ export default withSuspense(function HomeSpotAdd() {
             {isEmpty ? (
               <EmptyPlan />
             ) : (
-              <View
-                className="mt-5 flex flex-row flex-wrap "
-                style={{
-                  gap: CARD_GAP,
-                }}
-              >
-                {data?.map((plan) => (
-                  <View key={plan.id}>
-                    <TripPlanCard
-                      isSelectionMode
-                      isSelect={tripId === plan.id}
-                      cardData={plan}
-                      onCardClick={() => {
-                        setTripId(plan.id);
-                      }}
-                    />
-                  </View>
-                ))}
+              <View>
+                <View className="justify-center items-center">
+                  <Font type="body1" color="white">
+                    나의 여행은 Trip Planner 탭에서 확인할 수 있습니다.
+                  </Font>
+                </View>
+                <View
+                  className="mt-5 flex flex-row flex-wrap "
+                  style={{
+                    gap: CARD_GAP,
+                  }}
+                >
+                  {data?.map((plan) => (
+                    <View key={plan.id}>
+                      <TripPlanCard
+                        isSelectionMode
+                        isSelect={tripId === plan.id}
+                        cardData={plan}
+                        onCardClick={() => {
+                          setTripId(plan.id);
+                        }}
+                      />
+                    </View>
+                  ))}
+                </View>
               </View>
             )}
           </View>
