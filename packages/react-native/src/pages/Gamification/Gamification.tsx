@@ -7,12 +7,8 @@ import useLocation from '@/hooks/useLocation';
 
 export default withSuspense(
   function Gamification() {
-    const { location } = useLocation();
-    const { data } = useQuizzesQuery({ location });
-
-    if (!location?.latitude || !location.longitude) {
-      return <QuizLoading />;
-    }
+    const location = useLocation();
+    const { data } = useQuizzesQuery(location);
 
     if (!data || data?.length === 0) {
       return <NoQuiz />;

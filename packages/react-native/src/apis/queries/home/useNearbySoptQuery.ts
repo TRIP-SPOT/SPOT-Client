@@ -6,14 +6,17 @@ import { MySpotResponse } from '../mypage/useMySpotsQuery';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import { MILLISECONDS } from '@/constants/MILLISECONDS';
 
-export default function useNeearbySpotQuery(location: Location | undefined) {
+export default function useNeearbySpotQuery(
+  location: Promise<Location | undefined>,
+) {
   const authAxios = useAuthAxios();
 
   const getNearbySpot = async () => {
-    if (!location || !location.latitude || !location.longitude) return [];
+    const res = await location;
+    if (!res || !res.latitude || !res.longitude) return [];
 
     const response = await authAxios.get<ServerResponse<MySpotResponse[]>>(
-      `/api/spot/nearby?latitude=${location.latitude}&longitude=${location.longitude}`,
+      `/api/spot/nearby?latitude=${res.latitude}&longitude=${res.longitude}`,
     );
 
     return response.data.result;

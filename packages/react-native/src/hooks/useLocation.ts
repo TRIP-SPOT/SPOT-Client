@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import useGeolocation from './useGeolocation';
 
 export interface Location {
@@ -8,16 +7,16 @@ export interface Location {
 
 export default function useLocation() {
   const { getGeolocation } = useGeolocation();
-  const [location, setLocation] = useState<Location>();
 
-  useEffect(() => {
-    getGeolocation().then((res) => {
-      setLocation({
-        latitude: res?.coords.latitude,
-        longitude: res?.coords.longitude,
-      });
-    });
-  }, []);
+  const fetchLocation = async (): Promise<Location | undefined> => {
+    const res = await getGeolocation();
+    if (!res) return undefined;
 
-  return { location };
+    return {
+      latitude: res.coords.latitude,
+      longitude: res.coords.longitude,
+    };
+  };
+
+  return fetchLocation(); // Promise 반환
 }

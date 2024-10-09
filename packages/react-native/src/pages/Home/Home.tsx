@@ -19,7 +19,7 @@ interface HomeScreenProps {
 }
 
 export default withSuspense(function Home({ navigation }: HomeScreenProps) {
-  const { location } = useLocation();
+  const location = useLocation();
 
   const { profile } = useProfileQuery();
   const { data: nearbySpots } = useNeearbySpotQuery(location);
