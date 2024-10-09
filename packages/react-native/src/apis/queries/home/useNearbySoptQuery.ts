@@ -1,15 +1,14 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import useAuthAxios from '@/apis/useAuthAxios';
-import { Location } from '@/hooks/useLocation';
+import useLocation from '@/hooks/useLocation';
 import { ServerResponse } from '@/types/response';
 import { MySpotResponse } from '../mypage/useMySpotsQuery';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
 import { MILLISECONDS } from '@/constants/MILLISECONDS';
 
-export default function useNeearbySpotQuery(
-  location: Promise<Location | undefined>,
-) {
+export default function useNeearbySpotQuery() {
   const authAxios = useAuthAxios();
+  const location = useLocation();
 
   const getNearbySpot = async () => {
     const res = await location;

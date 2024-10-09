@@ -11,7 +11,6 @@ import withSuspense from '@/components/HOC/withSuspense';
 import useHomeSpotQuery from '@/apis/queries/home/useHomeSpotQuery';
 import SPOTLogo from '@/assets/SPOTLogo';
 import HOME_CONTENTS from '@/constants/HOME_CONTENTS';
-import useLocation from '@/hooks/useLocation';
 import useNeearbySpotQuery from '@/apis/queries/home/useNearbySoptQuery';
 
 interface HomeScreenProps {
@@ -19,10 +18,8 @@ interface HomeScreenProps {
 }
 
 export default withSuspense(function Home({ navigation }: HomeScreenProps) {
-  const location = useLocation();
-
   const { profile } = useProfileQuery();
-  const { data: nearbySpots } = useNeearbySpotQuery(location);
+  const { data: nearbySpots } = useNeearbySpotQuery();
   const { data: homeSpots } = useHomeSpotQuery();
 
   return (

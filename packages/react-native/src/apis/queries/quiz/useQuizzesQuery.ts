@@ -3,7 +3,7 @@ import useAuthAxios from '@/apis/useAuthAxios';
 import { City, Region } from '@/constants/CITY';
 import { ServerResponse } from '@/types/response';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
-import { Location } from '@/hooks/useLocation';
+import useLocation from '@/hooks/useLocation';
 
 export interface QuizzesResponse {
   quizId: number;
@@ -15,10 +15,9 @@ export interface QuizzesResponse {
   filterImage: string;
 }
 
-export default function useQuizzesQuery(
-  location: Promise<Location | undefined>,
-) {
+export default function useQuizzesQuery() {
   const authAxios = useAuthAxios();
+  const location = useLocation();
 
   const getQuizzes = async () => {
     const res = await location;
