@@ -11,13 +11,18 @@ import withSuspense from '@/components/HOC/withSuspense';
 import useHomeSpotQuery from '@/apis/queries/home/useHomeSpotQuery';
 import SPOTLogo from '@/assets/SPOTLogo';
 import HOME_CONTENTS from '@/constants/HOME_CONTENTS';
+import useLocation from '@/hooks/useLocation';
+import useNeearbySpotQuery from '@/apis/queries/home/useNearbySoptQuery';
 
 interface HomeScreenProps {
   navigation: StackNavigation<'Home/Main'>;
 }
 
 export default withSuspense(function Home({ navigation }: HomeScreenProps) {
+  const { location } = useLocation();
+
   const { profile } = useProfileQuery();
+  const { data: nearbySpots } = useNeearbySpotQuery(location);
   const { data: homeSpots } = useHomeSpotQuery();
 
   return (
@@ -51,6 +56,15 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
+        {nearbySpots.length > 0 && (
+          <View>
+            <CardSlider
+              title="내 주변 SPOT!"
+              data={nearbySpots}
+              renderItem={({ item }) => <Card data={item} size={180} />}
+            />
+          </View>
+        )}
         <View>
           <CardSlider
             title="이 여행지는 어때요?"

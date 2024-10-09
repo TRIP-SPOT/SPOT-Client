@@ -8,9 +8,10 @@ import { StackNavigation } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import useSpotLikeMutation from '@/apis/mutations/useSpotLikeMutation';
 import MutationLoadingModal from './MutationLoadingModal';
+import { MySpotResponse } from '@/apis/queries/mypage/useMySpotsQuery';
 
 interface CardProps {
-  data: SpotCardData;
+  data: SpotCardData | MySpotResponse;
   size?: number;
 }
 
