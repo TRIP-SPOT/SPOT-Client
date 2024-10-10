@@ -18,6 +18,7 @@ const QUERY_KEYS = {
   MY_LEVEL: 'myLevel',
   BADGE_HISTORY: 'badgeHistory',
   SCHEDULES: 'schedules',
+  NEARBY_SPOT: 'nearbySpot',
 };
 
 export default QUERY_KEYS;

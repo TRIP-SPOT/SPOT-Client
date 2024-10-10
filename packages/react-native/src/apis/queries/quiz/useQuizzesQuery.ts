@@ -3,11 +3,7 @@ import useAuthAxios from '@/apis/useAuthAxios';
 import { City, Region } from '@/constants/CITY';
 import { ServerResponse } from '@/types/response';
 import QUERY_KEYS from '@/constants/QUERY_KEYS';
-
-export interface Location {
-  latitude?: number;
-  longitude?: number;
-}
+import useLocation from '@/hooks/useLocation';
 
 export interface QuizzesResponse {
   quizId: number;
@@ -19,27 +15,23 @@ export interface QuizzesResponse {
   filterImage: string;
 }
 
-interface UseQuizzesQueryParams {
-  location?: Location;
-}
-
-export default function useQuizzesQuery({ location }: UseQuizzesQueryParams) {
+export default function useQuizzesQuery() {
   const authAxios = useAuthAxios();
+  const location = useLocation();
 
-  const getQuizzes = async (locations: Location) => {
+  const getQuizzes = async () => {
+    const res = await location;
+    if (!res || !res.latitude || !res.longitude) return [];
+
     const result = await authAxios.get<ServerResponse<QuizzesResponse[]>>(
-      `/api/spot?longitude=${locations.longitude}&latitude=${locations.latitude}`,
+      `/api/spot?longitude=${res.longitude}&latitude=${res.latitude}`,
     );
+
     return result.data.result;
   };
+
   return useSuspenseQuery({
     queryKey: [QUERY_KEYS.QUIZZES, location],
-    queryFn: () => {
-      if (!location?.latitude || !location.longitude) {
-        return null;
-      }
-
-      return getQuizzes(location);
-    },
+    queryFn: getQuizzes,
   });
 }
