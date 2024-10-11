@@ -20,7 +20,12 @@ export default withSuspense(
     const { list, toggleItem, reset } = useArrayToggle<SpotResponse>();
     const navigation = useNavigation<StackNavigation<'Home/Detail'>>();
 
-    const { contentId, workId } = route.params;
+    const { contentId, workId, currentRoute } = route.params as {
+      contentId: number;
+      id: number;
+      workId: number;
+      currentRoute: string;
+    };
 
     const { data } = useAroundSpotQuery({ id: contentId, workId });
 
@@ -135,8 +140,7 @@ export default withSuspense(
             bottom={16}
             right={16}
             onPress={() => {
-              const currentRoute = route.name.split('/')[0];
-              const nextRoute = `${currentRoute}/AddSpot` as
+              const nextRoute = `${currentRoute.split('/')[0]}/AddSpot` as
                 | 'Home/AddSpot'
                 | 'Mypage/AddSpot';
               navigation.navigate(nextRoute, {
