@@ -1,22 +1,18 @@
-import useGeolocation from './useGeolocation';
-
-export interface Location {
-  latitude?: number;
-  longitude?: number;
-}
+import { useEffect, useState } from 'react';
+import useGeolocation, { Location } from './useGeolocation';
 
 export default function useLocation() {
   const { getGeolocation } = useGeolocation();
 
-  const fetchLocation = async (): Promise<Location | undefined> => {
-    const res = await getGeolocation();
-    if (!res) return undefined;
+  const [location, setLocation] = useState<Location>();
 
-    return {
-      latitude: res.coords.latitude,
-      longitude: res.coords.longitude,
-    };
-  };
+  useEffect(() => {
+    getGeolocation().then((res) => {
+      if (res) {
+        setLocation(res);
+      }
+    });
+  }, []);
 
-  return fetchLocation(); // Promise 반환
+  return location;
 }
