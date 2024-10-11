@@ -10,6 +10,11 @@ import {
   request,
 } from 'react-native-permissions';
 
+export interface Location {
+  latitude?: number;
+  longitude?: number;
+}
+
 export default function useGeolocation() {
   const checkLocationPermission = (result: PermissionStatus) => {
     switch (result) {
@@ -48,7 +53,7 @@ export default function useGeolocation() {
     return checkLocationPermission(permission) === 'granted';
   };
 
-  const getGeolocation = async () => {
+  const getGeolocation: () => Promise<Location | null> = async () => {
     const hasPermission = await hasLocationPermission();
     if (!hasPermission) {
       return null;
@@ -57,7 +62,11 @@ export default function useGeolocation() {
     const result = await new Promise<GeolocationResponse>((resolve) => {
       Geolocation.getCurrentPosition((pos) => resolve(pos));
     });
-    return result;
+
+    return {
+      latitude: result.coords.latitude,
+      longitude: result.coords.longitude,
+    };
   };
 
   return { getGeolocation };

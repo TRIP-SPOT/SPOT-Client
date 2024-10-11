@@ -49,7 +49,7 @@ export default function DetailTabNavigator() {
         name="Detail/Spot"
         component={DetailSpot}
         options={{ tabBarLabel: 'SPOT!', swipeEnabled: false }}
-        initialParams={{ id, contentId, workId }}
+        initialParams={{ id, contentId, workId, currentRoute: route.name }}
       />
     </Tab.Navigator>
   );

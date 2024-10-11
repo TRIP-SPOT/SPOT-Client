@@ -17,6 +17,7 @@ export default function SearchBar({
     if (!searchKeyword) return;
 
     handleSearch(searchKeyword);
+    setSearchKeyword('');
   };
 
   return (

@@ -11,11 +11,10 @@ export default function useNeearbySpotQuery() {
   const location = useLocation();
 
   const getNearbySpot = async () => {
-    const res = await location;
-    if (!res || !res.latitude || !res.longitude) return [];
+    if (!location || !location.latitude || !location.longitude) return [];
 
     const response = await authAxios.get<ServerResponse<MySpotResponse[]>>(
-      `/api/spot/nearby?latitude=${res.latitude}&longitude=${res.longitude}`,
+      `/api/spot/nearby?latitude=${location.latitude}&longitude=${location.longitude}`,
     );
 
     return response.data.result;
