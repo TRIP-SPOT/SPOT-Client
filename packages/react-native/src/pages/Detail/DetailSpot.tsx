@@ -135,7 +135,11 @@ export default withSuspense(
             bottom={16}
             right={16}
             onPress={() => {
-              navigation.navigate('Home/AddSpot', {
+              const currentRoute = route.name.split('/')[0];
+              const nextRoute = `${currentRoute}/AddSpot` as
+                | 'Home/AddSpot'
+                | 'Mypage/AddSpot';
+              navigation.navigate(nextRoute, {
                 spots: list,
               });
             }}
