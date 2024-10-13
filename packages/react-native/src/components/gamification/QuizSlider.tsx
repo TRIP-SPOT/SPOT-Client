@@ -59,9 +59,11 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
               />
             ))}
           </View>
-          <Font.Bold color="white" type="body2">
-            촬영지에 해당하는 퀴즈가 없는 경우, 지역 퀴즈로 대체돼요.
-          </Font.Bold>
+          <View>
+            <Font.Bold color="white" type="body2">
+              촬영지에 해당하는 퀴즈가 없는 경우, 지역 퀴즈로 대체돼요.
+            </Font.Bold>
+          </View>
         </View>
       </View>
     </BackGroundGradient>
