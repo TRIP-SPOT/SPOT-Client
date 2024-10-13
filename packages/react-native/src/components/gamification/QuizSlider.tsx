@@ -27,7 +27,7 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
   return (
     <BackGroundGradient withoutScroll>
       <Header title={quizListData[currentIndex].workName} />
-      <View className="flex-1 justify-center">
+      <View className="flex-1 justify-evenly">
         <View className="justify-center items-center gap-2">
           <FlatList
             horizontal
@@ -59,11 +59,11 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
               />
             ))}
           </View>
-          <View>
-            <Font.Bold color="white" type="body2">
-              촬영지에 해당하는 퀴즈가 없는 경우, 지역 퀴즈로 대체돼요.
-            </Font.Bold>
-          </View>
+        </View>
+        <View className="items-center">
+          <Font color="white" type="body3">
+            촬영지에 해당하는 퀴즈가 없는 경우, 지역 퀴즈로 대체됩니다!
+          </Font>
         </View>
       </View>
     </BackGroundGradient>
