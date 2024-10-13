@@ -9,6 +9,7 @@ import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import useSpotLikeMutation from '@/apis/mutations/useSpotLikeMutation';
 import MutationLoadingModal from './MutationLoadingModal';
 import { MySpotResponse } from '@/apis/queries/mypage/useMySpotsQuery';
+import SPOTLogo from '@/assets/SPOTLogo';
 
 interface CardProps {
   data: SpotCardData | MySpotResponse;
@@ -74,7 +75,7 @@ function Default({ data, size = 260 }: CardProps) {
   return (
     <ImageBackground
       source={{ uri: posterUrl }}
-      className="rounded-2xl overflow-hidden bg-SPOT-black"
+      className={`rounded-2xl overflow-hidden ${!posterUrl ? 'bg-SPOT-red' : 'bg-SPOT-black'}`}
       style={{ width: size, aspectRatio: 3 / 4 }}
     >
       <MutationLoadingModal
@@ -87,6 +88,11 @@ function Default({ data, size = 260 }: CardProps) {
         }
         activeOpacity={1}
       >
+        {!posterUrl && (
+          <View className="items-center justify-center top-5 flex-1">
+            <SPOTLogo width={100} color="black" />
+          </View>
+        )}
         <View className="flex-row justify-end items-center">
           <TouchableOpacity
             className="flex-row items-center p-2"

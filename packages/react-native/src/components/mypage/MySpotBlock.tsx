@@ -8,6 +8,7 @@ import HeartIcon from '@/assets/HeartIcon';
 import { StackNavigation } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import MutationLoadingModal from '../common/MutationLoadingModal';
+import SPOTLogo from '@/assets/SPOTLogo';
 
 interface MySpotBlockProps {
   mySpot: MySpotResponse;
@@ -78,7 +79,7 @@ export default function MySpotBlock({ mySpot, width, gap }: MySpotBlockProps) {
     <ImageBackground
       source={{ uri: posterUrl }}
       style={{ width, height: width * 1.3, margin: gap / 2 }}
-      className="bg-red-300 rounded-lg overflow-hidden"
+      className="bg-SPOT-red/80 rounded-lg overflow-hidden"
     >
       <MutationLoadingModal
         isSubmiting={isLikePending || isCancelLikePending}
@@ -87,6 +88,9 @@ export default function MySpotBlock({ mySpot, width, gap }: MySpotBlockProps) {
         className="flex-1 justify-end bg-black/40"
         onPress={handleClick}
       >
+        <View className="items-center">
+          <SPOTLogo width={120} color="black" />
+        </View>
         <View className="flex-row justify-end items-center">
           <TouchableOpacity
             className="flex-row items-center p-2"

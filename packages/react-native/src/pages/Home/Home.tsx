@@ -53,15 +53,13 @@ export default withSuspense(function Home({ navigation }: HomeScreenProps) {
             renderItem={({ item }) => <Card data={item} size={180} />}
           />
         </View>
-        {nearbySpots.length > 0 && (
-          <View>
-            <CardSlider
-              title="내 주변 SPOT!"
-              data={nearbySpots}
-              renderItem={({ item }) => <Card data={item} size={180} />}
-            />
-          </View>
-        )}
+        <View>
+          <CardSlider
+            title="내 주변 SPOT!"
+            data={nearbySpots}
+            renderItem={({ item }) => <Card data={item} size={180} />}
+          />
+        </View>
         <View>
           <CardSlider
             title="이 여행지는 어때요?"

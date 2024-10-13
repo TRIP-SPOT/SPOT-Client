@@ -6,6 +6,7 @@ import { StackNavigation } from '@/types/navigation';
 import { getDisplayRegion } from '@/utils/getDisplayRegionName';
 import useToggle from '@/hooks/useToggle';
 import FilterExperienceModal from './FilterExperienceModal';
+import SPOTLogo from '@/assets/SPOTLogo';
 
 interface QuizCardProps {
   quizData: QuizzesResponse;
@@ -57,7 +58,13 @@ export default function QuizCard({ quizData }: QuizCardProps) {
           borderTopLeftRadius: 25,
           borderTopRightRadius: 25,
         }}
+        className="bg-SPOT-red/30"
       />
+      {!quizData.imageUrl && (
+        <View className="items-center justify-center absolute w-full h-3/4">
+          <SPOTLogo color="black" />
+        </View>
+      )}
       <View className="bg-[#191919] rounded-b-3xl p-3">
         <View className="flex gap-1">
           <View className="justify-center items-center gap-1 flex flex-col">
