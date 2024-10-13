@@ -30,8 +30,11 @@ export default function PostRecord() {
       <RecordFormProvider>
         <RecordPostForm setRecordModalInfo={setRecordModalInfo} />
       </RecordFormProvider>
-      {recordModalInfo && (
-        <BadgeModal visible={Boolean(recordModalInfo)} handleClose={closeModal}>
+      {typeof recordModalInfo !== 'undefined' && (
+        <BadgeModal
+          visible={typeof recordModalInfo !== 'undefined'}
+          handleClose={closeModal}
+        >
           <View className="justify-center gap-2 flex-row items-center flex mt-6">
             <Font.Bold type="title1" color="white">
               {region}
