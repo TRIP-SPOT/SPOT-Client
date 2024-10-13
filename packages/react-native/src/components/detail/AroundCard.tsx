@@ -2,6 +2,7 @@ import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Font, CheckBox } from 'design-system';
 import { SpotResponse } from '@/apis/queries/spot/useSpotDetailQuery';
 import DotMenuIcon from '@/assets/DotMenuIcon';
+import SPOTLogo from '@/assets/SPOTLogo';
 
 interface AroundCardProps {
   data: SpotResponse;
@@ -25,7 +26,7 @@ export default function AroundCard({
   return (
     <ImageBackground
       source={{ uri: image }}
-      className="w-[120px] h-[160px] rounded-lg overflow-hidden"
+      className={`w-[120px] h-[160px] rounded-lg overflow-hidden ${!image ? 'bg-SPOT-red' : 'bg-SPOT-black'}`}
     >
       <TouchableOpacity
         className="flex-1 justify-end bg-black/30"
@@ -41,6 +42,11 @@ export default function AroundCard({
                 selectedSpots.some((spot) => spot.contentId === data.contentId)
               }
             />
+          </View>
+        )}
+        {!image && (
+          <View className="items-center -top-3">
+            <SPOTLogo width={50} color="black" />
           </View>
         )}
         <View className="p-2 bg-[#191919]">
