@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Dimensions, View, ViewToken } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { Font } from 'design-system';
 import { QuizzesResponse } from '@/apis/queries/quiz/useQuizzesQuery';
 import Header from '@/components/common/Header';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
@@ -58,6 +59,9 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
               />
             ))}
           </View>
+          <Font.Bold color="white" type="body2">
+            촬영지에 해당하는 퀴즈가 없는 경우, 지역 퀴즈로 대체돼요.
+          </Font.Bold>
         </View>
       </View>
     </BackGroundGradient>
