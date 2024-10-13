@@ -13,7 +13,9 @@ import BadgeModal from '@/components/common/BadgeModal';
 
 export default function PostRecord() {
   const [recordModalInfo, setRecordModalInfo] = useState<Region>();
-  const region = recordModalInfo && REVERSE_REGION_MAPPER[recordModalInfo];
+  const region =
+    typeof recordModalInfo !== 'undefined' &&
+    REVERSE_REGION_MAPPER[recordModalInfo];
   const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
   const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
 
