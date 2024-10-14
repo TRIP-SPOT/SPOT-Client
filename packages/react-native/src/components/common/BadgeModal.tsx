@@ -20,11 +20,11 @@ export default function BadgeModal({
       <View className="flex-1 justify-center text-center px-8">
         <View className="p-4 bg-[#191919] rounded-xl">
           <View className="justify-center flex-row">
-            {headerTitle ? (
+            {headerTitle && (
               <Font type="body1" color="white">
                 {headerTitle}
               </Font>
-            ) : null}
+            )}
             <TouchableOpacity
               onPress={handleClose}
               className="absolute right-0"
