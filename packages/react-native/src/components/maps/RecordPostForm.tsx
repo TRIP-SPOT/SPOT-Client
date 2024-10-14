@@ -2,21 +2,27 @@ import { useState } from 'react';
 import { Asset } from 'react-native-image-picker';
 import { Alert, View } from 'react-native';
 import { Button, Font } from 'design-system';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import RecordFormTitle from './RecordFormTitle';
 import RecordFormDatePicker from './RecordFormDatePickers';
 import CalendarIcon from '@/assets/CalendarIcon';
-import { StackNavigation, StackRouteProps } from '@/types/navigation';
+import { StackRouteProps } from '@/types/navigation';
 import useRecordFormState from '@/hooks/useRecordFormState';
 import useGallery from '@/hooks/useGallery';
 import useRecordMutation from '@/apis/mutations/useRecordMutation';
 import RecordFormDescription from './RecordFormDescription';
 import RecordFormCitySelect from './RecordFormCitySelect';
-import { REGION_MAPPER } from '@/constants/CITY';
+import { Region, REGION_MAPPER } from '@/constants/CITY';
 import ImageSelect from '../common/ImageSelect';
 import MutationLoadingModal from '../common/MutationLoadingModal';
 
-export default function RecordPostForm() {
+interface RecordPostFormProps {
+  setRecordModalInfo: React.Dispatch<React.SetStateAction<Region | undefined>>;
+}
+
+export default function RecordPostForm({
+  setRecordModalInfo,
+}: RecordPostFormProps) {
   const {
     description,
     title,
@@ -29,7 +35,6 @@ export default function RecordPostForm() {
   } = useRecordFormState();
 
   const { params } = useRoute<StackRouteProps<'Maps/PostRecord'>>();
-  const navigate = useNavigation<StackNavigation<'Maps/Record'>>();
   const [imageAssets, setImageAssets] = useState<Asset[]>();
 
   const { getPhoto } = useGallery();
@@ -84,9 +89,7 @@ export default function RecordPostForm() {
       images: imageAssets,
     });
 
-    navigate.navigate('Maps/Record', {
-      location: params.location,
-    });
+    setRecordModalInfo(REGION_MAPPER[params.location]);
   };
   return (
     <>

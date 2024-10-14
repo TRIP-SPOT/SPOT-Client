@@ -88,9 +88,11 @@ export default function MySpotBlock({ mySpot, width, gap }: MySpotBlockProps) {
         className="flex-1 justify-end bg-black/40"
         onPress={handleClick}
       >
-        <View className="items-center">
-          <SPOTLogo width={120} color="black" />
-        </View>
+        {!posterUrl && (
+          <View className="items-center">
+            <SPOTLogo width={120} color="black" />
+          </View>
+        )}
         <View className="flex-row justify-end items-center">
           <TouchableOpacity
             className="flex-row items-center p-2"

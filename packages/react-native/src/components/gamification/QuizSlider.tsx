@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Dimensions, View, ViewToken } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { Font } from 'design-system';
 import { QuizzesResponse } from '@/apis/queries/quiz/useQuizzesQuery';
 import Header from '@/components/common/Header';
 import BackGroundGradient from '@/layouts/BackGroundGradient';
@@ -26,7 +27,7 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
   return (
     <BackGroundGradient withoutScroll>
       <Header title={quizListData[currentIndex].workName} />
-      <View className="flex-1 justify-center">
+      <View className="flex-1 justify-evenly">
         <View className="justify-center items-center gap-2">
           <FlatList
             horizontal
@@ -57,6 +58,16 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
                 className={`w-2 h-2 rounded-full ${index === currentIndex ? 'bg-SPOT-red' : 'bg-Button-gray'}`}
               />
             ))}
+          </View>
+        </View>
+        <View className="items-center ">
+          <View className="bg-Button-gray rounded-lg px-4 py-2 items-center">
+            <Font color="white" type="body3">
+              촬영지에 해당하는 퀴즈가 없는 경우
+            </Font>
+            <Font color="white" type="body3">
+              지역 퀴즈로 대체됩니다!
+            </Font>
           </View>
         </View>
       </View>
