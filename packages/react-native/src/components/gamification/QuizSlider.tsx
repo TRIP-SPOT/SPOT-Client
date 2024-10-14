@@ -60,10 +60,15 @@ export default function QuizSlider({ quizListData }: QuizSliderProps) {
             ))}
           </View>
         </View>
-        <View className="items-center">
-          <Font color="white" type="body3">
-            촬영지에 해당하는 퀴즈가 없는 경우, 지역 퀴즈로 대체됩니다!
-          </Font>
+        <View className="items-center ">
+          <View className="bg-Button-gray rounded-lg px-4 py-2 items-center">
+            <Font color="white" type="body3">
+              촬영지에 해당하는 퀴즈가 없는 경우
+            </Font>
+            <Font color="white" type="body3">
+              지역 퀴즈로 대체됩니다!
+            </Font>
+          </View>
         </View>
       </View>
     </BackGroundGradient>
